@@ -1,0 +1,111 @@
+DONE
+
+' conversion graphics PSD
+' project VBP renamed all contents
+' rename all files
+' tooltips, text all converted justclock, just clock, globe
+' unwanted time controls, code and variables removed from prefs
+' test cpu percent extraction using registry - failure
+' cpu percent extraction using API
+' gauge digital displays
+' pointer rotation
+' lamps added and lit at high CPU
+' icons created and assigned to forms
+' sizing control corrected
+' help image
+' about image
+' menu text changed
+' new sampling control
+' colouring new control
+' html help and images updated
+' chm help built
+' test autostart
+' initial github synch.
+' readme.md created and updated with new images
+
+' smooth pointer - flick/smooth - done
+' sampling interval vars - done
+' sampling interval var validation - done
+' sampling interval var reading/writing - done
+
+' add sleep timer  - done
+
+' closing via menu - done
+' save position correctly - done
+
+' renamed the restart.exe to make it less generically-named and worrying to a/v tools
+' mouseDown on the gauge disables sampling timer and improves responsiveness.
+' restarted timers on mouseUp
+' add the test and error message for RC6 DLL registration
+
+
+' -oOo-
+
+TODO
+
+All occurrences of PzG switched to gbl
+DPI switch moved to subroutine to tidy up
+preference load moved to subroutine to tidy up
+form resize event created for modification when subclassing in the future
+twinbasic message loop changes for TwinBasic
+glbcoding environment changes throughout for TwinBasic
+editor globals definition and usage throughout for TwinBasic
+addTargetFile source path empty then uses current app.path
+All TwinBasic changes implemented as per clock/calendar
+Tidy mainRoutine in modMain
+
+Secondary, not necessary changes
+
+prefs subclassing for resize on WM_EXITMOVED
+form_resize
+
+prefs balloon tooltips on all controls
+resizing using subclassing
+github home menu link
+
+Really not necessary changes
+
+dual automatic monitor sizing changes
+
+' usage balloon tooltip % needs to be dynamically updated, currently only seems to show an older percentage
+
+' add second monitor - wip find cable!
+
+' test usage of RC6 for monitor awareness - wip
+'      adjust Form Position on startup placing form onto Correct Monitor when placed off screen due to
+'               monitor/resolution changes.
+
+' https://www.vbforums.com/showthread.php?900892-VB6-Simple-way-to-make-your-VB6-application-quot-Per-Monitor-DPI-Aware-quot
+
+' adjustFormPositionToCorrectMonitor, make it work and observe the result as per FCW - wip
+' adjustFormPositionToCorrectMonitor - prefs form
+' adjustFormPositionToCorrectMonitor - licence form
+' adjustFormPositionToCorrectMonitor - about form
+' adjustFormPositionToCorrectMonitor - help form
+
+' setup2go create setup.exe
+
+' -oOo-
+
+' Later tasks after testing
+
+' test the icon sizes on 32bit Win7, XP and ReactOS, find out if 48x48 causes a crash
+' 32x32 (24 bit)
+' 16x16 (24 bit)
+' 48x48 (32 bit)
+' 32x32 (32 bit)
+' 16x16 (32 bit)
+
+' test on ReactOS
+
+' patch a 256 bit icon into the VB6 binary
+' https://www.vbforums.com/showthread.php?858347-RESOLVED-How-to-create-and-connect-quality-icon-group-to-your-VB6-app
+
+' RC BUGS & LIMITATIONS
+' =====================
+
+' tooltips also resize when the whole thing is resized, code received from Olaf tested - resizing results in missing text and blank tooltips, using non-standard font centurion light
+' RC6 needs a static tooltip option.
+
+
+
