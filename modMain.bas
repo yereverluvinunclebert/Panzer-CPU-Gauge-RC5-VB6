@@ -81,7 +81,6 @@ End Sub
 Public Sub mainRoutine(ByVal restart As Boolean)
 
     Dim extractCommand As String: extractCommand = vbNullString
-    Dim thisPSDFullPath As String: thisPSDFullPath = vbNullString
     Dim licenceState As Integer: licenceState = 0
 
     On Error GoTo main_routine_Error
@@ -89,10 +88,8 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     ' initialise global vars
     Call initialiseGlobalVars
     
-    ' = "none"
     gblStartupFlg = True
     gblWidgetName = "Panzer CPU Gauge"
-    thisPSDFullPath = App.Path & "\Res\Panzer CPU Gauge VB6.psd"
     
     extractCommand = Command$ ' capture any parameter passed, remove if a soft reload
     If restart = True Then extractCommand = vbNullString
@@ -138,8 +135,8 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     'load the collection for storing the overlay surfaces with its relevant keys direct from the PSD
     If restart = False Then Call loadExcludePathCollection ' no need to reload the collPSDNonUIElements layer name keys on a reload
     
-    ' start the load of the PSD file using the RC6 PSD-Parser.instance
-    Call fGauge.InitFromPSD(thisPSDFullPath)  ' no optional close layer as 3rd param
+    'load the XML image data previously extracted from the PSD
+    Call fGauge.InitialiseImageWidgetsFromXML
             
     ' initialise and create the three main RC forms (gauge, about and licence) on the current display
     Call createRCFormsOnCurrentDisplay
@@ -634,49 +631,49 @@ Public Sub adjustMainControls(Optional ByVal licenceState As Integer)
     ' set the characteristics of the interactive areas
     ' Note: set the Hover colour close to the original layer to avoid too much intrusion, 0 being grey
     With fGauge.gaugeForm.Widgets("helpbutton").Widget
-        .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+        .HoverColor = 0 ' set the hover colour to grey
         .MousePointer = IDC_HAND
         .Alpha = Val(gblOpacity) / 100
     End With
      
     With fGauge.gaugeForm.Widgets("startbutton").Widget
-        .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+        .HoverColor = 0 ' set the hover colour to grey
         .MousePointer = IDC_HAND
         .Alpha = Val(gblOpacity) / 100
         .Tag = 0.25
     End With
       
     With fGauge.gaugeForm.Widgets("stopbutton").Widget
-        .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+        .HoverColor = 0 ' set the hover colour to grey
         .MousePointer = IDC_HAND
         .Alpha = Val(gblOpacity) / 100
         .Tag = 0.25
     End With
       
     With fGauge.gaugeForm.Widgets("middlebutton").Widget
-        .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+        .HoverColor = 0 ' set the hover colour to grey
         .MousePointer = IDC_HAND
         .Alpha = Val(gblOpacity) / 100
     End With
           
     With fGauge.gaugeForm.Widgets("lockbutton").Widget
-        .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+        .HoverColor = 0 ' set the hover colour to grey
         .MousePointer = IDC_HAND
     End With
           
     With fGauge.gaugeForm.Widgets("prefsbutton").Widget
-        .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+        .HoverColor = 0 ' set the hover colour to grey
         .MousePointer = IDC_HAND
         .Alpha = Val(gblOpacity) / 100
     End With
           
     With fGauge.gaugeForm.Widgets("tickbutton").Widget
-        .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+        .HoverColor = 0 ' set the hover colour to grey
         .MousePointer = IDC_HAND
     End With
     
     With fGauge.gaugeForm.Widgets("surround").Widget
-        .HoverColor = 0 ' set the hover colour to grey - this may change later with new RC6
+        .HoverColor = 0 ' set the hover colour to grey
         .MousePointer = IDC_SIZEALL
         .Alpha = Val(gblOpacity) / 100
     End With

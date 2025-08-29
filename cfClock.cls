@@ -110,29 +110,26 @@ End Sub
 
 
 '---------------------------------------------------------------------------------------
-' Procedure : InitFromPSD
-' Author    : olaf schmidt and me
+' Procedure : InitialiseImageWidgetsFromXML
+' Author    : olaf schmidt and myself
 ' Date      : 31/07/2023
-' Purpose   :  Using a previously populated Cairo imageList with keyed entries  it creates a surface from each and every PSD layer
-'              in the PSD file.
-'              It adds path X,Y and alpha properties to the excluded collection
-'              It then creates widgets with corresponding keynames, locations and sizes as per the original PSD for each layer
+' Purpose   :  Using a previously created Cairo imageList, it creates a surface from each and every PSD layer
+'              in the PSD file. The surfaces are populated from PNGs whose metric data are held in an XML file.
+'              For each previously 'excluded' entry, it adds path X,Y and alpha properties to the excluded collection.
 '              It creates an instance of the cwOverlay class and populates it with the excluded items that will be rendered in the overlay
-'              The overlay comprises items that are non-clickable and will not generate events, ie. animated gauge hands, pendulum &c.
+'              The overlay comprises items that are non-clickable and will not generate events, ie. animated gauge hands, pendulums &c.
+'
+'              For all the interactive UI elements it creates RC5 widgets with corresponding keynames, locations and sizes as per the original PSD for each layer.
+'              NOTE: The XML data is created using the Create Widget 2.0.js using Photoshop and the PSD found in the RES folder.
+'              The XML file is renamed from .KON and placed in the RES folder.
 '---------------------------------------------------------------------------------------
 '
-Public Sub InitFromPSD(ByRef PSD_FileNameOrByteArray As Variant)
+Public Sub InitialiseImageWidgetsFromXML()
     
     Const AlphaWithTaskbarEntry As Integer = 6
     Const AlphaNoTaskbarEntry As Integer = 7
-  
-    Dim I As Long: I = 0
-    Dim W As cWidgetBase
-    Dim someOpacity As Double: someOpacity = 0
     
-    On Error GoTo InitFromPSD_Error
-       
-    someOpacity = Val(mOpacity) / 100
+    On Error GoTo InitialiseImageWidgetsFromXML_Error
 
     'create the Top-Level-Form
     Set gaugeForm = Cairo.WidgetForms.Create(IIf(App.LogMode, AlphaNoTaskbarEntry, AlphaWithTaskbarEntry), gblWidgetName, True, 1, 1)
@@ -140,48 +137,7 @@ Public Sub InitFromPSD(ByRef PSD_FileNameOrByteArray As Variant)
         
     ' code to read image XML data instead of directly from PSD, for RC5 conversion
     Call convertImageXMLToRcWidgets
- 
-'    With New_c.SimplePSD(PSD_FileNameOrByteArray)  'create a new PSD-Parser.instance (and load the passed content)
-'        pvtPSDWidth = .width
-'        pvtPSDHeight = .height       'store the original Psd-Pixel-Width/Height in Private vars (as the base from which we calculate the zoomed Form-Width/Height)
-'
-'        For I = 0 To .LayersCount - 1 ' loop through each of the Layers in the PSD
-'            If .LayerByteSize(I) Then  ' check this is a true Alpha-Surface-Layer and not just a PSD layer 'group'
-'                If .LayerAlphaPercent(I) > 0 Then ' only handles layers that have an opacity greater than 0 - need to note this for the future, this will cause a problem!
-'
-'                    'add each current Layer path and surface object into the global ImageList collection (using LayerPath as the ImageKey)
-'                    Cairo.ImageList.AddSurface .LayerPath(I), .LayerSurface(I)
-'
-'                    ' check if each layer is in the layer exclude list, if it IS then we add it to a collection for non UI elements (ie. do not create Widgets)
-'                    If collPSDNonUIElements.Exists(.LayerPath(I)) Then
-'
-'                        'we add layer info. (used later in cwOverlay) to the excluded layers that will form the overlay.
-'                        collPSDNonUIElements(.LayerPath(I)) = Array(.LayerX(I), .LayerY(I), someOpacity)  'here we update the so far empty slots with the PSD-offsets
-'
-'                    Else
-'
-'                        'create a widget instance for all layers in the PSD, excluding any layers entered into the exclude-list
-'
-'                        Set W = gaugeForm.Widgets.Add(New cwAlphaImg, LCase$(.LayerPath(I)), .LayerX(I), .LayerY(I), .LayerWidth(I), .LayerHeight(I)).Widget
-'
-'                        W.ImageKey = W.Key 'W.Key equals ImageList-Key, set above - and LayerPath(i) at this point ... set it also as the ImageKey of our new created Widget
-'
-'                        W.Alpha = 0
-'
-'                        ' note: the clickable layers characteristics are set in adjustMainControls
-'
-'                        ' all non-clickable Layer-Widgets will be -1 or "non-hoverable" and "fully click-through"
-'                        W.HoverColor = -1 ' task: might change this later when new ver or RC6 arrives
-'                        If gblGaugeTooltips = "1" Then W.ToolTip = "Ctrl + mouse scrollwheel up/down to resize, you can also drag me to a new position."
-'                        W.MousePointer = IDC_SIZEALL
-'
-'                    End If
-'                End If
-'            End If
-'        Next I
-'    End With '<-- the Parser-instance will be destroyed here (freeing the Memory, the internal PSD-Layers have occupied)
-        
-    
+
     ' create a overlay here just for a single custom widget that contains just the animated elements.
     Set overlayWidget = gaugeForm.Widgets.Add(New cwOverlay, "Overlay", 0, 0, pvtPSDWidth, pvtPSDHeight)
     Set overlayWidget.cCollOverlayImages = collPSDNonUIElements 'make the excluded PSD-Surface-Paths known to the Overlay-Widget
@@ -201,9 +157,9 @@ Public Sub InitFromPSD(ByRef PSD_FileNameOrByteArray As Variant)
     On Error GoTo 0
    Exit Sub
 
-InitFromPSD_Error:
+InitialiseImageWidgetsFromXML_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure InitFromPSD of Class Module cfGauge"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure InitialiseImageWidgetsFromXML of Class Module cfGauge"
 End Sub
 '
 '---------------------------------------------------------------------------------------
@@ -1031,7 +987,7 @@ End Property
 
 ' ----------------------------------------------------------------
 ' Procedure Name: convertImageXMLToRcWidgets
-' Purpose: code to read XML image data instead of reading it directly from PSD which is RC6 only, for later RC5 conversion
+' Purpose: code to read XML image data instead of reading it directly from PSD which is RC6 only, an alternative for RC5 use.
 ' Procedure Kind: Sub
 ' Procedure Access: Private
 ' Author: beededea
@@ -1054,8 +1010,8 @@ Private Sub convertImageXMLToRcWidgets()
     Dim sHOffset As String: sHOffset = vbNullString
     Dim sVOffset As String: sVOffset = vbNullString
     Dim sOpacity As String: sOpacity = vbNullString
-    Dim width As Long: width = 0
-    Dim height As Long: height = 0
+    Dim Width As Long: Width = 0
+    Dim Height As Long: Height = 0
     Dim hOffset As Long: hOffset = 0
     Dim vOffset As Long: vOffset = 0
     Dim opacity As Integer: opacity = 0
@@ -1076,7 +1032,6 @@ Private Sub convertImageXMLToRcWidgets()
     On Error GoTo convertImageXMLToRcWidgets_Error
     
     someOpacity = Val(mOpacity) / 100
-    
     xmlFileToLoad = App.Path & "\RES\Panzer-CPU-gauge-VB6.xml"
     
     If fFExists(xmlFileToLoad) Then
@@ -1085,6 +1040,7 @@ Private Sub convertImageXMLToRcWidgets()
         MsgBox "The XML file that contains the image data is missing " & xmlFileToLoad
     End If
     
+    ' obtain the overall widget width and height
     Set MainNode = objxmldoc.selectSingleNode("widget/window")
             
     windowWidth = MainNode.selectSingleNode("@width").Text
@@ -1111,10 +1067,10 @@ Private Sub convertImageXMLToRcWidgets()
             sSrc = Replace(sSrc, "/", "\")
             sName = node.selectSingleNode("@name").Text
             sWidth = node.selectSingleNode("@width").Text
-            width = CLng(Left$(sWidth, (InStr(sWidth, " px") - 1)))
+            Width = CLng(Left$(sWidth, (InStr(sWidth, " px") - 1)))
             
             sHeight = node.selectSingleNode("@height").Text
-            height = CLng(Left$(sHeight, (InStr(sHeight, " px") - 1)))
+            Height = CLng(Left$(sHeight, (InStr(sHeight, " px") - 1)))
             
             hOffset = CLng(node.selectSingleNode("@hOffset").Text)
             vOffset = CLng(node.selectSingleNode("@vOffset").Text)
@@ -1122,45 +1078,41 @@ Private Sub convertImageXMLToRcWidgets()
             
             If opacity = 100 Then  ' only handles layers that have an opacity greater than 0 - need to note this for the future, this will cause a problem!
             
-'               'add each current Layer path and surface object into the global ImageList collection (using LayerPath as the ImageKey)
-
+               'add each current Layer path and surface object into the global ImageList collection (using LayerPath as the ImageKey)
                 pngFileToLoad = App.Path & "\RES\" & sSrc
                 If fFExists(pngFileToLoad) Then
-                    Cairo.ImageList.AddSurface sName, Cairo.CreateSurface(width, height, PSSurface, pngFileToLoad)
+                    Cairo.ImageList.AddSurface sName, Cairo.CreateSurface(Width, Height, PSSurface, pngFileToLoad)
                 Else
-                    MsgBox "error, this PNG resouce file seems to be missing " & pngFileToLoad
+                    MsgBox "Error, this PNG resource file seems to be missing " & pngFileToLoad
                 End If
                 
                 ' check if each layer is in the layer exclude list, if it IS then we add it to a collection for non UI elements (ie. do not create Widgets)
                 If collPSDNonUIElements.Exists(sName) Then
                   
-                    'we add layer info. (used later in cwOverlay) to the excluded layers that will form the overlay.
+                     'we add layer info. (used later in cwOverlay) to the excluded layers that will form the overlay.
                      collPSDNonUIElements(sName) = Array(hOffset, vOffset, someOpacity)  'here we update the so far empty slots with the PSD-offsets
-
-                 Else
+                Else
 
                      'create a widget instance for all layers in the PSD, excluding any layers entered into the exclude-list
-                     Set W = gaugeForm.Widgets.Add(New cwAlphaImg, LCase$(sName), hOffset, vOffset, width, height).Widget
+                     Set W = gaugeForm.Widgets.Add(New cwAlphaImg, LCase$(sName), hOffset, vOffset, Width, Height).Widget
 
                      W.ImageKey = W.Key 'W.Key equals ImageList-Key, set above - and sName at this point ... set it also as the ImageKey of our new created Widget
-
                      W.Alpha = 1
 
                      ' note: the clickable layers characteristics are set in adjustMainControls
-
                      ' all non-clickable Layer-Widgets will be -1 or "non-hoverable" and "fully click-through"
-                     W.HoverColor = -1 ' task: might change this later when new ver or RC6 arrives
+                     W.HoverColor = -1
                      If gblGaugeTooltips = "1" Then W.ToolTip = "Ctrl + mouse scrollwheel up/down to resize, you can also drag me to a new position."
                      W.MousePointer = IDC_SIZEALL
 
                  End If
             End If
           Next node
-   End If
+    End If
    
-   'Cleanup
-   Set nodeList = Nothing
-   Set ImageNodes = Nothing
+    'Cleanup
+    Set nodeList = Nothing
+    Set MainNode = Nothing
     
     On Error GoTo 0
     Exit Sub

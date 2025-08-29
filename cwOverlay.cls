@@ -558,7 +558,7 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub W_Paint(CC As RC6.cCairoContext, ByVal xAbs As Single, ByVal yAbs As Single, ByVal dx_Aligned As Single, ByVal dy_Aligned As Single, UserObj As Object)
+Private Sub W_Paint(CC As vbRichClient5.cCairoContext, ByVal xAbs As Single, ByVal yAbs As Single, ByVal dx_Aligned As Single, ByVal dy_Aligned As Single, UserObj As Object)
      Dim I As Long: I = 0
     Dim Arr As Variant
     Dim Key As String: Key = vbNullString
@@ -825,7 +825,7 @@ Function obtainCPUDetails() As String
         "information." & vbCrLf
     Else
         For Each objCPU In objCPUItem
-            result = result & "Description: " & Trim$(objCPU.Name)
+            result = result & "Description: " & Trim$(objCPU.name)
             result = result & " with " & noOfProcessors & " Processor Cores." & vbCrLf
             result = result & "Frequency (MHz): " & objCPU.MaxClockSpeed & vbCrLf
             result = result & "CPU-ID: " & objCPU.ProcessorId & vbCrLf

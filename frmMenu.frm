@@ -147,7 +147,7 @@ End Sub
 ' Author    : beededea
 ' Date      : 07/04/2020
 ' Purpose   : We have a separate form for the right click menu. We do not need an on-form menu for the
-'               various RC6 forms so a native VB6 menu will do. It looks good in any case as it is
+'               various RC5 forms so a native VB6 menu will do. It looks good in any case as it is
 '               merely replicating the Yahoo widget menu.
 '---------------------------------------------------------------------------------------
 '

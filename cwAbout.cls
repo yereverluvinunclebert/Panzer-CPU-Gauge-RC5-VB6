@@ -347,7 +347,7 @@ End Sub
 ' Purpose   : Default RC paint routine
 '---------------------------------------------------------------------------------------
 '
-Private Sub W_Paint(CC As RC6.cCairoContext, ByVal xAbs As Single, ByVal yAbs As Single, ByVal dx_Aligned As Single, ByVal dy_Aligned As Single, UserObj As Object)
+Private Sub W_Paint(CC As vbRichClient5.cCairoContext, ByVal xAbs As Single, ByVal yAbs As Single, ByVal dx_Aligned As Single, ByVal dy_Aligned As Single, UserObj As Object)
    On Error GoTo W_Paint_Error
 
     Draw CC, dx_Aligned, dy_Aligned, mMyOpacity
@@ -372,12 +372,12 @@ Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Sing
   
     CC.ScaleDrawings mZoom, mZoom
 
-    ' Widgets are refreshed "from the ground up" in RC5 and not so in RC6
-    ' extra code NOT needed when using RC5 but now required in RC6 - starts
-    CC.Operator = CAIRO_OPERATOR_CLEAR
-    CC.Paint 'clear the whole background of this Widgets underlying Surface via Clear-Operator
-    CC.Operator = CAIRO_OPERATOR_OVER 'switch back to the default-Operator
-    ' extra code not needed when using RC5 but now required in RC6 - ends
+'    ' Widgets are refreshed "from the ground up" in RC5 and not so in RC6
+'    ' extra code NOT needed when using RC5 but now required in RC6 - starts
+'    CC.Operator = CAIRO_OPERATOR_CLEAR
+'    CC.Paint 'clear the whole background of this Widgets underlying Surface via Clear-Operator
+'    CC.Operator = CAIRO_OPERATOR_OVER 'switch back to the default-Operator
+'    ' extra code not needed when using RC5 but now required in RC6 - ends
     
     CC.RenderSurfaceContent "about", aboutxo, aboutyo, , , , mMyOpacity
         

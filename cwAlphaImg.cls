@@ -48,10 +48,10 @@ Private Sub W_HitTest(ByVal x As Single, ByVal y As Single, HitResultHit As Bool
   Srf.ReleaseArrayLong Pxl
 End Sub
 
-Private Sub W_MouseEnter(ByVal MouseLeaveWidget As RC6.cWidgetBase)
+Private Sub W_MouseEnter(ByVal MouseLeaveWidget As vbRichClient5.cWidgetBase)
   W.Parent.Refresh 'if we want to support widget-refreshs "on-hover", we have to trigger a Re-Paint
 End Sub
-Private Sub W_MouseLeave(ByVal MouseEnterWidget As RC6.cWidgetBase)
+Private Sub W_MouseLeave(ByVal MouseEnterWidget As vbRichClient5.cWidgetBase)
   W.Parent.Refresh 'same here (trigger dynamic re-rendering, when the hover-state changes)
 End Sub
 
@@ -62,7 +62,7 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub W_Paint(CC As RC6.cCairoContext, ByVal xAbs As Single, ByVal yAbs As Single, ByVal dx_Aligned As Single, ByVal dy_Aligned As Single, UserObj As Object)
+Private Sub W_Paint(CC As vbRichClient5.cCairoContext, ByVal xAbs As Single, ByVal yAbs As Single, ByVal dx_Aligned As Single, ByVal dy_Aligned As Single, UserObj As Object)
   Dim Srf As cCairoSurface ', x As Single, y As Single
     On Error GoTo W_Paint_Error
 

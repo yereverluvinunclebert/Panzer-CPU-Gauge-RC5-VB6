@@ -23,7 +23,7 @@ Private Const CF_SCREENFONTS As Long = &H1
 Private Type FormFontInfo
   name As String
   Weight As Integer
-  height As Integer
+  Height As Integer
   UnderLine As Boolean
   Italic As Boolean
   Color As Long
@@ -1163,7 +1163,7 @@ Public Sub displayFontSelector(ByRef currFont As String, ByRef currSize As Integ
 
     With thisFont
       .Color = currColour
-      .height = currSize
+      .Height = currSize
       .Weight = currWeight
       '400     Font is normal.
       '700     Font is bold.
@@ -1181,7 +1181,7 @@ Public Sub displayFontSelector(ByRef currFont As String, ByRef currSize As Integ
     
     With thisFont
         currFont = .name
-        currSize = .height
+        currSize = .Height
         currWeight = .Weight
         currItalics = .Italic
         currUnderline = .UnderLine
@@ -1263,7 +1263,7 @@ Public Function fDialogFont(ByRef f As FormFontInfo) As Boolean
     logFnt.lfWeight = f.Weight
     logFnt.lfItalic = f.Italic * -1
     logFnt.lfUnderline = f.UnderLine * -1
-    logFnt.lfHeight = -fMulDiv(CLng(f.height), GetDeviceCaps(GetDC(hWndAccessApp), LOGPIXELSY), 72)
+    logFnt.lfHeight = -fMulDiv(CLng(f.Height), GetDeviceCaps(GetDC(hWndAccessApp), LOGPIXELSY), 72)
     Call StringToByte(f.name, logFnt.lfFaceName())
     ftStruc.rgbColors = f.Color
     ftStruc.lStructSize = Len(ftStruc)
@@ -1290,7 +1290,7 @@ Public Function fDialogFont(ByRef f As FormFontInfo) As Boolean
       f.Italic = CBool(logFnt.lfItalic)
       f.UnderLine = CBool(logFnt.lfUnderline)
       f.name = fByteToString(logFnt.lfFaceName())
-      f.height = CLng(ftStruc.iPointSize / 10)
+      f.Height = CLng(ftStruc.iPointSize / 10)
       f.Color = ftStruc.rgbColors
       fDialogFont = True
     Else
@@ -1434,8 +1434,8 @@ Public Sub aboutClickEvent()
     
     ' The RC forms are measured in pixels so the positioning needs to pre-convert the twips into pixels
    
-    fMain.aboutForm.Top = (gblPhysicalScreenHeightPixels / 2) - (fMain.aboutForm.height / 2)
-    fMain.aboutForm.Left = (gblPhysicalScreenWidthPixels / 2) - (fMain.aboutForm.width / 2)
+    fMain.aboutForm.Top = (gblPhysicalScreenHeightPixels / 2) - (fMain.aboutForm.Height / 2)
+    fMain.aboutForm.Left = (gblPhysicalScreenWidthPixels / 2) - (fMain.aboutForm.Width / 2)
      
     fMain.aboutForm.Load
     fMain.aboutForm.Show
@@ -1477,8 +1477,8 @@ Public Sub helpSplash()
         playSound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
 
-    fMain.helpForm.Top = (gblPhysicalScreenHeightPixels / 2) - (fMain.helpForm.height / 2)
-    fMain.helpForm.Left = (gblPhysicalScreenWidthPixels / 2) - (fMain.helpForm.width / 2)
+    fMain.helpForm.Top = (gblPhysicalScreenHeightPixels / 2) - (fMain.helpForm.Height / 2)
+    fMain.helpForm.Left = (gblPhysicalScreenWidthPixels / 2) - (fMain.helpForm.Width / 2)
      
     'helpWidget.MyOpacity = 0
     helpWidget.ShowMe = True
@@ -1523,8 +1523,8 @@ Public Sub licenceSplash()
     End If
     
     
-    fMain.licenceForm.Top = (gblPhysicalScreenHeightPixels / 2) - (fMain.licenceForm.height / 2)
-    fMain.licenceForm.Left = (gblPhysicalScreenWidthPixels / 2) - (fMain.licenceForm.width / 2)
+    fMain.licenceForm.Top = (gblPhysicalScreenHeightPixels / 2) - (fMain.licenceForm.Height / 2)
+    fMain.licenceForm.Left = (gblPhysicalScreenWidthPixels / 2) - (fMain.licenceForm.Width / 2)
      
     'licenceWidget.opacity = 0
     'opacityflag = 0
@@ -1960,7 +1960,7 @@ End Sub
 ' Procedure : unloadAllForms
 ' Author    : beededea
 ' Date      : 28/06/2023
-' Purpose   : unload all VB6 and RC6 forms
+' Purpose   : unload all VB6 and RC5 forms
 '---------------------------------------------------------------------------------------
 '
 Public Sub unloadAllForms(ByVal endItAll As Boolean)
@@ -1983,12 +1983,12 @@ Public Sub unloadAllForms(ByVal endItAll As Boolean)
     widgetPrefs.tmrPrefsScreenResolution.Enabled = False
     widgetPrefs.tmrWritePosition.Enabled = False
     
-    ' stop all RC6 timers using properties to access the private timers
+    ' stop all RC5 timers using properties to access the private timers
     
     overlayWidget.tmrSampler.Enabled = False
     overlayWidget.tmrAnimator.Enabled = False
 
-    'unload the RC6 widgets on the RC6 forms first
+    'unload the RC5 widgets on the RC5 forms first
     
     aboutWidget.Widgets.RemoveAll
     helpWidget.Widgets.RemoveAll
@@ -2001,7 +2001,7 @@ Public Sub unloadAllForms(ByVal endItAll As Boolean)
     Unload frmTimer
     Unload menuForm
 
-    ' RC6's own method for killing forms
+    ' RC5's own method for killing forms
     
     fMain.aboutForm.Unload
     fMain.helpForm.Unload
@@ -2056,8 +2056,8 @@ Public Sub reloadProgram()
     
     Call unloadAllForms(False) ' unload forms but do not END
     
-    ' this will call the routines as called by sub main() and initialise the program and RELOAD the RC6 forms.
-    Call mainRoutine(True) ' sets the restart flag to avoid repriming the RC6 message pump.
+    ' this will call the routines as called by sub main() and initialise the program and RELOAD the RC5 forms.
+    Call mainRoutine(True) ' sets the restart flag to avoid repriming the RC5 message pump.
 
     On Error GoTo 0
     Exit Sub
@@ -2199,7 +2199,7 @@ Public Sub readPrefsPosition()
         If gblPrefsHighDpiXPosTwips <> "" Then
             widgetPrefs.Left = Val(gblPrefsHighDpiXPosTwips)
         Else
-            widgetPrefs.Left = gblPhysicalScreenWidthTwips / 2 - widgetPrefs.width / 2
+            widgetPrefs.Left = gblPhysicalScreenWidthTwips / 2 - widgetPrefs.Width / 2
         End If
         
         gblPrefsHighDpiXPosTwips = widgetPrefs.Left
@@ -2207,7 +2207,7 @@ Public Sub readPrefsPosition()
         If gblPrefsHighDpiYPosTwips <> "" Then
             widgetPrefs.Top = Val(gblPrefsHighDpiYPosTwips)
         Else
-            widgetPrefs.Top = Screen.height / 2 - widgetPrefs.height / 2
+            widgetPrefs.Top = Screen.Height / 2 - widgetPrefs.Height / 2
         End If
         
         gblPrefsHighDpiYPosTwips = widgetPrefs.Top
@@ -2220,7 +2220,7 @@ Public Sub readPrefsPosition()
         If gblPrefsLowDpiXPosTwips <> "" Then
             widgetPrefs.Left = Val(gblPrefsLowDpiXPosTwips)
         Else
-            widgetPrefs.Left = gblPhysicalScreenWidthTwips / 2 - widgetPrefs.width / 2
+            widgetPrefs.Left = gblPhysicalScreenWidthTwips / 2 - widgetPrefs.Width / 2
         End If
         
         gblPrefsLowDpiXPosTwips = widgetPrefs.Left
@@ -2228,7 +2228,7 @@ Public Sub readPrefsPosition()
         If gblPrefsLowDpiYPosTwips <> "" Then
             widgetPrefs.Top = Val(gblPrefsLowDpiYPosTwips)
         Else
-            widgetPrefs.Top = Screen.height / 2 - widgetPrefs.height / 2
+            widgetPrefs.Top = Screen.Height / 2 - widgetPrefs.Height / 2
         End If
         
         gblPrefsLowDpiYPosTwips = widgetPrefs.Top
@@ -2238,7 +2238,7 @@ Public Sub readPrefsPosition()
     gblPrefsSecondaryHeightTwips = fGetINISetting("Software\PzCPUGauge", "prefsSecondaryHeightTwips", gblSettingsFile)
         
    ' on very first install this will be zero, then size of the prefs as a proportion of the screen size
-    If gblPrefsPrimaryHeightTwips = "" Then gblPrefsPrimaryHeightTwips = Screen.height / 3
+    If gblPrefsPrimaryHeightTwips = "" Then gblPrefsPrimaryHeightTwips = Screen.Height / 3
     
     
    On Error GoTo 0
@@ -2281,10 +2281,10 @@ Public Sub writePrefsPositionAndSize()
         End If
 
         If prefsMonitorStruct.IsPrimary = True Then
-            gblPrefsPrimaryHeightTwips = Trim$(CStr(widgetPrefs.height))
+            gblPrefsPrimaryHeightTwips = Trim$(CStr(widgetPrefs.Height))
             sPutINISetting "Software\PzCPUGauge", "prefsPrimaryHeightTwips", gblPrefsPrimaryHeightTwips, gblSettingsFile
         Else
-            gblPrefsSecondaryHeightTwips = Trim$(CStr(widgetPrefs.height))
+            gblPrefsSecondaryHeightTwips = Trim$(CStr(widgetPrefs.Height))
             sPutINISetting "Software\PzCPUGauge", "prefsSecondaryHeightTwips", gblPrefsSecondaryHeightTwips, gblSettingsFile
         End If
     End If
