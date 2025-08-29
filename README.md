@@ -1,8 +1,8 @@
-# Panzer-CPU-Gauge-VB6
+# Panzer-CPU-Gauge-RC5-VB6
  
   A FOSS CPU Gauge VB6 WoW64 Widget for Windows Vista, 7, 8 and 10/11+. There will also be a version for Reactos and XP, watch this space for the link. Also tested and running well on Linux and Mac os/X using Wine.
  
- My current VB6/RC6 PSD program being finished now, fundamentally complete, only awaiting testing on Windows XP and Win7 32bit and some multi monitor checking and the creation of the setup.exe. This Panzer widget is based upon the Yahoo widget of the same visual design and very similar operation.
+ My current VB6/RC5 PSD program being finished now, fundamentally complete, only awaiting testing on Windows XP and Win7 32bit and some multi monitor checking and the creation of the setup.exe. This Panzer widget is based upon the Yahoo widget of the same visual design and very similar operation.
 
  Why VB6? Well, with a 64 bit, modern-language improvement upgrade on the way with 100% compatible TwinBasic coupled with support for transparent PNGs via RC/Cairo, VB6 code has an amazing future.
 
@@ -133,7 +133,7 @@ Hope the code is useful to anyone else building system metric utilities using VB
  BUILD: The program runs without any Microsoft plugins.
  
  Built using: VB6, MZ-TOOLS 3.0, VBAdvance, CodeHelp Core IDE Extender
- Framework 2.2 & Rubberduck 2.4.1, RichClient 6
+ Framework 2.2 & Rubberduck 2.4.1, RichClient 5
  
  Links:
  
@@ -206,11 +206,11 @@ Hope the code is useful to anyone else building system metric utilities using VB
  During development the RC6 components need to be registered. These scripts are 
  used to register. Run each by double-clicking on them.
  
-	RegisterRC6inPlace.vbs
-	RegisterRC6WidgetsInPlace.vbs
+	RegisterRC5inPlace.vbs
+	RegisterRC5WidgetsInPlace.vbs
  
  During runtime on the users system, the RC6 components are dynamically 
- referenced using modRC6regfree.bas which is compiled into the binary.	
+ referenced using modRC5regfree.bas which is compiled into the binary.	
  
  
  Requires a PzCPU Gauge folder in C:\Users\<user>\AppData\Roaming\ 
@@ -277,7 +277,7 @@ The above is only for development, for ordinary users, during runtime there is n
 	VisualBasic Runtime Objects and Procedures  
 	VisualBasic Objects and Procedures  
 	OLE Automation  
-	vbRichClient6  
+	vbRichClient5
  
  
  LICENCE AGREEMENTS:
