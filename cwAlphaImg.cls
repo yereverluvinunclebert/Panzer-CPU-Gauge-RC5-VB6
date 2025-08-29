@@ -68,9 +68,9 @@ Private Sub W_Paint(CC As vbRichClient5.cCairoContext, ByVal xAbs As Single, ByV
 
   If Cairo.ImageList.Exists(W.ImageKey) Then Set Srf = Cairo.ImageList(W.ImageKey) Else Exit Sub
     
-    CC.Operator = CAIRO_OPERATOR_CLEAR
-    CC.Paint 'clear the whole background of this Widgets underlying Surface via Clear-Operator
-    CC.Operator = CAIRO_OPERATOR_OVER 'switch back to the default-Operator
+'    CC.Operator = CAIRO_OPERATOR_CLEAR
+'    CC.Paint 'clear the whole background of this Widgets underlying Surface via Clear-Operator
+'    CC.Operator = CAIRO_OPERATOR_OVER 'switch back to the default-Operator
 
    CC.RenderSurfaceContent Srf, 0, 0, W.Width, W.Height, , W.Alpha 'render the current W.ImageKey-Surface (as loaded priorily into the ImageList)
 

@@ -132,7 +132,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     ' check first usage via licence acceptance value and then set initial DPI awareness
     Call setAutomaticDPIState(licenceState)
 
-    'load the collection for storing the overlay surfaces with its relevant keys direct from the PSD
+    'load the collection for storing the overlay surfaces with its relevant keys direct from the XML
     If restart = False Then Call loadExcludePathCollection ' no need to reload the collPSDNonUIElements layer name keys on a reload
     
     'load the XML image data previously extracted from the PSD
@@ -335,18 +335,12 @@ Private Sub initialiseGlobalVars()
     ' config
     gblGaugeTooltips = vbNullString
     gblPrefsTooltips = vbNullString
-    'gblEnablePrefsTooltips = vbNullString
-    
     gblShowTaskbar = vbNullString
     gblShowHelp = vbNullString
-'    gblTogglePendulum = vbNullString
-'    gbl24HourGaugeMode = vbNullString
-    
     gblDpiAwareness = vbNullString
-    
     gblGaugeSize = vbNullString
     gblScrollWheelDirection = vbNullString
-'    gblNumericDisplayRotation = vbNullString
+
     
     ' position
     gblAspectHidden = vbNullString
@@ -362,10 +356,6 @@ Private Sub initialiseGlobalVars()
     
     ' sounds
     gblEnableSounds = vbNullString
-'    gblEnableTicks = vbNullString
-'    gblEnableChimes = vbNullString
-'    gblEnableAlarms = vbNullString
-'    gblVolumeBoost = vbNullString
     
     ' development
     gblDebug = vbNullString
@@ -416,10 +406,8 @@ Private Sub initialiseGlobalVars()
     gblSkinTheme = vbNullString
     
     ' general variables declared
-    'toolSettingsFile = vbNullString
     gblClassicThemeCapable = False
     gblStoreThemeColour = 0
-    'windowsVer = vbNullString
     
     ' vars to obtain correct screen width (to correct VB6 bug) STARTS
     gblScreenTwipsPerPixelX = 0
@@ -1210,7 +1198,6 @@ Private Sub loadExcludePathCollection()
 
     With fGauge.collPSDNonUIElements ' the exclude list
 
-        .Add Empty, "fahrenheit"
         .Add Empty, "clockface"
         .Add Empty, "faceweathering"
 
@@ -1446,9 +1433,3 @@ stopAllAsynchSounds_Error:
 End Sub
 
 
-
-' test open hardware monitor is running
-Private Sub checkMonitorIsRunning()
-
-
-End Sub
