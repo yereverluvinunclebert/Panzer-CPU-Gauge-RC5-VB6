@@ -8,7 +8,7 @@ This is a copy of the RC6-based program with the simplePSD parser removed to all
 
  Why VB6? Well, with a 64 bit, modern-language improvement upgrade on the way with 100% compatible TwinBasic coupled with support for transparent PNGs via RC/Cairo, VB6 code has an amazing future.
 
-![vb6-logo-350](https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-VB6/assets/2788342/39e2c93f-40a5-4c47-8c23-d8ce7c747b10)
+<img width="650" height="56" alt="basic-logos" src="https://github.com/user-attachments/assets/c2cad390-b756-4a7a-a1a1-ba9f44b18b98" />
 
  I created as a variation of the previous gauges I had previously created for the World of Tanks and War Thunder 
  communities. The Panzer CPU Gauge widget is an attractive dieselpunk VB6/TwinBasic widget for your desktop. 
