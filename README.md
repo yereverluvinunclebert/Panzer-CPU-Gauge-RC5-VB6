@@ -1,8 +1,10 @@
 # Panzer-CPU-Gauge-RC5-VB6
  
-  A FOSS CPU Gauge VB6 WoW64 Widget for Windows Vista, 7, 8 and 10/11+. There will also be a version for Reactos and XP, watch this space for the link. Also tested and running well on Linux and Mac os/X using Wine.
+A FOSS CPU Gauge VB6 WoW64 Widget for Windows Vista, 7, 8 and 10/11+. This is the RC5 version for Reactos and XP. Also tested and running well on Linux and Mac os/X using Wine. 
+
+This is a copy of the RC5 program with the simplePSD parser removed to allow downgrade to RC5 for testing purposes on older 32bit versions of Windows.
  
- My current VB6/RC5 PSD program being finished now, fundamentally complete, only awaiting testing on Windows XP and Win7 32bit and some multi monitor checking and the creation of the setup.exe. This Panzer widget is based upon the Yahoo widget of the same visual design and very similar operation.
+ My current VB6/RC5 PSD program being finished now, fundamentally complete, only awaiting testing on Windows XP, ReactOS and Win7 32bit and some multi monitor checking and the creation of the setup.exe. This Panzer widget is based upon the Yahoo widget of the same visual design with very similar operation.
 
  Why VB6? Well, with a 64 bit, modern-language improvement upgrade on the way with 100% compatible TwinBasic coupled with support for transparent PNGs via RC/Cairo, VB6 code has an amazing future.
 
@@ -201,15 +203,15 @@ Hope the code is useful to anyone else building system metric utilities using VB
  ![vb6-logo-200](https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-VB6/assets/2788342/bf00fa3d-f1d4-417b-bc50-9446f2c3e674)
 
  
- * Uses the latest version of the RC6 Cairo framework from Olaf Schmidt.
+ * Uses the RC5 Cairo framework from Olaf Schmidt.
  
- During development the RC6 components need to be registered. These scripts are 
+ During development the RC5 components need to be registered. These scripts are 
  used to register. Run each by double-clicking on them.
  
 	RegisterRC5inPlace.vbs
 	RegisterRC5WidgetsInPlace.vbs
  
- During runtime on the users system, the RC6 components are dynamically 
+ During runtime on the users system, the RC5 components are dynamically 
  referenced using modRC5regfree.bas which is compiled into the binary.	
  
  
