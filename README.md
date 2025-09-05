@@ -2,7 +2,7 @@
  
 A FOSS CPU Gauge VB6/TwinBasic WoW64 Widget for Windows Vista, 7, 8 and 10/11+. This is the RC5 version for Reactos and XP. Also tested and running well on Linux and Mac os/X using Wine. 
 
-This is a copy of the RC5 program with the simplePSD parser removed to allow downgrade to RC5 for testing purposes on older 32bit versions of Windows.
+This is a copy of the RC6-based program with the simplePSD parser removed to allow downgrade to RC5 for testing purposes on older 32bit versions of Windows. It should run on XP/ReactOS with no problems at all!
  
  My current VB6/TwinBasic/RC5 PSD program being finished now, fundamentally complete, only awaiting testing on Windows XP, ReactOS and Win7 32bit and some multi monitor checking and the creation of the setup.exe. This Panzer widget is based upon the Yahoo widget of the same visual design with very similar operation.
 
