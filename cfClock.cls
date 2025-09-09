@@ -119,7 +119,7 @@ End Sub
 '              It creates an instance of the cwOverlay class and populates it with the excluded items that will be rendered in the overlay
 '              The overlay comprises items that are non-clickable and will not generate events, ie. animated gauge hands, pendulums &c.
 '
-'              For all the interactive UI elements it creates RC5 widgets with corresponding keynames, locations and sizes as per the original PSD for each layer.
+'              For all the interactive UI elements it creates RichClient widgets with corresponding keynames, locations and sizes as per the original PSD for each layer.
 '              NOTE: The XML data is created using the Create Widget 2.0.js using Photoshop and the PSD found in the RES folder.
 '              The XML file is renamed from .KON and placed in the RES folder.
 '---------------------------------------------------------------------------------------
@@ -135,7 +135,7 @@ Public Sub InitialiseImageWidgetsFromXML()
     Set gaugeForm = Cairo.WidgetForms.Create(IIf(App.LogMode, AlphaNoTaskbarEntry, AlphaWithTaskbarEntry), gblWidgetName, True, 1, 1)
         gaugeForm.WidgetRoot.BackColor = -1 ' transparent
         
-    ' code to read image XML data instead of directly from PSD, for RC5 conversion
+    ' code to read image XML data instead of directly from PSD, for RichClient5 only
     Call convertImageXMLToRcWidgets
 
     ' create a overlay here just for a single custom widget that contains just the animated elements.
@@ -987,7 +987,7 @@ End Property
 
 ' ----------------------------------------------------------------
 ' Procedure Name: convertImageXMLToRcWidgets
-' Purpose: code to read XML image data instead of reading it directly from PSD which is RC6 only, an alternative for RC5 use.
+' Purpose: code to read XML image data instead of reading it directly from PSD which is RC6 only, an alternative for RichClient5 use.
 ' Procedure Kind: Sub
 ' Procedure Access: Private
 ' Author: beededea

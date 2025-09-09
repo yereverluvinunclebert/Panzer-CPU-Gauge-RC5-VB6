@@ -147,7 +147,7 @@ End Sub
 ' Author    : beededea
 ' Date      : 07/04/2020
 ' Purpose   : We have a separate form for the right click menu. We do not need an on-form menu for the
-'               various RC5 forms so a native VB6 menu will do. It looks good in any case as it is
+'               various RichClient5 forms so a native VB6 menu will do. It looks good in any case as it is
 '               merely replicating the Yahoo widget menu.
 '---------------------------------------------------------------------------------------
 '
@@ -332,7 +332,7 @@ Public Sub mnuGithubHome_Click()
     answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Upgrade", True, "mnuGithubHomeClick")
 
     If answer = vbYes Then
-        Call ShellExecute(Me.hWnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-" & gblCodingEnvironment, vbNullString, App.Path, 1)
+        Call ShellExecute(Me.hWnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-" & gblRichClientEnvironment & "-" & gblCodingEnvironment, vbNullString, App.Path, 1)
     End If
 
    On Error GoTo 0
@@ -569,9 +569,8 @@ Public Sub mnuLatest_Click()
     answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Upgrade", True, "mnuLatestClick")
 
     If answer = vbYes Then
-        Call ShellExecute(Me.hWnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-" & gblCodingEnvironment & "/releases", vbNullString, App.Path, 1)
+        Call ShellExecute(Me.hWnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-" & gblRichClientEnvironment & "-" & gblCodingEnvironment & "/releases", vbNullString, App.Path, 1)
     End If
-
 
     On Error GoTo 0
     Exit Sub

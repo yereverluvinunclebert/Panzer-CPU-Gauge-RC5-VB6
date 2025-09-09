@@ -241,10 +241,10 @@ Public Sub initAndCreateLicenceForm(ByVal x As Long, ByVal y As Long, Optional B
         licenceWidget.Zoom = licenceWidgetZoomValue
     End If
         
-    ' When running in the IDE the RC5 DLLs are required to be registered. If for some reason they become unregistered then
+    ' When running in the IDE the RichClient5 DLLs are required to be registered. If for some reason they become unregistered then
     ' the following 'set' commands will generate an error, to handle this we have a temporary error trap for the IDE only.
     
-    If InIDE Then On Error GoTo RC5NotRegistered_Error
+    If InIDE Then On Error GoTo RichClient5NotRegistered_Error
 
     ' add two RC predefined button controls to the licence form
     If gblDpiAwareness = "1" Then
@@ -317,7 +317,7 @@ initAndCreateLicenceForm_Error:
     
     Exit Sub
    
-RC5NotRegistered_Error:
+RichClient5NotRegistered_Error:
     
     MsgBox "Error in procedure initAndCreateLicenceForm_Error of Class Module cfMain. vbRichClient5.dll is NOT registered, use the registration script to register vbRichClient5.dll."
 

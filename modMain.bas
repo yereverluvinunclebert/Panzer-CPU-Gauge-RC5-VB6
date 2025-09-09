@@ -99,8 +99,15 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     #Else
         gblCodingEnvironment = "VB6"
     #End If
-        
-    menuForm.mnuAbout.Caption = "About Panzer CPU Gauge Cairo " & gblCodingEnvironment & " widget"
+    
+    ' Test for the version of RichClient and set a global variable to alter conditions throughout, mostly in text, there is no new_c.version in RC5
+    If fFExists(App.Path & "\BIN\vbRichClient5.dll") Then
+        gblRichClientEnvironment = "RC5"
+    ElseIf fFExists(App.Path & "\BIN\RC6.dll") Then
+        gblRichClientEnvironment = "RC6"
+    End If
+          
+    menuForm.mnuAbout.Caption = "About Panzer CPU Gauge " & gblRichClientEnvironment & " Cairo " & gblCodingEnvironment & " widget"
        
     ' Load the sounds into numbered buffers ready for playing
     Call loadAsynchSoundFiles
@@ -135,7 +142,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     'load the collection for storing the overlay surfaces with its relevant keys direct from the XML
     If restart = False Then Call loadExcludePathCollection ' no need to reload the collPSDNonUIElements layer name keys on a reload
     
-    'load the XML image data previously extracted from the PSD
+    'load the XML image data (previously extracted directly from the PSD)
     Call fGauge.InitialiseImageWidgetsFromXML
             
     ' initialise and create the three main RC forms (gauge, about and licence) on the current display
@@ -441,8 +448,7 @@ Private Sub initialiseGlobalVars()
     gblAspectRatio = vbNullString
     gblOldSettingsModificationTime = #1/1/2000 12:00:00 PM#
     gblCodingEnvironment = vbNullString
-
-    'gblTimeAreaClicked = vbNullString
+    gblRichClientEnvironment = vbNullString
     
    On Error GoTo 0
    Exit Sub
@@ -1023,7 +1029,8 @@ Private Sub getToolSettingsFile()
     
     Dim iFileNo As Integer: iFileNo = 0
     
-    gblSettingsDir = fSpecialFolder(feUserAppData) & "\PzCPUGauge" ' just for this user alone
+    gblSettingsDir = fSpecialFolder(feUserAppData) & "\PzCPUGauge-" & gblRichClientEnvironment & "-Widget-" & gblCodingEnvironment & "" ' just for this user alone
+    
     gblSettingsFile = gblSettingsDir & "\settings.ini"
         
     'if the folder does not exist then create the folder

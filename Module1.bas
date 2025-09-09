@@ -466,6 +466,7 @@ Public gblPrefsFormResizedInCode As Boolean
 Public gblFGaugeAvailable As Boolean
 
 Public gblCodingEnvironment As String
+Public gblRichClientEnvironment As String
 
 Public widgetPrefsOldHeight As Long
 Public widgetPrefsOldWidth As Long
@@ -1597,7 +1598,7 @@ Public Sub mnuSupport_ClickEvent()
     answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Contact Support", True, "mnuSupportClickEvent")
 
     If answer = vbYes Then
-        Call ShellExecute(menuForm.hWnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-" & gblCodingEnvironment & "/issues", vbNullString, App.Path, 1)
+        Call ShellExecute(menuForm.hWnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-" & gblRichClientEnvironment & "-" & gblCodingEnvironment & "/issues", vbNullString, App.Path, 1)
     End If
 
    On Error GoTo 0
@@ -1960,7 +1961,7 @@ End Sub
 ' Procedure : unloadAllForms
 ' Author    : beededea
 ' Date      : 28/06/2023
-' Purpose   : unload all VB6 and RC5 forms
+' Purpose   : unload all VB6 and RichClient5 forms
 '---------------------------------------------------------------------------------------
 '
 Public Sub unloadAllForms(ByVal endItAll As Boolean)
@@ -1983,16 +1984,16 @@ Public Sub unloadAllForms(ByVal endItAll As Boolean)
     widgetPrefs.tmrPrefsScreenResolution.Enabled = False
     widgetPrefs.tmrWritePosition.Enabled = False
     
-    ' stop all RC5 timers using properties to access the private timers
+    ' stop all RichClient5 timers using properties to access the private timers
     
     overlayWidget.tmrSampler.Enabled = False
     overlayWidget.tmrAnimator.Enabled = False
 
-    'unload the RC5 widgets on the RC5 forms first
+    'unload the RichClient5 widgets on the RichClient5 forms first
     
-    aboutWidget.Widgets.RemoveAll
-    helpWidget.Widgets.RemoveAll
-    fGauge.gaugeForm.Widgets.RemoveAll
+    aboutWidget.Widgets.removeAll
+    helpWidget.Widgets.removeAll
+    fGauge.gaugeForm.Widgets.removeAll
     
     ' unload the native VB6 forms
     
@@ -2001,7 +2002,7 @@ Public Sub unloadAllForms(ByVal endItAll As Boolean)
     Unload frmTimer
     Unload menuForm
 
-    ' RC5's own method for killing forms
+    ' RichClient5's own method for killing forms
     
     fMain.aboutForm.Unload
     fMain.helpForm.Unload
@@ -2056,8 +2057,8 @@ Public Sub reloadProgram()
     
     Call unloadAllForms(False) ' unload forms but do not END
     
-    ' this will call the routines as called by sub main() and initialise the program and RELOAD the RC5 forms.
-    Call mainRoutine(True) ' sets the restart flag to avoid repriming the RC5 message pump.
+    ' this will call the routines as called by sub main() and initialise the program and RELOAD the RichClient5 forms.
+    Call mainRoutine(True) ' sets the restart flag to avoid repriming the RichClient5 message pump.
 
     On Error GoTo 0
     Exit Sub
@@ -2467,7 +2468,7 @@ Public Sub hardRestart()
     If fFExists(thisCommand) Then
         
         ' run the selected program
-        Call ShellExecute(widgetPrefs.hWnd, "open", thisCommand, "Panzer-CPU-Gauge-VB6.exe prefs", "", 1)
+        Call ShellExecute(widgetPrefs.hWnd, "open", thisCommand, "Panzer-CPU-Gauge-" & gblRichClientEnvironment & "-" & gblCodingEnvironment & ".exe prefs", "", 1)
     Else
         'answer = MsgBox(thisCommand & " is missing", vbOKOnly + vbExclamation)
         answerMsg = thisCommand & " is missing"

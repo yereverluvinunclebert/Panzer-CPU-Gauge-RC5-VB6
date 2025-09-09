@@ -2503,7 +2503,8 @@ Private Sub Form_Load()
     
     Me.Visible = False
     btnSave.Enabled = False ' disable the save button
-    Me.mnuAbout.Caption = "About Panzer CPU Gauge Cairo " & gblCodingEnvironment & " widget"
+    
+    Me.mnuAbout.Caption = "About Panzer CPU Gauge " & gblRichClientEnvironment & " Cairo " & gblCodingEnvironment & " widget"
 
     pvtPrefsStartupFlg = True ' this is used to prevent some control initialisations from running code at startup
     'pvtPrefsDynamicSizingFlg = False
@@ -4060,9 +4061,9 @@ Private Sub btnSave_Click()
      
             
     If gblStartup = "1" Then
-        Call writeRegistry(HKEY_CURRENT_USER, "SOFTWARE\Microsoft\Windows\CurrentVersion\Run", "PanzerCPUGauge", """" & App.Path & "\" & "Panzer-CPU-Gauge-VB6.exe""")
+        Call writeRegistry(HKEY_CURRENT_USER, "SOFTWARE\Microsoft\Windows\CurrentVersion\Run", "PanzerCPUGauge" & gblRichClientEnvironment & "-" & gblCodingEnvironment, """" & App.Path & "\" & "Panzer-CPU-Gauge-" & gblRichClientEnvironment & "-" & gblCodingEnvironment & ".exe""")
     Else
-        Call writeRegistry(HKEY_CURRENT_USER, "SOFTWARE\Microsoft\Windows\CurrentVersion\Run", "PanzerCPUGauge", vbNullString)
+        Call writeRegistry(HKEY_CURRENT_USER, "SOFTWARE\Microsoft\Windows\CurrentVersion\Run", "PanzerCPUGauge" & gblRichClientEnvironment & "-" & gblCodingEnvironment, vbNullString)
     End If
 
     ' save the values from the general tab
@@ -4430,8 +4431,7 @@ Private Sub adjustPrefsControls(Optional ByVal restartState As Boolean)
         txtDefaultEditor.Text = gblDefaultVB6Editor
     #End If
     
-    lblGitHub.Caption = "You can find the code for the Panzer CPU Gauge on github, visit by double-clicking this link https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge"
-     
+    lblGitHub.Caption = "You can find the code for the Panzer CPU Gauge on github, visit by double-clicking this link https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-" & gblRichClientEnvironment & "-Widget-" & gblCodingEnvironment
      
      If Not restartState = True Then
         ' fonts tab
@@ -5766,7 +5766,7 @@ Private Sub lblGitHub_dblClick()
     answerMsg = "This option opens a browser window and take you straight to Github. Proceed?"
     answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Proceed to Github? ", True, "lblGitHubDblClick")
     If answer = vbYes Then
-        Call ShellExecute(Me.hWnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-" & gblCodingEnvironment, vbNullString, App.Path, 1)
+        Call ShellExecute(Me.hWnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-" & gblRichClientEnvironment & "-" & gblCodingEnvironment, vbNullString, App.Path, 1)
     End If
 
    On Error GoTo 0
@@ -6520,7 +6520,7 @@ Private Sub loadPrefsAboutText()
     lblMinorVersion.Caption = App.Minor
     lblRevisionNum.Caption = App.Revision
     
-    lblAbout(1).Caption = "(32bit WoW64 using " & gblCodingEnvironment & " + RC5)"
+    lblAbout(1).Caption = "(32bit WoW64 using " & gblCodingEnvironment & " + " & gblRichClientEnvironment & ")"
     
     Call LoadFileToTB(txtAboutText, App.Path & "\resources\txt\about.txt", False)
     
