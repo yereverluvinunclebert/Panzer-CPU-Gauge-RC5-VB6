@@ -1,18 +1,20 @@
 # Panzer-CPU-Gauge-RC5-VB6
  
-  A FOSS CPU Gauge VB6 WoW64 Widget for Windows Vista, 7, 8 and 10/11+. There will also be a version for Reactos and XP, watch this space for the link. Also tested and running well on Linux and Mac os/X using Wine.
+A FOSS CPU Gauge VB6/TwinBasic WoW64 Widget for Windows Vista, 7, 8 and 10/11+. This is the RC5 version for Reactos and XP. Also tested and running well on Linux and Mac os/X using Wine. 
+
+This is a copy of the RC6-based program with the simplePSD parser removed to allow downgrade to RC5 for testing purposes on older 32bit versions of Windows. It should run on XP/ReactOS with no problems at all!
  
- My current VB6/RC5 PSD program being finished now, fundamentally complete, only awaiting testing on Windows XP and Win7 32bit and some multi monitor checking and the creation of the setup.exe. This Panzer widget is based upon the Yahoo widget of the same visual design and very similar operation.
+ My current VB6/TwinBasic/RC5 PSD program being finished now, fundamentally complete, only awaiting testing on Windows XP, ReactOS and Win7 32bit and some multi monitor checking and the creation of the setup.exe. This Panzer widget is based upon the Yahoo widget of the same visual design with very similar operation.
 
  Why VB6? Well, with a 64 bit, modern-language improvement upgrade on the way with 100% compatible TwinBasic coupled with support for transparent PNGs via RC/Cairo, VB6 code has an amazing future.
 
-![vb6-logo-350](https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-VB6/assets/2788342/39e2c93f-40a5-4c47-8c23-d8ce7c747b10)
+<img width="650" height="56" alt="basic-logos" src="https://github.com/user-attachments/assets/c2cad390-b756-4a7a-a1a1-ba9f44b18b98" />
 
  I created as a variation of the previous gauges I had previously created for the World of Tanks and War Thunder 
- communities. The Panzer CPU Gauge widget is an attractive dieselpunk VB6 widget for your desktop. 
+ communities. The Panzer CPU Gauge widget is an attractive dieselpunk VB6/TwinBasic widget for your desktop. 
  Functional and gorgeous at the same time. The graphics are my own, I took original inspiration from a clock face by Italo Fortana combining it with an aircraft gauge. It is all my code with some help from the chaps at VBForums (credits given). 
   
-The Panzer CPU Gauge VB6  is a useful utility displaying the CPU usage of all cores combined in a dieselpunk fashion on your desktop. This Widget is a moveable widget that you can move anywhere around the desktop as you require.
+The Panzer CPU Gauge VB6/TwinBasic  is a useful utility displaying the CPU usage of all cores combined in a dieselpunk fashion on your desktop. This Widget is a moveable widget that you can move anywhere around the desktop as you require.
 
 The program uses WMI to extract CPU usage values over a certain interval, extrapolating the percentage usage over a given time period. The pertinents bits of code are:
 
@@ -113,13 +115,13 @@ Hope the code is useful to anyone else building system metric utilities using VB
 ![Licence002](https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-VB6/assets/2788342/a24c5c45-5517-4423-938b-398f1d349d4c)
 
  It is open source to allow easy configuration, bug-fixing, enhancement and 
- community contribution towards free-and-useful VB6 utilities that can be created
+ community contribution towards free-and-useful VB6/TwinBasic utilities that can be created
  by anyone. The first step was the creation of this template program to form the 
  basis for the conversion of other desktop utilities or widgets. A future step 
- is new VB6 widgets with more functionality and then hopefully, conversion of 
+ is new VB6/TwinBasic widgets with more functionality and then hopefully, conversion of 
  each to RADBasic/TwinBasic for future-proofing and 64bit-ness. 
 
-![menu01](https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-VB6/assets/2788342/45da67ae-8ec9-4730-a00d-e3c5a1db7519)
+![menu01](https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-VB6/TwinBasic/assets/2788342/45da67ae-8ec9-4730-a00d-e3c5a1db7519)
 
  This utility is one of a set of steampunk and dieselpunk widgets. That you can 
  find here on Deviantart: https://www.deviantart.com/yereverluvinuncleber/gallery
@@ -132,7 +134,7 @@ Hope the code is useful to anyone else building system metric utilities using VB
 
  BUILD: The program runs without any Microsoft plugins.
  
- Built using: VB6, MZ-TOOLS 3.0, VBAdvance, CodeHelp Core IDE Extender
+ Built using: VB6/TwinBasic, MZ-TOOLS 3.0, VBAdvance, CodeHelp Core IDE Extender
  Framework 2.2 & Rubberduck 2.4.1, RichClient 5
  
  Links:
@@ -196,20 +198,23 @@ Hope the code is useful to anyone else building system metric utilities using VB
  
  o Microsoft VB6 IDE installed with its runtime components. The program runs 
  without any additional Microsoft OCX components, just the basic controls that 
- ship with VB6.  
+ ship with VB6. If you cannot find the VB6 installation media then...  
+
+ o Use the TwinBasic IDE as it is open source, has language enhancements, 
+ future proofing and is easy to download/install. Fully compatible with VB6.
  
  ![vb6-logo-200](https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-VB6/assets/2788342/bf00fa3d-f1d4-417b-bc50-9446f2c3e674)
 
  
- * Uses the latest version of the RC6 Cairo framework from Olaf Schmidt.
+ * Uses the RC5 Cairo framework from Olaf Schmidt.
  
- During development the RC6 components need to be registered. These scripts are 
+ During development the RC5 components need to be registered. These scripts are 
  used to register. Run each by double-clicking on them.
  
 	RegisterRC5inPlace.vbs
 	RegisterRC5WidgetsInPlace.vbs
  
- During runtime on the users system, the RC6 components are dynamically 
+ During runtime on the users system, the RC5 components are dynamically 
  referenced using modRC5regfree.bas which is compiled into the binary.	
  
  
@@ -277,9 +282,11 @@ The above is only for development, for ordinary users, during runtime there is n
 	VisualBasic Runtime Objects and Procedures  
 	VisualBasic Objects and Procedures  
 	OLE Automation  
+    vbWidgets (RC5)
 	vbRichClient5
  
- 
+ <img width="445" height="359" alt="RC5VB6References" src="https://github.com/user-attachments/assets/e0f05eb1-7a17-4c7d-9e5d-fe4316fd3856" />
+
  LICENCE AGREEMENTS:
  
  Copyright © 2023 Dean Beedell
