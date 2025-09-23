@@ -151,7 +151,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     ' place the form at the saved location and configure all the form elements
     Call makeVisibleFormElements
                 
-    ' run the functions that are also called at reload time.
+    ' called at runtime and on restart, sets the characteristics of the gauge, individual controls and menus
     Call adjustMainControls(licenceState) ' this needs to be here after the initialisation of the Cairo forms and widgets
     
     ' move/hide onto/from the main screen
@@ -215,6 +215,52 @@ main_routine_Error:
 End Sub
  
 
+
+'---------------------------------------------------------------------------------------
+' Procedure : stopAllCpuTimers
+' Author    : beededea
+' Date      : 17/09/2025
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Sub stopAllCpuTimers()
+    On Error GoTo stopAllCpuTimers_Error
+
+    overlayWidget.tmrSampler.Enabled = False
+    overlayWidget.tmrAnimator.Enabled = False
+    frmMultiCore.tmrMultiCore.Enabled = False
+
+    On Error GoTo 0
+    Exit Sub
+
+stopAllCpuTimers_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure stopAllCpuTimers of Module modMain"
+
+End Sub
+
+'---------------------------------------------------------------------------------------
+' Procedure : startAllCpuTimers
+' Author    : beededea
+' Date      : 17/09/2025
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Sub startAllCpuTimers()
+    On Error GoTo startAllCpuTimers_Error
+
+    overlayWidget.tmrSampler.Enabled = True
+    overlayWidget.tmrAnimator.Enabled = True
+    frmMultiCore.tmrMultiCore.Enabled = True
+
+    On Error GoTo 0
+    Exit Sub
+
+startAllCpuTimers_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure startAllCpuTimers of Module modMain"
+
+End Sub
 '---------------------------------------------------------------------------------------
 ' Procedure : loadPreferenceForm
 ' Author    : beededea
@@ -710,6 +756,13 @@ Public Sub adjustMainControls(Optional ByVal licenceState As Integer)
     
     ' set the hiding time for the hiding timer, can't read the minutes from comboxbox as the prefs isn't yet open
     Call setHidingTime
+    
+    ' if the multi-core CPU form is showing then change the menu to suit
+    If gblMultiCoreEnable = "0" Then
+        menuForm.menuMultiCore.Caption = "Show MultiCore CPU Display"
+    Else
+        menuForm.menuMultiCore.Caption = "Hide MultiCore CPU Display"
+    End If
 
     If gblMinutesToHide > 0 Then menuForm.mnuHideWidget.Caption = "Hide Widget for " & gblMinutesToHide & " min."
     

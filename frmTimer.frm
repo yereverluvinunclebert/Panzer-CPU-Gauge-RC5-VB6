@@ -11,6 +11,12 @@ Begin VB.Form frmTimer
    ScaleWidth      =   4680
    StartUpPosition =   3  'Windows Default
    Visible         =   0   'False
+   Begin VB.Timer tmrRestartSampling 
+      Enabled         =   0   'False
+      Interval        =   5000
+      Left            =   135
+      Top             =   2100
+   End
    Begin VB.Timer sleepTimer 
       Interval        =   3000
       Left            =   120
@@ -129,6 +135,32 @@ End Sub
 
 
 
+
+'---------------------------------------------------------------------------------------
+' Procedure : tmrRestartSampling_Timer
+' Author    : beededea
+' Date      : 17/09/2025
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Private Sub tmrRestartSampling_Timer()
+
+    On Error GoTo tmrRestartSampling_Timer_Error
+    
+    If widgetPrefs.Visible = False Then
+        tmrRestartSampling.Enabled = False
+        Call startAllCpuTimers
+    Else
+        tmrRestartSampling.Enabled = False
+    End If
+
+    On Error GoTo 0
+    Exit Sub
+
+tmrRestartSampling_Timer_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure tmrRestartSampling_Timer of Form frmTimer"
+End Sub
 
 '---------------------------------------------------------------------------------------
 ' Procedure : tmrScreenResolution_Timer

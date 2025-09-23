@@ -38,11 +38,6 @@ DONE
 ' restarted timers on mouseUp
 ' add the test and error message for RC6 DLL registration
 
-
-' -oOo-
-
-TODO
-
 All occurrences of PzG switched to gbl
 DPI switch moved to subroutine to tidy up
 preference load moved to subroutine to tidy up
@@ -59,21 +54,27 @@ Secondary, not necessary changes
 prefs subclassing for resize on WM_EXITMOVED
 form_resize
 
+dual automatic monitor sizing changes
 prefs balloon tooltips on all controls
 resizing using subclassing
 github home menu link
 
-Really not necessary changes
+' -oOo-
 
-dual automatic monitor sizing changes
+TODO
 
-' usage balloon tooltip % needs to be dynamically updated, currently only seems to show an older percentage
+Gutter fixed
+removed manifest
 
-' add second monitor - wip find cable!
+' help CHM
+' setup2go create setup.exe
 
-' test usage of RC6 for monitor awareness - wip
-'      adjust Form Position on startup placing form onto Correct Monitor when placed off screen due to
-'               monitor/resolution changes.
+visual styles = false removed from labels and images
+
+' rubberduck
+' mz Tools code analysis
+
+' create RC6 version
 
 ' https://www.vbforums.com/showthread.php?900892-VB6-Simple-way-to-make-your-VB6-application-quot-Per-Monitor-DPI-Aware-quot
 

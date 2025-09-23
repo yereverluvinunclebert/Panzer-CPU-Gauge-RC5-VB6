@@ -1986,8 +1986,10 @@ Public Sub unloadAllForms(ByVal endItAll As Boolean)
     
     ' stop all RichClient5 timers using properties to access the private timers
     
-    overlayWidget.tmrSampler.Enabled = False
-    overlayWidget.tmrAnimator.Enabled = False
+'    overlayWidget.tmrSampler.Enabled = False
+'    overlayWidget.tmrAnimator.Enabled = False
+    
+    Call stopAllCpuTimers
 
     'unload the RichClient5 widgets on the RichClient5 forms first
     
@@ -2629,8 +2631,10 @@ End Sub
 '             this avoids that scenario.
 '---------------------------------------------------------------------------------------
 '
-Public Function ArrayString(ParamArray tokens()) As String()
+Public Function ArrayString(ParamArray tokens()) As String() ' always byval
     On Error GoTo ArrayString_Error
+    
+    Dim Arr() As String
 
     ReDim Arr(UBound(tokens)) As String
     Dim I As Long

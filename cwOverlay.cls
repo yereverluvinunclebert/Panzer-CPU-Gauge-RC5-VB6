@@ -208,9 +208,9 @@ Public Property Let Ticking(ByVal newValue As Boolean)
     If mTicking <> newValue Then mTicking = newValue Else Exit Property
     
     If mTicking Then
-        tmrSampler.Enabled = True
+        Call startAllCpuTimers
     Else
-        tmrSampler.Enabled = False
+        Call stopAllCpuTimers
     End If
 
    On Error GoTo 0
@@ -590,7 +590,7 @@ Private Sub W_Paint(CC As vbRichClient5.cCairoContext, ByVal xAbs As Single, ByV
       Key = cCollOverlayImages.KeyByIndex(I)
       
       If IsArray(Arr) Then
-             CC.Save
+             CC.save
              'derive a Pattern-Obj from each retrieved ImageList-Surface-reference
              Set Pat = Cairo.ImageList(Key).CreateSurfacePattern
                          
