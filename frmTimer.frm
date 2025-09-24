@@ -14,12 +14,12 @@ Begin VB.Form frmTimer
    Begin VB.Timer tmrRestartSampling 
       Enabled         =   0   'False
       Interval        =   5000
-      Left            =   135
-      Top             =   2100
+      Left            =   105
+      Top             =   2040
    End
    Begin VB.Timer sleepTimer 
       Interval        =   3000
-      Left            =   120
+      Left            =   90
       Tag             =   "stores and compares the last time to see if the PC has slept"
       Top             =   1575
    End
@@ -40,6 +40,14 @@ Begin VB.Form frmTimer
       Interval        =   5000
       Left            =   90
       Top             =   135
+   End
+   Begin VB.Label Label5 
+      Caption         =   "restartTmer for restarting the CPU monitoring timers"
+      Height          =   195
+      Left            =   690
+      TabIndex        =   5
+      Top             =   2130
+      Width           =   3645
    End
    Begin VB.Label Label4 
       Caption         =   "sleeptimer for testing awake from sleep"

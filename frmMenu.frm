@@ -209,38 +209,6 @@ End Sub
 
       
 
-
-
-'' ----------------------------------------------------------------
-'' Procedure Name: menuMultiCore_Click
-'' Purpose:
-'' Procedure Kind: Sub
-'' Procedure Access: Private
-'' Author: beededea
-'' Date: 15/01/2024
-'' ----------------------------------------------------------------
-'Private Sub menuMultiCore_Click()
-'    On Error GoTo menuMultiCore_Click_Error
-'    Dim thisCommand As String: thisCommand = vbNullString
-'
-'    thisCommand = App.Path & "\" & App.EXEName & ".exe"
-'
-'    If fFExists(thisCommand) Then
-'        Call Shell(thisCommand, vbNormalFocus)
-'    Else
-'        MsgBox "Having a bit of a problem opening the path for this widget - " & thisCommand & " It doesn't seem to exist or is inaccessible."
-'    End If
-'
-'    On Error GoTo 0
-'    Exit Sub
-'
-'menuMultiCore_Click_Error:
-'
-'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure menuMultiCore_Click, line " & Erl & "."
-'
-'End Sub
-
-
 ' ----------------------------------------------------------------
 ' Procedure Name: menuMultiCore_Click
 ' Purpose:
