@@ -434,7 +434,7 @@ Public Sub positionPrefsByMonitorSize()
 
     Static oldWidgetPrefsLeft As Long
     Static oldWidgetPrefsTop As Long
-    Static beenMovingFlg As Boolean
+    'Static beenMovingFlg As Boolean
     
     'Static oldPrefsFormMonitorID As Long
     Static oldPrefsMonitorStructWidthTwips As Long

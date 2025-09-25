@@ -155,11 +155,14 @@ Private Sub tmrRestartSampling_Timer()
 
     On Error GoTo tmrRestartSampling_Timer_Error
     
+    tmrRestartSampling.Enabled = False
+    
+    If gblGaugeFunctions = "0" Then
+        Exit Sub
+    End If
+    
     If widgetPrefs.Visible = False Then
-        tmrRestartSampling.Enabled = False
         Call startAllCpuTimers
-    Else
-        tmrRestartSampling.Enabled = False
     End If
 
     On Error GoTo 0

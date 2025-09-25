@@ -26,14 +26,14 @@ Public Const OnTopFlags  As Long = SWP_NOMOVE Or SWP_NOSIZE
 
 '------------------------------------------------------ STARTS
 ' to set the full window Opacity
-Private Declare Function SetLayeredWindowAttributes Lib "user32" (ByVal hWnd As Long, ByVal crKey As Long, ByVal bAlpha As Byte, ByVal dwFlags As Long) As Long
-Private Declare Function GetWindowLong Lib "user32" Alias "GetWindowLongA" (ByVal hWnd As Long, ByVal nIndex As Long) As Long
-Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hWnd As Long, ByVal nIndex As Long, ByVal dwNewLong As Long) As Long
-
-Private Const WS_EX_LAYERED  As Long = &H80000
-Private Const GWL_EXSTYLE  As Long = (-20)
-Private Const LWA_COLORKEY  As Long = &H1       'to transparent
-Private Const LWA_ALPHA  As Long = &H2          'to semi transparent
+'Private Declare Function SetLayeredWindowAttributes Lib "user32" (ByVal hWnd As Long, ByVal crKey As Long, ByVal bAlpha As Byte, ByVal dwFlags As Long) As Long
+'Private Declare Function GetWindowLong Lib "user32" Alias "GetWindowLongA" (ByVal hWnd As Long, ByVal nIndex As Long) As Long
+'Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hWnd As Long, ByVal nIndex As Long, ByVal dwNewLong As Long) As Long
+'
+'Private Const WS_EX_LAYERED  As Long = &H80000
+'Private Const GWL_EXSTYLE  As Long = (-20)
+'Private Const LWA_COLORKEY  As Long = &H1       'to transparent
+'Private Const LWA_ALPHA  As Long = &H2          'to semi transparent
 '------------------------------------------------------ ENDS
 
 ' class objects instantiated
@@ -608,13 +608,15 @@ Public Sub adjustMainControls(Optional ByVal licenceState As Integer)
     Else
         fGauge.AdjustZoom Val(gblGaugeSize) / 100
     End If
-    
+        
     If gblGaugeFunctions = "1" Then
         menuForm.mnuSwitchOff.Checked = False
         menuForm.mnuTurnFunctionsOn.Checked = True
+        Call startAllCpuTimers
     Else
         menuForm.mnuSwitchOff.Checked = True
         menuForm.mnuTurnFunctionsOn.Checked = False
+        Call stopAllCpuTimers
     End If
     
     If gblDebug = "1" Then
@@ -1186,15 +1188,15 @@ Private Sub createRCFormsOnCurrentDisplay()
     On Error GoTo createRCFormsOnCurrentDisplay_Error
 
     With New_c.Displays(1) 'get the current Display
-      Call fMain.initAndCreateAboutForm(.WorkLeft, .WorkTop, 1000, 1000, gblWidgetName)
+      Call fMain.initAndCreateAboutForm(gblWidgetName)
     End With
     
     With New_c.Displays(1) 'get the current Display
-      Call fMain.initAndCreateHelpForm(.WorkLeft, .WorkTop, 1000, 1000, gblWidgetName)
+      Call fMain.initAndCreateHelpForm(gblWidgetName)
     End With
 
     With New_c.Displays(1) 'get the current Display
-      Call fMain.initAndCreateLicenceForm(.WorkLeft, .WorkTop, 1000, 1000, gblWidgetName)
+      Call fMain.initAndCreateLicenceForm(gblWidgetName)
     End With
     
         On Error GoTo 0
@@ -1372,11 +1374,11 @@ End Sub
 ' Purpose   : requires minimal changes to replace playSound code in the rest of the program
 '---------------------------------------------------------------------------------------
 '
-Public Sub playAsynchSound(ByVal SoundFile As String)
-
-     Dim soundindex As Long: soundindex = 0
-
-     On Error GoTo playAsynchSound_Error
+'Public Sub playAsynchSound(ByVal SoundFile As String)
+'
+'     Dim soundindex As Long: soundindex = 0
+'
+'     On Error GoTo playAsynchSound_Error
 
 '     If SoundFile = App.path & "\resources\sounds\belltoll-quiet.wav" Then soundindex = 1
 '     If SoundFile = App.path & "\resources\sounds\belltoll.wav" Then soundindex = 2
@@ -1397,16 +1399,16 @@ Public Sub playAsynchSound(ByVal SoundFile As String)
 '     If SoundFile = App.path & "\resources\sounds\till-quiet.wav" Then soundindex = 17
 '     If SoundFile = App.path & "\resources\sounds\till.wav" Then soundindex = 18
 
-     Call playSounds(soundindex) ' writes the wav files (previously stored in a memory buffer) and feeds that buffer to the waveOutWrite API
-
-   On Error GoTo 0
-   Exit Sub
-
-playAsynchSound_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure playAsynchSound of Module modMain"
-
-End Sub
+'     Call playSounds(soundindex) ' writes the wav files (previously stored in a memory buffer) and feeds that buffer to the waveOutWrite API
+'
+'   On Error GoTo 0
+'   Exit Sub
+'
+'playAsynchSound_Error:
+'
+'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure playAsynchSound of Module modMain"
+'
+'End Sub
 
 
 
@@ -1417,11 +1419,11 @@ End Sub
 ' Purpose   : requires minimal changes to previous playSound code
 '---------------------------------------------------------------------------------------
 '
-Public Sub stopAsynchSound(ByVal SoundFile As String)
-
-     Dim soundindex As Long: soundindex = 0
-
-     On Error GoTo stopAsynchSound_Error
+'Public Sub stopAsynchSound(ByVal SoundFile As String)
+'
+'     Dim soundindex As Long: soundindex = 0
+'
+'     On Error GoTo stopAsynchSound_Error
 
 '     If SoundFile = App.path & "\resources\sounds\belltoll-quiet.wav" Then soundindex = 1
 '     If SoundFile = App.path & "\resources\sounds\belltoll.wav" Then soundindex = 2
@@ -1442,16 +1444,16 @@ Public Sub stopAsynchSound(ByVal SoundFile As String)
 '     If SoundFile = App.path & "\resources\sounds\till-quiet.wav" Then soundindex = 17
 '     If SoundFile = App.path & "\resources\sounds\till.wav" Then soundindex = 18
      
-     Call StopSound(soundindex)
-
-   On Error GoTo 0
-   Exit Sub
-
-stopAsynchSound_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure stopAsynchSound of Module modMain"
-
-End Sub
+'     Call StopSound(soundindex)
+'
+'   On Error GoTo 0
+'   Exit Sub
+'
+'stopAsynchSound_Error:
+'
+'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure stopAsynchSound of Module modMain"
+'
+'End Sub
 
 
 '---------------------------------------------------------------------------------------
@@ -1461,9 +1463,9 @@ End Sub
 ' Purpose   : ONLY stops any WAV files currently playing in asynchronous mode.
 '---------------------------------------------------------------------------------------
 '
-Public Sub stopAllAsynchSounds()
-            
-   On Error GoTo stopAllAsynchSounds_Error
+'Public Sub stopAllAsynchSounds()
+'
+'   On Error GoTo stopAllAsynchSounds_Error
 
 '    Call StopSound(1)
 '    Call StopSound(2)
@@ -1483,13 +1485,13 @@ Public Sub stopAllAsynchSounds()
 '    Call StopSound(17)
 '    Call StopSound(18)
 
-   On Error GoTo 0
-   Exit Sub
-
-stopAllAsynchSounds_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure stopAllAsynchSounds of Module modMain"
-
-End Sub
+'   On Error GoTo 0
+'   Exit Sub
+'
+'stopAllAsynchSounds_Error:
+'
+'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure stopAllAsynchSounds of Module modMain"
+'
+'End Sub
 
 

@@ -65,17 +65,17 @@ Private Type FONTSTRUC
   nSizeMax As Long
 End Type
 
-Private Type ChooseColorStruct
-    lStructSize As Long
-    hwndOwner As Long
-    hInstance As Long
-    rgbResult As Long
-    lpCustColors As Long
-    flags As Long
-    lCustData As Long
-    lpfnHook As Long
-    lpTemplateName As String
-End Type
+'Private Type ChooseColorStruct
+'    lStructSize As Long
+'    hwndOwner As Long
+'    hInstance As Long
+'    rgbResult As Long
+'    lpCustColors As Long
+'    flags As Long
+'    lCustData As Long
+'    lpfnHook As Long
+'    lpTemplateName As String
+'End Type
 '------------------------------------------------------ ENDS
 
 
@@ -230,16 +230,16 @@ Private Type OPENFILENAME
     lpTemplateName As String     'A string that contains a dialog template resource name. Only used with the hook procedure.
 End Type
 
-Private Type BROWSEINFO
-    hwndOwner As Long
-    pidlRoot As Long 'LPCITEMIDLIST
-    pszDisplayName As String
-    lpszTitle As String
-    ulFlags As Long
-    lpfn As Long  'BFFCALLBACK
-    lParam As Long
-    iImage As Long
-End Type
+'Private Type BROWSEINFO
+'    hwndOwner As Long
+'    pidlRoot As Long 'LPCITEMIDLIST
+'    pszDisplayName As String
+'    lpszTitle As String
+'    ulFlags As Long
+'    lpfn As Long  'BFFCALLBACK
+'    lParam As Long
+'    iImage As Long
+'End Type
 
 ' vars defined for opening a common dialog box to select files without OCX dependencies
 Private x_OpenFilename As OPENFILENAME
@@ -2241,7 +2241,7 @@ Public Sub readPrefsPosition()
     gblPrefsSecondaryHeightTwips = fGetINISetting("Software\PzCPUGauge", "prefsSecondaryHeightTwips", gblSettingsFile)
         
    ' on very first install this will be zero, then size of the prefs as a proportion of the screen size
-    If gblPrefsPrimaryHeightTwips = "" Then gblPrefsPrimaryHeightTwips = Screen.Height / 3
+    If gblPrefsPrimaryHeightTwips = "" Then gblPrefsPrimaryHeightTwips = Screen.Height / 2
     
     
    On Error GoTo 0
@@ -2309,28 +2309,28 @@ End Sub
 '---------------------------------------------------------------------------------------
 ' this has to be in a shared module and not in the prefs form as it will be running in the normal context woithout prefs showing.
 
-Private Sub settingsTimer_Timer()
-
-    gblUnhide = fGetINISetting("Software\PzCPUGauge", "unhide", gblSettingsFile)
-
-    If gblUnhide = "true" Then
-        'overlayWidget.Hidden = False
-        fGauge.gaugeForm.Visible = True
-        sPutINISetting "Software\PzCPUGauge", "unhide", vbNullString, gblSettingsFile
-    End If
-
-    On Error GoTo 0
-    Exit Sub
-
-settingsTimer_Timer_Error:
-
-    With Err
-         If .Number <> 0 Then
-            MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure settingsTimer_Timer of Form module1.bas"
-            Resume Next
-          End If
-    End With
-End Sub
+'Private Sub settingsTimer_Timer()
+'
+'    gblUnhide = fGetINISetting("Software\PzCPUGauge", "unhide", gblSettingsFile)
+'
+'    If gblUnhide = "true" Then
+'        'overlayWidget.Hidden = False
+'        fGauge.gaugeForm.Visible = True
+'        sPutINISetting "Software\PzCPUGauge", "unhide", vbNullString, gblSettingsFile
+'    End If
+'
+'    On Error GoTo 0
+'    Exit Sub
+'
+'settingsTimer_Timer_Error:
+'
+'    With Err
+'         If .Number <> 0 Then
+'            MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure settingsTimer_Timer of Form module1.bas"
+'            Resume Next
+'          End If
+'    End With
+'End Sub
 
 
 
@@ -2402,8 +2402,12 @@ Public Sub SwitchOff()
     menuForm.mnuSwitchOff.Checked = True
     menuForm.mnuTurnFunctionsOn.Checked = False
     
+    If widgetPrefs.IsLoaded Then widgetPrefs.chkGaugeFunctions.Value = 0
+        
     gblGaugeFunctions = "0"
     sPutINISetting "Software\PzCPUGauge", "widgetFunctions", gblGaugeFunctions, gblSettingsFile
+
+    Call stopAllCpuTimers
 
    On Error GoTo 0
    Exit Sub
@@ -2439,8 +2443,12 @@ Public Sub TurnFunctionsOn()
     menuForm.mnuSwitchOff.Checked = False
     menuForm.mnuTurnFunctionsOn.Checked = True
     
+    If widgetPrefs.IsLoaded Then widgetPrefs.chkGaugeFunctions.Value = 1
+    
     gblGaugeFunctions = "1"
     sPutINISetting "Software\PzCPUGauge", "widgetFunctions", gblGaugeFunctions, gblSettingsFile
+    
+    Call startAllCpuTimers
 
    On Error GoTo 0
    Exit Sub

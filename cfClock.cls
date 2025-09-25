@@ -21,8 +21,8 @@ Attribute VB_Exposed = False
 '@IgnoreModule IntegerDataType, ModuleWithoutFolder
 Option Explicit
 
-Private Declare Sub Sleep Lib "kernel32.dll" (ByVal dwMilliseconds As Long)
-Private Declare Function SafeArrayGetDim Lib "oleaut32.dll" (ByRef saArray() As Any) As Long
+'Private Declare Sub Sleep Lib "kernel32.dll" (ByVal dwMilliseconds As Long)
+'Private Declare Function SafeArrayGetDim Lib "oleaut32.dll" (ByRef saArray() As Any) As Long
 
 ' Declare gaugeForm as an RC form to be available throughout by calling fGauge as defined as this class in modMain
 
@@ -37,19 +37,19 @@ Public FX As Long   ' available externally, to allow the gaugeForm to be moved, 
 Public FY As Long
 Public FZ As Single
 
-Private mGlowing As Boolean
+'Private mGlowing As Boolean
 
 ' do these need to be changed to properties?
-Private pauseElapsedTimeSecs As Long ' long means a max of 2,147,483,647 seconds, 24,855 days or 68 years
-Private restartElapsedTimeSecs As Long
+'Private pauseElapsedTimeSecs As Long ' long means a max of 2,147,483,647 seconds, 24,855 days or 68 years
+'Private restartElapsedTimeSecs As Long
 
-Private pausedSWSDeg As Long ' pausedSWSDeg = 0
+'Private pausedSWSDeg As Long ' pausedSWSDeg = 0
 
 ' class private members for property assignment
 
-Private mMuteToggleEnabled As Boolean
-Private mTicking As Boolean
-Private mShowHelp As Boolean
+'Private mMuteToggleEnabled As Boolean
+'Private mTicking As Boolean
+'Private mShowHelp As Boolean
 Private mOpacity As String
 Private pvtPSDWidth As Long
 Private pvtPSDHeight As Long
@@ -203,9 +203,9 @@ Private Sub gaugeForm_BubblingEvent(ByRef Sender As Object, ByRef EventName As S
                 If gblGaugeTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "This button switches on the mutli-core display. If your CPU has more than one core a bar will be shown, displaying the CPU for each core.", _
                      TTIconInfo, gblWidgetName & " Multi-Core Button Help", , , , True
             Case "stopbutton"
-                Call stopbutton_mouseMove(Sender)
+                Call stopbutton_mouseMove
             Case "startbutton"
-                Call startbutton_mouseMove(Sender)
+                Call startbutton_mouseMove
             Case "helpbutton"
                 If gblGaugeTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "This button opens the one-page help file for this widget. There is a further detailed CHM help file available from the right-click menu that contains all the information that you need to run this widget.", _
                      TTIconInfo, gblWidgetName & " Help Button Help", , , , True
@@ -272,7 +272,7 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub startbutton_mouseMove(ByRef Sender As Object)
+Private Sub startbutton_mouseMove()
     On Error GoTo startbutton_mouseMove_Error
 
     If gblGaugeTooltips = "0" Then
@@ -297,7 +297,7 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub stopbutton_mouseMove(ByRef Sender As Object)
+Private Sub stopbutton_mouseMove()
     On Error GoTo stopbutton_mouseMove_Error
 
     If gblGaugeTooltips = "0" Then
@@ -873,38 +873,6 @@ gaugeForm_MouseDown_Error:
 End Sub
 
 '---------------------------------------------------------------------------------------
-' Property  : RotateBusyTimer
-' Author    : beededea
-' Date      : 17/05/2023
-' Purpose   : makes previous busy image invisible and next visible simulating rotation
-'---------------------------------------------------------------------------------------
-'
-Public Property Let RotateBusyTimer(ByVal newValue As Boolean)
-    On Error GoTo RotateBusyTimerLet_Error
-    
-    If gblStartupFlg = False Then Exit Property
-    
-    gaugeForm.Widgets("busy" & pvtBusyTimerRotateValue).Widget.Alpha = 0
-
-    pvtBusyTimerRotateValue = pvtBusyTimerRotateValue + 1
-    If pvtBusyTimerRotateValue >= 6 Then pvtBusyTimerRotateValue = 1
-
-    With gaugeForm.Widgets("busy" & pvtBusyTimerRotateValue).Widget
-        .Alpha = 1
-        .Refresh
-    End With
-    
-   On Error GoTo 0
-   Exit Property
-
-RotateBusyTimerLet_Error:
-
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property RotateBusyTimer of Class Module cwoverlay"
-End Property
-
-
-
-'---------------------------------------------------------------------------------------
 ' Procedure : IsVisible
 ' Author    : beededea
 ' Date      : 08/05/2023
@@ -1024,8 +992,8 @@ Private Sub convertImageXMLToRcWidgets()
     
     Dim node As MSXML2.IXMLDOMNode
     Dim MainNode As MSXML2.IXMLDOMNode
-    Dim ImageNode As MSXML2.IXMLDOMNode
-    Dim ImageNodes As MSXML2.IXMLDOMNodeList
+'    Dim ImageNode As MSXML2.IXMLDOMNode
+'    Dim ImageNodes As MSXML2.IXMLDOMNodeList
     
     On Error GoTo convertImageXMLToRcWidgets_Error
     
