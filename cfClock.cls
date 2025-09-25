@@ -53,7 +53,7 @@ Public FZ As Single
 Private mOpacity As String
 Private pvtPSDWidth As Long
 Private pvtPSDHeight As Long
-Private pvtBusyTimerRotateValue As Integer
+'Private pvtBusyTimerRotateValue As Integer
 
 ' RC widgets
 
@@ -95,7 +95,7 @@ Private Sub Class_Initialize()
     
     Call initialisePrivateVars
     
-    pvtBusyTimerRotateValue = 1
+    'pvtBusyTimerRotateValue = 1
 
     Set collPSDNonUIElements = New_c.Collection(False)
     
@@ -170,12 +170,11 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Private Sub gaugeForm_BubblingEvent(ByRef Sender As Object, ByRef EventName As String, ByRef p1 As Variant, ByRef p2 As Variant, ByRef P3 As Variant, ByRef P4 As Variant, ByRef P5 As Variant, ByRef P6 As Variant, ByRef P7 As Variant)
-   Dim netWorkName As String: netWorkName = vbNullString
-   Dim signalLevel As String: signalLevel = vbNullString
-   Dim noiseLevel As String: noiseLevel = vbNullString
+'   Dim netWorkName As String: netWorkName = vbNullString
+'   Dim signalLevel As String: signalLevel = vbNullString
+'   Dim noiseLevel As String: noiseLevel = vbNullString
    
     Dim stdMessage As String: stdMessage = vbNullString
-    Dim stdSubject As String: stdSubject = vbNullString
 '    Dim fileToPlay As String: fileToPlay = vbNullString
     
     On Error GoTo gaugeForm_BubblingEvent_Error
@@ -185,7 +184,7 @@ Private Sub gaugeForm_BubblingEvent(ByRef Sender As Object, ByRef EventName As S
     If Not Sender.Widget.Enabled Then Exit Sub   ' Sender is disabled and bubbling events will be ignored
     
     stdMessage = "Right Click to open the menu and the preferences. CTRL+ Mouse scrollwheel UP/DOWN to resize. "
-    stdSubject = "You can turn off the balloon tooltips in the preferences."
+    stdMessage = stdMessage & vbCrLf & "You can turn off the balloon tooltips in the preferences."
     
     ' set the balloon tooltips and perform other tasks onMouseMove, RC style tooltips are defined elsewhere
      If EventName = "W_MouseMove" Then
@@ -211,7 +210,7 @@ Private Sub gaugeForm_BubblingEvent(ByRef Sender As Object, ByRef EventName As S
                      TTIconInfo, gblWidgetName & " Help Button Help", , , , True
             Case Else
                 If gblGaugeTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "" & overlayWidget.thisCPUDetail _
-                    & vbCrLf & "Right Click to open the menu and the preferences. CTRL+ Mouse scrollwheel UP/DOWN to resize." _
+                    & vbCrLf & stdMessage _
                     , TTIconInfo, gblWidgetName & " Information.", , , , True
         End Select
     End If
@@ -772,19 +771,20 @@ End Sub
 '
 Private Sub gaugeForm_MouseWheel(ByVal MouseKeys As Long, ByVal Rotation As Long, ByVal Xpos As Single, ByVal Ypos As Single)
    Dim RotationDirection As Long: RotationDirection = 0
+   Dim thisRotation As Long: thisRotation = 0
    
    On Error GoTo gaugeForm_MouseWheel_Error
 
-    Rotation = Rotation / 2
+    thisRotation = Rotation / 2
 
     If gblScrollWheelDirection = "1" Then
-        If Rotation > 0 Then
-            RotationDirection = 0 - Abs(Rotation)
+        If thisRotation > 0 Then
+            RotationDirection = 0 - Abs(thisRotation)
         Else
-            RotationDirection = Abs(Rotation)
+            RotationDirection = Abs(thisRotation)
         End If
     Else
-        RotationDirection = Rotation
+        RotationDirection = thisRotation
     End If
     
    'If MouseKeys = 8 Then Call AdjustZoom(FZ + RotationDirection / 2400)
@@ -963,7 +963,7 @@ Private Sub convertImageXMLToRcWidgets()
 
     Dim W As cWidgetBase
 
-    Dim answer As VbMsgBoxResult
+    'Dim answer As VbMsgBoxResult
     Dim answerMsg  As String: answerMsg = vbNullString
 
     Dim num_results As Integer: num_results = 0
@@ -973,9 +973,9 @@ Private Sub convertImageXMLToRcWidgets()
     Dim sName As String: sName = vbNullString
     Dim sWidth As String: sWidth = vbNullString
     Dim sHeight As String: sHeight = vbNullString
-    Dim sHOffset As String: sHOffset = vbNullString
-    Dim sVOffset As String: sVOffset = vbNullString
-    Dim sOpacity As String: sOpacity = vbNullString
+'    Dim sHOffset As String: sHOffset = vbNullString
+'    Dim sVOffset As String: sVOffset = vbNullString
+'    Dim sOpacity As String: sOpacity = vbNullString
     Dim Width As Long: Width = 0
     Dim Height As Long: Height = 0
     Dim hOffset As Long: hOffset = 0
@@ -1022,7 +1022,7 @@ Private Sub convertImageXMLToRcWidgets()
     ' no results found, go on as normal using the sampling interval
     If num_results = 0 Then
         answerMsg = "1. There is a problem with the XML data file that describes the image, seems to contain no valid data"
-        answer = msgBoxA(answerMsg, vbOKOnly + vbExclamation, "XML Warning", True, "convertImageXMLToRcWidgetsPollingWarning")
+        msgBoxA answerMsg, vbOKOnly + vbExclamation, "XML Warning", True, "convertImageXMLToRcWidgetsPollingWarning"
         Exit Sub ' Return
     End If
 

@@ -565,7 +565,7 @@ Private Sub W_Paint(CC As vbRichClient5.cCairoContext, ByVal xAbs As Single, ByV
     Dim Pat As cCairoPattern
     Dim txtNoOfCores As String: txtNoOfCores = vbNullString
     Dim txtCPUPercent As String: txtCPUPercent = vbNullString
-    Dim textDrawn As Boolean:   textDrawn = False
+    'Dim textDrawn As Boolean:   textDrawn = False
     Dim someOpacity As Double: someOpacity = 0
     Dim cream As String: cream = vbNullString
     
@@ -602,7 +602,7 @@ Private Sub W_Paint(CC As vbRichClient5.cCairoContext, ByVal xAbs As Single, ByV
                      ' draw the date and day in the windows just once to retain opacity
                     CC.DrawText 265, 103, 200, 200, txtCPUPercent, , , 2, True, , someOpacity
                     CC.DrawText 461, 298, 200, 200, txtNoOfCores, , , 2, True, , someOpacity
-                    textDrawn = True
+                    'textDrawn = True
                     
                     Set Pat.Matrix = Pat.Matrix.TranslateCoords(11, 246) 'shift to the "rotation-point" within the Pattern
                     CC.TranslateDrawings W.Width * cxPerc, W.Height * cyPerc 'shift to the center-point of the Overlay-Widget-area
@@ -859,9 +859,11 @@ End Function
 ' Date: 21/01/2024
 ' ----------------------------------------------------------------
 Sub obtainCoreCPUPercent()
-    Dim strComputer$
-    Dim I&
-    Dim objWMIService As Object, colItems As Object, objItem As Object
+    Dim strComputer As String: strComputer = vbNullString
+    Dim I As Long: I = 0
+    Dim objWMIService As Object
+    Dim colItems As Object
+    Dim objItem As Object
     
     On Error GoTo obtainCoreCPUPercent_Error
 

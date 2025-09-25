@@ -299,7 +299,7 @@ Private Declare Function PathIsDirectory Lib "shlwapi" Alias "PathIsDirectoryA" 
  
 Public gblStartup As String
 Public gblGaugeFunctions As String
-Public gblSmoothSecondHand As String
+'Public gblSmoothSecondHand As String
 Public gblPointerAnimate As String
 Public gblMultiCoreEnable As String
 Public gblSamplingInterval As String
@@ -446,7 +446,7 @@ Public gblSHIFT_1 As Boolean
 ' other globals
 Public gblMinutesToHide As Integer
 Public gblAspectRatio As String
-Public gblOldSettingsModificationTime  As Date
+'Public gblOldSettingsModificationTime  As Date
 Public gblWindowLevelWasChanged As Boolean
 
 ' Flag for debug mode '.06 DAEB 19/04/2021 common.bas moved to the common area so that it can be used by each of the utilities
@@ -573,7 +573,7 @@ End Function
 '---------------------------------------------------------------------------------------
 '
 Public Sub showLicence(ByVal licenceState As Integer)
-    Dim slicence As String: slicence = "0"
+'    Dim slicence As String: slicence = "0"
     On Error GoTo showLicence_Error
     ''If gblDebugFlg = 1  Then DebugPrint "%" & "showLicence"
     
@@ -1766,7 +1766,7 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Public Sub getKeyPress(ByVal KeyCode As Integer, ByVal Shift As Integer)
-    Dim answer As VbMsgBoxResult: answer = vbNo
+    'Dim answer As VbMsgBoxResult: answer = vbNo
     Dim answerMsg As String: answerMsg = vbNullString
    
     On Error GoTo getkeypress_Error
@@ -1790,9 +1790,9 @@ Public Sub getKeyPress(ByVal KeyCode As Integer, ByVal Shift As Integer)
 
         Case 116 ' Performing a hard restart message box shift+F5
             If Shift = 1 Then
-                answer = vbYes
+                'answer = vbYes
                 answerMsg = "Performing a hard restart now, press OK."
-                answer = msgBoxA(answerMsg, vbExclamation + vbOK, "Performing a hard restart", True, "getKeypressHardRestart1")
+                msgBoxA answerMsg, vbExclamation + vbOK, "Performing a hard restart", True, "getKeypressHardRestart1"
                 Call hardRestart
             Else
                 Call reloadProgram 'f5 refresh button as per all browsers
@@ -2190,7 +2190,7 @@ End Sub
 Public Sub readPrefsPosition()
 
     'Dim prefsMonitorStruct As UDTMonitor
-    Dim prefsFormMonitorID As Long: prefsFormMonitorID = 0
+'    Dim prefsFormMonitorID As Long: prefsFormMonitorID = 0
             
     On Error GoTo readPrefsPosition_Error
 
@@ -2261,7 +2261,7 @@ End Sub
 '
 Public Sub writePrefsPositionAndSize()
      
-    Dim prefsFormMonitorID As Long: prefsFormMonitorID = 0
+'    Dim prefsFormMonitorID As Long: prefsFormMonitorID = 0
     
     On Error GoTo writePrefsPositionAndSize_Error
 
@@ -2467,7 +2467,7 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Public Sub hardRestart()
-    Dim answer As VbMsgBoxResult: answer = vbNo
+'    Dim answer As VbMsgBoxResult: answer = vbNo
     Dim answerMsg As String: answerMsg = vbNullString
     Dim thisCommand As String: thisCommand = vbNullString
     
@@ -2482,7 +2482,7 @@ Public Sub hardRestart()
     Else
         'answer = MsgBox(thisCommand & " is missing", vbOKOnly + vbExclamation)
         answerMsg = thisCommand & " is missing"
-        answer = msgBoxA(answerMsg, vbOKOnly + vbExclamation, "Restart Error Notification", False)
+        msgBoxA answerMsg, vbOKOnly + vbExclamation, "Restart Error Notification", False
     End If
 
    On Error GoTo 0

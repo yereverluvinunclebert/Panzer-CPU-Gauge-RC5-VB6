@@ -275,7 +275,7 @@ Private Sub loadPreferenceForm()
     If widgetPrefs.IsLoaded = False Then
         Load widgetPrefs
         gblPrefsFormResizedInCode = True
-        Call widgetPrefs.PrefsForm_Resize_Event
+        Call widgetPrefs.PrefsFormResizeEvent
     End If
 
    On Error GoTo 0
@@ -492,7 +492,7 @@ Private Sub initialiseGlobalVars()
     gblDebugFlg = 0
     gblMinutesToHide = 0
     gblAspectRatio = vbNullString
-    gblOldSettingsModificationTime = #1/1/2000 12:00:00 PM#
+'    gblOldSettingsModificationTime = #1/1/2000 12:00:00 PM#
     gblCodingEnvironment = vbNullString
     gblRichClientEnvironment = vbNullString
     
@@ -1125,7 +1125,7 @@ Private Sub configureTimers()
 
     On Error GoTo configureTimers_Error
     
-    gblOldSettingsModificationTime = FileDateTime(gblSettingsFile)
+'    gblOldSettingsModificationTime = FileDateTime(gblSettingsFile)
 
     frmTimer.tmrScreenResolution.Enabled = True
     frmTimer.unhideTimer.Enabled = True

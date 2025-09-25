@@ -29,8 +29,8 @@ Private Declare Sub GetSystemInfo Lib "kernel32" (lpSystemInfo As SYSTEM_INFO)
 
 ' PDH
 Private Const MAX_PATH As Integer = 260
-Private Const COUNTERPERF_PROCESSOR = 238
-Private Const COUNTERPERF_PERCENTPROCESSORTIME = 6
+Private Const COUNTERPERF_PROCESSOR As Long = 238
+Private Const COUNTERPERF_PERCENTPROCESSORTIME As Long = 6
 
 Private Type CounterInfo
     hCounter As Long
@@ -82,9 +82,9 @@ Public Function fInitializeCPU() As Boolean
     ' Add CPU counters
     Dim pdhStatus As PDH_STATUS
     Dim SysInfo As SYSTEM_INFO
-    Dim CPU_Obj As String
-    Dim hCounter As Long
-    Dim I As Integer
+    Dim CPU_Obj As String: CPU_Obj = vbNullString
+    Dim hCounter As Long: hCounter = 0
+    Dim I As Integer: I = 0
     
     ' get # of cpus (cores)
    On Error GoTo fInitializeCPU_Error
@@ -131,11 +131,10 @@ End Function
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Sub Update_Cpu_Usage(ByRef dblArray() As Double)
+Public Function Update_Cpu_Usage(ByRef dblArray() As Double) As Double()
     
-    ' // quary counters  //
     Dim pdhStatus As PDH_STATUS
-    Dim I As Integer
+    Dim I As Integer: I = 0
         
     ' Query Data
     On Error GoTo Update_Cpu_Usage_Error
@@ -146,15 +145,48 @@ Public Sub Update_Cpu_Usage(ByRef dblArray() As Double)
     For I = 0 To NumCores
         dblArray(I) = PdhVbGetDoubleCounterValue(Counters(I).hCounter, pdhStatus)
     Next
+    
+    Update_Cpu_Usage = dblArray()
 
    On Error GoTo 0
-   Exit Sub
+   Exit Function
 
 Update_Cpu_Usage_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Update_Cpu_Usage of Module ModCpuUsage"
 
-End Sub
+End Function
+
+''---------------------------------------------------------------------------------------
+'' Procedure : Update_Cpu_Usage
+'' Author    : EdgeMeal
+'' Date      : 31/05/2025
+'' Purpose   :
+''---------------------------------------------------------------------------------------
+''
+'Public Sub Update_Cpu_Usage(ByRef dblArray() As Double)
+'
+'    Dim pdhStatus As PDH_STATUS
+'    Dim I As Integer: I = 0
+'
+'    ' Query Data
+'    On Error GoTo Update_Cpu_Usage_Error
+'
+'    PdhCollectQueryData (hQuery)
+'
+'    ' get cpu usage per core, store in passed array
+'    For I = 0 To NumCores
+'        dblArray(I) = PdhVbGetDoubleCounterValue(Counters(I).hCounter, pdhStatus)
+'    Next
+'
+'   On Error GoTo 0
+'   Exit Sub
+'
+'Update_Cpu_Usage_Error:
+'
+'    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Update_Cpu_Usage of Module ModCpuUsage"
+'
+'End Sub
 
 '---------------------------------------------------------------------------------------
 ' Procedure : GetCPUCounter
@@ -166,8 +198,9 @@ End Sub
 Private Function GetCPUCounter(strInstance As String) As String
     ' // get Object & Counter names for CPU Usage //
     ' / Different languages of windows use different string names so we need a look-up! /
-    Dim NameLen As Long
-    Dim ObjectName As String, CounterName As String
+    Dim NameLen As Long: NameLen = 0
+    Dim ObjectName As String: ObjectName = vbNullString
+    Dim CounterName As String: CounterName = vbNullString
     
    On Error GoTo GetCPUCounter_Error
 

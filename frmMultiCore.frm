@@ -138,16 +138,16 @@ Private Sub Form_Load()
             lblProg(I).Font.Size = Val(gblPrefsFontSizeLowDPI)
             
             ProgBar(I).Max = 100
-            ProgBar(I).Top = ProgBar(I - 1).Top + ProgBar(I - 1).height + 15
+            ProgBar(I).Top = ProgBar(I - 1).Top + ProgBar(I - 1).Height + 15
             lblProg(I).Top = ProgBar(I).Top
             ProgBar(I).Visible = True
             lblProg(I).Visible = True
         Next I
         
-        frmMultiCore.height = ProgBar(I - 1).Top + 800 + 250
+        frmMultiCore.Height = ProgBar(I - 1).Top + 800 + 250
         
         ' initalize cpu usage
-        Update_Cpu_Usage dblCpuUsage()
+        dblCpuUsage = Update_Cpu_Usage(dblCpuUsage())
         
         ' start the main timer that displays cpu usage
         tmrMultiCore.Enabled = True

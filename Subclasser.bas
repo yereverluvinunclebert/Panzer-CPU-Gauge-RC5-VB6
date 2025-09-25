@@ -212,7 +212,7 @@ Private Function Form_Proc(ByVal hWnd As Long, ByVal uMsg As Long, ByVal wParam 
     If uMsg = WM_EXITSIZEMOVE Then     ' Mouse-Move.
         Set frm = ComObjectFromPtr(dwRefData)
         On Error Resume Next        ' Protect in case programmer forgot to put in procedure.
-            frm.Form_Moved frm.name
+            frm.FormMoved frm.name
         On Error GoTo 0
         Set frm = Nothing
     End If
