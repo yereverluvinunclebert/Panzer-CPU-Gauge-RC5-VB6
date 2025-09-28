@@ -38,43 +38,55 @@ DONE
 ' restarted timers on mouseUp
 ' add the test and error message for RC6 DLL registration
 
-All occurrences of PzG switched to gbl
-DPI switch moved to subroutine to tidy up
-preference load moved to subroutine to tidy up
-form resize event created for modification when subclassing in the future
-twinbasic message loop changes for TwinBasic
-glbcoding environment changes throughout for TwinBasic
-editor globals definition and usage throughout for TwinBasic
-addTargetFile source path empty then uses current app.path
-All TwinBasic changes implemented as per clock/calendar
-Tidy mainRoutine in modMain
+'    All occurrences of PzG switched to gbl
+'    DPI switch moved to subroutine to tidy up
+'    preference load moved to subroutine to tidy up
+'    form resize event created for modification when subclassing in the future
+'    twinbasic message loop changes for TwinBasic
+'    glbcoding environment changes throughout for TwinBasic
+'    editor globals definition and usage throughout for TwinBasic
+'    addTargetFile source path empty then uses current app.path
+'    All TwinBasic changes implemented as per clock/calendar
+'    Tidy mainRoutine in modMain
 
-Secondary, not necessary changes
+'    prefs subclassing for resize on WM_EXITMOVED
+'    Form_Resize
+'
+'    dual automatic monitor sizing changes
+'    prefs balloon tooltips on all controls
+'    resizing using subclassing
+'    github home menu link
 
-prefs subclassing for resize on WM_EXITMOVED
-form_resize
-
-dual automatic monitor sizing changes
-prefs balloon tooltips on all controls
-resizing using subclassing
-github home menu link
+' visual styles = false removed from labels and images
+' Gutter fixed
+' mz Tools code analysis
+' rubberduck
 
 ' -oOo-
 
 TODO
+====
 
-Gutter fixed
-removed manifest
+' test prefs form size on a first start, should be 0.5 on a screen that is bigger than the form height
+
+' create TB version
+
+' Test XP visual styles with a manifest
+
+ First, you’ll need to add this to your manifest file before embedding:  (lines are numbered to combat word wrap)
+
+    <dependency>
+    <dependentAssembly>
+    <assemblyIdentity language=”*” name=”Microsoft.Windows.Common-Controls” processorArchitecture=”X86" publicKeyToken=”6595b64144ccf1df” type=”win32" version=”6.0.0.0" />
+    </dependentAssembly>
+    </dependency>
+
+ Just tack it onto the end BEFORE the last line “</assembly>”
+
+ globals to properties? think, test and try
 
 ' help CHM
 ' setup2go create setup.exe
-
-visual styles = false removed from labels and images
-
-' rubberduck
-' mz Tools code analysis
-
-' create RC6 version
 
 ' https://www.vbforums.com/showthread.php?900892-VB6-Simple-way-to-make-your-VB6-application-quot-Per-Monitor-DPI-Aware-quot
 
@@ -83,8 +95,6 @@ visual styles = false removed from labels and images
 ' adjustFormPositionToCorrectMonitor - licence form
 ' adjustFormPositionToCorrectMonitor - about form
 ' adjustFormPositionToCorrectMonitor - help form
-
-' setup2go create setup.exe
 
 ' -oOo-
 
@@ -101,6 +111,8 @@ visual styles = false removed from labels and images
 
 ' patch a 256 bit icon into the VB6 binary
 ' https://www.vbforums.com/showthread.php?858347-RESOLVED-How-to-create-and-connect-quality-icon-group-to-your-VB6-app
+
+' create RC6 version
 
 ' RC BUGS & LIMITATIONS
 ' =====================

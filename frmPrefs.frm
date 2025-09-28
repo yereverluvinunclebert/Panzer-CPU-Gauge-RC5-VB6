@@ -2456,7 +2456,7 @@ Private Sub Form_Load()
     Call identifyPrefsPrimaryMonitor
     
     ' reverts TwinBasic form themeing to that of the earlier classic look and feel
-    #If TWINBASIC Then
+    #If TwinBasic Then
        Call setVisualStyles
     #End If
        
@@ -2682,7 +2682,7 @@ startPrefsTimers_Error:
 End Sub
     
 
-#If TWINBASIC Then
+#If TwinBasic Then
     '---------------------------------------------------------------------------------------
     ' Procedure : setVisualStyles
     ' Author    : beededea
@@ -3419,7 +3419,7 @@ Private Sub cmbDebug_Click()
         btnDefaultEditor.Enabled = False
         lblDebug(9).Enabled = False
     Else
-        #If TWINBASIC Then
+        #If TwinBasic Then
             txtDefaultEditor.Text = gblDefaultTBEditor
         #Else
             txtDefaultEditor.Text = gblDefaultVB6Editor
@@ -3793,7 +3793,7 @@ Private Sub positionPrefsFramesButtons()
             
     fraGeneralButton.BorderStyle = 1
     
-    #If TWINBASIC Then
+    #If TwinBasic Then
         fraGeneralButton.Refresh
     #End If
 
@@ -3939,7 +3939,7 @@ Private Sub btnSave_Click()
     gblDebug = CStr(cmbDebug.ListIndex)
     gblDblClickCommand = txtDblClickCommand.Text
     gblOpenFile = txtOpenFile.Text
-    #If TWINBASIC Then
+    #If TwinBasic Then
         gblDefaultTBEditor = txtDefaultEditor.Text
     #Else
         gblDefaultVB6Editor = txtDefaultEditor.Text
@@ -4354,7 +4354,7 @@ Private Sub adjustPrefsControls(Optional ByVal restartState As Boolean)
     cmbDebug.ListIndex = Val(gblDebug)
     txtDblClickCommand.Text = gblDblClickCommand
     txtOpenFile.Text = gblOpenFile
-    #If TWINBASIC Then
+    #If TwinBasic Then
         txtDefaultEditor.Text = gblDefaultTBEditor
     #Else
         txtDefaultEditor.Text = gblDefaultVB6Editor
@@ -4636,7 +4636,7 @@ Private Sub clearBorderStyle()
     fraSoundsButton.BorderStyle = 0
     fraAboutButton.BorderStyle = 0
     
-    #If TWINBASIC Then
+    #If TwinBasic Then
         fraGeneralButton.Refresh
         fraConfigButton.Refresh
         fraDevelopmentButton.Refresh
@@ -5850,7 +5850,7 @@ End Sub
 ' Date      : 14/08/2023
 ' Purpose   : due to a bug/difference with TwinBasic versus VB6
 '---------------------------------------------------------------------------------------
-#If TWINBASIC Then
+#If TwinBasic Then
     Private Sub imgAboutClicked_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
         Call picButtonMouseUpEvent("about", imgAbout, imgAboutClicked, fraAbout, fraAboutButton)
     End Sub
@@ -5860,7 +5860,7 @@ End Sub
     End Sub
 #End If
 
-#If TWINBASIC Then
+#If TwinBasic Then
     Private Sub imgDevelopmentClicked_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
         Call picButtonMouseUpEvent("development", imgDevelopment, imgDevelopmentClicked, fraDevelopment, fraDevelopmentButton)
     End Sub
@@ -5870,7 +5870,7 @@ End Sub
     End Sub
 #End If
 
-#If TWINBASIC Then
+#If TwinBasic Then
     Private Sub imgFontsClicked_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
         Call picButtonMouseUpEvent("fonts", imgFonts, imgFontsClicked, fraFonts, fraFontsButton)
     End Sub
@@ -5880,7 +5880,7 @@ End Sub
     End Sub
 #End If
 
-#If TWINBASIC Then
+#If TwinBasic Then
     Private Sub imgConfigClicked_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
         Call picButtonMouseUpEvent("config", imgConfig, imgConfigClicked, fraConfig, fraConfigButton) ' was imgConfigMouseUpEvent
     End Sub
@@ -5890,7 +5890,7 @@ End Sub
     End Sub
 #End If
 
-#If TWINBASIC Then
+#If TwinBasic Then
     Private Sub imgPositionClicked_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
         Call picButtonMouseUpEvent("position", imgPosition, imgPositionClicked, fraPosition, fraPositionButton)
     End Sub
@@ -5900,7 +5900,7 @@ End Sub
     End Sub
 #End If
 
-#If TWINBASIC Then
+#If TwinBasic Then
     Private Sub imgSoundsClicked_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
         Call picButtonMouseUpEvent("sounds", imgSounds, imgSoundsClicked, fraSounds, fraSoundsButton)
     End Sub
@@ -5910,7 +5910,7 @@ End Sub
     End Sub
 #End If
 
-#If TWINBASIC Then
+#If TwinBasic Then
     Private Sub imgWindowClicked_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
         Call picButtonMouseUpEvent("window", imgWindow, imgWindowClicked, fraWindow, fraWindowButton)
     End Sub
@@ -5920,7 +5920,7 @@ End Sub
     End Sub
 #End If
 
-#If TWINBASIC Then
+#If TwinBasic Then
     Private Sub imgGeneralClicked_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
         Call picButtonMouseUpEvent("general", imgGeneral, imgGeneralClicked, fraGeneral, fraGeneralButton) ' was imgGeneralMouseUpEvent
     End Sub
@@ -6499,7 +6499,7 @@ Private Sub picButtonMouseUpEvent(ByVal thisTabName As String, ByRef thisPicName
     
     thisFraButtonName.BorderStyle = 1
 
-    #If TWINBASIC Then
+    #If TwinBasic Then
         thisFraButtonName.Refresh
     #End If
 
@@ -7400,10 +7400,6 @@ setPrefsIconImagesLight_Error:
 
 End Sub
 
-
-
-
-
 '---------------------------------------------------------------------------------------
 ' Procedure : tmrPrefsMonitorSaveHeight_Timer
 ' Author    : beededea
@@ -7437,8 +7433,6 @@ tmrPrefsMonitorSaveHeight_Timer_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure tmrPrefsMonitorSaveHeight_Timer of Form widgetPrefs"
 
 End Sub
-
-
 
 
 
