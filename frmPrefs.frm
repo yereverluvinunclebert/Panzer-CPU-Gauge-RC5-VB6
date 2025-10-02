@@ -2186,7 +2186,7 @@ Private Sub chkMultiCoreEnable_Click()
 
     If pvtPrefsStartupFlg = True Then Exit Sub
     
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     
     If chkMultiCoreEnable.Value = 1 Then
         frmMultiCore.Show
@@ -2219,7 +2219,7 @@ Private Sub optGaugeTooltips_Click(Index As Integer)
     Dim answerMsg As String: answerMsg = vbNullString
     On Error GoTo optGaugeTooltips_Click_Error
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
     If pvtPrefsStartupFlg = False Then
         gblGaugeTooltips = CStr(Index)
@@ -2262,7 +2262,7 @@ End Sub
 Private Sub chkGaugeFunctions_Click()
     On Error GoTo chkGaugeFunctions_Click_Error
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     overlayWidget.Ticking = chkGaugeFunctions.Value
     
     If chkGaugeFunctions.Value = 0 Then
@@ -2284,7 +2284,7 @@ End Sub
 
 
 Private Sub cmbTickSwitchPref_Click()
-   btnSave.Enabled = True ' enable the save button
+   If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 End Sub
 
 '---------------------------------------------------------------------------------------
@@ -2300,7 +2300,7 @@ Private Sub optPrefsTooltips_Click(Index As Integer)
 
     If pvtPrefsStartupFlg = False Then
     
-        btnSave.Enabled = True ' enable the save button
+        If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
         gblPrefsTooltips = CStr(Index)
         optPrefsTooltips(0).Tag = CStr(Index)
         optPrefsTooltips(1).Tag = CStr(Index)
@@ -2332,7 +2332,7 @@ End Sub
 Private Sub cmbMultiMonitorResize_Click()
    On Error GoTo cmbMultiMonitorResize_Click_Error
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     
     If pvtPrefsStartupFlg = True Then Exit Sub
     
@@ -2362,7 +2362,7 @@ End Sub
 Private Sub chkShowHelp_Click()
    On Error GoTo chkShowHelp_Click_Error
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     If chkShowHelp.Value = 1 Then
         gblShowHelp = "1"
     Else
@@ -2438,9 +2438,6 @@ Private Sub Form_Load()
     
     ' set form resizing
     Call setFormResizingVars
-    
-    ' note the monitor primary at the preferences form_load and store as gblOldgaugeFormMonitorPrimary
-    Call identifyPrefsPrimaryMonitor
     
     ' reverts TwinBasic form themeing to that of the earlier classic look and feel
     #If TwinBasic Then
@@ -2711,7 +2708,7 @@ Private Sub subClassControls()
     
    On Error GoTo subClassControls_Error
 
-    If InIDE Then
+    If InIDE And gblReload = False Then
         MsgBox "NOTE: Running in IDE so Sub classing is disabled" & vbCrLf & "Mousewheel will not scroll icon maps and balloon tooltips will not display on comboboxes" & vbCrLf & vbCrLf & _
             "In addition, the display screen will not show messages as it currently crashes when run within the IDE."
     Else
@@ -2875,9 +2872,11 @@ Public Sub positionPrefsMonitor()
         widgetPrefs.Top = gblVirtualScreenHeightTwips - 2500
     End If
     
-    
     ' if just one monitor or the global switch is off then exit
     If gblMonitorCount > 1 And LTrim$(gblMultiMonitorResize) = "2" Then
+    
+        ' note the monitor primary at the preferences form_load and store as gblOldgaugeFormMonitorPrimary
+        Call identifyPrefsPrimaryMonitor
 
         If prefsMonitorStruct.IsPrimary = True Then
             gblPrefsFormResizedInCode = True
@@ -2924,7 +2923,7 @@ Private Sub chkDpiAwareness_Click()
 
     On Error GoTo chkDpiAwareness_Click_Error
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     If pvtPrefsStartupFlg = False Then ' don't run this on startup
                     
         answer = vbYes
@@ -2979,7 +2978,7 @@ Private Sub chkShowTaskbar_Click()
 
    On Error GoTo chkShowTaskbar_Click_Error
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     If chkShowTaskbar.Value = 1 Then
         gblShowTaskbar = "1"
     Else
@@ -3176,7 +3175,7 @@ End Sub
 Private Sub chkGenStartup_Click()
     On Error GoTo chkGenStartup_Click_Error
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
     On Error GoTo 0
     Exit Sub
@@ -3256,7 +3255,7 @@ Private Sub chkIgnoreMouse_Click()
         gblIgnoreMouse = "1"
     End If
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
    On Error GoTo 0
    Exit Sub
@@ -3276,7 +3275,7 @@ End Sub
 Private Sub chkPreventDragging_Click()
     On Error GoTo chkPreventDragging_Click_Error
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     ' immediately make the widget locked in place
     If chkPreventDragging.Value = 0 Then
         overlayWidget.Locked = False
@@ -3345,7 +3344,7 @@ Private Sub chkWidgetHidden_Click()
     
     sPutINISetting "Software\PzCPUGauge", "widgetHidden", gblWidgetHidden, gblSettingsFile
     
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
    On Error GoTo 0
    Exit Sub
@@ -3378,7 +3377,7 @@ Private Sub cmbAspectHidden_Click()
         fGauge.gaugeForm.Visible = True
     End If
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
    On Error GoTo 0
    Exit Sub
@@ -3398,7 +3397,7 @@ End Sub
 Private Sub cmbDebug_Click()
     On Error GoTo cmbDebug_Click_Error
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     If cmbDebug.ListIndex = 0 Then
         txtDefaultEditor.Text = "eg. E:\vb6\Panzer-CPU-Gauge-VB6MkII\Panzer-CPU-Gauge-VB6.vbp"
         txtDefaultEditor.Enabled = False
@@ -3443,7 +3442,7 @@ End Sub
 Private Sub cmbHidingTime_Click()
    On Error GoTo cmbHidingTime_Click_Error
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
    On Error GoTo 0
    Exit Sub
@@ -3463,7 +3462,7 @@ End Sub
 Private Sub cmbScrollWheelDirection_Click()
    On Error GoTo cmbScrollWheelDirection_Click_Error
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     'overlayWidget.ZoomDirection = cmbScrollWheelDirection.List(cmbScrollWheelDirection.ListIndex)
 
    On Error GoTo 0
@@ -3486,7 +3485,7 @@ End Sub
 Private Sub cmbWidgetLandscape_Click()
    On Error GoTo cmbWidgetLandscape_Click_Error
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
    On Error GoTo 0
    Exit Sub
@@ -3506,7 +3505,7 @@ End Sub
 Private Sub cmbWidgetPortrait_Click()
    On Error GoTo cmbWidgetPortrait_Click_Error
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
    On Error GoTo 0
    Exit Sub
@@ -3526,7 +3525,7 @@ End Sub
 Private Sub cmbWidgetPosition_Click()
     On Error GoTo cmbWidgetPosition_Click_Error
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     If cmbWidgetPosition.ListIndex = 1 Then
         cmbWidgetLandscape.ListIndex = 0
         cmbWidgetPortrait.ListIndex = 0
@@ -4094,7 +4093,7 @@ End Sub
 Private Sub chkEnableSounds_Click()
    On Error GoTo chkEnableSounds_Click_Error
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
    On Error GoTo 0
    Exit Sub
@@ -4115,7 +4114,7 @@ End Sub
 ' ----------------------------------------------------------------
 Private Sub cmbWindowLevel_Click()
     On Error GoTo cmbWindowLevel_Click_Error
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     If pvtPrefsStartupFlg = False Then gblWindowLevelWasChanged = True
     
     On Error GoTo 0
@@ -4146,7 +4145,7 @@ Private Sub btnPrefsFont_Click()
     
     On Error GoTo btnPrefsFont_Click_Error
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     
     ' set the preliminary vars to feed and populate the changefont routine
     fntFont = gblPrefsFont
@@ -4228,7 +4227,7 @@ Private Sub btnDisplayScreenFont_Click()
     
     On Error GoTo btnDisplayScreenFont_Click_Error
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     
     ' set the preliminary vars to feed and populate the changefont routine
     fntFont = gblDisplayScreenFont
@@ -4667,8 +4666,12 @@ Private Sub Form_Resize()
         
     If InIDE Or gblPrefsFormResizedInCode = True Then
         Call PrefsFormResizeEvent
+        If gblPrefsFormResizedInCode = True Then Exit Sub
     End If
-            
+    
+    ' when resizing the form enable the save button to allow the recently set width/height to be saved.
+    If gblMonitorCount > 1 And Val(gblMultiMonitorResize) > 0 And widgetPrefs.IsVisible = True Then btnSave.Enabled = True
+    
     On Error GoTo 0
     Exit Sub
 
@@ -4733,9 +4736,6 @@ Public Sub PrefsFormResizeEvent()
     
     gblPrefsFormResizedInCode = False
     pvtPrefsFormResizedByDrag = False
-    
-    ' when resizing the form enable the save button to allow the recently set width/height to be saved.
-    If gblMonitorCount > 1 And Val(gblMultiMonitorResize) > 0 Then widgetPrefs.btnSave = True
 
    On Error GoTo 0
    Exit Sub
@@ -5080,7 +5080,7 @@ End Sub
 ' ----------------------------------------------------------------
 Private Sub sliSamplingInterval_Click()
     On Error GoTo sliSamplingInterval_Click_Error
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
  
     If pvtPrefsStartupFlg = False Then
@@ -5954,7 +5954,7 @@ Private Sub sliOpacity_Click()
     
     On Error GoTo sliOpacity_Change_Error
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
     If pvtPrefsStartupFlg = False Then
         gblOpacity = CStr(sliOpacity.Value)
@@ -5993,7 +5993,7 @@ End Sub
 Private Sub sliOpacity_Change()
    On Error GoTo sliOpacity_Change_Error
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
    On Error GoTo 0
    Exit Sub
@@ -6013,7 +6013,7 @@ End Sub
 Public Sub sliGaugeSize_Change()
     On Error GoTo sliGaugeSize_Change_Error
 
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     
     'If pvtAllowSizeChangeFlg = True Then Call fGauge.AdjustZoom(sliGaugeSize.Value / 100)
     If pvtAllowSizeChangeFlg = True Then Me.GaugeSize = sliGaugeSize.Value / 100
@@ -6073,38 +6073,38 @@ End Property
 
 
 Private Sub txtDblClickCommand_Change()
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
 End Sub
 
 Private Sub txtDefaultEditor_Change()
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
 End Sub
 
 Private Sub txtLandscapeHoffset_Change()
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
 End Sub
 
 Private Sub txtLandscapeVoffset_Change()
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 End Sub
 Private Sub txtOpenFile_Change()
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 End Sub
 
 Private Sub txtPortraitHoffset_Change()
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 End Sub
 
 Private Sub txtPortraitYoffset_Change()
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
 End Sub
 
 Private Sub txtPrefsFont_Change()
-    btnSave.Enabled = True ' enable the save button
+    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 End Sub
 
 

@@ -189,12 +189,6 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     ' make the busy sand timer invisible
     Call hideBusyTimer
     
-    ' start the main gauge timer passing the desired status to a public property within the class
-    'overlayWidget.TmrGaugeTicking = True
-    
-    ' end the startup by un-setting the start global flag
-    gblStartupFlg = False
-        
     ' RC message pump will auto-exit when Cairo Forms > 0 so we run it only when 0, this prevents message interruption
     ' when running twice on reload. Do not move this line.
     #If TwinBasic Then
@@ -203,6 +197,10 @@ Public Sub mainRoutine(ByVal restart As Boolean)
         If restart = False Then Cairo.WidgetForms.EnterMessageLoop
     #End If
         
+    ' end the startup by un-setting the start global flag
+    gblStartupFlg = False
+    gblReload = False
+                
     ' note: the final act in startup is the form_resize_event that is triggered by the subclassed WM_EXITSIZEMOVE when the form is finally revealed
      
    On Error GoTo 0

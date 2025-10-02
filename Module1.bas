@@ -464,6 +464,7 @@ Public gblOldgaugeFormMonitorPrimary As Long
 Public gblPrefsFormResizedInCode As Boolean
 
 Public gblFGaugeAvailable As Boolean
+Public gblReload As Boolean
 
 Public gblCodingEnvironment As String
 Public gblRichClientEnvironment As String
@@ -2049,6 +2050,7 @@ Public Sub reloadProgram()
     'fGauge.ShowHelp = False ' needs to be set to false for the reload to reshow it, if enabled
     
     gblFGaugeAvailable = False ' tell the ' screenWrite util that the gaugeForm is no longer available to write console events to
+    gblReload = True
     
     'Erase gblTerminalRows ' remove the old text stored in the display screen array
     
@@ -2167,7 +2169,9 @@ Public Sub makeProgramPreferencesAvailable()
     Else
         widgetPrefs.SetFocus
     End If
-
+    
+    widgetPrefs.btnSave.Enabled = False
+    
    On Error GoTo 0
    Exit Sub
 
@@ -2192,8 +2196,8 @@ Public Sub readPrefsPosition()
     On Error GoTo readPrefsPosition_Error
 
     If gblDpiAwareness = "1" Then
-        gblPrefsHighDpiXPosTwips = fGetINISetting("Software\PzCPUGauge", "formHighDpiXPosTwips", gblSettingsFile)
-        gblPrefsHighDpiYPosTwips = fGetINISetting("Software\PzCPUGauge", "formHighDpiYPosTwips", gblSettingsFile)
+        gblPrefsHighDpiXPosTwips = fGetINISetting("Software\PzCPUGauge", "prefsHighDpiXPosTwips", gblSettingsFile)
+        gblPrefsHighDpiYPosTwips = fGetINISetting("Software\PzCPUGauge", "prefsHighDpiYPosTwips", gblSettingsFile)
         
         ' if a current location not stored then position to the middle of the screen
         If gblPrefsHighDpiXPosTwips <> "" Then
@@ -2213,8 +2217,8 @@ Public Sub readPrefsPosition()
         gblPrefsHighDpiYPosTwips = widgetPrefs.Top
         
     Else
-        gblPrefsLowDpiXPosTwips = fGetINISetting("Software\PzCPUGauge", "formLowDpiXPosTwips", gblSettingsFile)
-        gblPrefsLowDpiYPosTwips = fGetINISetting("Software\PzCPUGauge", "formLowDpiYPosTwips", gblSettingsFile)
+        gblPrefsLowDpiXPosTwips = fGetINISetting("Software\PzCPUGauge", "prefsLowDpiXPosTwips", gblSettingsFile)
+        gblPrefsLowDpiYPosTwips = fGetINISetting("Software\PzCPUGauge", "prefsLowDpiYPosTwips", gblSettingsFile)
               
         ' if a current location not stored then position to the middle of the screen
         If gblPrefsLowDpiXPosTwips <> "" Then
@@ -2274,15 +2278,15 @@ Public Sub writePrefsPositionAndSize()
             gblPrefsHighDpiYPosTwips = CStr(widgetPrefs.Top)
             
             ' now write those params to the toolSettings.ini
-            sPutINISetting "Software\PzCPUGauge", "formHighDpiXPosTwips", gblPrefsHighDpiXPosTwips, gblSettingsFile
-            sPutINISetting "Software\PzCPUGauge", "formHighDpiYPosTwips", gblPrefsHighDpiYPosTwips, gblSettingsFile
+            sPutINISetting "Software\PzCPUGauge", "prefsHighDpiXPosTwips", gblPrefsHighDpiXPosTwips, gblSettingsFile
+            sPutINISetting "Software\PzCPUGauge", "prefsHighDpiYPosTwips", gblPrefsHighDpiYPosTwips, gblSettingsFile
         Else
             gblPrefsLowDpiXPosTwips = CStr(widgetPrefs.Left)
             gblPrefsLowDpiYPosTwips = CStr(widgetPrefs.Top)
             
             ' now write those params to the toolSettings.ini
-            sPutINISetting "Software\PzCPUGauge", "formLowDpiXPosTwips", gblPrefsLowDpiXPosTwips, gblSettingsFile
-            sPutINISetting "Software\PzCPUGauge", "formLowDpiYPosTwips", gblPrefsLowDpiYPosTwips, gblSettingsFile
+            sPutINISetting "Software\PzCPUGauge", "prefsLowDpiXPosTwips", gblPrefsLowDpiXPosTwips, gblSettingsFile
+            sPutINISetting "Software\PzCPUGauge", "prefsLowDpiYPosTwips", gblPrefsLowDpiYPosTwips, gblSettingsFile
             
         End If
 

@@ -218,9 +218,8 @@ Private Function Form_Proc(ByVal hWnd As Long, ByVal uMsg As Long, ByVal wParam 
         Set frm = Nothing
     End If
     
-'    If uMsg = WM_DPICHANGED Then
+'    If uMsg = WM_WINDOWPOSCHANGED Then
 '        MsgBox "crossing"
-'
 '    End If
     
     ' If we fell out, just proceed as normal.
