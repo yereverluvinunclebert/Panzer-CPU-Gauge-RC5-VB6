@@ -62,43 +62,22 @@ DONE
 ' mz Tools code analysis
 ' rubberduck
 
+' fixed the zoom proportion to use the tenshillings widget zoom and not the widgetroot zoom factor
+' prefs calls new sub for saving the current ratios for the RC form and the absolute sizes for the Prefs form
+' saves the current ratios for the RC form when resizing using mousewheel
+' removed unwanted positioning code
+' renamed some subs to better suit their function
+
 ' -oOo-
 
 TODO
 ====
 
-' test prefs form size on a first start, should be 0.5 on a screen that is bigger than the form height
+' test running slowly
 
-' create TB version
+' globals to properties? think, test and try
 
-' Test XP visual styles with a manifest
-
- First, you’ll need to add this to your manifest file before embedding:  (lines are numbered to combat word wrap)
-
-    <dependency>
-    <dependentAssembly>
-    <assemblyIdentity language=”*” name=”Microsoft.Windows.Common-Controls” processorArchitecture=”X86" publicKeyToken=”6595b64144ccf1df” type=”win32" version=”6.0.0.0" />
-    </dependentAssembly>
-    </dependency>
-
- Just tack it onto the end BEFORE the last line “</assembly>”
-
- globals to properties? think, test and try
-
-' help CHM
-' setup2go create setup.exe
-
-' https://www.vbforums.com/showthread.php?900892-VB6-Simple-way-to-make-your-VB6-application-quot-Per-Monitor-DPI-Aware-quot
-
-' adjustFormPositionToCorrectMonitor, make it work and observe the result as per FCW - wip
-' adjustFormPositionToCorrectMonitor - prefs form
-' adjustFormPositionToCorrectMonitor - licence form
-' adjustFormPositionToCorrectMonitor - about form
-' adjustFormPositionToCorrectMonitor - help form
-
-' -oOo-
-
-' Later tasks after testing
+' enable save button after a prefs form resize
 
 ' test the icon sizes on 32bit Win7, XP and ReactOS, find out if 48x48 causes a crash
 ' 32x32 (24 bit)
@@ -107,18 +86,17 @@ TODO
 ' 32x32 (32 bit)
 ' 16x16 (32 bit)
 
-' test on ReactOS
-
 ' patch a 256 bit icon into the VB6 binary
 ' https://www.vbforums.com/showthread.php?858347-RESOLVED-How-to-create-and-connect-quality-icon-group-to-your-VB6-app
 
+' windevlib                                   
+
+' test on 32bit win 7
+' test on XP
+' test on ReactOS
+'
 ' create RC6 version
 
-' RC BUGS & LIMITATIONS
-' =====================
-
-' tooltips also resize when the whole thing is resized, code received from Olaf tested - resizing results in missing text and blank tooltips, using non-standard font centurion light
-' RC6 needs a static tooltip option.
 
 
 

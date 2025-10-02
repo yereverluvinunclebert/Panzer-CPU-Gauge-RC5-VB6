@@ -704,7 +704,7 @@ Private Sub gaugeForm_MouseUp(ByRef Button As Integer, ByRef Shift As Integer, B
     ' save the form x,y position whenever the globe/form is dragged
     Call saveMainRCFormPosition
 
-    Call positionRCFormByMonitorSize
+    Call resizeLocateRCFormByMoveToNewMonitor
     
     On Error GoTo 0
     Exit Sub
@@ -787,8 +787,14 @@ Private Sub gaugeForm_MouseWheel(ByVal MouseKeys As Long, ByVal Rotation As Long
         RotationDirection = thisRotation
     End If
     
-   'If MouseKeys = 8 Then Call AdjustZoom(FZ + RotationDirection / 2400)
-   If MouseKeys = 8 Then widgetPrefs.GaugeSize = (FZ + RotationDirection / 2400) 'change the Zoom only, when the Ctrl-Key is down
+    'If MouseKeys = 8 Then Call AdjustZoom(FZ + RotationDirection / 2400)
+    If MouseKeys = 8 Then
+        widgetPrefs.GaugeSize = (FZ + RotationDirection / 2400) 'change the Zoom only, when the Ctrl-Key is down
+        
+        ' saves the current ratios for the RC form
+        Call saveRCFormCurrentSizeRatios
+        
+    End If
 
    On Error GoTo 0
    Exit Sub

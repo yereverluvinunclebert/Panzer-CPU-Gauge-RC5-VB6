@@ -94,7 +94,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     extractCommand = Command$ ' capture any parameter passed, remove if a soft reload
     If restart = True Then extractCommand = vbNullString
     
-    #If TWINBASIC Then
+    #If TwinBasic Then
         gblCodingEnvironment = "TwinBasic"
     #Else
         gblCodingEnvironment = "VB6"
@@ -197,7 +197,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
         
     ' RC message pump will auto-exit when Cairo Forms > 0 so we run it only when 0, this prevents message interruption
     ' when running twice on reload. Do not move this line.
-    #If TWINBASIC Then
+    #If TwinBasic Then
         Cairo.WidgetForms.EnterMessageLoop
     #Else
         If restart = False Then Cairo.WidgetForms.EnterMessageLoop
@@ -588,7 +588,7 @@ Public Sub adjustMainControls(Optional ByVal licenceState As Integer)
     Call validateInputs
     
     ' initial call just to obtain initial physical screen monitor ID
-    Call positionRCFormByMonitorSize
+    Call resizeLocateRCFormByMoveToNewMonitor
         
     ' if the licenstate is 0 then the program is running for the first time, so pre-size the form to fit larger screens
     If licenceState = 0 Then
@@ -620,7 +620,7 @@ Public Sub adjustMainControls(Optional ByVal licenceState As Integer)
     End If
     
     If gblDebug = "1" Then
-        #If TWINBASIC Then
+        #If TwinBasic Then
             If gblDefaultTBEditor <> vbNullString Then thisEditor = gblDefaultTBEditor
         #Else
             If gblDefaultVB6Editor <> vbNullString Then thisEditor = gblDefaultVB6Editor
@@ -652,7 +652,7 @@ Public Sub adjustMainControls(Optional ByVal licenceState As Integer)
     End If
     
     If gblDebug = "1" Then
-        #If TWINBASIC Then
+        #If TwinBasic Then
             If gblDefaultTBEditor <> vbNullString Then thisEditor = gblDefaultTBEditor
         #Else
             If gblDefaultVB6Editor <> vbNullString Then thisEditor = gblDefaultVB6Editor

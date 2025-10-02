@@ -2338,21 +2338,8 @@ Private Sub cmbMultiMonitorResize_Click()
     
     gblMultiMonitorResize = CStr(cmbMultiMonitorResize.ListIndex)
     
-    If cmbMultiMonitorResize.ListIndex = 2 Then
-        If prefsMonitorStruct.IsPrimary = True Then
-            gblGaugePrimaryHeightRatio = fGauge.gaugeForm.WidgetRoot.Zoom
-            sPutINISetting "Software\PzCPUGauge", "gaugePrimaryHeightRatio", gblGaugePrimaryHeightRatio, gblSettingsFile
-            
-            'gblPrefsPrimaryHeightTwips = Trim$(cstr(widgetPrefs.Height))
-            sPutINISetting "Software\PzCPUGauge", "prefsPrimaryHeightTwips", gblPrefsPrimaryHeightTwips, gblSettingsFile
-        Else
-            gblGaugeSecondaryHeightRatio = fGauge.gaugeForm.WidgetRoot.Zoom
-            sPutINISetting "Software\PzCPUGauge", "gaugeSecondaryHeightRatio", gblGaugeSecondaryHeightRatio, gblSettingsFile
-            
-            'gblPrefsSecondaryHeightTwips = Trim$(cstr(widgetPrefs.Height))
-            sPutINISetting "Software\PzCPUGauge", "prefsSecondaryHeightTwips", gblPrefsSecondaryHeightTwips, gblSettingsFile
-        End If
-    End If
+    ' saves the current ratios for the RC form and the absolute sizes for the Prefs form
+    Call saveMainFormsCurrentSizeAndRatios
 
    On Error GoTo 0
    Exit Sub
@@ -4068,13 +4055,17 @@ Private Sub btnSave_Click()
                        
     End If
     
+    ' saves the current ratios for the RC form and the absolute sizes for the Prefs form
+    Call saveMainFormsCurrentSizeAndRatios
+    
     ' set the tooltips on the prefs screen
     Call setPrefsTooltips
 
     ' sets the characteristics of the gauge and menus immediately after saving
     Call adjustMainControls(1)
     
-    Me.SetFocus
+    If widgetPrefs.IsVisible Then Me.SetFocus
+    
     btnSave.Enabled = False ' disable the save button showing it has successfully saved
     
     ' reload here if the gblWindowLevel Was Changed
@@ -4742,6 +4733,9 @@ Public Sub PrefsFormResizeEvent()
     
     gblPrefsFormResizedInCode = False
     pvtPrefsFormResizedByDrag = False
+    
+    ' when resizing the form enable the save button to allow the recently set width/height to be saved.
+    If gblMonitorCount > 1 And Val(gblMultiMonitorResize) > 0 Then widgetPrefs.btnSave = True
 
    On Error GoTo 0
    Exit Sub

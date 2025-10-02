@@ -198,6 +198,7 @@ Private Function Form_Proc(ByVal hWnd As Long, ByVal uMsg As Long, ByVal wParam 
     Const WM_DESTROY            As Long = &H2&  ' All other needed constants are declared within the procedures.
     'Const WM_MOVE               As Long = &H3  ' called all during any form move
     Const WM_EXITSIZEMOVE       As Long = &H232 ' called only when all movement is completed
+    Const WM_DPICHANGED As Long = &H2E0
     
     Dim frm As Object
     
@@ -217,7 +218,11 @@ Private Function Form_Proc(ByVal hWnd As Long, ByVal uMsg As Long, ByVal wParam 
         Set frm = Nothing
     End If
     
-    '
+'    If uMsg = WM_DPICHANGED Then
+'        MsgBox "crossing"
+'
+'    End If
+    
     ' If we fell out, just proceed as normal.
     Form_Proc = NextSubclassProcOnChain(hWnd, uMsg, wParam, lParam)
 

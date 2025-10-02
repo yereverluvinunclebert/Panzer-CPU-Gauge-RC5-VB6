@@ -605,9 +605,6 @@ End Sub
 Public Sub setDPIaware()
     On Error GoTo setDPIaware_Error
     
-'    Cairo.SetDPIAwareness ' for debugging
-'    gblMsgBoxADynamicSizingFlg = True
-    
     If gblDpiAwareness = "1" Then
         If Not InIDE Then
             Cairo.SetDPIAwareness ' this way avoids the VB6 IDE shrinking (sadly, VB6 has a high DPI unaware IDE)
@@ -2704,5 +2701,67 @@ hideBusyTimer_Error:
 End Sub
 
 
+'---------------------------------------------------------------------------------------
+' Procedure : saveRCFormCurrentSizeRatios
+' Author    : beededea
+' Date      : 01/10/2025
+' Purpose   : saves the current ratios for the RC form alone
+'---------------------------------------------------------------------------------------
+'
+Public Sub saveRCFormCurrentSizeRatios()
+    Dim resizeProportion As Double: resizeProportion = 0
 
+    On Error GoTo saveRCFormCurrentSizeRatios_Error
+
+    If LTrim$(gblMultiMonitorResize) = "2" Then
+        If gaugeMonitorStruct.IsPrimary Then
+            gblGaugePrimaryHeightRatio = fGauge.gaugeForm.WidgetRoot.Zoom
+            sPutINISetting "Software\PzCPUGauge", "gaugePrimaryHeightRatio", gblGaugePrimaryHeightRatio, gblSettingsFile
+        Else
+            gblGaugeSecondaryHeightRatio = fGauge.gaugeForm.WidgetRoot.Zoom
+            sPutINISetting "Software\PzCPUGauge", "gaugeSecondaryHeightRatio", gblGaugeSecondaryHeightRatio, gblSettingsFile
+        End If
+    End If
+
+    On Error GoTo 0
+    Exit Sub
+
+saveRCFormCurrentSizeRatios_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure saveRCFormCurrentSizeRatios of Form widgetPrefs"
+    
+End Sub
+
+'---------------------------------------------------------------------------------------
+' Procedure : saveMainFormsCurrentSizeAndRatios
+' Author    : beededea
+' Date      : 01/10/2025
+' Purpose   : saves the current ratios for the RC form and the absolute sizes for the Prefs form
+'---------------------------------------------------------------------------------------
+'
+Public Sub saveMainFormsCurrentSizeAndRatios()
+
+    On Error GoTo saveMainFormsCurrentSizeAndRatios_Error
+
+    If LTrim$(gblMultiMonitorResize) = "2" Then
+    
+        '  saves the current ratios for the RC form alone
+        Call saveRCFormCurrentSizeRatios
+        
+        ' now save the prefs form absolute sizes
+        If prefsMonitorStruct.IsPrimary = True Then
+            sPutINISetting "Software\PzCPUGauge", "prefsPrimaryHeightTwips", gblPrefsPrimaryHeightTwips, gblSettingsFile
+        Else
+            sPutINISetting "Software\PzCPUGauge", "prefsSecondaryHeightTwips", gblPrefsSecondaryHeightTwips, gblSettingsFile
+        End If
+    End If
+
+    On Error GoTo 0
+    Exit Sub
+
+saveMainFormsCurrentSizeAndRatios_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure saveMainFormsCurrentSizeAndRatios of Form widgetPrefs"
+    
+End Sub
 

@@ -631,14 +631,14 @@ End Function
 
 
 '---------------------------------------------------------------------------------------
-' Procedure : positionRCFormByMonitorSize
+' Procedure : resizeLocateRCFormByMoveToNewMonitor
 ' Author    : beededea
 ' Date      : 20/08/2024
 ' Purpose   : at startup obtains monitor ID and characteristics
 '             in addition, if there is more than one screen, size the form by a ratio according to the form's physical monitor properties
 '---------------------------------------------------------------------------------------
 '
-Public Sub positionRCFormByMonitorSize()
+Public Sub resizeLocateRCFormByMoveToNewMonitor()
     
     Static oldMonitorStructWidthTwips As Long
     Static oldMonitorStructHeightTwips As Long
@@ -651,7 +651,7 @@ Public Sub positionRCFormByMonitorSize()
     Dim monitorStructHeightTwips As Long: monitorStructHeightTwips = 0
     Dim resizeProportion As Double: resizeProportion = 0
 
-    On Error GoTo positionRCFormByMonitorSize_Error
+    On Error GoTo resizeLocateRCFormByMoveToNewMonitor_Error
   
     If gblMonitorCount > 1 And (LTrim$(gblMultiMonitorResize) = "1" Or LTrim$(gblMultiMonitorResize) = "2") Then
                     
@@ -687,9 +687,9 @@ Public Sub positionRCFormByMonitorSize()
                     
                     'if  dragging from right to left then reposition
                     If fGauge.gaugeForm.Left > oldGaugeLeftPixels Then
-                        fGauge.gaugeForm.Left = fGauge.gaugeForm.Left + fGauge.gaugeForm.Widgets("maincasingsurround").Widget.Left
+                        fGauge.gaugeForm.Left = fGauge.gaugeForm.Left + fGauge.gaugeForm.Widgets("surround").Widget.Left
                     Else
-                        fGauge.gaugeForm.Left = fGauge.gaugeForm.Left - fGauge.gaugeForm.Widgets("maincasingsurround").Widget.Left
+                        fGauge.gaugeForm.Left = fGauge.gaugeForm.Left - fGauge.gaugeForm.Widgets("surround").Widget.Left
                     End If
                     fGauge.gaugeForm.Refresh
                     Call fGauge.AdjustZoom(resizeProportion)
@@ -707,9 +707,9 @@ Public Sub positionRCFormByMonitorSize()
                                     
                 'if  dragging from right to left then reposition
                 If fGauge.gaugeForm.Left > oldGaugeLeftPixels Then
-                    fGauge.gaugeForm.Left = fGauge.gaugeForm.Left + fGauge.gaugeForm.Widgets("maincasingsurround").Widget.Left
+                    fGauge.gaugeForm.Left = fGauge.gaugeForm.Left + fGauge.gaugeForm.Widgets("surround").Widget.Left
                 Else
-                    fGauge.gaugeForm.Left = fGauge.gaugeForm.Left - fGauge.gaugeForm.Widgets("maincasingsurround").Widget.Left
+                    fGauge.gaugeForm.Left = fGauge.gaugeForm.Left - fGauge.gaugeForm.Widgets("surround").Widget.Left
                 End If
                 fGauge.gaugeForm.Refresh
                 Call fGauge.AdjustZoom(resizeProportion)
@@ -726,9 +726,9 @@ Public Sub positionRCFormByMonitorSize()
    On Error GoTo 0
    Exit Sub
 
-positionRCFormByMonitorSize_Error:
+resizeLocateRCFormByMoveToNewMonitor_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure positionRCFormByMonitorSize of Module Module1"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure resizeLocateRCFormByMoveToNewMonitor of Module Module1"
 
 End Sub
 
