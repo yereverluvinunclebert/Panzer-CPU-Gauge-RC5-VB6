@@ -1977,10 +1977,10 @@ Public Sub unloadAllForms(ByVal endItAll As Boolean)
     
     ' stop all VB6 timers in the prefs form
     
-    widgetPrefs.tmrPrefsMonitorSaveHeight.Enabled = False
+'    widgetPrefs.tmrPrefsMonitorSaveHeight.Enabled = False
     widgetPrefs.themeTimer.Enabled = False
     widgetPrefs.tmrPrefsScreenResolution.Enabled = False
-    widgetPrefs.tmrWritePosition.Enabled = False
+    widgetPrefs.tmrWritePositionAndSize.Enabled = False
     
     ' stop all RichClient5 timers using properties to access the private timers
     
