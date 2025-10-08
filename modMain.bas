@@ -45,7 +45,7 @@ Public fGauge As New cfGauge
 Public overlayWidget As cwOverlay
 
 ' any other private vars
-Public gsWidgetName As String
+Private m_sgsWidgetName As String
 
 
 
@@ -462,7 +462,7 @@ Private Sub initialiseGlobalVars()
     
     ' vars to obtain correct screen width (to correct VB6 bug) STARTS
     glScreenTwipsPerPixelX = 0
-    gsScreenTwipsPerPixelY = 0
+    glScreenTwipsPerPixelY = 0
     glPhysicalScreenWidthTwips = 0
     glPhysicalScreenHeightTwips = 0
     glPhysicalScreenHeightPixels = 0
@@ -1493,3 +1493,47 @@ End Sub
 'End Sub
 
 
+
+'---------------------------------------------------------------------------------------
+' Procedure : gsWidgetName
+' Author    : beededea
+' Date      : 08/10/2025
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Get gsWidgetName() As String
+
+    On Error GoTo gsWidgetName_Error
+
+    gsWidgetName = m_sgsWidgetName
+
+    On Error GoTo 0
+    Exit Property
+
+gsWidgetName_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure gsWidgetName of Module modMain"
+
+End Property
+
+'---------------------------------------------------------------------------------------
+' Procedure : gsWidgetName
+' Author    : beededea
+' Date      : 08/10/2025
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Let gsWidgetName(ByVal sgsWidgetName As String)
+
+    On Error GoTo gsWidgetName_Error
+
+    m_sgsWidgetName = sgsWidgetName
+
+    On Error GoTo 0
+    Exit Property
+
+gsWidgetName_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure gsWidgetName of Module modMain"
+
+End Property

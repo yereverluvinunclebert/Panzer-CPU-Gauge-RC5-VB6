@@ -113,7 +113,7 @@ Private Sub Form_Load()
             leftPoint = fGauge.gaugeForm.Widgets("surround").Widget.Left
             topPoint = fGauge.gaugeForm.Widgets("stopButton").Widget.Top
         
-            Me.Top = ((topPoint) * gsScreenTwipsPerPixelY) - 150
+            Me.Top = ((topPoint) * glScreenTwipsPerPixelY) - 150
             Me.Left = (fGauge.gaugeForm.Left + leftPoint) * glScreenTwipsPerPixelX - 250
             
         End If

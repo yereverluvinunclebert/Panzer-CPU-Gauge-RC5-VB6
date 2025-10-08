@@ -80,11 +80,8 @@ Public Const HORZRES As Integer = 8
 Public Const VERTRES As Integer = 10
 'Public Const DESKTOPHORZRES As Integer = &H76
 
-Public glScreenTwipsPerPixelX As Long ' .07 DAEB 26/04/2021 common.bas changed to use pixels alone, removed all unnecessary twip conversion
-Public gsScreenTwipsPerPixelY As Long ' .07 DAEB 26/04/2021 common.bas changed to use pixels alone, removed all unnecessary twip conversion
-'Public physicalScreenWidthTwips As Long
-'Public physicalScreenHeightTwips As Long
-
+Private m_lglScreenTwipsPerPixelX As Long ' .07 DAEB 26/04/2021 common.bas changed to use pixels alone, removed all unnecessary twip conversion
+Private m_lglScreenTwipsPerPixelY As Long ' .07 DAEB 26/04/2021 common.bas changed to use pixels alone, removed all unnecessary twip conversion
 
 
 ''---------------------------------------------------------------------------------------
@@ -328,10 +325,10 @@ Public Function cWidgetFormScreenProperties(ByVal frm As cWidgetForm, ByRef moni
         'convert all dimensions from pixels to twips
         .Left = MONITORINFO.rcMonitor.Left * glScreenTwipsPerPixelX
         .Right = MONITORINFO.rcMonitor.Right * glScreenTwipsPerPixelX
-        .Top = MONITORINFO.rcMonitor.Top * gsScreenTwipsPerPixelY
-        .Bottom = MONITORINFO.rcMonitor.Bottom * gsScreenTwipsPerPixelY
+        .Top = MONITORINFO.rcMonitor.Top * glScreenTwipsPerPixelY
+        .Bottom = MONITORINFO.rcMonitor.Bottom * glScreenTwipsPerPixelY
 
-        .Height = (MONITORINFO.rcMonitor.Bottom - MONITORINFO.rcMonitor.Top) * gsScreenTwipsPerPixelY
+        .Height = (MONITORINFO.rcMonitor.Bottom - MONITORINFO.rcMonitor.Top) * glScreenTwipsPerPixelY
         .Width = (MONITORINFO.rcMonitor.Right - MONITORINFO.rcMonitor.Left) * glScreenTwipsPerPixelX
 
         .IsPrimary = MONITORINFO.dwFlags And MONITORINFOF_PRIMARY
@@ -390,10 +387,10 @@ Public Function formScreenProperties(ByVal frm As Form, ByRef monitorID As Long)
         'convert all dimensions from pixels to twips
         .Left = MONITORINFO.rcMonitor.Left * glScreenTwipsPerPixelX
         .Right = MONITORINFO.rcMonitor.Right * glScreenTwipsPerPixelX
-        .Top = MONITORINFO.rcMonitor.Top * gsScreenTwipsPerPixelY
-        .Bottom = MONITORINFO.rcMonitor.Bottom * gsScreenTwipsPerPixelY
+        .Top = MONITORINFO.rcMonitor.Top * glScreenTwipsPerPixelY
+        .Bottom = MONITORINFO.rcMonitor.Bottom * glScreenTwipsPerPixelY
 
-        .Height = (MONITORINFO.rcMonitor.Bottom - MONITORINFO.rcMonitor.Top) * gsScreenTwipsPerPixelY
+        .Height = (MONITORINFO.rcMonitor.Bottom - MONITORINFO.rcMonitor.Top) * glScreenTwipsPerPixelY
         .Width = (MONITORINFO.rcMonitor.Right - MONITORINFO.rcMonitor.Left) * glScreenTwipsPerPixelX
 
         .IsPrimary = MONITORINFO.dwFlags And MONITORINFOF_PRIMARY
@@ -612,7 +609,7 @@ Public Function fVirtualScreenHeight(ByRef inPixels As Boolean, Optional ByRef b
     If inPixels = True Then
         fVirtualScreenHeight = fVirtualScreenHeight
     Else
-        fVirtualScreenHeight = fVirtualScreenHeight * gsScreenTwipsPerPixelY
+        fVirtualScreenHeight = fVirtualScreenHeight * glScreenTwipsPerPixelY
     End If
 
    On Error GoTo 0
@@ -729,4 +726,95 @@ End Sub
 
 
 
+
+
+
+
+'---------------------------------------------------------------------------------------
+' Procedure : glScreenTwipsPerPixelX
+' Author    : beededea
+' Date      : 08/10/2025
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Get glScreenTwipsPerPixelX() As Long
+
+    On Error GoTo glScreenTwipsPerPixelX_Error
+
+    glScreenTwipsPerPixelX = m_lglScreenTwipsPerPixelX
+
+    On Error GoTo 0
+    Exit Property
+
+glScreenTwipsPerPixelX_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure glScreenTwipsPerPixelX of Module monitorModule"
+
+End Property
+
+'---------------------------------------------------------------------------------------
+' Procedure : glScreenTwipsPerPixelX
+' Author    : beededea
+' Date      : 08/10/2025
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Let glScreenTwipsPerPixelX(ByVal lglScreenTwipsPerPixelX As Long)
+
+    On Error GoTo glScreenTwipsPerPixelX_Error
+
+    m_lglScreenTwipsPerPixelX = lglScreenTwipsPerPixelX
+
+    On Error GoTo 0
+    Exit Property
+
+glScreenTwipsPerPixelX_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure glScreenTwipsPerPixelX of Module monitorModule"
+
+End Property
+
+'---------------------------------------------------------------------------------------
+' Procedure : glScreenTwipsPerPixelY
+' Author    : beededea
+' Date      : 08/10/2025
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Get glScreenTwipsPerPixelY() As Long
+
+    On Error GoTo glScreenTwipsPerPixelY_Error
+
+    glScreenTwipsPerPixelY = m_lglScreenTwipsPerPixelY
+
+    On Error GoTo 0
+    Exit Property
+
+glScreenTwipsPerPixelY_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure glScreenTwipsPerPixelY of Module monitorModule"
+
+End Property
+
+'---------------------------------------------------------------------------------------
+' Procedure : glScreenTwipsPerPixelY
+' Author    : beededea
+' Date      : 08/10/2025
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Let glScreenTwipsPerPixelY(ByVal lglScreenTwipsPerPixelY As Long)
+
+    On Error GoTo glScreenTwipsPerPixelY_Error
+
+    m_lglScreenTwipsPerPixelY = lglScreenTwipsPerPixelY
+
+    On Error GoTo 0
+    Exit Property
+
+glScreenTwipsPerPixelY_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure glScreenTwipsPerPixelY of Module monitorModule"
+
+End Property
 
