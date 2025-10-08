@@ -824,7 +824,7 @@ Public Sub AdjustZoom(ByVal NewZoom As Single)
     
     If widgetPrefs.IsLoaded Then widgetPrefs.sliGaugeSize.Value = Val(gsWidgetSize) ' ensure that the prefs size slider matches when zoom is modified without using the slider
     
-    If gaugeMonitorStruct.IsPrimary = True Then
+    If gWidgetMonitorStruct.IsPrimary = True Then
         gsWidgetPrimaryHeightRatio = CStr(NewZoom)
     Else
         gsWidgetSecondaryHeightRatio = CStr(NewZoom)

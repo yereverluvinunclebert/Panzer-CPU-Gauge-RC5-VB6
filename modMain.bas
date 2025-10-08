@@ -322,8 +322,8 @@ Private Sub identifyPrimaryMonitor()
     
     On Error GoTo identifyPrimaryMonitor_Error
 
-    gaugeMonitorStruct = cWidgetFormScreenProperties(fGauge.gaugeForm, gaugeFormMonitorID)
-    glOldWidgetFormMonitorPrimary = gaugeMonitorStruct.IsPrimary
+    gWidgetMonitorStruct = cWidgetFormScreenProperties(fGauge.gaugeForm, gaugeFormMonitorID)
+    glOldWidgetFormMonitorPrimary = gWidgetMonitorStruct.IsPrimary
 
     On Error GoTo 0
     Exit Sub
@@ -461,7 +461,7 @@ Private Sub initialiseGlobalVars()
     glStoreThemeColour = 0
     
     ' vars to obtain correct screen width (to correct VB6 bug) STARTS
-    gsScreenTwipsPerPixelX = 0
+    glScreenTwipsPerPixelX = 0
     gsScreenTwipsPerPixelY = 0
     glPhysicalScreenWidthTwips = 0
     glPhysicalScreenHeightTwips = 0
@@ -490,7 +490,7 @@ Private Sub initialiseGlobalVars()
     giDebugFlg = 0
     giMinutesToHide = 0
     gsAspectRatio = vbNullString
-'    gdOldSettingsModificationTime = #1/1/2000 12:00:00 PM#
+'    gtOldSettingsModificationTime = #1/1/2000 12:00:00 PM#
     gsCodingEnvironment = vbNullString
     gsRichClientEnvironment = vbNullString
     
@@ -598,7 +598,7 @@ Public Sub adjustMainControls(Optional ByVal licenceState As Integer)
     
     ' set the initial size
     If glMonitorCount > 1 And (LTrim$(gsMultiMonitorResize) = "1" Or LTrim$(gsMultiMonitorResize) = "2") Then
-        If gaugeMonitorStruct.IsPrimary = True Then
+        If gWidgetMonitorStruct.IsPrimary = True Then
             Call fGauge.AdjustZoom(Val(gsWidgetPrimaryHeightRatio))
         Else
             Call fGauge.AdjustZoom(Val(gsWidgetSecondaryHeightRatio))
@@ -1123,7 +1123,7 @@ Private Sub configureTimers()
 
     On Error GoTo configureTimers_Error
     
-'    gdOldSettingsModificationTime = FileDateTime(gsSettingsFile)
+'    gtOldSettingsModificationTime = FileDateTime(gsSettingsFile)
 
     frmTimer.tmrScreenResolution.Enabled = True
     frmTimer.unhideTimer.Enabled = True
