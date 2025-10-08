@@ -291,51 +291,46 @@ Private Declare Function PathIsDirectory Lib "shlwapi" Alias "PathIsDirectoryA" 
 '------------------------------------------------------ ENDS
              
 
+
 '------------------------------------------------------ STARTS
-' Stored vars read from settings.ini
+' global variables - mostly read from and written to settings.ini
 ' There are so many global vars because the old YWE javascript version of this program used global vars, this was a conversion.
-'
+' Note: In VB6 public variables used in class modules are treated as properties, passed by value, not by reference
+
 ' general
  
-Public gblStartup As String
-Public gblGaugeFunctions As String
-'Public gblSmoothSecondHand As String
-Public gblPointerAnimate As String
-Public gblMultiCoreEnable As String
-Public gblSamplingInterval As String
+Public gsStartup As String
+Public gsWidgetFunctions As String
+Public gsPointerAnimate As String
+Public gsMultiCoreEnable As String
+Public gsSamplingInterval As String
 
 ' config
 
-Public gblGaugeTooltips As String
-Public gblPrefsTooltips As String
-Public gblShowTaskbar As String
-Public gblShowHelp As String
-
-Public gblDpiAwareness As String
-Public gblGaugeSize As String
-Public gblScrollWheelDirection As String
-
+Public gsWidgetTooltips As String
+Public gsPrefsTooltips As String
+Public gsShowTaskbar As String
+Public gsShowHelp As String
+Public gsDpiAwareness As String
+Public gsWidgetSize As String
+Public gsScrollWheelDirection As String
 
 ' position
 
-Public gblAspectHidden As String
-Public gblWidgetPosition As String
-Public gblWidgetLandscape As String
-Public gblWidgetPortrait As String
-Public gblLandscapeFormHoffset As String
-Public gblLandscapeFormVoffset As String
-Public gblPortraitHoffset As String
-Public gblPortraitYoffset As String
-Public gblvLocationPercPrefValue As String
-Public gblhLocationPercPrefValue As String
+Public gsAspectHidden As String
+Public gsWidgetPosition As String
+Public gsWidgetLandscape As String
+Public gsWidgetPortrait As String
+Public gsLandscapeFormHoffset As String
+Public gsLandscapeFormVoffset As String
+Public gsPortraitHoffset As String
+Public gsPortraitYoffset As String
+Public gsVLocationPercPrefValue As String
+Public gsHLocationPercPrefValue As String
 
 ' sounds
 
 Public gblEnableSounds  As String
-'Public gblEnableTicks  As String
-'Public gblEnableChimes  As String
-'Public gblEnableAlarms  As String
-'Public gblVolumeBoost  As String
 
 ' development
 
@@ -606,7 +601,7 @@ End Sub
 Public Sub setDPIaware()
     On Error GoTo setDPIaware_Error
     
-    If gblDpiAwareness = "1" Then
+    If gsDpiAwareness = "1" Then
         If Not InIDE Then
             Cairo.SetDPIAwareness ' this way avoids the VB6 IDE shrinking (sadly, VB6 has a high DPI unaware IDE)
             gblMsgBoxADynamicSizingFlg = True
@@ -635,7 +630,7 @@ Public Sub testDPIAndSetInitialAwareness()
     'If fPixelsPerInchX() > 96 Then ' always seems to provide 96, no matter what I do.
     
      If gblPhysicalScreenWidthPixels > 1960 Then
-        gblDpiAwareness = "1"
+        gsDpiAwareness = "1"
         Call setDPIaware
     End If
 
@@ -1639,7 +1634,7 @@ End Sub
 Public Sub setRichClientTooltips()
    On Error GoTo setRichClientTooltips_Error
 
-    If gblGaugeTooltips = "1" Then
+    If gsWidgetTooltips = "1" Then
 
         overlayWidget.Widget.ToolTip = "Use CTRL+mouse scrollwheel up/down to resize."
         aboutWidget.Widget.ToolTip = "Click on me to make me go away."
@@ -1721,7 +1716,7 @@ Public Sub makeVisibleFormElements()
 
     'NOTE that when you position a widget you are positioning the form it is drawn upon.
 
-    If gblDpiAwareness = "1" Then
+    If gsDpiAwareness = "1" Then
         formLeftPixels = Val(gblGaugeHighDpiXPos)
         formTopPixels = Val(gblGaugeHighDpiYPos)
     Else
@@ -1871,13 +1866,13 @@ Public Sub mainScreen()
     
     ' check if the widget has a lock for the screen type.
     If gblAspectRatio = "landscape" Then
-        If gblWidgetLandscape = "1" Then
-            If gblLandscapeFormHoffset <> vbNullString Then
-                fGauge.gaugeForm.Left = Val(gblLandscapeFormHoffset)
-                fGauge.gaugeForm.Top = Val(gblLandscapeFormVoffset)
+        If gsWidgetLandscape = "1" Then
+            If gsLandscapeFormHoffset <> vbNullString Then
+                fGauge.gaugeForm.Left = Val(gsLandscapeFormHoffset)
+                fGauge.gaugeForm.Top = Val(gsLandscapeFormVoffset)
             End If
         End If
-        If gblAspectHidden = "2" Then
+        If gsAspectHidden = "2" Then
             Debug.Print "Hiding the widget for landscape mode"
             fGauge.gaugeForm.Visible = False
         End If
@@ -1885,11 +1880,11 @@ Public Sub mainScreen()
     
     ' check if the widget has a lock for the screen type.
     If gblAspectRatio = "portrait" Then
-        If gblWidgetPortrait = "1" Then
-            fGauge.gaugeForm.Left = Val(gblPortraitHoffset)
-            fGauge.gaugeForm.Top = Val(gblPortraitYoffset)
+        If gsWidgetPortrait = "1" Then
+            fGauge.gaugeForm.Left = Val(gsPortraitHoffset)
+            fGauge.gaugeForm.Top = Val(gsPortraitYoffset)
         End If
-        If gblAspectHidden = "1" Then
+        If gsAspectHidden = "1" Then
             Debug.Print "Hiding the widget for portrait mode"
             fGauge.gaugeForm.Visible = False
         End If
@@ -1913,9 +1908,9 @@ Public Sub mainScreen()
 '
     ' calculate the current hlocation in % of the screen
     ' store the current hlocation in % of the screen
-    If gblWidgetPosition = "1" Then
-        gblhLocationPercPrefValue = CStr(fGauge.gaugeForm.Left / gblVirtualScreenWidthPixels * 100)
-        gblvLocationPercPrefValue = CStr(fGauge.gaugeForm.Top / gblVirtualScreenHeightPixels * 100)
+    If gsWidgetPosition = "1" Then
+        gsHLocationPercPrefValue = CStr(fGauge.gaugeForm.Left / gblVirtualScreenWidthPixels * 100)
+        gsVLocationPercPrefValue = CStr(fGauge.gaugeForm.Top / gblVirtualScreenHeightPixels * 100)
     End If
 
    On Error GoTo 0
@@ -2086,7 +2081,7 @@ Public Sub saveMainRCFormPosition()
 
    On Error GoTo saveMainRCFormPosition_Error
 
-    If gblDpiAwareness = "1" Then
+    If gsDpiAwareness = "1" Then
         gblGaugeHighDpiXPos = CStr(fGauge.gaugeForm.Left) ' saving in pixels
         gblGaugeHighDpiYPos = CStr(fGauge.gaugeForm.Top)
         sPutINISetting "Software\PzCPUGauge", "gaugeHighDpiXPos", gblGaugeHighDpiXPos, gblSettingsFile
@@ -2101,8 +2096,8 @@ Public Sub saveMainRCFormPosition()
     
     sPutINISetting "Software\PzCPUGauge", "gaugePrimaryHeightRatio", gblGaugePrimaryHeightRatio, gblSettingsFile
     sPutINISetting "Software\PzCPUGauge", "gaugeSecondaryHeightRatio", gblGaugeSecondaryHeightRatio, gblSettingsFile
-    gblGaugeSize = CStr(fGauge.gaugeForm.WidgetRoot.Zoom * 100)
-    sPutINISetting "Software\PzCPUGauge", "gaugeSize", gblGaugeSize, gblSettingsFile
+    gsWidgetSize = CStr(fGauge.gaugeForm.WidgetRoot.Zoom * 100)
+    sPutINISetting "Software\PzCPUGauge", "widgetSize", gsWidgetSize, gblSettingsFile
 
    On Error GoTo 0
    Exit Sub
@@ -2126,8 +2121,8 @@ Public Sub saveMainRCFormSize()
 
     sPutINISetting "Software\PzCPUGauge", "gaugePrimaryHeightRatio", gblGaugePrimaryHeightRatio, gblSettingsFile
     sPutINISetting "Software\PzCPUGauge", "gaugeSecondaryHeightRatio", gblGaugeSecondaryHeightRatio, gblSettingsFile
-    gblGaugeSize = CStr(fGauge.gaugeForm.WidgetRoot.Zoom * 100)
-    sPutINISetting "Software\PzCPUGauge", "gaugeSize", gblGaugeSize, gblSettingsFile
+    gsWidgetSize = CStr(fGauge.gaugeForm.WidgetRoot.Zoom * 100)
+    sPutINISetting "Software\PzCPUGauge", "widgetSize", gsWidgetSize, gblSettingsFile
 
    On Error GoTo 0
    Exit Sub
@@ -2195,7 +2190,7 @@ Public Sub readPrefsPosition()
             
     On Error GoTo readPrefsPosition_Error
 
-    If gblDpiAwareness = "1" Then
+    If gsDpiAwareness = "1" Then
         gblPrefsHighDpiXPosTwips = fGetINISetting("Software\PzCPUGauge", "prefsHighDpiXPosTwips", gblSettingsFile)
         gblPrefsHighDpiYPosTwips = fGetINISetting("Software\PzCPUGauge", "prefsHighDpiYPosTwips", gblSettingsFile)
         
@@ -2273,7 +2268,7 @@ Public Sub writePrefsPositionAndSize()
     On Error GoTo writePrefsPositionAndSize_Error
 
     If widgetPrefs.IsLoaded = True And widgetPrefs.WindowState = vbNormal Then ' when vbMinimised the value = -48000  !
-        If gblDpiAwareness = "1" Then
+        If gsDpiAwareness = "1" Then
             gblPrefsHighDpiXPosTwips = CStr(widgetPrefs.Left)
             gblPrefsHighDpiYPosTwips = CStr(widgetPrefs.Top)
             
@@ -2409,10 +2404,10 @@ Public Sub SwitchOff()
     menuForm.mnuSwitchOff.Checked = True
     menuForm.mnuTurnFunctionsOn.Checked = False
     
-    If widgetPrefs.IsLoaded Then widgetPrefs.chkGaugeFunctions.Value = 0
+    If widgetPrefs.IsLoaded Then widgetPrefs.chkWidgetFunctions.Value = 0
         
-    gblGaugeFunctions = "0"
-    sPutINISetting "Software\PzCPUGauge", "widgetFunctions", gblGaugeFunctions, gblSettingsFile
+    gsWidgetFunctions = "0"
+    sPutINISetting "Software\PzCPUGauge", "widgetFunctions", gsWidgetFunctions, gblSettingsFile
 
     Call stopAllCpuTimers
 
@@ -2450,10 +2445,10 @@ Public Sub TurnFunctionsOn()
     menuForm.mnuSwitchOff.Checked = False
     menuForm.mnuTurnFunctionsOn.Checked = True
     
-    If widgetPrefs.IsLoaded Then widgetPrefs.chkGaugeFunctions.Value = 1
+    If widgetPrefs.IsLoaded Then widgetPrefs.chkWidgetFunctions.Value = 1
     
-    gblGaugeFunctions = "1"
-    sPutINISetting "Software\PzCPUGauge", "widgetFunctions", gblGaugeFunctions, gblSettingsFile
+    gsWidgetFunctions = "1"
+    sPutINISetting "Software\PzCPUGauge", "widgetFunctions", gsWidgetFunctions, gblSettingsFile
     
     Call startAllCpuTimers
 

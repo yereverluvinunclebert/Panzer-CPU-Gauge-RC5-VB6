@@ -60,7 +60,7 @@ Public Sub initAndCreateAboutForm(Optional ByVal Caption As String)
     
     On Error GoTo initAndCreateAboutForm_Error
     
-    If gblDpiAwareness = "0" Then
+    If gsDpiAwareness = "0" Then
         aboutFormWidth = 900
         aboutFormHeight = 850
         If aboutFormWidth > gblVirtualScreenWidthPixels Then aboutFormWidth = gblVirtualScreenWidthPixels
@@ -93,7 +93,7 @@ Public Sub initAndCreateAboutForm(Optional ByVal Caption As String)
     ' create a new about widget with a name, position and size, first step of that is to run Class_Initialize
     Set aboutWidget = aboutForm.Widgets.Add(New cwAbout, "about", 1, 1, aboutWidgetWidth, aboutWidgetHeight)
     
-    If gblDpiAwareness = "0" Then
+    If gsDpiAwareness = "0" Then
         aboutWidget.Zoom = aboutWidgetZoomValue
     Else
         aboutWidget.Zoom = aboutWidgetZoomValue
@@ -127,7 +127,7 @@ Public Sub initAndCreateHelpForm(Optional ByVal Caption As String)
     
     On Error GoTo initAndCreateHelpForm_Error
     
-    If gblDpiAwareness = "0" Then
+    If gsDpiAwareness = "0" Then
         helpFormWidth = 1000
         helpFormHeight = 800
         If helpFormWidth > gblVirtualScreenWidthPixels Then helpFormWidth = gblVirtualScreenWidthPixels
@@ -161,7 +161,7 @@ Public Sub initAndCreateHelpForm(Optional ByVal Caption As String)
     ' create a new help widget with a name, position and size, first step of that is to run Class_Initialize
     Set helpWidget = helpForm.Widgets.Add(New cwHelp, "help", 1, 1, helpWidgetWidth, helpWidgetHeight)
     
-    If gblDpiAwareness = "0" Then
+    If gsDpiAwareness = "0" Then
         helpWidget.Zoom = helpWidgetZoomValue
     Else
         helpWidget.Zoom = helpWidgetZoomValue
@@ -199,7 +199,7 @@ Public Sub initAndCreateLicenceForm(Optional ByVal Caption As String)
     
     On Error GoTo initAndCreateLicenceForm_Error
     
-    If gblDpiAwareness = "0" Then
+    If gsDpiAwareness = "0" Then
         licenceFormWidth = 650
         licenceFormHeight = 550
         If licenceFormWidth > gblVirtualScreenWidthPixels Then licenceFormWidth = gblVirtualScreenWidthPixels
@@ -235,7 +235,7 @@ Public Sub initAndCreateLicenceForm(Optional ByVal Caption As String)
     ' create a new licence class widget with a name, position and size
     Set licenceWidget = licenceForm.Widgets.Add(New cwLicence, "licence", 0, 0, licenceWidgetWidth, licenceWidgetHeight)
     
-    If gblDpiAwareness = "0" Then
+    If gsDpiAwareness = "0" Then
         licenceWidget.Zoom = licenceWidgetZoomValue
     Else
         licenceWidget.Zoom = licenceWidgetZoomValue
@@ -247,7 +247,7 @@ Public Sub initAndCreateLicenceForm(Optional ByVal Caption As String)
     If InIDE Then On Error GoTo RichClient5NotRegistered_Error
 
     ' add two RC predefined button controls to the licence form
-    If gblDpiAwareness = "1" Then
+    If gsDpiAwareness = "1" Then
         Set btnDecline = licenceForm.Widgets.Add(New_W("cwButton"), "btnDecline", 352, 397, 70, 29)
         Set btnAccept = licenceForm.Widgets.Add(New_W("cwButton"), "btnAccept", 428, 397, 70, 29)
         Set textBox = licenceForm.Widgets.Add(New_W("cwTextBox"), "textBox", 50, 60, 440, 280)
@@ -261,7 +261,7 @@ Public Sub initAndCreateLicenceForm(Optional ByVal Caption As String)
     
     On Error GoTo initAndCreateLicenceForm_Error
     
-    If gblDpiAwareness = "1" Then
+    If gsDpiAwareness = "1" Then
         licenceForm.Widgets("TextBox").Widget.FontSize = 11
         licenceForm.Widgets("btnDecline").Widget.FontSize = 10
         licenceForm.Widgets("btnAccept").Widget.FontSize = 10

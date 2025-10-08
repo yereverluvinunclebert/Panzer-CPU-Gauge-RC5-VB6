@@ -181,7 +181,7 @@ End Sub
 Private Sub Form_Unload(Cancel As Integer)
    On Error GoTo Form_Unload_Error
    
-    gblMultiCoreEnable = "0"
+    gsMultiCoreEnable = "0"
     
     Call writeMulticorePosition
 
@@ -232,7 +232,7 @@ Private Sub updateCoreDisplay()
     'query current cpu usage / store in array
     On Error GoTo updateCoreDisplay_Error
     
-    tmrMultiCore.Interval = Val(gblSamplingInterval) * 1000
+    tmrMultiCore.Interval = Val(gsSamplingInterval) * 1000
     
     If tmrMultiCore.Enabled = False Then Exit Sub
 

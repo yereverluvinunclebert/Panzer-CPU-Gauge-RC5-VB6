@@ -190,26 +190,26 @@ Private Sub gaugeForm_BubblingEvent(ByRef Sender As Object, ByRef EventName As S
      If EventName = "W_MouseMove" Then
         Select Case LCase$(Sender.Widget.Key)
             Case "lockbutton"
-                If gblGaugeTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "Click me to lock the widget in place. This lock can be released by clicking again on the lock button, or in the preferences. A locking sound will denote the button's operation.", _
+                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "Click me to lock the widget in place. This lock can be released by clicking again on the lock button, or in the preferences. A locking sound will denote the button's operation.", _
                      TTIconInfo, gblWidgetName & " Lock Button Help", , , , True
             Case "prefsbutton"
-                If gblGaugeTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "Click me to open the preferences utility. The configuration of the widget is performed using the preference utility.", _
+                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "Click me to open the preferences utility. The configuration of the widget is performed using the preference utility.", _
                      TTIconInfo, gblWidgetName & " Prefs Button Help", , , , True
             Case "tickbutton"
-                If gblGaugeTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "Click here to toggle the pointer movement from once per interval to a more fluid, continuous movement.", _
+                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "Click here to toggle the pointer movement from once per interval to a more fluid, continuous movement.", _
                      TTIconInfo, gblWidgetName & " Tick Button Help", , , , True
             Case "middlebutton"
-                If gblGaugeTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "This button switches on the mutli-core display. If your CPU has more than one core a bar will be shown, displaying the CPU for each core.", _
+                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "This button switches on the mutli-core display. If your CPU has more than one core a bar will be shown, displaying the CPU for each core.", _
                      TTIconInfo, gblWidgetName & " Multi-Core Button Help", , , , True
             Case "stopbutton"
                 Call stopbutton_mouseMove
             Case "startbutton"
                 Call startbutton_mouseMove
             Case "helpbutton"
-                If gblGaugeTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "This button opens the one-page help file for this widget. There is a further detailed CHM help file available from the right-click menu that contains all the information that you need to run this widget.", _
+                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "This button opens the one-page help file for this widget. There is a further detailed CHM help file available from the right-click menu that contains all the information that you need to run this widget.", _
                      TTIconInfo, gblWidgetName & " Help Button Help", , , , True
             Case Else
-                If gblGaugeTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "" & overlayWidget.thisCPUDetail _
+                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "" & overlayWidget.thisCPUDetail _
                     & vbCrLf & stdMessage _
                     , TTIconInfo, gblWidgetName & " Information.", , , , True
         End Select
@@ -274,7 +274,7 @@ End Sub
 Private Sub startbutton_mouseMove()
     On Error GoTo startbutton_mouseMove_Error
 
-    If gblGaugeTooltips = "0" Then
+    If gsWidgetTooltips = "0" Then
             CreateToolTip gaugeForm.hWnd, "Clock mode, this button restarts all stopped clock functions for this widget, hand movement &c .", _
                 TTIconInfo, gblWidgetName & " Start Button Help", , , , True
     End If
@@ -299,7 +299,7 @@ End Sub
 Private Sub stopbutton_mouseMove()
     On Error GoTo stopbutton_mouseMove_Error
 
-    If gblGaugeTooltips = "0" Then
+    If gsWidgetTooltips = "0" Then
             CreateToolTip gaugeForm.hWnd, "Clock mode, this button stops all animated clock functions for this widget, hand movements &c .", _
                 TTIconInfo, gblWidgetName & " Stop Button Help", , , , True
     End If
@@ -432,15 +432,15 @@ Private Sub middlebutton_mouseDown(ByRef Sender As Object)
     Sender.Widget.Alpha = 0
     Sender.Widget.Refresh
     
-    If gblMultiCoreEnable = "0" Then
-        gblMultiCoreEnable = "1"
+    If gsMultiCoreEnable = "0" Then
+        gsMultiCoreEnable = "1"
         frmMultiCore.Show
     Else
-        gblMultiCoreEnable = "0"
+        gsMultiCoreEnable = "0"
         frmMultiCore.Hide
     End If
     
-    widgetPrefs.chkMultiCoreEnable.Value = Val(gblMultiCoreEnable)
+    widgetPrefs.chkMultiCoreEnable.Value = Val(gsMultiCoreEnable)
     
    On Error GoTo 0
    Exit Sub
@@ -571,11 +571,11 @@ Private Sub tickbutton_mouseDown(ByRef Sender As Object)
     If overlayWidget.PointerAnimate = True Then
         overlayWidget.PointerAnimate = False
         Sender.Widget.Alpha = Val(gblOpacity) / 100
-        gblPointerAnimate = "0"
+        gsPointerAnimate = "0"
     Else
         overlayWidget.PointerAnimate = True
         Sender.Widget.Alpha = 0 ' sender is the referring control
-        gblPointerAnimate = "1"
+        gsPointerAnimate = "1"
         
     End If
     Sender.Widget.Refresh ' this removes the delay in the Button depressing
@@ -585,8 +585,8 @@ Private Sub tickbutton_mouseDown(ByRef Sender As Object)
         playSound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
     
-    sPutINISetting "Software\PzCPUGauge", "pointerAnimate", gblPointerAnimate, gblSettingsFile
-    widgetPrefs.cmbTickSwitchPref.ListIndex = Val(gblPointerAnimate)
+    sPutINISetting "Software\PzCPUGauge", "pointerAnimate", gsPointerAnimate, gblSettingsFile
+    widgetPrefs.cmbTickSwitchPref.ListIndex = Val(gsPointerAnimate)
     
    On Error GoTo 0
    Exit Sub
@@ -617,7 +617,7 @@ Private Sub gaugeForm_DblClick()
 
     '    If gblIgnoreMouse = "1" Then Exit Sub
 
-    If gblGaugeFunctions = "0" Or gblIgnoreMouse = "1" Then Exit Sub
+    If gsWidgetFunctions = "0" Or gblIgnoreMouse = "1" Then Exit Sub
     
     If LTrim$(gblDblClickCommand) = vbNullString Then Exit Sub
     
@@ -722,12 +722,11 @@ End Sub
 
 
 
-
 '---------------------------------------------------------------------------------------
 ' Procedure : gaugeForm_MouseMove
 ' Author    : beededea
 ' Date      : 31/07/2023
-' Purpose   : move the whole form on a mousDown and drag
+' Purpose   : move the whole form on a mouseDown and drag
 '---------------------------------------------------------------------------------------
 '
 Private Sub gaugeForm_MouseMove(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef y As Single)
@@ -777,7 +776,7 @@ Private Sub gaugeForm_MouseWheel(ByVal MouseKeys As Long, ByVal Rotation As Long
 
     thisRotation = Rotation / 2
 
-    If gblScrollWheelDirection = "1" Then
+    If gsScrollWheelDirection = "1" Then
         If thisRotation > 0 Then
             RotationDirection = 0 - Abs(thisRotation)
         Else
@@ -821,9 +820,9 @@ Public Sub AdjustZoom(ByVal NewZoom As Single)
     gaugeForm.Move gaugeForm.Left, gaugeForm.Top, pvtPSDWidth * gaugeForm.WidgetRoot.Zoom, pvtPSDHeight * gaugeForm.WidgetRoot.Zoom
     
     ' when resized from the gauge scroll up/down it needs to write it back so the size is correct when prefs opened.
-    gblGaugeSize = CStr(NewZoom * 100)
+    gsWidgetSize = CStr(NewZoom * 100)
     
-    If widgetPrefs.IsLoaded Then widgetPrefs.sliGaugeSize.Value = Val(gblGaugeSize) ' ensure that the prefs size slider matches when zoom is modified without using the slider
+    If widgetPrefs.IsLoaded Then widgetPrefs.sliGaugeSize.Value = Val(gsWidgetSize) ' ensure that the prefs size slider matches when zoom is modified without using the slider
     
     If gaugeMonitorStruct.IsPrimary = True Then
         gblGaugePrimaryHeightRatio = CStr(NewZoom)
@@ -1074,7 +1073,7 @@ Private Sub convertImageXMLToRcWidgets()
                      ' note: the clickable layers characteristics are set in adjustMainControls
                      ' all non-clickable Layer-Widgets will be -1 or "non-hoverable" and "fully click-through"
                      W.HoverColor = -1
-                     If gblGaugeTooltips = "1" Then W.ToolTip = "Ctrl + mouse scrollwheel up/down to resize, you can also drag me to a new position."
+                     If gsWidgetTooltips = "1" Then W.ToolTip = "Ctrl + mouse scrollwheel up/down to resize, you can also drag me to a new position."
                      W.MousePointer = IDC_SIZEALL
 
                  End If

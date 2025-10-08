@@ -157,7 +157,7 @@ Private Sub tmrRestartSampling_Timer()
     
     tmrRestartSampling.Enabled = False
     
-    If gblGaugeFunctions = "0" Then
+    If gsWidgetFunctions = "0" Then
         Exit Sub
     End If
     

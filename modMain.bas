@@ -179,7 +179,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     Call configureTimers
     
     ' show the multi core form
-    If gblMultiCoreEnable = "1" Then
+    If gsMultiCoreEnable = "1" Then
         frmMultiCore.Show
     End If
     
@@ -377,33 +377,33 @@ Private Sub initialiseGlobalVars()
     gblMonitorCount = 0
 
     ' general
-    gblStartup = vbNullString
-    gblGaugeFunctions = vbNullString
-    gblPointerAnimate = vbNullString
-    gblMultiCoreEnable = vbNullString
-    gblSamplingInterval = vbNullString
+    gsStartup = vbNullString
+    gsWidgetFunctions = vbNullString
+    gsPointerAnimate = vbNullString
+    gsMultiCoreEnable = vbNullString
+    gsSamplingInterval = vbNullString
 
     ' config
-    gblGaugeTooltips = vbNullString
-    gblPrefsTooltips = vbNullString
-    gblShowTaskbar = vbNullString
-    gblShowHelp = vbNullString
-    gblDpiAwareness = vbNullString
-    gblGaugeSize = vbNullString
-    gblScrollWheelDirection = vbNullString
+    gsWidgetTooltips = vbNullString
+    gsPrefsTooltips = vbNullString
+    gsShowTaskbar = vbNullString
+    gsShowHelp = vbNullString
+    gsDpiAwareness = vbNullString
+    gsWidgetSize = vbNullString
+    gsScrollWheelDirection = vbNullString
 
     
     ' position
-    gblAspectHidden = vbNullString
-    gblWidgetPosition = vbNullString
-    gblWidgetLandscape = vbNullString
-    gblWidgetPortrait = vbNullString
-    gblLandscapeFormHoffset = vbNullString
-    gblLandscapeFormVoffset = vbNullString
-    gblPortraitHoffset = vbNullString
-    gblPortraitYoffset = vbNullString
-    gblvLocationPercPrefValue = vbNullString
-    gblhLocationPercPrefValue = vbNullString
+    gsAspectHidden = vbNullString
+    gsWidgetPosition = vbNullString
+    gsWidgetLandscape = vbNullString
+    gsWidgetPortrait = vbNullString
+    gsLandscapeFormHoffset = vbNullString
+    gsLandscapeFormVoffset = vbNullString
+    gsPortraitHoffset = vbNullString
+    gsPortraitYoffset = vbNullString
+    gsVLocationPercPrefValue = vbNullString
+    gsHLocationPercPrefValue = vbNullString
     
     ' sounds
     gblEnableSounds = vbNullString
@@ -592,7 +592,7 @@ Public Sub adjustMainControls(Optional ByVal licenceState As Integer)
     If licenceState = 0 Then
         ' the widget displays at 100% at a screen width of 3840 pixels
         If gblPhysicalScreenWidthPixels >= bigScreen Then
-            gblGaugeSize = CStr((gblPhysicalScreenWidthPixels / bigScreen) * 100)
+            gsWidgetSize = CStr((gblPhysicalScreenWidthPixels / bigScreen) * 100)
         End If
     End If
     
@@ -604,10 +604,10 @@ Public Sub adjustMainControls(Optional ByVal licenceState As Integer)
             Call fGauge.AdjustZoom(Val(gblGaugeSecondaryHeightRatio))
         End If
     Else
-        fGauge.AdjustZoom Val(gblGaugeSize) / 100
+        fGauge.AdjustZoom Val(gsWidgetSize) / 100
     End If
         
-    If gblGaugeFunctions = "1" Then
+    If gsWidgetFunctions = "1" Then
         menuForm.mnuSwitchOff.Checked = False
         menuForm.mnuTurnFunctionsOn.Checked = True
         Call startAllCpuTimers
@@ -630,7 +630,7 @@ Public Sub adjustMainControls(Optional ByVal licenceState As Integer)
         menuForm.mnuEditWidget.Visible = False
     End If
     
-    If gblShowTaskbar = "0" Then
+    If gsShowTaskbar = "0" Then
         fGauge.gaugeForm.ShowInTaskbar = False
     Else
         fGauge.gaugeForm.ShowInTaskbar = True
@@ -639,7 +639,7 @@ Public Sub adjustMainControls(Optional ByVal licenceState As Integer)
     ' set the visibility and characteristics of the interactive areas
     ' the alpha is already set to zero for all layers found in the PSD, we now turn them back on as we require
         
-    If gblGaugeFunctions = "1" Then
+    If gsWidgetFunctions = "1" Then
         overlayWidget.Ticking = True
         menuForm.mnuSwitchOff.Checked = False
         menuForm.mnuTurnFunctionsOn.Checked = True
@@ -662,7 +662,7 @@ Public Sub adjustMainControls(Optional ByVal licenceState As Integer)
         menuForm.mnuEditWidget.Visible = False
     End If
     
-    If gblShowTaskbar = "0" Then
+    If gsShowTaskbar = "0" Then
         fGauge.gaugeForm.ShowInTaskbar = False
     Else
         fGauge.gaugeForm.ShowInTaskbar = True
@@ -718,7 +718,7 @@ Public Sub adjustMainControls(Optional ByVal licenceState As Integer)
         .Alpha = Val(gblOpacity) / 100
     End With
     
-    If gblPointerAnimate = "0" Then
+    If gsPointerAnimate = "0" Then
         overlayWidget.PointerAnimate = False
         fGauge.gaugeForm.Widgets("tickbutton").Widget.Alpha = Val(gblOpacity) / 100
     Else
@@ -746,7 +746,7 @@ Public Sub adjustMainControls(Optional ByVal licenceState As Integer)
     End If
     
     overlayWidget.thisOpacity = Val(gblOpacity)
-    overlayWidget.samplingInterval = Val(gblSamplingInterval)
+    overlayWidget.samplingInterval = Val(gsSamplingInterval)
 
     ' set the z-ordering of the window
     Call setAlphaFormZordering
@@ -758,7 +758,7 @@ Public Sub adjustMainControls(Optional ByVal licenceState As Integer)
     Call setHidingTime
     
     ' if the multi-core CPU form is showing then change the menu to suit
-    If gblMultiCoreEnable = "0" Then
+    If gsMultiCoreEnable = "0" Then
         menuForm.menuMultiCore.Caption = "Show MultiCore CPU Display"
     Else
         menuForm.menuMultiCore.Caption = "Hide MultiCore CPU Display"
@@ -819,36 +819,36 @@ Public Sub readSettingsFile(ByVal Location As String, ByVal gblSettingsFile As S
     If fFExists(gblSettingsFile) Then
         
         ' general
-        gblStartup = fGetINISetting(Location, "startup", gblSettingsFile)
-        gblGaugeFunctions = fGetINISetting(Location, "widgetFunctions", gblSettingsFile)
-        gblPointerAnimate = fGetINISetting(Location, "pointerAnimate", gblSettingsFile)
-        gblMultiCoreEnable = fGetINISetting(Location, "multiCoreEnable", gblSettingsFile)
-        gblSamplingInterval = fGetINISetting(Location, "samplingInterval", gblSettingsFile)
+        gsStartup = fGetINISetting(Location, "startup", gblSettingsFile)
+        gsWidgetFunctions = fGetINISetting(Location, "widgetFunctions", gblSettingsFile)
+        gsPointerAnimate = fGetINISetting(Location, "pointerAnimate", gblSettingsFile)
+        gsMultiCoreEnable = fGetINISetting(Location, "multiCoreEnable", gblSettingsFile)
+        gsSamplingInterval = fGetINISetting(Location, "samplingInterval", gblSettingsFile)
         
         ' configuration
-        gblGaugeTooltips = fGetINISetting(Location, "gaugeTooltips", gblSettingsFile)
-        gblPrefsTooltips = fGetINISetting(Location, "prefsTooltips", gblSettingsFile)
+        gsWidgetTooltips = fGetINISetting(Location, "widgetTooltips", gblSettingsFile)
+        gsPrefsTooltips = fGetINISetting(Location, "prefsTooltips", gblSettingsFile)
         
-        gblShowTaskbar = fGetINISetting(Location, "showTaskbar", gblSettingsFile)
-        gblShowHelp = fGetINISetting(Location, "showHelp", gblSettingsFile)
+        gsShowTaskbar = fGetINISetting(Location, "showTaskbar", gblSettingsFile)
+        gsShowHelp = fGetINISetting(Location, "showHelp", gblSettingsFile)
 '        gblTogglePendulum = fGetINISetting(Location, "togglePendulum", gblSettingsFile)
 '        gbl24HourGaugeMode = fGetINISetting(Location, "24HourGaugeMode", gblSettingsFile)
-        gblDpiAwareness = fGetINISetting(Location, "dpiAwareness", gblSettingsFile)
-        gblGaugeSize = fGetINISetting(Location, "gaugeSize", gblSettingsFile)
-        gblScrollWheelDirection = fGetINISetting(Location, "scrollWheelDirection", gblSettingsFile)
+        gsDpiAwareness = fGetINISetting(Location, "dpiAwareness", gblSettingsFile)
+        gsWidgetSize = fGetINISetting(Location, "widgetSize", gblSettingsFile)
+        gsScrollWheelDirection = fGetINISetting(Location, "scrollWheelDirection", gblSettingsFile)
 '        gblNumericDisplayRotation = fGetINISetting(Location, "numericDisplayRotation", gblSettingsFile)
         
         ' position
-        gblAspectHidden = fGetINISetting(Location, "aspectHidden", gblSettingsFile)
-        gblWidgetPosition = fGetINISetting(Location, "widgetPosition", gblSettingsFile)
-        gblWidgetLandscape = fGetINISetting(Location, "widgetLandscape", gblSettingsFile)
-        gblWidgetPortrait = fGetINISetting(Location, "widgetPortrait", gblSettingsFile)
-        gblLandscapeFormHoffset = fGetINISetting(Location, "landscapeHoffset", gblSettingsFile)
-        gblLandscapeFormVoffset = fGetINISetting(Location, "landscapeYoffset", gblSettingsFile)
-        gblPortraitHoffset = fGetINISetting(Location, "portraitHoffset", gblSettingsFile)
-        gblPortraitYoffset = fGetINISetting(Location, "portraitYoffset", gblSettingsFile)
-        gblvLocationPercPrefValue = fGetINISetting(Location, "vLocationPercPrefValue", gblSettingsFile)
-        gblhLocationPercPrefValue = fGetINISetting(Location, "hLocationPercPrefValue", gblSettingsFile)
+        gsAspectHidden = fGetINISetting(Location, "aspectHidden", gblSettingsFile)
+        gsWidgetPosition = fGetINISetting(Location, "widgetPosition", gblSettingsFile)
+        gsWidgetLandscape = fGetINISetting(Location, "widgetLandscape", gblSettingsFile)
+        gsWidgetPortrait = fGetINISetting(Location, "widgetPortrait", gblSettingsFile)
+        gsLandscapeFormHoffset = fGetINISetting(Location, "landscapeHoffset", gblSettingsFile)
+        gsLandscapeFormVoffset = fGetINISetting(Location, "landscapeYoffset", gblSettingsFile)
+        gsPortraitHoffset = fGetINISetting(Location, "portraitHoffset", gblSettingsFile)
+        gsPortraitYoffset = fGetINISetting(Location, "portraitYoffset", gblSettingsFile)
+        gsVLocationPercPrefValue = fGetINISetting(Location, "vLocationPercPrefValue", gblSettingsFile)
+        gsHLocationPercPrefValue = fGetINISetting(Location, "hLocationPercPrefValue", gblSettingsFile)
 
         ' font
         gblClockFont = fGetINISetting(Location, "clockFont", gblSettingsFile)
@@ -931,31 +931,31 @@ Public Sub validateInputs()
    On Error GoTo validateInputs_Error
             
         ' general
-        If gblGaugeFunctions = vbNullString Then gblGaugeFunctions = "1" ' always turn
+        If gsWidgetFunctions = vbNullString Then gsWidgetFunctions = "1" ' always turn
 '        If gblAnimationInterval = vbNullString Then gblAnimationInterval = "130"
-        If gblStartup = vbNullString Then gblStartup = "1"
+        If gsStartup = vbNullString Then gsStartup = "1"
         
-        If gblPointerAnimate = vbNullString Then gblPointerAnimate = "0"
-        If gblMultiCoreEnable = vbNullString Then gblMultiCoreEnable = "0"
-        If gblSamplingInterval = vbNullString Then gblSamplingInterval = "3"
+        If gsPointerAnimate = vbNullString Then gsPointerAnimate = "0"
+        If gsMultiCoreEnable = vbNullString Then gsMultiCoreEnable = "0"
+        If gsSamplingInterval = vbNullString Then gsSamplingInterval = "3"
                 
         ' Configuration
-        If gblGaugeTooltips = "False" Then gblGaugeTooltips = "0"
-        If gblGaugeTooltips = vbNullString Then gblGaugeTooltips = "0"
+        If gsWidgetTooltips = "False" Then gsWidgetTooltips = "0"
+        If gsWidgetTooltips = vbNullString Then gsWidgetTooltips = "0"
 
         
         'If gblEnablePrefsTooltips = vbNullString Then gblEnablePrefsTooltips = "false"
-        If gblPrefsTooltips = "False" Then gblPrefsTooltips = "0"
-        If gblPrefsTooltips = vbNullString Then gblPrefsTooltips = "0"
+        If gsPrefsTooltips = "False" Then gsPrefsTooltips = "0"
+        If gsPrefsTooltips = vbNullString Then gsPrefsTooltips = "0"
         
-        If gblShowTaskbar = vbNullString Then gblShowTaskbar = "0"
-        If gblShowHelp = vbNullString Then gblShowHelp = "1"
+        If gsShowTaskbar = vbNullString Then gsShowTaskbar = "0"
+        If gsShowHelp = vbNullString Then gsShowHelp = "1"
 '        If gblTogglePendulum = vbNullString Then gblTogglePendulum = "0"
 '        If gbl24HourGaugeMode = vbNullString Then gbl24HourGaugeMode = "1"
 '
-        If gblDpiAwareness = vbNullString Then gblDpiAwareness = "0"
-        If gblGaugeSize = vbNullString Then gblGaugeSize = "100"
-        If gblScrollWheelDirection = vbNullString Then gblScrollWheelDirection = "1"
+        If gsDpiAwareness = vbNullString Then gsDpiAwareness = "0"
+        If gsWidgetSize = vbNullString Then gsWidgetSize = "100"
+        If gsScrollWheelDirection = vbNullString Then gsScrollWheelDirection = "1"
 '        If gblNumericDisplayRotation = vbNullString Then gblNumericDisplayRotation = "1"
                
         ' fonts
@@ -984,16 +984,16 @@ Public Sub validateInputs()
         
         
         ' position
-        If gblAspectHidden = vbNullString Then gblAspectHidden = "0"
-        If gblWidgetPosition = vbNullString Then gblWidgetPosition = "0"
-        If gblWidgetLandscape = vbNullString Then gblWidgetLandscape = "0"
-        If gblWidgetPortrait = vbNullString Then gblWidgetPortrait = "0"
-        If gblLandscapeFormHoffset = vbNullString Then gblLandscapeFormHoffset = vbNullString
-        If gblLandscapeFormVoffset = vbNullString Then gblLandscapeFormVoffset = vbNullString
-        If gblPortraitHoffset = vbNullString Then gblPortraitHoffset = vbNullString
-        If gblPortraitYoffset = vbNullString Then gblPortraitYoffset = vbNullString
-        If gblvLocationPercPrefValue = vbNullString Then gblvLocationPercPrefValue = vbNullString
-        If gblhLocationPercPrefValue = vbNullString Then gblhLocationPercPrefValue = vbNullString
+        If gsAspectHidden = vbNullString Then gsAspectHidden = "0"
+        If gsWidgetPosition = vbNullString Then gsWidgetPosition = "0"
+        If gsWidgetLandscape = vbNullString Then gsWidgetLandscape = "0"
+        If gsWidgetPortrait = vbNullString Then gsWidgetPortrait = "0"
+        If gsLandscapeFormHoffset = vbNullString Then gsLandscapeFormHoffset = vbNullString
+        If gsLandscapeFormVoffset = vbNullString Then gsLandscapeFormVoffset = vbNullString
+        If gsPortraitHoffset = vbNullString Then gsPortraitHoffset = vbNullString
+        If gsPortraitYoffset = vbNullString Then gsPortraitYoffset = vbNullString
+        If gsVLocationPercPrefValue = vbNullString Then gsVLocationPercPrefValue = vbNullString
+        If gsHLocationPercPrefValue = vbNullString Then gsHLocationPercPrefValue = vbNullString
                 
         ' development
         If gblDebug = vbNullString Then gblDebug = "0"

@@ -679,7 +679,7 @@ Public Sub resizeLocateRCFormByMoveToNewMonitor()
                     
                     'now calculate the size of the widget according to the screen HeightTwips.
                     resizeProportion = gaugeMonitorStruct.Height / oldMonitorStructHeightTwips
-                    resizeProportion = (Val(gblGaugeSize) / 100) * resizeProportion
+                    resizeProportion = (Val(gsWidgetSize) / 100) * resizeProportion
                     
                     'if  dragging from right to left then reposition
                     If fGauge.gaugeForm.Left > oldGaugeLeftPixels Then

@@ -219,15 +219,15 @@ End Sub
 ' ----------------------------------------------------------------
 Private Sub menuMultiCore_Click()
     On Error GoTo menuMultiCore_Click_Error
-    If gblMultiCoreEnable = "0" Then
-        gblMultiCoreEnable = "1"
+    If gsMultiCoreEnable = "0" Then
+        gsMultiCoreEnable = "1"
         frmMultiCore.Show
 
         Call startAllCpuTimers
         menuMultiCore.Caption = "Hide MultiCore CPU Display"
     Else
         frmMultiCore.tmrMultiCore.Enabled = False
-        gblMultiCoreEnable = "0"
+        gsMultiCoreEnable = "0"
         frmMultiCore.Hide
         menuMultiCore.Caption = "Show MultiCore CPU Display"
     End If
@@ -292,7 +292,7 @@ Private Sub mnuEditWidget_Click()
     
    On Error GoTo mnuEditWidget_Click_Error
 
-    #If TWINBASIC Then
+    #If TwinBasic Then
         editorPath = gblDefaultTBEditor
     #Else
         editorPath = gblDefaultVB6Editor
