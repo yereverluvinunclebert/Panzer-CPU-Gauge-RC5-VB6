@@ -63,19 +63,19 @@ Public Sub initAndCreateAboutForm(Optional ByVal Caption As String)
     If gsDpiAwareness = "0" Then
         aboutFormWidth = 900
         aboutFormHeight = 850
-        If aboutFormWidth > gsVirtualScreenWidthPixels Then aboutFormWidth = gsVirtualScreenWidthPixels
-        If aboutFormHeight > gsVirtualScreenHeightPixels Then aboutFormHeight = gsVirtualScreenHeightPixels
+        If aboutFormWidth > glVirtualScreenWidthPixels Then aboutFormWidth = glVirtualScreenWidthPixels
+        If aboutFormHeight > glVirtualScreenHeightPixels Then aboutFormHeight = glVirtualScreenHeightPixels
     Else
         aboutFormWidth = 1800
         aboutFormHeight = 1600
-        If aboutFormWidth > gsVirtualScreenWidthPixels Then
-            aboutFormWidth = gsVirtualScreenWidthPixels
+        If aboutFormWidth > glVirtualScreenWidthPixels Then
+            aboutFormWidth = glVirtualScreenWidthPixels
             aboutWidgetZoomValue = 1
         Else
             aboutWidgetZoomValue = 1.6
         End If
-        If aboutFormHeight > gsVirtualScreenHeightPixels Then
-            aboutFormHeight = gsVirtualScreenHeightPixels
+        If aboutFormHeight > glVirtualScreenHeightPixels Then
+            aboutFormHeight = glVirtualScreenHeightPixels
             aboutWidgetZoomValue = 1
         Else
             aboutWidgetZoomValue = 1.6
@@ -130,20 +130,20 @@ Public Sub initAndCreateHelpForm(Optional ByVal Caption As String)
     If gsDpiAwareness = "0" Then
         helpFormWidth = 1000
         helpFormHeight = 800
-        If helpFormWidth > gsVirtualScreenWidthPixels Then helpFormWidth = gsVirtualScreenWidthPixels
-        If helpFormHeight > gsVirtualScreenHeightPixels Then helpFormHeight = gsVirtualScreenHeightPixels
+        If helpFormWidth > glVirtualScreenWidthPixels Then helpFormWidth = glVirtualScreenWidthPixels
+        If helpFormHeight > glVirtualScreenHeightPixels Then helpFormHeight = glVirtualScreenHeightPixels
         helpWidgetZoomValue = 0.8
     Else
         helpFormWidth = 1600
         helpFormHeight = 1300
-        If helpFormWidth > gsVirtualScreenWidthPixels Then
-            helpFormWidth = gsVirtualScreenWidthPixels
+        If helpFormWidth > glVirtualScreenWidthPixels Then
+            helpFormWidth = glVirtualScreenWidthPixels
             helpWidgetZoomValue = 1
         Else
             helpWidgetZoomValue = 1.4
         End If
-        If helpFormHeight > gsVirtualScreenHeightPixels Then
-            helpFormHeight = gsVirtualScreenHeightPixels
+        If helpFormHeight > glVirtualScreenHeightPixels Then
+            helpFormHeight = glVirtualScreenHeightPixels
             helpWidgetZoomValue = 1
         Else
             helpWidgetZoomValue = 1.4
@@ -202,21 +202,21 @@ Public Sub initAndCreateLicenceForm(Optional ByVal Caption As String)
     If gsDpiAwareness = "0" Then
         licenceFormWidth = 650
         licenceFormHeight = 550
-        If licenceFormWidth > gsVirtualScreenWidthPixels Then licenceFormWidth = gsVirtualScreenWidthPixels
-        If licenceFormHeight > gsVirtualScreenHeightPixels Then licenceFormHeight = gsVirtualScreenHeightPixels
+        If licenceFormWidth > glVirtualScreenWidthPixels Then licenceFormWidth = glVirtualScreenWidthPixels
+        If licenceFormHeight > glVirtualScreenHeightPixels Then licenceFormHeight = glVirtualScreenHeightPixels
         licenceWidgetZoomValue = 0.8
     Else
         licenceFormWidth = 750
         licenceFormHeight = 650
-        If licenceFormWidth > gsVirtualScreenWidthPixels Then
-            licenceFormWidth = gsVirtualScreenWidthPixels
+        If licenceFormWidth > glVirtualScreenWidthPixels Then
+            licenceFormWidth = glVirtualScreenWidthPixels
             licenceWidgetZoomValue = 0.8
         Else
             licenceWidgetZoomValue = 1.5
         End If
         
-        If licenceFormHeight > gsVirtualScreenHeightPixels Then
-            licenceFormHeight = gsVirtualScreenHeightPixels
+        If licenceFormHeight > glVirtualScreenHeightPixels Then
+            licenceFormHeight = glVirtualScreenHeightPixels
             licenceWidgetZoomValue = 0.8
         Else
             licenceWidgetZoomValue = 1.5

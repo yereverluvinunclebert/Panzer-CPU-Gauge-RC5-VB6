@@ -385,7 +385,7 @@ Private Sub Draw(ByRef CC As cCairoContext, ByVal dx As Single, ByVal dy As Sing
         
     'set some Font- and ForeColor-Properties and draw some Text on the Widget
     W.FontItalic = False
-    W.FontName = gsGaugeFont
+    W.FontName = gsWidgetFont
     W.ForeColor = vbBlack
     W.FontBold = True
     W.FontSize = 9

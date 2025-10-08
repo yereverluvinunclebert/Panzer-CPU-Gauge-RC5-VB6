@@ -313,7 +313,7 @@ Public Function cWidgetFormScreenProperties(ByVal frm As cWidgetForm, ByRef moni
     
     On Error GoTo cWidgetFormScreenProperties_Error
    
-    'If gsDebugFlg = 1 Then MsgBox "%" & " func cWidgetFormScreenProperties"
+    'If giDebugFlg = 1 Then MsgBox "%" & " func cWidgetFormScreenProperties"
     
     ' reads the size and position of the user supplied form window
     GetWindowRect frm.hWnd, Frect
@@ -375,7 +375,7 @@ Public Function formScreenProperties(ByVal frm As Form, ByRef monitorID As Long)
     
     On Error GoTo formScreenProperties_Error
    
-    If gsDebugFlg = 1 Then MsgBox "%" & " func formScreenProperties"
+    If giDebugFlg = 1 Then MsgBox "%" & " func formScreenProperties"
     
     ' reads the size and position of the user supplied form window
     GetWindowRect frm.hWnd, Frect
@@ -452,7 +452,7 @@ Public Sub positionPrefsByMonitorSize()
     widgetPrefs.tmrWritePositionAndSize.Enabled = False
     
     ' if just one monitor or the global switch is off then exit
-    If gsMonitorCount > 1 And (LTrim$(gsMultiMonitorResize) = "1" Or LTrim$(gsMultiMonitorResize) = "2") Then
+    If glMonitorCount > 1 And (LTrim$(gsMultiMonitorResize) = "1" Or LTrim$(gsMultiMonitorResize) = "2") Then
        
         ' populate the OLD vars if empty, to allow valid comparison next run
         If oldWidgetPrefsLeft <= 0 Then oldWidgetPrefsLeft = widgetPrefs.Left
@@ -474,9 +474,9 @@ Public Sub positionPrefsByMonitorSize()
         If oldPrefsGaugeLeftPixels = 0 Then oldPrefsGaugeLeftPixels = widgetPrefs.Left
     
         ' if the monitor ID has changed
-        If gsOldPrefsFormMonitorPrimary <> prefsFormMonitorPrimary Then
+        If glOldPrefsFormMonitorPrimary <> prefsFormMonitorPrimary Then
     
-            ' screenWrite ("Prefs Stored monitor primary status = " & CBool(gsOldPrefsFormMonitorPrimary))
+            ' screenWrite ("Prefs Stored monitor primary status = " & CBool(glOldPrefsFormMonitorPrimary))
             ' screenWrite ("Prefs Current monitor primary status = " & CBool(prefsFormMonitorPrimary))
            
             If LTrim$(gsMultiMonitorResize) = "1" Then
@@ -485,12 +485,12 @@ Public Sub positionPrefsByMonitorSize()
                     'now calculate the size of the widget according to the screen HeightTwips.
                     resizeProportion = prefsMonitorStruct.Height / oldPrefsMonitorStructHeightTwips
                     newPrefsHeight = widgetPrefs.Height * resizeProportion
-                    gsPrefsFormResizedInCode = True
+                    gbPrefsFormResizedInCode = True
                     widgetPrefs.Height = newPrefsHeight
                 End If
             ElseIf LTrim$(gsMultiMonitorResize) = "2" Then
                 ' set the widget size according to saved values
-                gsPrefsFormResizedInCode = True
+                gbPrefsFormResizedInCode = True
                 If prefsMonitorStruct.IsPrimary = True Then
                     widgetPrefs.Height = CLng(gsPrefsPrimaryHeightTwips)
                 Else
@@ -501,7 +501,7 @@ Public Sub positionPrefsByMonitorSize()
         End If
         
         ' set the current values as 'old' for comparison on next run
-        gsOldPrefsFormMonitorPrimary = prefsFormMonitorPrimary
+        glOldPrefsFormMonitorPrimary = prefsFormMonitorPrimary
         
         oldPrefsMonitorStructWidthTwips = monitorStructWidthTwips
         oldPrefsMonitorStructHeightTwips = monitorStructHeightTwips
@@ -649,7 +649,7 @@ Public Sub resizeLocateRCFormByMoveToNewMonitor()
 
     On Error GoTo resizeLocateRCFormByMoveToNewMonitor_Error
   
-    If gsMonitorCount > 1 And (LTrim$(gsMultiMonitorResize) = "1" Or LTrim$(gsMultiMonitorResize) = "2") Then
+    If glMonitorCount > 1 And (LTrim$(gsMultiMonitorResize) = "1" Or LTrim$(gsMultiMonitorResize) = "2") Then
                     
         ' note the monitor ID at gaugeForm form_load and store as the gaugeFormMonitorID
         gaugeMonitorStruct = cWidgetFormScreenProperties(fGauge.gaugeForm, gaugeFormMonitorID)
@@ -667,9 +667,9 @@ Public Sub resizeLocateRCFormByMoveToNewMonitor()
         If oldMonitorStructHeightTwips = 0 Then oldMonitorStructHeightTwips = monitorStructHeightTwips
         If oldGaugeLeftPixels = 0 Then oldGaugeLeftPixels = fGauge.gaugeForm.Left
     
-        If gsOldgaugeFormMonitorPrimary <> gaugeFormMonitorPrimary Then
+        If glOldWidgetFormMonitorPrimary <> gaugeFormMonitorPrimary Then
             
-            ' screenWrite ("Stored monitor primary status = " & CBool(gsOldgaugeFormMonitorPrimary))
+            ' screenWrite ("Stored monitor primary status = " & CBool(glOldWidgetFormMonitorPrimary))
             ' screenWrite ("Current monitor primary status = " & CBool(gaugeFormMonitorPrimary))
             
             If LTrim$(gsMultiMonitorResize) = "1" Then
@@ -693,11 +693,11 @@ Public Sub resizeLocateRCFormByMoveToNewMonitor()
             ElseIf LTrim$(gsMultiMonitorResize) = "2" Then
                 ' screenWrite ("Resizing per monitor stored size ")
                 If gaugeMonitorStruct.IsPrimary = True Then
-                    If gsGaugePrimaryHeightRatio = "" Then gsGaugePrimaryHeightRatio = "1"
-                    resizeProportion = Val(gsGaugePrimaryHeightRatio)
+                    If gsWidgetPrimaryHeightRatio = "" Then gsWidgetPrimaryHeightRatio = "1"
+                    resizeProportion = Val(gsWidgetPrimaryHeightRatio)
                 Else
-                    If gsGaugeSecondaryHeightRatio = "" Then gsGaugeSecondaryHeightRatio = "1"
-                    resizeProportion = Val(gsGaugeSecondaryHeightRatio)
+                    If gsWidgetSecondaryHeightRatio = "" Then gsWidgetSecondaryHeightRatio = "1"
+                    resizeProportion = Val(gsWidgetSecondaryHeightRatio)
                 End If
                 
                                     
@@ -712,7 +712,7 @@ Public Sub resizeLocateRCFormByMoveToNewMonitor()
             End If
         End If
     
-        gsOldgaugeFormMonitorPrimary = gaugeFormMonitorPrimary
+        glOldWidgetFormMonitorPrimary = gaugeFormMonitorPrimary
         
         oldMonitorStructWidthTwips = monitorStructWidthTwips
         oldMonitorStructHeightTwips = monitorStructHeightTwips

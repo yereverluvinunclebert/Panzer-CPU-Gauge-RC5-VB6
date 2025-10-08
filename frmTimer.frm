@@ -119,7 +119,7 @@ Private Sub revealWidgetTimer_Timer()
     On Error GoTo revealWidgetTimer_Timer_Error
 
     revealWidgetTimerCount = revealWidgetTimerCount + 1
-    If revealWidgetTimerCount >= (gsMinutesToHide * 12) Then
+    If revealWidgetTimerCount >= (giMinutesToHide * 12) Then
         revealWidgetTimerCount = 0
 
         fGauge.gaugeForm.Visible = True
@@ -188,24 +188,24 @@ Private Sub tmrScreenResolution_Timer()
     
     On Error GoTo tmrScreenResolution_Timer_Error
 
-    gsPhysicalScreenHeightPixels = GetDeviceCaps(Me.hDC, VERTRES)
-    gsPhysicalScreenWidthPixels = GetDeviceCaps(Me.hDC, HORZRES)
+    glPhysicalScreenHeightPixels = GetDeviceCaps(Me.hDC, VERTRES)
+    glPhysicalScreenWidthPixels = GetDeviceCaps(Me.hDC, HORZRES)
     
-    gsVirtualScreenWidthPixels = fVirtualScreenWidth(True)
-    gsVirtualScreenHeightPixels = fVirtualScreenHeight(True)
+    glVirtualScreenWidthPixels = fVirtualScreenWidth(True)
+    glVirtualScreenHeightPixels = fVirtualScreenHeight(True)
 
     ' calls a routine that tests for a change in the monitor upon which the form sits, if so, resizes
     'Call resizeLocateRCFormByMoveToNewMonitor
     
     ' will be used to check for orientation changes
-    If (gsOldPhysicalScreenHeightPixels <> gsPhysicalScreenHeightPixels) Or (gsOldPhysicalScreenWidthPixels <> gsPhysicalScreenWidthPixels) Then
+    If (glOldPhysicalScreenHeightPixels <> glPhysicalScreenHeightPixels) Or (glOldPhysicalScreenWidthPixels <> glPhysicalScreenWidthPixels) Then
         
         ' move/hide onto/from the main screen and position per orientation portrait/landscape
         Call mainScreen
 '
         'store the resolution change
-        gsOldPhysicalScreenHeightPixels = gsPhysicalScreenHeightPixels
-        gsOldPhysicalScreenWidthPixels = gsPhysicalScreenWidthPixels
+        glOldPhysicalScreenHeightPixels = glPhysicalScreenHeightPixels
+        glOldPhysicalScreenWidthPixels = glPhysicalScreenWidthPixels
     End If
 
     On Error GoTo 0
@@ -283,7 +283,7 @@ Private Sub sleepTimer_Timer()
 
     If lngSecondsGap > 60 Then
       
-        gsFGaugeAvailable = True
+        gbThisWidgetAvailable = True
         ' Call ' screenWrite("system has just woken up from a sleep at " & Now() & vbCrLf & "updating digital gauges... ")
         
         'overlayWidget.BaseDate = Now()

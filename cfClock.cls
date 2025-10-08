@@ -51,9 +51,9 @@ Public FZ As Single
 'Private mTicking As Boolean
 'Private mShowHelp As Boolean
 Private mOpacity As String
-Private pvtPSDWidth As Long
-Private pvtPSDHeight As Long
-'Private pvtBusyTimerRotateValue As Integer
+Private pPSDWidth As Long
+Private pPSDHeight As Long
+'Private pBusyTimerRotateValue As Integer
 
 ' RC widgets
 
@@ -72,8 +72,8 @@ Private pvtPSDHeight As Long
 Private Sub initialisePrivateVars()
    On Error GoTo initialisePrivateVars_Error
 
-    pvtPSDWidth = 0
-    pvtPSDHeight = 0
+    pPSDWidth = 0
+    pPSDHeight = 0
 
    On Error GoTo 0
    Exit Sub
@@ -95,7 +95,7 @@ Private Sub Class_Initialize()
     
     Call initialisePrivateVars
     
-    'pvtBusyTimerRotateValue = 1
+    'pBusyTimerRotateValue = 1
 
     Set collPSDNonUIElements = New_c.Collection(False)
     
@@ -139,7 +139,7 @@ Public Sub InitialiseImageWidgetsFromXML()
     Call convertImageXMLToRcWidgets
 
     ' create a overlay here just for a single custom widget that contains just the animated elements.
-    Set overlayWidget = gaugeForm.Widgets.Add(New cwOverlay, "Overlay", 0, 0, pvtPSDWidth, pvtPSDHeight)
+    Set overlayWidget = gaugeForm.Widgets.Add(New cwOverlay, "Overlay", 0, 0, pPSDWidth, pPSDHeight)
     Set overlayWidget.cCollOverlayImages = collPSDNonUIElements 'make the excluded PSD-Surface-Paths known to the Overlay-Widget
         overlayWidget.cxPerc = 0.4940476 'define the relative center (within cwOverlay, which has the same size as the Form and the PSD...) this is used for clock-hand-positioning
         overlayWidget.cyPerc = 0.4727272
@@ -634,8 +634,8 @@ Private Sub gaugeForm_DblClick()
         thisCommand = Replace(thisCommand, "%systemroot%", userprof)
     End If
     
-    If gsSHIFT_1 = True Then
-        gsSHIFT_1 = False
+    If gbSHIFT_1 = True Then
+        gbSHIFT_1 = False
         Call ShellExecute(gaugeForm.hWnd, "Open", gsOpenFile, vbNullString, App.Path, 1)
     Else
         Call ShellExecute(gaugeForm.hWnd, "runas", thisCommand, vbNullString, App.Path, 1)
@@ -736,8 +736,8 @@ Private Sub gaugeForm_MouseMove(ByRef Button As Integer, ByRef Shift As Integer,
     
     If overlayWidget.Locked = True Then Exit Sub
     If gsIgnoreMouse = "1" Then Exit Sub
-    If gsMenuOccurred = True Then
-        gsMenuOccurred = False
+    If gbMenuOccurred = True Then
+        gbMenuOccurred = False
         Exit Sub
     End If
 
@@ -817,7 +817,7 @@ Public Sub AdjustZoom(ByVal NewZoom As Single)
     FZ = NewZoom
     If FZ < 0.05 Then FZ = 0.05 Else If FZ > 3 Then FZ = 3 'keep FZ within a sane ZoomInterval
     gaugeForm.WidgetRoot.Zoom = FZ '* gaugeForm.WidgetRoot.CurrentMonitor.Zoom '<-- if the multiplicator is activated, we'd have DPI-awareness on high-res monitors
-    gaugeForm.Move gaugeForm.Left, gaugeForm.Top, pvtPSDWidth * gaugeForm.WidgetRoot.Zoom, pvtPSDHeight * gaugeForm.WidgetRoot.Zoom
+    gaugeForm.Move gaugeForm.Left, gaugeForm.Top, pPSDWidth * gaugeForm.WidgetRoot.Zoom, pPSDHeight * gaugeForm.WidgetRoot.Zoom
     
     ' when resized from the gauge scroll up/down it needs to write it back so the size is correct when prefs opened.
     gsWidgetSize = CStr(NewZoom * 100)
@@ -825,9 +825,9 @@ Public Sub AdjustZoom(ByVal NewZoom As Single)
     If widgetPrefs.IsLoaded Then widgetPrefs.sliGaugeSize.Value = Val(gsWidgetSize) ' ensure that the prefs size slider matches when zoom is modified without using the slider
     
     If gaugeMonitorStruct.IsPrimary = True Then
-        gsGaugePrimaryHeightRatio = CStr(NewZoom)
+        gsWidgetPrimaryHeightRatio = CStr(NewZoom)
     Else
-        gsGaugeSecondaryHeightRatio = CStr(NewZoom)
+        gsWidgetSecondaryHeightRatio = CStr(NewZoom)
     End If
 
    On Error GoTo 0
@@ -862,7 +862,7 @@ Private Sub gaugeForm_MouseDown(ByRef Button As Integer, ByRef Shift As Integer,
     frmTimer.tmrScreenResolution.Enabled = True
         
     If Button = vbRightButton Then
-        gsMenuOccurred = True
+        gbMenuOccurred = True
         Call menuForm.PopupMenu(menuForm.mnuMainMenu)
     Else
         If gsIgnoreMouse = "1" Then Exit Sub
@@ -1017,8 +1017,8 @@ Private Sub convertImageXMLToRcWidgets()
     windowWidth = MainNode.selectSingleNode("@width").Text
     windowHeight = MainNode.selectSingleNode("@height").Text
 
-    pvtPSDWidth = CLng(windowWidth)
-    pvtPSDHeight = CLng(windowHeight)
+    pPSDWidth = CLng(windowWidth)
+    pPSDHeight = CLng(windowHeight)
     
     ' get the image values from the XML data, the num results should be non-zero
     Set nodeList = objxmldoc.selectNodes("widget/window/image")

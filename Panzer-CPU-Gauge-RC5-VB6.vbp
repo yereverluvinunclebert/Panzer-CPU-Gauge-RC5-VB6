@@ -42,7 +42,7 @@ Description="A FOSS Panzer CPU Gauge VB6/TwinBasic Widget for Windows"
 CompatibleMode="0"
 MajorVer=0
 MinorVer=1
-RevisionVer=135
+RevisionVer=153
 AutoIncrementVer=1
 ServerSupportFiles=0
 VersionComments="Beta-release version. "
@@ -85,3 +85,7 @@ ProjectId=79e9b044-786f-4d2a-abd2-5aecb28ec8a1
 
 [fastBuild]
 fullPath=%ap%\Panzer-CPU-Gauge-RC5-VB6 exe
+
+
+
+

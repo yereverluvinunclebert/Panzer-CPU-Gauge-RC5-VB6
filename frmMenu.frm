@@ -190,8 +190,8 @@ Private Sub menuReload_Click()
     'answer = vbYes
     answerMsg = "Performing a hard restart now, press OK."
         
-    If gsSHIFT_1 = True Then
-        gsSHIFT_1 = False
+    If gbSHIFT_1 = True Then
+        gbSHIFT_1 = False
          msgBoxA answerMsg, vbExclamation + vbOK, "Performing a hard restart", True, "menuReloadClick"
         
         Call hardRestart
@@ -299,7 +299,7 @@ Private Sub mnuEditWidget_Click()
     #End If
     
     If fFExists(editorPath) Then ' if it is a folder already
-        '''If gsDebugFlg = 1  Then msgBox "ShellExecute " & sCommand
+        '''If giDebugFlg = 1  Then msgBox "ShellExecute " & sCommand
         
         ' run the selected program
         execStatus = ShellExecute(Me.hWnd, "open", editorPath, vbNullString, vbNullString, 1)
@@ -569,7 +569,7 @@ Public Sub mnuLatest_Click()
     Dim answerMsg As String: answerMsg = vbNullString
 
     On Error GoTo mnuLatest_Click_Error
-    '''If gsDebugFlg = 1  Then msgBox "%" & "mnuLatest_Click"
+    '''If giDebugFlg = 1  Then msgBox "%" & "mnuLatest_Click"
     
     answer = vbYes
 

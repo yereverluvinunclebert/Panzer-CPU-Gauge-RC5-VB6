@@ -88,7 +88,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     ' initialise global vars
     Call initialiseGlobalVars
     
-    gsStartupFlg = True
+    gbStartupFlg = True
     gsWidgetName = "Panzer CPU Gauge"
     
     extractCommand = Command$ ' capture any parameter passed, remove if a soft reload
@@ -119,7 +119,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     Call addImagesToImageList
     
     ' check the Windows version
-    gsClassicThemeCapable = fTestClassicThemeCapable
+    gbClassicThemeCapable = fTestClassicThemeCapable
   
     ' get this tool's entry in the trinkets settings file and assign the app.path
     Call getTrinketsFile
@@ -183,7 +183,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
         frmMultiCore.Show
     End If
     
-    ' note the monitor primary at the preferences form_load and store as gsOldgaugeFormMonitorPrimary
+    ' note the monitor primary at the preferences form_load and store as glOldWidgetFormMonitorPrimary
     Call identifyPrimaryMonitor
     
     ' make the busy sand timer invisible
@@ -198,8 +198,8 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     #End If
         
     ' end the startup by un-setting the start global flag
-    gsStartupFlg = False
-    gsReload = False
+    gbStartupFlg = False
+    gbReload = False
                 
     ' note: the final act in startup is the form_resize_event that is triggered by the subclassed WM_EXITSIZEMOVE when the form is finally revealed
      
@@ -272,7 +272,7 @@ Private Sub loadPreferenceForm()
 
     If widgetPrefs.IsLoaded = False Then
         Load widgetPrefs
-        gsPrefsFormResizedInCode = True
+        gbPrefsFormResizedInCode = True
         Call widgetPrefs.PrefsFormResizeEvent
     End If
 
@@ -314,7 +314,7 @@ End Sub
 ' Procedure : identifyPrimaryMonitor
 ' Author    : beededea
 ' Date      : 20/02/2025
-' Purpose   : note the monitor primary at the main form_load and store as gsOldgaugeFormMonitorPrimary - will be resampled regularly later and compared
+' Purpose   : note the monitor primary at the main form_load and store as glOldWidgetFormMonitorPrimary - will be resampled regularly later and compared
 '---------------------------------------------------------------------------------------
 '
 Private Sub identifyPrimaryMonitor()
@@ -323,7 +323,7 @@ Private Sub identifyPrimaryMonitor()
     On Error GoTo identifyPrimaryMonitor_Error
 
     gaugeMonitorStruct = cWidgetFormScreenProperties(fGauge.gaugeForm, gaugeFormMonitorID)
-    gsOldgaugeFormMonitorPrimary = gaugeMonitorStruct.IsPrimary
+    glOldWidgetFormMonitorPrimary = gaugeMonitorStruct.IsPrimary
 
     On Error GoTo 0
     Exit Sub
@@ -374,7 +374,7 @@ Private Sub initialiseGlobalVars()
       
     On Error GoTo initialiseGlobalVars_Error
     
-    gsMonitorCount = 0
+    glMonitorCount = 0
 
     ' general
     gsStartup = vbNullString
@@ -417,7 +417,7 @@ Private Sub initialiseGlobalVars()
          
     ' font
     gsClockFont = vbNullString
-    gsGaugeFont = vbNullString
+    gsWidgetFont = vbNullString
     gsPrefsFont = vbNullString
     gsPrefsFontSizeHighDPI = vbNullString
     gsPrefsFontSizeLowDPI = vbNullString
@@ -436,7 +436,7 @@ Private Sub initialiseGlobalVars()
     gsWidgetHidden = vbNullString
     gsHidingTime = vbNullString
     gsIgnoreMouse = vbNullString
-    gsMenuOccurred = False ' bool
+    gbMenuOccurred = False ' bool
     gsFirstTimeRun = vbNullString
     gsMultiMonitorResize = vbNullString
     
@@ -447,50 +447,50 @@ Private Sub initialiseGlobalVars()
     gsTrinketsDir = vbNullString
     gsTrinketsFile = vbNullString
     
-    gsGaugeHighDpiXPos = vbNullString
-    gsGaugeHighDpiYPos = vbNullString
+    gsWidgetHighDpiXPos = vbNullString
+    gsWidgetHighDpiYPos = vbNullString
     
-    gsGaugeLowDpiXPos = vbNullString
-    gsGaugeLowDpiYPos = vbNullString
+    gsWidgetLowDpiXPos = vbNullString
+    gsWidgetLowDpiYPos = vbNullString
     
     gsLastSelectedTab = vbNullString
     gsSkinTheme = vbNullString
     
     ' general variables declared
-    gsClassicThemeCapable = False
+    gbClassicThemeCapable = False
     glStoreThemeColour = 0
     
     ' vars to obtain correct screen width (to correct VB6 bug) STARTS
     gsScreenTwipsPerPixelX = 0
     gsScreenTwipsPerPixelY = 0
     glPhysicalScreenWidthTwips = 0
-    gsPhysicalScreenHeightTwips = 0
-    gsPhysicalScreenHeightPixels = 0
-    gsPhysicalScreenWidthPixels = 0
+    glPhysicalScreenHeightTwips = 0
+    glPhysicalScreenHeightPixels = 0
+    glPhysicalScreenWidthPixels = 0
     
-    gsVirtualScreenHeightPixels = 0
-    gsVirtualScreenWidthPixels = 0
+    glVirtualScreenHeightPixels = 0
+    glVirtualScreenWidthPixels = 0
     
-    gsOldPhysicalScreenHeightPixels = 0
-    gsOldPhysicalScreenWidthPixels = 0
+    glOldPhysicalScreenHeightPixels = 0
+    glOldPhysicalScreenWidthPixels = 0
     
     gsPrefsPrimaryHeightTwips = vbNullString
     gsPrefsSecondaryHeightTwips = vbNullString
-    gsGaugePrimaryHeightRatio = vbNullString
-    gsGaugeSecondaryHeightRatio = vbNullString
+    gsWidgetPrimaryHeightRatio = vbNullString
+    gsWidgetSecondaryHeightRatio = vbNullString
     
     gsMessageAHeightTwips = vbNullString
     gsMessageAWidthTwips = vbNullString
     
     ' key presses
-    gsCTRL_1 = False
-    gsSHIFT_1 = False
+    gbCTRL_1 = False
+    gbSHIFT_1 = False
     
     ' other globals
-    gsDebugFlg = 0
-    gsMinutesToHide = 0
+    giDebugFlg = 0
+    giMinutesToHide = 0
     gsAspectRatio = vbNullString
-'    gsOldSettingsModificationTime = #1/1/2000 12:00:00 PM#
+'    gdOldSettingsModificationTime = #1/1/2000 12:00:00 PM#
     gsCodingEnvironment = vbNullString
     gsRichClientEnvironment = vbNullString
     
@@ -591,17 +591,17 @@ Public Sub adjustMainControls(Optional ByVal licenceState As Integer)
     ' if the licenstate is 0 then the program is running for the first time, so pre-size the form to fit larger screens
     If licenceState = 0 Then
         ' the widget displays at 100% at a screen width of 3840 pixels
-        If gsPhysicalScreenWidthPixels >= bigScreen Then
-            gsWidgetSize = CStr((gsPhysicalScreenWidthPixels / bigScreen) * 100)
+        If glPhysicalScreenWidthPixels >= bigScreen Then
+            gsWidgetSize = CStr((glPhysicalScreenWidthPixels / bigScreen) * 100)
         End If
     End If
     
     ' set the initial size
-    If gsMonitorCount > 1 And (LTrim$(gsMultiMonitorResize) = "1" Or LTrim$(gsMultiMonitorResize) = "2") Then
+    If glMonitorCount > 1 And (LTrim$(gsMultiMonitorResize) = "1" Or LTrim$(gsMultiMonitorResize) = "2") Then
         If gaugeMonitorStruct.IsPrimary = True Then
-            Call fGauge.AdjustZoom(Val(gsGaugePrimaryHeightRatio))
+            Call fGauge.AdjustZoom(Val(gsWidgetPrimaryHeightRatio))
         Else
-            Call fGauge.AdjustZoom(Val(gsGaugeSecondaryHeightRatio))
+            Call fGauge.AdjustZoom(Val(gsWidgetSecondaryHeightRatio))
         End If
     Else
         fGauge.AdjustZoom Val(gsWidgetSize) / 100
@@ -764,7 +764,7 @@ Public Sub adjustMainControls(Optional ByVal licenceState As Integer)
         menuForm.menuMultiCore.Caption = "Hide MultiCore CPU Display"
     End If
 
-    If gsMinutesToHide > 0 Then menuForm.mnuHideWidget.Caption = "Hide Widget for " & gsMinutesToHide & " min."
+    If giMinutesToHide > 0 Then menuForm.mnuHideWidget.Caption = "Hide Widget for " & giMinutesToHide & " min."
     
     ' refresh the form in order to show the above changes immediately
     fGauge.gaugeForm.Refresh
@@ -852,7 +852,7 @@ Public Sub readSettingsFile(ByVal Location As String, ByVal gsSettingsFile As St
 
         ' font
         gsClockFont = fGetINISetting(Location, "clockFont", gsSettingsFile)
-        gsGaugeFont = fGetINISetting(Location, "gaugeFont", gsSettingsFile)
+        gsWidgetFont = fGetINISetting(Location, "gaugeFont", gsSettingsFile)
         gsPrefsFont = fGetINISetting(Location, "prefsFont", gsSettingsFile)
         gsPrefsFontSizeHighDPI = fGetINISetting(Location, "prefsFontSizeHighDPI", gsSettingsFile)
         gsPrefsFontSizeLowDPI = fGetINISetting(Location, "prefsFontSizeLowDPI", gsSettingsFile)
@@ -879,10 +879,10 @@ Public Sub readSettingsFile(ByVal Location As String, ByVal gsSettingsFile As St
         gsDefaultTBEditor = fGetINISetting(Location, "defaultTBEditor", gsSettingsFile)
         
         ' other
-        gsGaugeHighDpiXPos = fGetINISetting("Software\PzCPUGauge", "gaugeHighDpiXPos", gsSettingsFile)
-        gsGaugeHighDpiYPos = fGetINISetting("Software\PzCPUGauge", "gaugeHighDpiYPos", gsSettingsFile)
-        gsGaugeLowDpiXPos = fGetINISetting("Software\PzCPUGauge", "gaugeLowDpiXPos", gsSettingsFile)
-        gsGaugeLowDpiYPos = fGetINISetting("Software\PzCPUGauge", "gaugeLowDpiYPos", gsSettingsFile)
+        gsWidgetHighDpiXPos = fGetINISetting("Software\PzCPUGauge", "gaugeHighDpiXPos", gsSettingsFile)
+        gsWidgetHighDpiYPos = fGetINISetting("Software\PzCPUGauge", "gaugeHighDpiYPos", gsSettingsFile)
+        gsWidgetLowDpiXPos = fGetINISetting("Software\PzCPUGauge", "gaugeLowDpiXPos", gsSettingsFile)
+        gsWidgetLowDpiYPos = fGetINISetting("Software\PzCPUGauge", "gaugeLowDpiYPos", gsSettingsFile)
         gsLastSelectedTab = fGetINISetting(Location, "lastSelectedTab", gsSettingsFile)
         gsSkinTheme = fGetINISetting(Location, "skinTheme", gsSettingsFile)
         
@@ -900,8 +900,8 @@ Public Sub readSettingsFile(ByVal Location As String, ByVal gsSettingsFile As St
         gsFirstTimeRun = fGetINISetting(Location, "firstTimeRun", gsSettingsFile)
 
                            
-        gsGaugeSecondaryHeightRatio = fGetINISetting(Location, "gaugeSecondaryHeightRatio", gsSettingsFile)
-        gsGaugePrimaryHeightRatio = fGetINISetting(Location, "gaugePrimaryHeightRatio", gsSettingsFile)
+        gsWidgetSecondaryHeightRatio = fGetINISetting(Location, "gaugeSecondaryHeightRatio", gsSettingsFile)
+        gsWidgetPrimaryHeightRatio = fGetINISetting(Location, "gaugePrimaryHeightRatio", gsSettingsFile)
         
         gsMessageAHeightTwips = fGetINISetting(Location, "messageAHeightTwips", gsSettingsFile)
         gsMessageAWidthTwips = fGetINISetting(Location, "messageAWidthTwips ", gsSettingsFile)
@@ -966,7 +966,7 @@ Public Sub validateInputs()
         If gsPrefsFontItalics = vbNullString Then gsPrefsFontItalics = "false"
         If gsPrefsFontColour = vbNullString Then gsPrefsFontColour = "0"
 
-        If gsGaugeFont = vbNullString Then gsGaugeFont = gsPrefsFont
+        If gsWidgetFont = vbNullString Then gsWidgetFont = gsPrefsFont
 
         If gsDisplayScreenFont = vbNullString Then gsDisplayScreenFont = "courier new"
         If gsDisplayScreenFont = "Courier  New" Then gsDisplayScreenFont = "courier new"
@@ -1018,8 +1018,8 @@ Public Sub validateInputs()
         If gsSkinTheme = vbNullString Then gsSkinTheme = "dark"
     
         
-        If gsGaugePrimaryHeightRatio = "" Then gsGaugePrimaryHeightRatio = "1"
-        If gsGaugeSecondaryHeightRatio = "" Then gsGaugeSecondaryHeightRatio = "1"
+        If gsWidgetPrimaryHeightRatio = "" Then gsWidgetPrimaryHeightRatio = "1"
+        If gsWidgetSecondaryHeightRatio = "" Then gsWidgetSecondaryHeightRatio = "1"
         
         
    On Error GoTo 0
@@ -1078,7 +1078,7 @@ End Sub
 '
 Private Sub getToolSettingsFile()
     On Error GoTo getToolSettingsFile_Error
-    ''If gsDebugFlg = 1  Then Debug.Print "%getToolSettingsFile"
+    ''If giDebugFlg = 1  Then Debug.Print "%getToolSettingsFile"
     
     Dim iFileNo As Integer: iFileNo = 0
     
@@ -1123,7 +1123,7 @@ Private Sub configureTimers()
 
     On Error GoTo configureTimers_Error
     
-'    gsOldSettingsModificationTime = FileDateTime(gsSettingsFile)
+'    gdOldSettingsModificationTime = FileDateTime(gsSettingsFile)
 
     frmTimer.tmrScreenResolution.Enabled = True
     frmTimer.unhideTimer.Enabled = True
@@ -1154,12 +1154,12 @@ Private Sub setHidingTime()
     
     On Error GoTo setHidingTime_Error
 
-    If gsHidingTime = "0" Then gsMinutesToHide = 1
-    If gsHidingTime = "1" Then gsMinutesToHide = 5
-    If gsHidingTime = "2" Then gsMinutesToHide = 10
-    If gsHidingTime = "3" Then gsMinutesToHide = 20
-    If gsHidingTime = "4" Then gsMinutesToHide = 30
-    If gsHidingTime = "5" Then gsMinutesToHide = 60
+    If gsHidingTime = "0" Then giMinutesToHide = 1
+    If gsHidingTime = "1" Then giMinutesToHide = 5
+    If gsHidingTime = "2" Then giMinutesToHide = 10
+    If gsHidingTime = "3" Then giMinutesToHide = 20
+    If gsHidingTime = "4" Then giMinutesToHide = 30
+    If gsHidingTime = "5" Then giMinutesToHide = 60
 
     On Error GoTo 0
     Exit Sub

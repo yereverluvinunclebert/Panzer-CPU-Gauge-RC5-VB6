@@ -84,7 +84,7 @@ Private Sub initialisePrivateVars()
    On Error GoTo initialisePrivateVars_Error
 
 
-   ' pvtCurrentDateToDisplay = vbNullString
+   ' pCurrentDateToDisplay = vbNullString
 
    On Error GoTo 0
    Exit Sub
