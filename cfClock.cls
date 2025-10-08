@@ -132,7 +132,7 @@ Public Sub InitialiseImageWidgetsFromXML()
     On Error GoTo InitialiseImageWidgetsFromXML_Error
 
     'create the Top-Level-Form
-    Set gaugeForm = Cairo.WidgetForms.Create(IIf(App.LogMode, AlphaNoTaskbarEntry, AlphaWithTaskbarEntry), gblWidgetName, True, 1, 1)
+    Set gaugeForm = Cairo.WidgetForms.Create(IIf(App.LogMode, AlphaNoTaskbarEntry, AlphaWithTaskbarEntry), gsWidgetName, True, 1, 1)
         gaugeForm.WidgetRoot.BackColor = -1 ' transparent
         
     ' code to read image XML data instead of directly from PSD, for RichClient5 only
@@ -179,7 +179,7 @@ Private Sub gaugeForm_BubblingEvent(ByRef Sender As Object, ByRef EventName As S
     
     On Error GoTo gaugeForm_BubblingEvent_Error
 
-    If gblIgnoreMouse = "1" Then Exit Sub
+    If gsIgnoreMouse = "1" Then Exit Sub
     
     If Not Sender.Widget.Enabled Then Exit Sub   ' Sender is disabled and bubbling events will be ignored
     
@@ -191,27 +191,27 @@ Private Sub gaugeForm_BubblingEvent(ByRef Sender As Object, ByRef EventName As S
         Select Case LCase$(Sender.Widget.Key)
             Case "lockbutton"
                 If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "Click me to lock the widget in place. This lock can be released by clicking again on the lock button, or in the preferences. A locking sound will denote the button's operation.", _
-                     TTIconInfo, gblWidgetName & " Lock Button Help", , , , True
+                     TTIconInfo, gsWidgetName & " Lock Button Help", , , , True
             Case "prefsbutton"
                 If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "Click me to open the preferences utility. The configuration of the widget is performed using the preference utility.", _
-                     TTIconInfo, gblWidgetName & " Prefs Button Help", , , , True
+                     TTIconInfo, gsWidgetName & " Prefs Button Help", , , , True
             Case "tickbutton"
                 If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "Click here to toggle the pointer movement from once per interval to a more fluid, continuous movement.", _
-                     TTIconInfo, gblWidgetName & " Tick Button Help", , , , True
+                     TTIconInfo, gsWidgetName & " Tick Button Help", , , , True
             Case "middlebutton"
                 If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "This button switches on the mutli-core display. If your CPU has more than one core a bar will be shown, displaying the CPU for each core.", _
-                     TTIconInfo, gblWidgetName & " Multi-Core Button Help", , , , True
+                     TTIconInfo, gsWidgetName & " Multi-Core Button Help", , , , True
             Case "stopbutton"
                 Call stopbutton_mouseMove
             Case "startbutton"
                 Call startbutton_mouseMove
             Case "helpbutton"
                 If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "This button opens the one-page help file for this widget. There is a further detailed CHM help file available from the right-click menu that contains all the information that you need to run this widget.", _
-                     TTIconInfo, gblWidgetName & " Help Button Help", , , , True
+                     TTIconInfo, gsWidgetName & " Help Button Help", , , , True
             Case Else
                 If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "" & overlayWidget.thisCPUDetail _
                     & vbCrLf & stdMessage _
-                    , TTIconInfo, gblWidgetName & " Information.", , , , True
+                    , TTIconInfo, gsWidgetName & " Information.", , , , True
         End Select
     End If
     
@@ -276,7 +276,7 @@ Private Sub startbutton_mouseMove()
 
     If gsWidgetTooltips = "0" Then
             CreateToolTip gaugeForm.hWnd, "Clock mode, this button restarts all stopped clock functions for this widget, hand movement &c .", _
-                TTIconInfo, gblWidgetName & " Start Button Help", , , , True
+                TTIconInfo, gsWidgetName & " Start Button Help", , , , True
     End If
 
     On Error GoTo 0
@@ -301,7 +301,7 @@ Private Sub stopbutton_mouseMove()
 
     If gsWidgetTooltips = "0" Then
             CreateToolTip gaugeForm.hWnd, "Clock mode, this button stops all animated clock functions for this widget, hand movements &c .", _
-                TTIconInfo, gblWidgetName & " Stop Button Help", , , , True
+                TTIconInfo, gsWidgetName & " Stop Button Help", , , , True
     End If
 
     On Error GoTo 0
@@ -353,7 +353,7 @@ Private Sub startbutton_click()
     Call TurnFunctionsOn
 
     fileToPlay = "ting.wav"
-    If gblEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+    If gsEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
         playSound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
 
@@ -379,13 +379,13 @@ Private Sub stopbutton_mouseUp(ByRef Sender As Object)
    
     On Error GoTo stopbutton_mouseUp_Error
 
-    Sender.Widget.Alpha = Val(gblOpacity) / 100
+    Sender.Widget.Alpha = Val(gsOpacity) / 100
     Sender.Widget.Refresh
            
     Call SwitchOff
     
     fileToPlay = "stop.wav"
-    If gblEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+    If gsEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
         playSound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
 
@@ -461,11 +461,11 @@ Private Sub middlebutton_mouseUp(ByRef Sender As Object)
     Dim fileToPlay As String: fileToPlay = vbNullString
     On Error GoTo middlebutton_mouseUp_Error
 
-    Sender.Widget.Alpha = Val(gblOpacity) / 100
+    Sender.Widget.Alpha = Val(gsOpacity) / 100
     Sender.Widget.Refresh
         
     fileToPlay = "till.wav"
-    If gblEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+    If gsEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
         playSound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
     
@@ -488,7 +488,7 @@ End Sub
 Private Sub prefsbutton_mouseUp(ByRef Sender As Object)
     On Error GoTo prefsbutton_mouseUp_Error
 
-    Sender.Widget.Alpha = Val(gblOpacity) / 100
+    Sender.Widget.Alpha = Val(gsOpacity) / 100
     Sender.Widget.Refresh
 
     On Error GoTo 0
@@ -513,7 +513,7 @@ Private Sub lockbutton_mouseDown(ByRef Sender As Object)
     If overlayWidget.Locked = False Then
         Sender.Widget.Alpha = 0
     Else
-        Sender.Widget.Alpha = Val(gblOpacity) / 100
+        Sender.Widget.Alpha = Val(gsOpacity) / 100
     End If
     Sender.Widget.Refresh ' this removes the delay in the lockButton depressing
     Call toggleWidgetLock
@@ -542,7 +542,7 @@ Private Sub prefsbutton_mouseDown(ByRef Sender As Object)
     'Sender.Widget.Visible = False
     Sender.Widget.Refresh ' this removes the delay in the Button depressing
     fileToPlay = "winding.wav"
-    If gblEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+    If gsEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
         playSound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
    'MsgBox "prefsbutton_mouseDown"
@@ -570,7 +570,7 @@ Private Sub tickbutton_mouseDown(ByRef Sender As Object)
         
     If overlayWidget.PointerAnimate = True Then
         overlayWidget.PointerAnimate = False
-        Sender.Widget.Alpha = Val(gblOpacity) / 100
+        Sender.Widget.Alpha = Val(gsOpacity) / 100
         gsPointerAnimate = "0"
     Else
         overlayWidget.PointerAnimate = True
@@ -581,11 +581,11 @@ Private Sub tickbutton_mouseDown(ByRef Sender As Object)
     Sender.Widget.Refresh ' this removes the delay in the Button depressing
     
     fileToPlay = "lock.wav"
-    If gblEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+    If gsEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
         playSound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
     
-    sPutINISetting "Software\PzCPUGauge", "pointerAnimate", gsPointerAnimate, gblSettingsFile
+    sPutINISetting "Software\PzCPUGauge", "pointerAnimate", gsPointerAnimate, gsSettingsFile
     widgetPrefs.cmbTickSwitchPref.ListIndex = Val(gsPointerAnimate)
     
    On Error GoTo 0
@@ -615,13 +615,13 @@ Private Sub gaugeForm_DblClick()
     
     On Error GoTo gaugeForm_DblClick_Error
 
-    '    If gblIgnoreMouse = "1" Then Exit Sub
+    '    If gsIgnoreMouse = "1" Then Exit Sub
 
-    If gsWidgetFunctions = "0" Or gblIgnoreMouse = "1" Then Exit Sub
+    If gsWidgetFunctions = "0" Or gsIgnoreMouse = "1" Then Exit Sub
     
-    If LTrim$(gblDblClickCommand) = vbNullString Then Exit Sub
+    If LTrim$(gsDblClickCommand) = vbNullString Then Exit Sub
     
-    thisCommand = gblDblClickCommand
+    thisCommand = gsDblClickCommand
         
     If InStr(thisCommand, "%userprofile%") Then
         userprof = Environ$("USERPROFILE")
@@ -634,9 +634,9 @@ Private Sub gaugeForm_DblClick()
         thisCommand = Replace(thisCommand, "%systemroot%", userprof)
     End If
     
-    If gblSHIFT_1 = True Then
-        gblSHIFT_1 = False
-        Call ShellExecute(gaugeForm.hWnd, "Open", gblOpenFile, vbNullString, App.Path, 1)
+    If gsSHIFT_1 = True Then
+        gsSHIFT_1 = False
+        Call ShellExecute(gaugeForm.hWnd, "Open", gsOpenFile, vbNullString, App.Path, 1)
     Else
         Call ShellExecute(gaugeForm.hWnd, "runas", thisCommand, vbNullString, App.Path, 1)
     End If
@@ -735,9 +735,9 @@ Private Sub gaugeForm_MouseMove(ByRef Button As Integer, ByRef Shift As Integer,
    On Error GoTo gaugeForm_MouseMove_Error
     
     If overlayWidget.Locked = True Then Exit Sub
-    If gblIgnoreMouse = "1" Then Exit Sub
-    If gblMenuOccurred = True Then
-        gblMenuOccurred = False
+    If gsIgnoreMouse = "1" Then Exit Sub
+    If gsMenuOccurred = True Then
+        gsMenuOccurred = False
         Exit Sub
     End If
 
@@ -825,9 +825,9 @@ Public Sub AdjustZoom(ByVal NewZoom As Single)
     If widgetPrefs.IsLoaded Then widgetPrefs.sliGaugeSize.Value = Val(gsWidgetSize) ' ensure that the prefs size slider matches when zoom is modified without using the slider
     
     If gaugeMonitorStruct.IsPrimary = True Then
-        gblGaugePrimaryHeightRatio = CStr(NewZoom)
+        gsGaugePrimaryHeightRatio = CStr(NewZoom)
     Else
-        gblGaugeSecondaryHeightRatio = CStr(NewZoom)
+        gsGaugeSecondaryHeightRatio = CStr(NewZoom)
     End If
 
    On Error GoTo 0
@@ -862,10 +862,10 @@ Private Sub gaugeForm_MouseDown(ByRef Button As Integer, ByRef Shift As Integer,
     frmTimer.tmrScreenResolution.Enabled = True
         
     If Button = vbRightButton Then
-        gblMenuOccurred = True
+        gsMenuOccurred = True
         Call menuForm.PopupMenu(menuForm.mnuMainMenu)
     Else
-        If gblIgnoreMouse = "1" Then Exit Sub
+        If gsIgnoreMouse = "1" Then Exit Sub
         ' so we pass it through
     End If
 

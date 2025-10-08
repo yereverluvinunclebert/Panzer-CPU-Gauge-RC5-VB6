@@ -330,58 +330,58 @@ Public gsHLocationPercPrefValue As String
 
 ' sounds
 
-Public gblEnableSounds  As String
+Public gsEnableSounds As String
 
 ' development
 
-Public gblDebug As String
-Public gblDblClickCommand As String
-Public gblOpenFile As String
-Public gblDefaultVB6Editor As String
-Public gblDefaultTBEditor As String
+Public gsDebug As String
+Public gsDblClickCommand As String
+Public gsOpenFile As String
+Public gsDefaultVB6Editor As String
+Public gsDefaultTBEditor As String
        
 ' font
 
-Public gblClockFont As String
-Public gblGaugeFont As String
-Public gblPrefsFont As String
-Public gblPrefsFontSizeHighDPI As String
-Public gblPrefsFontSizeLowDPI As String
-Public gblPrefsFontItalics  As String
-Public gblPrefsFontColour  As String
+Public gsClockFont As String
+Public gsGaugeFont As String
+Public gsPrefsFont As String
+Public gsPrefsFontSizeHighDPI As String
+Public gsPrefsFontSizeLowDPI As String
+Public gsPrefsFontItalics  As String
+Public gsPrefsFontColour  As String
 
-Public gblDisplayScreenFont As String
-Public gblDisplayScreenFontSize As String
-Public gblDisplayScreenFontItalics As String
-Public gblDisplayScreenFontColour As String
+Public gsDisplayScreenFont As String
+Public gsDisplayScreenFontSize As String
+Public gsDisplayScreenFontItalics As String
+Public gsDisplayScreenFontColour As String
 
 ' window
 
-Public gblWindowLevel As String
-Public gblPreventDragging As String
-Public gblOpacity  As String
-Public gblWidgetHidden  As String
-Public gblHidingTime  As String
-Public gblIgnoreMouse  As String
-Public gblMenuOccurred As Boolean ' bool
-Public gblFirstTimeRun  As String
-Public gblMultiMonitorResize  As String
+Public gsWindowLevel As String
+Public gsPreventDragging As String
+Public gsOpacity  As String
+Public gsWidgetHidden  As String
+Public gsHidingTime  As String
+Public gsIgnoreMouse  As String
+Public gsMenuOccurred As Boolean ' bool
+Public gsFirstTimeRun  As String
+Public gsMultiMonitorResize  As String
 
 ' General CPU variables declared
 
-Public gblSettingsDir As String
-Public gblSettingsFile As String
+Public gsSettingsDir As String
+Public gsSettingsFile As String
 
-Public gblTrinketsDir      As String
-Public gblTrinketsFile      As String
+Public gsTrinketsDir      As String
+Public gsTrinketsFile      As String
 
-Public gblGaugeHighDpiXPos As String
-Public gblGaugeHighDpiYPos As String
-Public gblGaugeLowDpiXPos As String
-Public gblGaugeLowDpiYPos As String
-Public gblLastSelectedTab As String
-Public gblSkinTheme As String
-Public gblUnhide As String
+Public gsGaugeHighDpiXPos As String
+Public gsGaugeHighDpiYPos As String
+Public gsGaugeLowDpiXPos As String
+Public gsGaugeLowDpiYPos As String
+Public gsLastSelectedTab As String
+Public gsSkinTheme As String
+Public gsUnhide As String
 
 
 ' global properties for the state of each UI element, read at startup
@@ -389,22 +389,20 @@ Public gblUnhide As String
 
 ' vars stored for positioning the prefs form
 
-Public gblPrefsHighDpiXPosTwips As String
-Public gblPrefsHighDpiYPosTwips As String
+Public gsPrefsHighDpiXPosTwips As String
+Public gsPrefsHighDpiYPosTwips As String
+Public gsPrefsLowDpiXPosTwips As String
+Public gsPrefsLowDpiYPosTwips As String
+Public gsPrefsPrimaryHeightTwips As String
+Public gsPrefsSecondaryHeightTwips As String
+Public gsGaugePrimaryHeightRatio As String
+Public gsGaugeSecondaryHeightRatio As String
 
-Public gblPrefsLowDpiXPosTwips As String
-Public gblPrefsLowDpiYPosTwips As String
+Public gsMessageAHeightTwips  As String
+Public gsMessageAWidthTwips   As String
 
-Public gblPrefsPrimaryHeightTwips As String
-Public gblPrefsSecondaryHeightTwips As String
-Public gblGaugePrimaryHeightRatio As String
-Public gblGaugeSecondaryHeightRatio As String
-
-Public gblMessageAHeightTwips  As String
-Public gblMessageAWidthTwips   As String
-
-Public gblMulticoreXPosTwips As String
-Public gblMulticoreYPosTwips As String
+Public gsMulticoreXPosTwips As String
+Public gsMulticoreYPosTwips As String
 
 '------------------------------------------------------ ENDS
 
@@ -412,62 +410,62 @@ Public gblMulticoreYPosTwips As String
 '------------------------------------------------------ STARTS
 ' General variables declared
 
-Public gblClassicThemeCapable As Boolean
-Public gblStoreThemeColour As Long
+Public gsClassicThemeCapable As Boolean
+Public glStoreThemeColour As Long
 
 ' vars to obtain actual correct screen width (to correct VB6 bug) twips
-Public gblPhysicalScreenWidthTwips As Long
-Public gblPhysicalScreenHeightTwips As Long
+Public glPhysicalScreenWidthTwips As Long
+Public gsPhysicalScreenHeightTwips As Long
 
 ' pixels
-Public gblPhysicalScreenHeightPixels As Long
-Public gblPhysicalScreenWidthPixels As Long
+Public gsPhysicalScreenHeightPixels As Long
+Public gsPhysicalScreenWidthPixels As Long
 
 ' vars to obtain the virtual (multi-monitor) width twips
-Public gblVirtualScreenHeightTwips As Long
-Public gblVirtualScreenWidthTwips As Long
+Public gsVirtualScreenHeightTwips As Long
+Public gsVirtualScreenWidthTwips As Long
 
 ' pixels
-Public gblVirtualScreenHeightPixels As Long
-Public gblVirtualScreenWidthPixels As Long
+Public gsVirtualScreenHeightPixels As Long
+Public gsVirtualScreenWidthPixels As Long
 
-Public gblOldPhysicalScreenHeightPixels As Long
-Public gblOldPhysicalScreenWidthPixels As Long
+Public gsOldPhysicalScreenHeightPixels As Long
+Public gsOldPhysicalScreenWidthPixels As Long
 
 ' key presses
-Public gblCTRL_1 As Boolean
-Public gblSHIFT_1 As Boolean
+Public gsCTRL_1 As Boolean
+Public gsSHIFT_1 As Boolean
 
 ' other globals
-Public gblMinutesToHide As Integer
-Public gblAspectRatio As String
-'Public gblOldSettingsModificationTime  As Date
-Public gblWindowLevelWasChanged As Boolean
+Public gsMinutesToHide As Integer
+Public gsAspectRatio As String
+'Public gsOldSettingsModificationTime  As Date
+Public gsWindowLevelWasChanged As Boolean
 
 ' Flag for debug mode '.06 DAEB 19/04/2021 common.bas moved to the common area so that it can be used by each of the utilities
 Private pvtDebugMode As Boolean ' .30 DAEB 03/03/2021 frmMain.frm replaced the inIDE function that used a variant to one without
 
-Public gblDebugFlg As Integer
+Public gsDebugFlg As Integer
 
-Public gblStartupFlg As Boolean
+Public gsStartupFlg As Boolean
 
-Public gblMonitorCount As Long
+Public gsMonitorCount As Long
 
 
-Public gblOldPrefsFormMonitorPrimary As Long
-Public gblOldgaugeFormMonitorPrimary As Long
-Public gblPrefsFormResizedInCode As Boolean
+Public gsOldPrefsFormMonitorPrimary As Long
+Public gsOldgaugeFormMonitorPrimary As Long
+Public gsPrefsFormResizedInCode As Boolean
 
-Public gblFGaugeAvailable As Boolean
-Public gblReload As Boolean
+Public gsFGaugeAvailable As Boolean
+Public gsReload As Boolean
 
-Public gblCodingEnvironment As String
-Public gblRichClientEnvironment As String
+Public gsCodingEnvironment As String
+Public gsRichClientEnvironment As String
 
 Public widgetPrefsOldHeight As Long
 Public widgetPrefsOldWidth As Long
 
-Public gblMsgBoxADynamicSizingFlg As Boolean
+Public gsMsgBoxADynamicSizingFlg As Boolean
 
 
 
@@ -543,12 +541,12 @@ Public Function fLicenceState() As Integer
     Dim slicence As String: slicence = "0"
     
     On Error GoTo fLicenceState_Error
-    ''If gblDebugFlg = 1  Then DebugPrint "%" & "fLicenceState"
+    ''If gsDebugFlg = 1  Then DebugPrint "%" & "fLicenceState"
     
     fLicenceState = 0
     ' read the tool's own settings file
-    If fFExists(gblSettingsFile) Then ' does the tool's own settings.ini exist?
-        slicence = fGetINISetting("Software\PzCPUGauge", "licence", gblSettingsFile)
+    If fFExists(gsSettingsFile) Then ' does the tool's own settings.ini exist?
+        slicence = fGetINISetting("Software\PzCPUGauge", "licence", gsSettingsFile)
         ' if the licence state is not already accepted then display the licence form
         If slicence = "1" Then fLicenceState = 1
     End If
@@ -571,7 +569,7 @@ End Function
 Public Sub showLicence(ByVal licenceState As Integer)
 '    Dim slicence As String: slicence = "0"
     On Error GoTo showLicence_Error
-    ''If gblDebugFlg = 1  Then DebugPrint "%" & "showLicence"
+    ''If gsDebugFlg = 1  Then DebugPrint "%" & "showLicence"
     
     ' if the licence state is not already accepted then display the licence form
     If licenceState = 0 Then
@@ -604,7 +602,7 @@ Public Sub setDPIaware()
     If gsDpiAwareness = "1" Then
         If Not InIDE Then
             Cairo.SetDPIAwareness ' this way avoids the VB6 IDE shrinking (sadly, VB6 has a high DPI unaware IDE)
-            gblMsgBoxADynamicSizingFlg = True
+            gsMsgBoxADynamicSizingFlg = True
         End If
     End If
 
@@ -629,7 +627,7 @@ Public Sub testDPIAndSetInitialAwareness()
 
     'If fPixelsPerInchX() > 96 Then ' always seems to provide 96, no matter what I do.
     
-     If gblPhysicalScreenWidthPixels > 1960 Then
+     If gsPhysicalScreenWidthPixels > 1960 Then
         gsDpiAwareness = "1"
         Call setDPIaware
     End If
@@ -660,7 +658,7 @@ Public Sub LoadFileToTB(ByVal TxtBox As Object, ByVal FilePath As String, Option
     
     On Error GoTo LoadFileToTB_Error
 
-   ''If gblDebugFlg = 1  Then msgbox "%" & LoadFileToTB
+   ''If gsDebugFlg = 1  Then msgbox "%" & LoadFileToTB
 
     If Dir$(FilePath) = vbNullString Then Exit Sub
     
@@ -805,7 +803,7 @@ Public Sub addTargetFile(ByVal fieldValue As String, ByRef retFileName As String
     Dim retfileTitle As String: retfileTitle = vbNullString
     Const x_MaxBuffer As Integer = 256
     
-    ''If gblDebugFlg = 1  Then Debug.Print "%" & "addTargetfile"
+    ''If gsDebugFlg = 1  Then Debug.Print "%" & "addTargetfile"
     
     On Error Resume Next
     
@@ -860,7 +858,7 @@ End Sub
 Public Function fGetDirectory(ByRef Path As String) As String
 
    On Error GoTo fGetDirectory_Error
-   ''If gblDebugFlg = 1  Then DebugPrint "%" & "fnGetDirectory"
+   ''If gsDebugFlg = 1  Then DebugPrint "%" & "fnGetDirectory"
 
     If InStrRev(Path, "\") = 0 Then
         fGetDirectory = vbNullString
@@ -885,7 +883,7 @@ End Function
 '
 Public Sub obtainOpenFileName(ByRef retFileName As String, ByRef retfileTitle As String)
    On Error GoTo obtainOpenFileName_Error
-   ''If gblDebugFlg = 1  Then Debug.Print "%obtainOpenFileName"
+   ''If gsDebugFlg = 1  Then Debug.Print "%obtainOpenFileName"
 
   If GetOpenFileName(x_OpenFilename) <> 0 Then
 '    If x_OpenFilename.lpstrFile = "*.*" Then
@@ -1124,7 +1122,7 @@ Public Sub changeFont(ByVal frm As Form, ByVal fntNow As Boolean, ByRef fntFont 
     'fntUnderline = False
     fntFontResult = False
     
-    'If gblDebugFlg = 1  Then Debug.Print "%mnuFont_Click"
+    'If gsDebugFlg = 1  Then Debug.Print "%mnuFont_Click"
 
     displayFontSelector fntFont, fntSize, fntWeight, fntStyle, fntColour, fntItalics, fntUnderline, fntFontResult
     If fntFontResult = False Then Exit Sub
@@ -1415,21 +1413,21 @@ Public Sub aboutClickEvent()
     Dim fileToPlay As String: fileToPlay = vbNullString
 
     On Error GoTo aboutClickEvent_Error
-'    If gblVolumeBoost = "1" Then
+'    If gsVolumeBoost = "1" Then
 '        fileToPlay = "till.wav"
 '    Else
 '        fileToPlay = "till-quiet.wav"
 '    End If
     
 
-    If gblEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+    If gsEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
         playSound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
     
     ' The RC forms are measured in pixels so the positioning needs to pre-convert the twips into pixels
    
-    fMain.aboutForm.Top = (gblPhysicalScreenHeightPixels / 2) - (fMain.aboutForm.Height / 2)
-    fMain.aboutForm.Left = (gblPhysicalScreenWidthPixels / 2) - (fMain.aboutForm.Width / 2)
+    fMain.aboutForm.Top = (gsPhysicalScreenHeightPixels / 2) - (fMain.aboutForm.Height / 2)
+    fMain.aboutForm.Left = (gsPhysicalScreenWidthPixels / 2) - (fMain.aboutForm.Width / 2)
      
     fMain.aboutForm.Load
     fMain.aboutForm.Show
@@ -1467,12 +1465,12 @@ Public Sub helpSplash()
     On Error GoTo helpSplash_Error
 
     fileToPlay = "till.wav"
-    If gblEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+    If gsEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
         playSound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
 
-    fMain.helpForm.Top = (gblPhysicalScreenHeightPixels / 2) - (fMain.helpForm.Height / 2)
-    fMain.helpForm.Left = (gblPhysicalScreenWidthPixels / 2) - (fMain.helpForm.Width / 2)
+    fMain.helpForm.Top = (gsPhysicalScreenHeightPixels / 2) - (fMain.helpForm.Height / 2)
+    fMain.helpForm.Left = (gsPhysicalScreenWidthPixels / 2) - (fMain.helpForm.Width / 2)
      
     'helpWidget.MyOpacity = 0
     helpWidget.ShowMe = True
@@ -1506,19 +1504,19 @@ Public Sub licenceSplash()
 
     On Error GoTo licenceSplash_Error
 
-'    If gblVolumeBoost = "1" Then
+'    If gsVolumeBoost = "1" Then
         fileToPlay = "till.wav"
 '    Else
 '        fileToPlay = "till-quiet.wav"
 '    End If
     
-    If gblEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+    If gsEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
         playSound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
     
     
-    fMain.licenceForm.Top = (gblPhysicalScreenHeightPixels / 2) - (fMain.licenceForm.Height / 2)
-    fMain.licenceForm.Left = (gblPhysicalScreenWidthPixels / 2) - (fMain.licenceForm.Width / 2)
+    fMain.licenceForm.Top = (gsPhysicalScreenHeightPixels / 2) - (fMain.licenceForm.Height / 2)
+    fMain.licenceForm.Left = (gsPhysicalScreenWidthPixels / 2) - (fMain.licenceForm.Width / 2)
      
     'licenceWidget.opacity = 0
     'opacityflag = 0
@@ -1591,7 +1589,7 @@ Public Sub mnuSupport_ClickEvent()
     answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Request to Contact Support", True, "mnuSupportClickEvent")
 
     If answer = vbYes Then
-        Call ShellExecute(menuForm.hWnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-" & gblRichClientEnvironment & "-" & gblCodingEnvironment & "/issues", vbNullString, App.Path, 1)
+        Call ShellExecute(menuForm.hWnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-" & gsRichClientEnvironment & "-" & gsCodingEnvironment & "/issues", vbNullString, App.Path, 1)
     End If
 
    On Error GoTo 0
@@ -1685,8 +1683,8 @@ Public Sub ChangeToolTipWidgetDefaultSettings(ByRef My_Widget As cWidgetBase)
 
     With My_Widget
     
-        .FontName = gblGaugeFont
-        .FontSize = Val(gblPrefsFontSizeLowDPI)
+        .FontName = gsGaugeFont
+        .FontSize = Val(gsPrefsFontSizeLowDPI)
     
     End With
 
@@ -1717,17 +1715,17 @@ Public Sub makeVisibleFormElements()
     'NOTE that when you position a widget you are positioning the form it is drawn upon.
 
     If gsDpiAwareness = "1" Then
-        formLeftPixels = Val(gblGaugeHighDpiXPos)
-        formTopPixels = Val(gblGaugeHighDpiYPos)
+        formLeftPixels = Val(gsGaugeHighDpiXPos)
+        formTopPixels = Val(gsGaugeHighDpiYPos)
     Else
-        formLeftPixels = Val(gblGaugeLowDpiXPos)
-        formTopPixels = Val(gblGaugeLowDpiYPos)
+        formLeftPixels = Val(gsGaugeLowDpiXPos)
+        formTopPixels = Val(gsGaugeLowDpiYPos)
     End If
     
     ' The RC forms are measured in pixels, whereas the native forms are in twips, do remember that...
 
-    gblMonitorCount = fGetMonitorCount
-    If gblMonitorCount > 1 Then
+    gsMonitorCount = fGetMonitorCount
+    If gsMonitorCount > 1 Then
         Call SetFormOnMonitor(fGauge.gaugeForm.hWnd, formLeftPixels, formTopPixels)
     Else
         fGauge.gaugeForm.Left = formLeftPixels
@@ -1764,20 +1762,20 @@ Public Sub getKeyPress(ByVal KeyCode As Integer, ByVal Shift As Integer)
    
     On Error GoTo getkeypress_Error
 
-    If gblCTRL_1 Or gblSHIFT_1 Then
-        gblCTRL_1 = False
-        gblSHIFT_1 = False
+    If gsCTRL_1 Or gsSHIFT_1 Then
+        gsCTRL_1 = False
+        gsSHIFT_1 = False
     End If
     
     If Shift Then
-        gblSHIFT_1 = True
+        gsSHIFT_1 = True
     End If
 
     Select Case KeyCode
         Case vbKeyControl
-            gblCTRL_1 = True
+            gsCTRL_1 = True
         Case vbKeyShift
-            gblSHIFT_1 = True
+            gsSHIFT_1 = True
         Case 82 ' R
             If Shift = 1 Then Call hardRestart
 
@@ -1815,26 +1813,26 @@ Public Sub determineScreenDimensions()
 
    On Error GoTo determineScreenDimensions_Error
    
-    'If gblDebugFlg = 1 Then msgbox "% sub determineScreenDimensions"
+    'If gsDebugFlg = 1 Then msgbox "% sub determineScreenDimensions"
 
     ' only calling TwipsPerPixelX/Y functions once on startup
-    gblScreenTwipsPerPixelY = fTwipsPerPixelY
-    gblScreenTwipsPerPixelX = fTwipsPerPixelX
+    gsScreenTwipsPerPixelY = fTwipsPerPixelY
+    gsScreenTwipsPerPixelX = fTwipsPerPixelX
     
-    gblPhysicalScreenHeightPixels = GetDeviceCaps(menuForm.hDC, VERTRES) ' we use the name of any form that we don't mind being loaded at this point
-    gblPhysicalScreenWidthPixels = GetDeviceCaps(menuForm.hDC, HORZRES)
+    gsPhysicalScreenHeightPixels = GetDeviceCaps(menuForm.hDC, VERTRES) ' we use the name of any form that we don't mind being loaded at this point
+    gsPhysicalScreenWidthPixels = GetDeviceCaps(menuForm.hDC, HORZRES)
 
-    gblPhysicalScreenHeightTwips = gblPhysicalScreenHeightPixels * gblScreenTwipsPerPixelY
-    gblPhysicalScreenWidthTwips = gblPhysicalScreenWidthPixels * gblScreenTwipsPerPixelX
+    gsPhysicalScreenHeightTwips = gsPhysicalScreenHeightPixels * gsScreenTwipsPerPixelY
+    glPhysicalScreenWidthTwips = gsPhysicalScreenWidthPixels * gsScreenTwipsPerPixelX
     
-    gblVirtualScreenHeightPixels = fVirtualScreenHeight(True)
-    gblVirtualScreenWidthPixels = fVirtualScreenWidth(True)
+    gsVirtualScreenHeightPixels = fVirtualScreenHeight(True)
+    gsVirtualScreenWidthPixels = fVirtualScreenWidth(True)
 
-    gblVirtualScreenHeightTwips = fVirtualScreenHeight(False)
-    gblVirtualScreenWidthTwips = fVirtualScreenWidth(False)
+    gsVirtualScreenHeightTwips = fVirtualScreenHeight(False)
+    gsVirtualScreenWidthTwips = fVirtualScreenWidth(False)
     
-    gblOldPhysicalScreenHeightPixels = gblPhysicalScreenHeightPixels ' will be used to check for orientation changes
-    gblOldPhysicalScreenWidthPixels = gblPhysicalScreenWidthPixels
+    gsOldPhysicalScreenHeightPixels = gsPhysicalScreenHeightPixels ' will be used to check for orientation changes
+    gsOldPhysicalScreenWidthPixels = gsPhysicalScreenWidthPixels
     
    On Error GoTo 0
    Exit Sub
@@ -1858,14 +1856,14 @@ Public Sub mainScreen()
    On Error GoTo mainScreen_Error
 
     ' check for aspect ratio and determine whether it is in portrait or landscape mode
-    If gblPhysicalScreenWidthPixels > gblPhysicalScreenHeightPixels Then
-        gblAspectRatio = "landscape"
+    If gsPhysicalScreenWidthPixels > gsPhysicalScreenHeightPixels Then
+        gsAspectRatio = "landscape"
     Else
-        gblAspectRatio = "portrait"
+        gsAspectRatio = "portrait"
     End If
     
     ' check if the widget has a lock for the screen type.
-    If gblAspectRatio = "landscape" Then
+    If gsAspectRatio = "landscape" Then
         If gsWidgetLandscape = "1" Then
             If gsLandscapeFormHoffset <> vbNullString Then
                 fGauge.gaugeForm.Left = Val(gsLandscapeFormHoffset)
@@ -1879,7 +1877,7 @@ Public Sub mainScreen()
     End If
     
     ' check if the widget has a lock for the screen type.
-    If gblAspectRatio = "portrait" Then
+    If gsAspectRatio = "portrait" Then
         If gsWidgetPortrait = "1" Then
             fGauge.gaugeForm.Left = Val(gsPortraitHoffset)
             fGauge.gaugeForm.Top = Val(gsPortraitYoffset)
@@ -1899,18 +1897,18 @@ Public Sub mainScreen()
     End If
     
     
-    If fGauge.gaugeForm.Left > gblVirtualScreenWidthPixels - 50 Then
-        fGauge.gaugeForm.Left = gblVirtualScreenWidthPixels - 150
+    If fGauge.gaugeForm.Left > gsVirtualScreenWidthPixels - 50 Then
+        fGauge.gaugeForm.Left = gsVirtualScreenWidthPixels - 150
     End If
-    If fGauge.gaugeForm.Top > gblVirtualScreenHeightPixels - 50 Then
-        fGauge.gaugeForm.Top = gblVirtualScreenHeightPixels - 150
+    If fGauge.gaugeForm.Top > gsVirtualScreenHeightPixels - 50 Then
+        fGauge.gaugeForm.Top = gsVirtualScreenHeightPixels - 150
     End If
 '
     ' calculate the current hlocation in % of the screen
     ' store the current hlocation in % of the screen
     If gsWidgetPosition = "1" Then
-        gsHLocationPercPrefValue = CStr(fGauge.gaugeForm.Left / gblVirtualScreenWidthPixels * 100)
-        gsVLocationPercPrefValue = CStr(fGauge.gaugeForm.Top / gblVirtualScreenHeightPixels * 100)
+        gsHLocationPercPrefValue = CStr(fGauge.gaugeForm.Left / gsVirtualScreenWidthPixels * 100)
+        gsVLocationPercPrefValue = CStr(fGauge.gaugeForm.Top / gsVirtualScreenHeightPixels * 100)
     End If
 
    On Error GoTo 0
@@ -2044,10 +2042,10 @@ Public Sub reloadProgram()
     
     'fGauge.ShowHelp = False ' needs to be set to false for the reload to reshow it, if enabled
     
-    gblFGaugeAvailable = False ' tell the ' screenWrite util that the gaugeForm is no longer available to write console events to
-    gblReload = True
+    gsFGaugeAvailable = False ' tell the ' screenWrite util that the gaugeForm is no longer available to write console events to
+    gsReload = True
     
-    'Erase gblTerminalRows ' remove the old text stored in the display screen array
+    'Erase gsTerminalRows ' remove the old text stored in the display screen array
     
     Call saveMainRCFormPosition
     
@@ -2082,22 +2080,22 @@ Public Sub saveMainRCFormPosition()
    On Error GoTo saveMainRCFormPosition_Error
 
     If gsDpiAwareness = "1" Then
-        gblGaugeHighDpiXPos = CStr(fGauge.gaugeForm.Left) ' saving in pixels
-        gblGaugeHighDpiYPos = CStr(fGauge.gaugeForm.Top)
-        sPutINISetting "Software\PzCPUGauge", "gaugeHighDpiXPos", gblGaugeHighDpiXPos, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "gaugeHighDpiYPos", gblGaugeHighDpiYPos, gblSettingsFile
+        gsGaugeHighDpiXPos = CStr(fGauge.gaugeForm.Left) ' saving in pixels
+        gsGaugeHighDpiYPos = CStr(fGauge.gaugeForm.Top)
+        sPutINISetting "Software\PzCPUGauge", "gaugeHighDpiXPos", gsGaugeHighDpiXPos, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "gaugeHighDpiYPos", gsGaugeHighDpiYPos, gsSettingsFile
 
     Else
-        gblGaugeLowDpiXPos = CStr(fGauge.gaugeForm.Left) ' saving in pixels
-        gblGaugeLowDpiYPos = CStr(fGauge.gaugeForm.Top)
-        sPutINISetting "Software\PzCPUGauge", "gaugeLowDpiXPos", gblGaugeLowDpiXPos, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "gaugeLowDpiYPos", gblGaugeLowDpiYPos, gblSettingsFile
+        gsGaugeLowDpiXPos = CStr(fGauge.gaugeForm.Left) ' saving in pixels
+        gsGaugeLowDpiYPos = CStr(fGauge.gaugeForm.Top)
+        sPutINISetting "Software\PzCPUGauge", "gaugeLowDpiXPos", gsGaugeLowDpiXPos, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "gaugeLowDpiYPos", gsGaugeLowDpiYPos, gsSettingsFile
     End If
     
-    sPutINISetting "Software\PzCPUGauge", "gaugePrimaryHeightRatio", gblGaugePrimaryHeightRatio, gblSettingsFile
-    sPutINISetting "Software\PzCPUGauge", "gaugeSecondaryHeightRatio", gblGaugeSecondaryHeightRatio, gblSettingsFile
+    sPutINISetting "Software\PzCPUGauge", "gaugePrimaryHeightRatio", gsGaugePrimaryHeightRatio, gsSettingsFile
+    sPutINISetting "Software\PzCPUGauge", "gaugeSecondaryHeightRatio", gsGaugeSecondaryHeightRatio, gsSettingsFile
     gsWidgetSize = CStr(fGauge.gaugeForm.WidgetRoot.Zoom * 100)
-    sPutINISetting "Software\PzCPUGauge", "widgetSize", gsWidgetSize, gblSettingsFile
+    sPutINISetting "Software\PzCPUGauge", "widgetSize", gsWidgetSize, gsSettingsFile
 
    On Error GoTo 0
    Exit Sub
@@ -2119,10 +2117,10 @@ Public Sub saveMainRCFormSize()
 
    On Error GoTo saveMainRCFormSize_Error
 
-    sPutINISetting "Software\PzCPUGauge", "gaugePrimaryHeightRatio", gblGaugePrimaryHeightRatio, gblSettingsFile
-    sPutINISetting "Software\PzCPUGauge", "gaugeSecondaryHeightRatio", gblGaugeSecondaryHeightRatio, gblSettingsFile
+    sPutINISetting "Software\PzCPUGauge", "gaugePrimaryHeightRatio", gsGaugePrimaryHeightRatio, gsSettingsFile
+    sPutINISetting "Software\PzCPUGauge", "gaugeSecondaryHeightRatio", gsGaugeSecondaryHeightRatio, gsSettingsFile
     gsWidgetSize = CStr(fGauge.gaugeForm.WidgetRoot.Zoom * 100)
-    sPutINISetting "Software\PzCPUGauge", "widgetSize", gsWidgetSize, gblSettingsFile
+    sPutINISetting "Software\PzCPUGauge", "widgetSize", gsWidgetSize, gsSettingsFile
 
    On Error GoTo 0
    Exit Sub
@@ -2191,57 +2189,57 @@ Public Sub readPrefsPosition()
     On Error GoTo readPrefsPosition_Error
 
     If gsDpiAwareness = "1" Then
-        gblPrefsHighDpiXPosTwips = fGetINISetting("Software\PzCPUGauge", "prefsHighDpiXPosTwips", gblSettingsFile)
-        gblPrefsHighDpiYPosTwips = fGetINISetting("Software\PzCPUGauge", "prefsHighDpiYPosTwips", gblSettingsFile)
+        gsPrefsHighDpiXPosTwips = fGetINISetting("Software\PzCPUGauge", "prefsHighDpiXPosTwips", gsSettingsFile)
+        gsPrefsHighDpiYPosTwips = fGetINISetting("Software\PzCPUGauge", "prefsHighDpiYPosTwips", gsSettingsFile)
         
         ' if a current location not stored then position to the middle of the screen
-        If gblPrefsHighDpiXPosTwips <> "" Then
-            widgetPrefs.Left = Val(gblPrefsHighDpiXPosTwips)
+        If gsPrefsHighDpiXPosTwips <> "" Then
+            widgetPrefs.Left = Val(gsPrefsHighDpiXPosTwips)
         Else
-            widgetPrefs.Left = gblPhysicalScreenWidthTwips / 2 - widgetPrefs.Width / 2
+            widgetPrefs.Left = glPhysicalScreenWidthTwips / 2 - widgetPrefs.Width / 2
         End If
         
-        gblPrefsHighDpiXPosTwips = widgetPrefs.Left
+        gsPrefsHighDpiXPosTwips = widgetPrefs.Left
 
-        If gblPrefsHighDpiYPosTwips <> "" Then
-            widgetPrefs.Top = Val(gblPrefsHighDpiYPosTwips)
+        If gsPrefsHighDpiYPosTwips <> "" Then
+            widgetPrefs.Top = Val(gsPrefsHighDpiYPosTwips)
         Else
             widgetPrefs.Top = Screen.Height / 2 - widgetPrefs.Height / 2
         End If
         
-        gblPrefsHighDpiYPosTwips = widgetPrefs.Top
+        gsPrefsHighDpiYPosTwips = widgetPrefs.Top
         
     Else
-        gblPrefsLowDpiXPosTwips = fGetINISetting("Software\PzCPUGauge", "prefsLowDpiXPosTwips", gblSettingsFile)
-        gblPrefsLowDpiYPosTwips = fGetINISetting("Software\PzCPUGauge", "prefsLowDpiYPosTwips", gblSettingsFile)
+        gsPrefsLowDpiXPosTwips = fGetINISetting("Software\PzCPUGauge", "prefsLowDpiXPosTwips", gsSettingsFile)
+        gsPrefsLowDpiYPosTwips = fGetINISetting("Software\PzCPUGauge", "prefsLowDpiYPosTwips", gsSettingsFile)
               
         ' if a current location not stored then position to the middle of the screen
-        If gblPrefsLowDpiXPosTwips <> "" Then
-            widgetPrefs.Left = Val(gblPrefsLowDpiXPosTwips)
+        If gsPrefsLowDpiXPosTwips <> "" Then
+            widgetPrefs.Left = Val(gsPrefsLowDpiXPosTwips)
         Else
-            widgetPrefs.Left = gblPhysicalScreenWidthTwips / 2 - widgetPrefs.Width / 2
+            widgetPrefs.Left = glPhysicalScreenWidthTwips / 2 - widgetPrefs.Width / 2
         End If
         
-        gblPrefsLowDpiXPosTwips = widgetPrefs.Left
+        gsPrefsLowDpiXPosTwips = widgetPrefs.Left
 
-        If gblPrefsLowDpiYPosTwips <> "" Then
-            widgetPrefs.Top = Val(gblPrefsLowDpiYPosTwips)
+        If gsPrefsLowDpiYPosTwips <> "" Then
+            widgetPrefs.Top = Val(gsPrefsLowDpiYPosTwips)
         Else
             widgetPrefs.Top = Screen.Height / 2 - widgetPrefs.Height / 2
         End If
         
-        gblPrefsLowDpiYPosTwips = widgetPrefs.Top
+        gsPrefsLowDpiYPosTwips = widgetPrefs.Top
     End If
         
-    gblPrefsPrimaryHeightTwips = fGetINISetting("Software\PzCPUGauge", "prefsPrimaryHeightTwips", gblSettingsFile)
-    gblPrefsSecondaryHeightTwips = fGetINISetting("Software\PzCPUGauge", "prefsSecondaryHeightTwips", gblSettingsFile)
+    gsPrefsPrimaryHeightTwips = fGetINISetting("Software\PzCPUGauge", "prefsPrimaryHeightTwips", gsSettingsFile)
+    gsPrefsSecondaryHeightTwips = fGetINISetting("Software\PzCPUGauge", "prefsSecondaryHeightTwips", gsSettingsFile)
         
    ' on very first install this will be zero, then size of the prefs as a proportion of the screen size
-    If gblPrefsPrimaryHeightTwips = "" Then
-        If Screen.Height > gblPrefsStartHeight * 2 Then
-            gblPrefsPrimaryHeightTwips = Screen.Height / 2
+    If gsPrefsPrimaryHeightTwips = "" Then
+        If Screen.Height > gsPrefsStartHeight * 2 Then
+            gsPrefsPrimaryHeightTwips = Screen.Height / 2
         Else
-            gblPrefsPrimaryHeightTwips = gblPrefsStartHeight
+            gsPrefsPrimaryHeightTwips = gsPrefsStartHeight
         End If
     End If
     
@@ -2269,28 +2267,28 @@ Public Sub writePrefsPositionAndSize()
 
     If widgetPrefs.IsLoaded = True And widgetPrefs.WindowState = vbNormal Then ' when vbMinimised the value = -48000  !
         If gsDpiAwareness = "1" Then
-            gblPrefsHighDpiXPosTwips = CStr(widgetPrefs.Left)
-            gblPrefsHighDpiYPosTwips = CStr(widgetPrefs.Top)
+            gsPrefsHighDpiXPosTwips = CStr(widgetPrefs.Left)
+            gsPrefsHighDpiYPosTwips = CStr(widgetPrefs.Top)
             
             ' now write those params to the toolSettings.ini
-            sPutINISetting "Software\PzCPUGauge", "prefsHighDpiXPosTwips", gblPrefsHighDpiXPosTwips, gblSettingsFile
-            sPutINISetting "Software\PzCPUGauge", "prefsHighDpiYPosTwips", gblPrefsHighDpiYPosTwips, gblSettingsFile
+            sPutINISetting "Software\PzCPUGauge", "prefsHighDpiXPosTwips", gsPrefsHighDpiXPosTwips, gsSettingsFile
+            sPutINISetting "Software\PzCPUGauge", "prefsHighDpiYPosTwips", gsPrefsHighDpiYPosTwips, gsSettingsFile
         Else
-            gblPrefsLowDpiXPosTwips = CStr(widgetPrefs.Left)
-            gblPrefsLowDpiYPosTwips = CStr(widgetPrefs.Top)
+            gsPrefsLowDpiXPosTwips = CStr(widgetPrefs.Left)
+            gsPrefsLowDpiYPosTwips = CStr(widgetPrefs.Top)
             
             ' now write those params to the toolSettings.ini
-            sPutINISetting "Software\PzCPUGauge", "prefsLowDpiXPosTwips", gblPrefsLowDpiXPosTwips, gblSettingsFile
-            sPutINISetting "Software\PzCPUGauge", "prefsLowDpiYPosTwips", gblPrefsLowDpiYPosTwips, gblSettingsFile
+            sPutINISetting "Software\PzCPUGauge", "prefsLowDpiXPosTwips", gsPrefsLowDpiXPosTwips, gsSettingsFile
+            sPutINISetting "Software\PzCPUGauge", "prefsLowDpiYPosTwips", gsPrefsLowDpiYPosTwips, gsSettingsFile
             
         End If
 
         If prefsMonitorStruct.IsPrimary = True Then
-            gblPrefsPrimaryHeightTwips = Trim$(CStr(widgetPrefs.Height))
-            sPutINISetting "Software\PzCPUGauge", "prefsPrimaryHeightTwips", gblPrefsPrimaryHeightTwips, gblSettingsFile
+            gsPrefsPrimaryHeightTwips = Trim$(CStr(widgetPrefs.Height))
+            sPutINISetting "Software\PzCPUGauge", "prefsPrimaryHeightTwips", gsPrefsPrimaryHeightTwips, gsSettingsFile
         Else
-            gblPrefsSecondaryHeightTwips = Trim$(CStr(widgetPrefs.Height))
-            sPutINISetting "Software\PzCPUGauge", "prefsSecondaryHeightTwips", gblPrefsSecondaryHeightTwips, gblSettingsFile
+            gsPrefsSecondaryHeightTwips = Trim$(CStr(widgetPrefs.Height))
+            sPutINISetting "Software\PzCPUGauge", "prefsSecondaryHeightTwips", gsPrefsSecondaryHeightTwips, gsSettingsFile
         End If
     End If
     
@@ -2313,12 +2311,12 @@ End Sub
 
 'Private Sub settingsTimer_Timer()
 '
-'    gblUnhide = fGetINISetting("Software\PzCPUGauge", "unhide", gblSettingsFile)
+'    gsUnhide = fGetINISetting("Software\PzCPUGauge", "unhide", gsSettingsFile)
 '
-'    If gblUnhide = "true" Then
+'    If gsUnhide = "true" Then
 '        'overlayWidget.Hidden = False
 '        fGauge.gaugeForm.Visible = True
-'        sPutINISetting "Software\PzCPUGauge", "unhide", vbNullString, gblSettingsFile
+'        sPutINISetting "Software\PzCPUGauge", "unhide", vbNullString, gsSettingsFile
 '    End If
 '
 '    On Error GoTo 0
@@ -2353,27 +2351,27 @@ Public Sub toggleWidgetLock()
 
     fileToPlay = "lock.wav"
     
-    If gblPreventDragging = "1" Then
+    If gsPreventDragging = "1" Then
         ' Call ' screenWrite("Widget lock released")
         menuForm.mnuLockWidget.Checked = False
         If widgetPrefs.IsLoaded = True Then widgetPrefs.chkPreventDragging.Value = 0
-        gblPreventDragging = "0"
+        gsPreventDragging = "0"
         overlayWidget.Locked = False
-        fGauge.gaugeForm.Widgets("lockbutton").Widget.Alpha = Val(gblOpacity) / 100
+        fGauge.gaugeForm.Widgets("lockbutton").Widget.Alpha = Val(gsOpacity) / 100
     Else
         ' Call ' screenWrite("Widget locked in place")
         menuForm.mnuLockWidget.Checked = True
         If widgetPrefs.IsLoaded = True Then widgetPrefs.chkPreventDragging.Value = 1
         overlayWidget.Locked = True
-        gblPreventDragging = "1"
+        gsPreventDragging = "1"
         fGauge.gaugeForm.Widgets("lockbutton").Widget.Alpha = 0
     End If
     
     fGauge.gaugeForm.Refresh
     
-    sPutINISetting "Software\PzCPUGauge", "preventDragging", gblPreventDragging, gblSettingsFile
+    sPutINISetting "Software\PzCPUGauge", "preventDragging", gsPreventDragging, gsSettingsFile
    
-    If gblEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+    If gsEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
         playSound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
     
@@ -2407,7 +2405,7 @@ Public Sub SwitchOff()
     If widgetPrefs.IsLoaded Then widgetPrefs.chkWidgetFunctions.Value = 0
         
     gsWidgetFunctions = "0"
-    sPutINISetting "Software\PzCPUGauge", "widgetFunctions", gsWidgetFunctions, gblSettingsFile
+    sPutINISetting "Software\PzCPUGauge", "widgetFunctions", gsWidgetFunctions, gsSettingsFile
 
     Call stopAllCpuTimers
 
@@ -2438,7 +2436,7 @@ Public Sub TurnFunctionsOn()
 
     fileToPlay = "ting.wav"
 
-    If gblEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+    If gsEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
         playSound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
 
@@ -2448,7 +2446,7 @@ Public Sub TurnFunctionsOn()
     If widgetPrefs.IsLoaded Then widgetPrefs.chkWidgetFunctions.Value = 1
     
     gsWidgetFunctions = "1"
-    sPutINISetting "Software\PzCPUGauge", "widgetFunctions", gsWidgetFunctions, gblSettingsFile
+    sPutINISetting "Software\PzCPUGauge", "widgetFunctions", gsWidgetFunctions, gsSettingsFile
     
     Call startAllCpuTimers
 
@@ -2480,7 +2478,7 @@ Public Sub hardRestart()
     If fFExists(thisCommand) Then
         
         ' run the selected program
-        Call ShellExecute(widgetPrefs.hWnd, "open", thisCommand, "Panzer-CPU-Gauge-" & gblRichClientEnvironment & "-" & gblCodingEnvironment & ".exe prefs", "", 1)
+        Call ShellExecute(widgetPrefs.hWnd, "open", thisCommand, "Panzer-CPU-Gauge-" & gsRichClientEnvironment & "-" & gsCodingEnvironment & ".exe prefs", "", 1)
     Else
         'answer = MsgBox(thisCommand & " is missing", vbOKOnly + vbExclamation)
         answerMsg = thisCommand & " is missing"
@@ -2712,13 +2710,13 @@ Public Sub saveRCFormCurrentSizeRatios()
 
     On Error GoTo saveRCFormCurrentSizeRatios_Error
 
-    If LTrim$(gblMultiMonitorResize) = "2" Then
+    If LTrim$(gsMultiMonitorResize) = "2" Then
         If gaugeMonitorStruct.IsPrimary Then
-            gblGaugePrimaryHeightRatio = fGauge.gaugeForm.WidgetRoot.Zoom
-            sPutINISetting "Software\PzCPUGauge", "gaugePrimaryHeightRatio", gblGaugePrimaryHeightRatio, gblSettingsFile
+            gsGaugePrimaryHeightRatio = fGauge.gaugeForm.WidgetRoot.Zoom
+            sPutINISetting "Software\PzCPUGauge", "gaugePrimaryHeightRatio", gsGaugePrimaryHeightRatio, gsSettingsFile
         Else
-            gblGaugeSecondaryHeightRatio = fGauge.gaugeForm.WidgetRoot.Zoom
-            sPutINISetting "Software\PzCPUGauge", "gaugeSecondaryHeightRatio", gblGaugeSecondaryHeightRatio, gblSettingsFile
+            gsGaugeSecondaryHeightRatio = fGauge.gaugeForm.WidgetRoot.Zoom
+            sPutINISetting "Software\PzCPUGauge", "gaugeSecondaryHeightRatio", gsGaugeSecondaryHeightRatio, gsSettingsFile
         End If
     End If
 
@@ -2742,16 +2740,16 @@ Public Sub saveMainFormsCurrentSizeAndRatios()
 
     On Error GoTo saveMainFormsCurrentSizeAndRatios_Error
 
-    If LTrim$(gblMultiMonitorResize) = "2" Then
+    If LTrim$(gsMultiMonitorResize) = "2" Then
     
         '  saves the current ratios for the RC form alone
         Call saveRCFormCurrentSizeRatios
         
         ' now save the prefs form absolute sizes
         If prefsMonitorStruct.IsPrimary = True Then
-            sPutINISetting "Software\PzCPUGauge", "prefsPrimaryHeightTwips", gblPrefsPrimaryHeightTwips, gblSettingsFile
+            sPutINISetting "Software\PzCPUGauge", "prefsPrimaryHeightTwips", gsPrefsPrimaryHeightTwips, gsSettingsFile
         Else
-            sPutINISetting "Software\PzCPUGauge", "prefsSecondaryHeightTwips", gblPrefsSecondaryHeightTwips, gblSettingsFile
+            sPutINISetting "Software\PzCPUGauge", "prefsSecondaryHeightTwips", gsPrefsSecondaryHeightTwips, gsSettingsFile
         End If
     End If
 

@@ -2125,7 +2125,7 @@ Private pCmbTickSwitchPrefBalloonTooltip As String
 Private mIsLoaded As Boolean ' property
 Private mGaugeSize As Single   ' property
 
-Private gblConstraintRatio As Double
+Private gsConstraintRatio As Double
 
 
 
@@ -2226,7 +2226,7 @@ Private Sub chkMultiCoreEnable_Click()
 
     If pvtPrefsStartupFlg = True Then Exit Sub
     
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     
     If chkMultiCoreEnable.Value = 1 Then
         frmMultiCore.Show
@@ -2259,7 +2259,7 @@ Private Sub optWidgetTooltips_Click(Index As Integer)
     Dim answerMsg As String: answerMsg = vbNullString
     On Error GoTo optWidgetTooltips_Click_Error
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
     If pvtPrefsStartupFlg = False Then
         gsWidgetTooltips = CStr(Index)
@@ -2268,7 +2268,7 @@ Private Sub optWidgetTooltips_Click(Index As Integer)
         optWidgetTooltips(1).Tag = CStr(Index)
         optWidgetTooltips(2).Tag = CStr(Index)
         
-        sPutINISetting "Software\PzCPUGauge", "widgetTooltips", gsWidgetTooltips, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "widgetTooltips", gsWidgetTooltips, gsSettingsFile
 
         answer = vbYes
         answerMsg = "You must soft reload this widget, in order to change the tooltip setting, do you want me to reload this widget? I can do it now for you."
@@ -2302,7 +2302,7 @@ End Sub
 Private Sub chkWidgetFunctions_Click()
     On Error GoTo chkWidgetFunctions_Click_Error
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     overlayWidget.Ticking = chkWidgetFunctions.Value
     
     If chkWidgetFunctions.Value = 0 Then
@@ -2324,7 +2324,7 @@ End Sub
 
 
 Private Sub cmbTickSwitchPref_Click()
-   If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+   If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 End Sub
 
 '---------------------------------------------------------------------------------------
@@ -2340,13 +2340,13 @@ Private Sub optPrefsTooltips_Click(Index As Integer)
 
     If pvtPrefsStartupFlg = False Then
     
-        If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+        If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
         gsPrefsTooltips = CStr(Index)
         optPrefsTooltips(0).Tag = CStr(Index)
         optPrefsTooltips(1).Tag = CStr(Index)
         optPrefsTooltips(2).Tag = CStr(Index)
         
-        sPutINISetting "Software\PzCPUGauge", "prefsTooltips", gsPrefsTooltips, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "prefsTooltips", gsPrefsTooltips, gsSettingsFile
         
         ' set the tooltips on the prefs screen
         Call setPrefsTooltips
@@ -2372,11 +2372,11 @@ End Sub
 Private Sub cmbMultiMonitorResize_Click()
    On Error GoTo cmbMultiMonitorResize_Click_Error
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     
     If pvtPrefsStartupFlg = True Then Exit Sub
     
-    gblMultiMonitorResize = CStr(cmbMultiMonitorResize.ListIndex)
+    gsMultiMonitorResize = CStr(cmbMultiMonitorResize.ListIndex)
     
     ' saves the current ratios for the RC form and the absolute sizes for the Prefs form
     Call saveMainFormsCurrentSizeAndRatios
@@ -2402,7 +2402,7 @@ End Sub
 Private Sub chkShowHelp_Click()
    On Error GoTo chkShowHelp_Click_Error
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     If chkShowHelp.Value = 1 Then
         gsShowHelp = "1"
     Else
@@ -2460,14 +2460,14 @@ Private Sub Form_Load()
     Me.Visible = False
     btnSave.Enabled = False ' disable the save button
     
-    Me.mnuAbout.Caption = "About Panzer CPU Gauge " & gblRichClientEnvironment & " Cairo " & gblCodingEnvironment & " widget"
+    Me.mnuAbout.Caption = "About Panzer CPU Gauge " & gsRichClientEnvironment & " Cairo " & gsCodingEnvironment & " widget"
 
     pvtPrefsStartupFlg = True ' this is used to prevent some control initialisations from running code at startup
     'pvtPrefsDynamicSizingFlg = False
     IsLoaded = True
-    gblWindowLevelWasChanged = False
-    gblPrefsStartWidth = pvtcPrefsFormWidth
-    gblPrefsStartHeight = pvtcPrefsFormHeight
+    gsWindowLevelWasChanged = False
+    gsPrefsStartWidth = pvtcPrefsFormWidth
+    gsPrefsStartHeight = pvtcPrefsFormHeight
     pvtPrefsFormResizedByDrag = False
             
     ' subclass ALL forms created by intercepting WM_Create messages, identifying dialog forms to centre them in the middle of the monitor - specifically the font form.
@@ -2629,7 +2629,7 @@ End Sub
 ' Procedure : identifyPrefsPrimaryMonitor
 ' Author    : beededea
 ' Date      : 20/02/2025
-' Purpose   : note the monitor primary at the preferences form_load and store as gblOldPrefsFormMonitorPrimary - will be resampled regularly later and compared
+' Purpose   : note the monitor primary at the preferences form_load and store as gsOldPrefsFormMonitorPrimary - will be resampled regularly later and compared
 '---------------------------------------------------------------------------------------
 '
 Private Sub identifyPrefsPrimaryMonitor()
@@ -2638,10 +2638,10 @@ Private Sub identifyPrefsPrimaryMonitor()
     
     On Error GoTo identifyPrefsPrimaryMonitor_Error
     
-    'prefsFormHeight = gblPrefsStartHeight
+    'prefsFormHeight = gsPrefsStartHeight
 
     prefsMonitorStruct = formScreenProperties(widgetPrefs, prefsFormMonitorID)
-    gblOldPrefsFormMonitorPrimary = prefsMonitorStruct.IsPrimary ' -1 true
+    gsOldPrefsFormMonitorPrimary = prefsMonitorStruct.IsPrimary ' -1 true
 
    On Error GoTo 0
    Exit Sub
@@ -2663,11 +2663,11 @@ Private Sub setPrefsHeight()
    On Error GoTo setPrefsHeight_Error
 
     If gsDpiAwareness = "1" Then
-        gblPrefsFormResizedInCode = True
-        If gblPrefsPrimaryHeightTwips < gblPhysicalScreenHeightTwips Then
-            widgetPrefs.Height = CLng(gblPrefsPrimaryHeightTwips) ' on first run this also sets the prefs to one third of the screen height (value set in readPrefsPosition)
+        gsPrefsFormResizedInCode = True
+        If gsPrefsPrimaryHeightTwips < gsPhysicalScreenHeightTwips Then
+            widgetPrefs.Height = CLng(gsPrefsPrimaryHeightTwips) ' on first run this also sets the prefs to one third of the screen height (value set in readPrefsPosition)
         Else
-            widgetPrefs.Height = gblPhysicalScreenHeightTwips - 1000
+            widgetPrefs.Height = gsPhysicalScreenHeightTwips - 1000
         End If
     End If
 
@@ -2748,7 +2748,7 @@ Private Sub subClassControls()
     
    On Error GoTo subClassControls_Error
 
-    If InIDE And gblReload = False Then
+    If InIDE And gsReload = False Then
         MsgBox "NOTE: Running in IDE so Sub classing is disabled" & vbCrLf & "Mousewheel will not scroll icon maps and balloon tooltips will not display on comboboxes" & vbCrLf & vbCrLf & _
             "In addition, the display screen will not show messages as it currently crashes when run within the IDE."
     Else
@@ -2868,16 +2868,16 @@ Public Sub positionPrefsMonitor()
     On Error GoTo positionPrefsMonitor_Error
     
     If gsDpiAwareness = "1" Then
-        formLeftTwips = Val(gblPrefsHighDpiXPosTwips)
-        formTopTwips = Val(gblPrefsHighDpiYPosTwips)
+        formLeftTwips = Val(gsPrefsHighDpiXPosTwips)
+        formTopTwips = Val(gsPrefsHighDpiYPosTwips)
     Else
-        formLeftTwips = Val(gblPrefsLowDpiXPosTwips)
-        formTopTwips = Val(gblPrefsLowDpiYPosTwips)
+        formLeftTwips = Val(gsPrefsLowDpiXPosTwips)
+        formTopTwips = Val(gsPrefsLowDpiYPosTwips)
     End If
     
     If formLeftTwips = 0 Then
-        If ((fGauge.gaugeForm.Left + fGauge.gaugeForm.Width) * gblScreenTwipsPerPixelX) + 200 + widgetPrefs.Width > gblPhysicalScreenWidthTwips Then
-            widgetPrefs.Left = (fGauge.gaugeForm.Left * gblScreenTwipsPerPixelX) - (widgetPrefs.Width + 200)
+        If ((fGauge.gaugeForm.Left + fGauge.gaugeForm.Width) * gsScreenTwipsPerPixelX) + 200 + widgetPrefs.Width > glPhysicalScreenWidthTwips Then
+            widgetPrefs.Left = (fGauge.gaugeForm.Left * gsScreenTwipsPerPixelX) - (widgetPrefs.Width + 200)
         End If
     End If
 
@@ -2886,7 +2886,7 @@ Public Sub positionPrefsMonitor()
     If formLeftTwips <> 0 Then
         widgetPrefs.Left = formLeftTwips
     Else
-        widgetPrefs.Left = gblPhysicalScreenWidthTwips / 2 - widgetPrefs.Width / 2
+        widgetPrefs.Left = glPhysicalScreenWidthTwips / 2 - widgetPrefs.Width / 2
     End If
     
     If formTopTwips <> 0 Then
@@ -2896,7 +2896,7 @@ Public Sub positionPrefsMonitor()
     End If
     
     'monitorCount = fGetMonitorCount
-    If gblMonitorCount > 1 Then Call SetFormOnMonitor(Me.hWnd, formLeftTwips / fTwipsPerPixelX, formTopTwips / fTwipsPerPixelY)
+    If gsMonitorCount > 1 Then Call SetFormOnMonitor(Me.hWnd, formLeftTwips / fTwipsPerPixelX, formTopTwips / fTwipsPerPixelY)
     
     ' calculate the on-screen widget position
     If Me.Left < 0 Then
@@ -2905,34 +2905,34 @@ Public Sub positionPrefsMonitor()
     If Me.Top < 0 Then
         widgetPrefs.Top = 0
     End If
-    If Me.Left > gblVirtualScreenWidthTwips - 2500 Then
-        widgetPrefs.Left = gblVirtualScreenWidthTwips - 2500
+    If Me.Left > gsVirtualScreenWidthTwips - 2500 Then
+        widgetPrefs.Left = gsVirtualScreenWidthTwips - 2500
     End If
-    If Me.Top > gblVirtualScreenHeightTwips - 2500 Then
-        widgetPrefs.Top = gblVirtualScreenHeightTwips - 2500
+    If Me.Top > gsVirtualScreenHeightTwips - 2500 Then
+        widgetPrefs.Top = gsVirtualScreenHeightTwips - 2500
     End If
     
     ' if just one monitor or the global switch is off then exit
-    If gblMonitorCount > 1 And LTrim$(gblMultiMonitorResize) = "2" Then
+    If gsMonitorCount > 1 And LTrim$(gsMultiMonitorResize) = "2" Then
     
-        ' note the monitor primary at the preferences form_load and store as gblOldgaugeFormMonitorPrimary
+        ' note the monitor primary at the preferences form_load and store as gsOldgaugeFormMonitorPrimary
         Call identifyPrefsPrimaryMonitor
 
         If prefsMonitorStruct.IsPrimary = True Then
-            gblPrefsFormResizedInCode = True
-            gblPrefsPrimaryHeightTwips = fGetINISetting("Software\PzCPUGauge", "prefsPrimaryHeightTwips", gblSettingsFile)
-            If Val(gblPrefsPrimaryHeightTwips) <= 0 Then
-                widgetPrefs.Height = gblPrefsStartHeight
+            gsPrefsFormResizedInCode = True
+            gsPrefsPrimaryHeightTwips = fGetINISetting("Software\PzCPUGauge", "prefsPrimaryHeightTwips", gsSettingsFile)
+            If Val(gsPrefsPrimaryHeightTwips) <= 0 Then
+                widgetPrefs.Height = gsPrefsStartHeight
             Else
-                widgetPrefs.Height = CLng(gblPrefsPrimaryHeightTwips)
+                widgetPrefs.Height = CLng(gsPrefsPrimaryHeightTwips)
             End If
         Else
-            gblPrefsSecondaryHeightTwips = fGetINISetting("Software\PzCPUGauge", "prefsSecondaryHeightTwips", gblSettingsFile)
-            gblPrefsFormResizedInCode = True
-            If Val(gblPrefsSecondaryHeightTwips) <= 0 Then
-                widgetPrefs.Height = gblPrefsStartHeight
+            gsPrefsSecondaryHeightTwips = fGetINISetting("Software\PzCPUGauge", "prefsSecondaryHeightTwips", gsSettingsFile)
+            gsPrefsFormResizedInCode = True
+            If Val(gsPrefsSecondaryHeightTwips) <= 0 Then
+                widgetPrefs.Height = gsPrefsStartHeight
             Else
-                widgetPrefs.Height = CLng(gblPrefsSecondaryHeightTwips)
+                widgetPrefs.Height = CLng(gsPrefsSecondaryHeightTwips)
             End If
         End If
     End If
@@ -2963,7 +2963,7 @@ Private Sub chkDpiAwareness_Click()
 
     On Error GoTo chkDpiAwareness_Click_Error
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     If pvtPrefsStartupFlg = False Then ' don't run this on startup
                     
         answer = vbYes
@@ -2976,7 +2976,7 @@ Private Sub chkDpiAwareness_Click()
             gsDpiAwareness = "1"
         End If
 
-        sPutINISetting "Software\PzCPUGauge", "dpiAwareness", gsDpiAwareness, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "dpiAwareness", gsDpiAwareness, gsSettingsFile
         
         If answer = vbNo Then
             answer = vbYes
@@ -2986,7 +2986,7 @@ Private Sub chkDpiAwareness_Click()
             Exit Sub
         Else
 
-            sPutINISetting "Software\PzCPUGauge", "dpiAwareness", gsDpiAwareness, gblSettingsFile
+            sPutINISetting "Software\PzCPUGauge", "dpiAwareness", gsDpiAwareness, gsSettingsFile
             'Call reloadProgram ' this is insufficient, image controls still fail to resize and autoscale correctly
             Call hardRestart
         End If
@@ -3018,7 +3018,7 @@ Private Sub chkShowTaskbar_Click()
 
    On Error GoTo chkShowTaskbar_Click_Error
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     If chkShowTaskbar.Value = 1 Then
         gsShowTaskbar = "1"
     Else
@@ -3073,7 +3073,7 @@ End Sub
 Private Sub btnAboutDebugInfo_Click()
 
    On Error GoTo btnAboutDebugInfo_Click_Error
-   'If gblDebugFlg = 1 Then Debug.Print "%btnAboutDebugInfo_Click"
+   'If gsDebugFlg = 1 Then Debug.Print "%btnAboutDebugInfo_Click"
 
     'mnuDebug_Click
     MsgBox "The debug mode is not yet enabled."
@@ -3115,7 +3115,7 @@ End Sub
 '
 Private Sub btnFacebook_Click()
    On Error GoTo btnFacebook_Click_Error
-   'If gblDebugFlg = 1 Then DebugPrint "%btnFacebook_Click"
+   'If gsDebugFlg = 1 Then DebugPrint "%btnFacebook_Click"
 
     Call menuForm.mnuFacebook_Click
     
@@ -3188,7 +3188,7 @@ End Sub
 '
 Private Sub btnUpdate_Click()
    On Error GoTo btnUpdate_Click_Error
-   'If gblDebugFlg = 1 Then DebugPrint "%btnUpdate_Click"
+   'If gsDebugFlg = 1 Then DebugPrint "%btnUpdate_Click"
 
     'MsgBox "The update button is not yet enabled."
     menuForm.mnuLatest_Click
@@ -3215,7 +3215,7 @@ End Sub
 Private Sub chkGenStartup_Click()
     On Error GoTo chkGenStartup_Click_Error
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
     On Error GoTo 0
     Exit Sub
@@ -3290,12 +3290,12 @@ Private Sub chkIgnoreMouse_Click()
    On Error GoTo chkIgnoreMouse_Click_Error
 
     If chkIgnoreMouse.Value = 0 Then
-        gblIgnoreMouse = "0"
+        gsIgnoreMouse = "0"
     Else
-        gblIgnoreMouse = "1"
+        gsIgnoreMouse = "1"
     End If
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
    On Error GoTo 0
    Exit Sub
@@ -3315,13 +3315,13 @@ End Sub
 Private Sub chkPreventDragging_Click()
     On Error GoTo chkPreventDragging_Click_Error
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     ' immediately make the widget locked in place
     If chkPreventDragging.Value = 0 Then
         overlayWidget.Locked = False
-        gblPreventDragging = "0"
+        gsPreventDragging = "0"
         menuForm.mnuLockWidget.Checked = False
-        If gblAspectRatio = "landscape" Then
+        If gsAspectRatio = "landscape" Then
             txtLandscapeHoffset.Text = vbNullString
             txtLandscapeVoffset.Text = vbNullString
         Else
@@ -3330,9 +3330,9 @@ Private Sub chkPreventDragging_Click()
         End If
     Else
         overlayWidget.Locked = True
-        gblPreventDragging = "1"
+        gsPreventDragging = "1"
         menuForm.mnuLockWidget.Checked = True
-        If gblAspectRatio = "landscape" Then
+        If gsAspectRatio = "landscape" Then
             txtLandscapeHoffset.Text = fGauge.gaugeForm.Left
             txtLandscapeVoffset.Text = fGauge.gaugeForm.Top
         Else
@@ -3372,19 +3372,19 @@ Private Sub chkWidgetHidden_Click()
         fGauge.gaugeForm.Visible = True
 
         frmTimer.revealWidgetTimer.Enabled = False
-        gblWidgetHidden = "0"
+        gsWidgetHidden = "0"
     Else
         'overlayWidget.Hidden = True
         fGauge.gaugeForm.Visible = False
 
 
         frmTimer.revealWidgetTimer.Enabled = True
-        gblWidgetHidden = "1"
+        gsWidgetHidden = "1"
     End If
     
-    sPutINISetting "Software\PzCPUGauge", "widgetHidden", gblWidgetHidden, gblSettingsFile
+    sPutINISetting "Software\PzCPUGauge", "widgetHidden", gsWidgetHidden, gsSettingsFile
     
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
    On Error GoTo 0
    Exit Sub
@@ -3406,10 +3406,10 @@ Private Sub cmbAspectHidden_Click()
 
    On Error GoTo cmbAspectHidden_Click_Error
 
-    If cmbAspectHidden.ListIndex = 1 And gblAspectRatio = "portrait" Then
+    If cmbAspectHidden.ListIndex = 1 And gsAspectRatio = "portrait" Then
         'overlayWidget.Hidden = True
         fGauge.gaugeForm.Visible = False
-    ElseIf cmbAspectHidden.ListIndex = 2 And gblAspectRatio = "landscape" Then
+    ElseIf cmbAspectHidden.ListIndex = 2 And gsAspectRatio = "landscape" Then
         'overlayWidget.Hidden = True
         fGauge.gaugeForm.Visible = False
     Else
@@ -3417,7 +3417,7 @@ Private Sub cmbAspectHidden_Click()
         fGauge.gaugeForm.Visible = True
     End If
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
    On Error GoTo 0
    Exit Sub
@@ -3437,7 +3437,7 @@ End Sub
 Private Sub cmbDebug_Click()
     On Error GoTo cmbDebug_Click_Error
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     If cmbDebug.ListIndex = 0 Then
         txtDefaultEditor.Text = "eg. E:\vb6\Panzer-CPU-Gauge-VB6MkII\Panzer-CPU-Gauge-VB6.vbp"
         txtDefaultEditor.Enabled = False
@@ -3446,9 +3446,9 @@ Private Sub cmbDebug_Click()
         lblDebug(9).Enabled = False
     Else
         #If TwinBasic Then
-            txtDefaultEditor.Text = gblDefaultTBEditor
+            txtDefaultEditor.Text = gsDefaultTBEditor
         #Else
-            txtDefaultEditor.Text = gblDefaultVB6Editor
+            txtDefaultEditor.Text = gsDefaultVB6Editor
         #End If
         txtDefaultEditor.Enabled = True
         lblDebug(7).Enabled = True
@@ -3482,7 +3482,7 @@ End Sub
 Private Sub cmbHidingTime_Click()
    On Error GoTo cmbHidingTime_Click_Error
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
    On Error GoTo 0
    Exit Sub
@@ -3502,7 +3502,7 @@ End Sub
 Private Sub cmbScrollWheelDirection_Click()
    On Error GoTo cmbScrollWheelDirection_Click_Error
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     'overlayWidget.ZoomDirection = cmbScrollWheelDirection.List(cmbScrollWheelDirection.ListIndex)
 
    On Error GoTo 0
@@ -3525,7 +3525,7 @@ End Sub
 Private Sub cmbWidgetLandscape_Click()
    On Error GoTo cmbWidgetLandscape_Click_Error
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
    On Error GoTo 0
    Exit Sub
@@ -3545,7 +3545,7 @@ End Sub
 Private Sub cmbWidgetPortrait_Click()
    On Error GoTo cmbWidgetPortrait_Click_Error
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
    On Error GoTo 0
    Exit Sub
@@ -3565,7 +3565,7 @@ End Sub
 Private Sub cmbWidgetPosition_Click()
     On Error GoTo cmbWidgetPosition_Click_Error
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     If cmbWidgetPosition.ListIndex = 1 Then
         cmbWidgetLandscape.ListIndex = 0
         cmbWidgetPortrait.ListIndex = 0
@@ -3713,14 +3713,14 @@ Private Sub showLastTab()
 
    On Error GoTo showLastTab_Error
 
-    If gblLastSelectedTab = "general" Then Call picButtonMouseUpEvent("general", imgGeneral, imgGeneralClicked, fraGeneral, fraGeneralButton)  ' was imgGeneralMouseUpEvent
-    If gblLastSelectedTab = "config" Then Call picButtonMouseUpEvent("config", imgConfig, imgConfigClicked, fraConfig, fraConfigButton)     ' was imgConfigMouseUpEvent
-    If gblLastSelectedTab = "position" Then Call picButtonMouseUpEvent("position", imgPosition, imgPositionClicked, fraPosition, fraPositionButton)
-    If gblLastSelectedTab = "development" Then Call picButtonMouseUpEvent("development", imgDevelopment, imgDevelopmentClicked, fraDevelopment, fraDevelopmentButton)
-    If gblLastSelectedTab = "fonts" Then Call picButtonMouseUpEvent("fonts", imgFonts, imgFontsClicked, fraFonts, fraFontsButton)
-    If gblLastSelectedTab = "sounds" Then Call picButtonMouseUpEvent("sounds", imgSounds, imgSoundsClicked, fraSounds, fraSoundsButton)
-    If gblLastSelectedTab = "window" Then Call picButtonMouseUpEvent("window", imgWindow, imgWindowClicked, fraWindow, fraWindowButton)
-    If gblLastSelectedTab = "about" Then Call picButtonMouseUpEvent("about", imgAbout, imgAboutClicked, fraAbout, fraAboutButton)
+    If gsLastSelectedTab = "general" Then Call picButtonMouseUpEvent("general", imgGeneral, imgGeneralClicked, fraGeneral, fraGeneralButton)  ' was imgGeneralMouseUpEvent
+    If gsLastSelectedTab = "config" Then Call picButtonMouseUpEvent("config", imgConfig, imgConfigClicked, fraConfig, fraConfigButton)     ' was imgConfigMouseUpEvent
+    If gsLastSelectedTab = "position" Then Call picButtonMouseUpEvent("position", imgPosition, imgPositionClicked, fraPosition, fraPositionButton)
+    If gsLastSelectedTab = "development" Then Call picButtonMouseUpEvent("development", imgDevelopment, imgDevelopmentClicked, fraDevelopment, fraDevelopmentButton)
+    If gsLastSelectedTab = "fonts" Then Call picButtonMouseUpEvent("fonts", imgFonts, imgFontsClicked, fraFonts, fraFontsButton)
+    If gsLastSelectedTab = "sounds" Then Call picButtonMouseUpEvent("sounds", imgSounds, imgSoundsClicked, fraSounds, fraSoundsButton)
+    If gsLastSelectedTab = "window" Then Call picButtonMouseUpEvent("window", imgWindow, imgWindowClicked, fraWindow, fraWindowButton)
+    If gsLastSelectedTab = "about" Then Call picButtonMouseUpEvent("about", imgAbout, imgAboutClicked, fraAbout, fraAboutButton)
 
     '' fGauge.RotateBusyTimer = True
     
@@ -3754,7 +3754,7 @@ Private Sub positionPrefsFramesButtons()
     Dim leftHandGutterWidth As Long: leftHandGutterWidth = 0
        
     ' constrain the height/width ratio
-    gblConstraintRatio = pvtcPrefsFormHeight / pvtcPrefsFormWidth
+    gsConstraintRatio = pvtcPrefsFormHeight / pvtcPrefsFormWidth
     
     ' align frames rightmost and leftmost to the buttons at the top
     buttonTop = -15
@@ -3955,20 +3955,20 @@ Private Sub btnSave_Click()
     gsSamplingInterval = LTrim$(Str$(sliSamplingInterval.Value))
     
     ' sounds
-    gblEnableSounds = CStr(chkEnableSounds.Value)
-'    gblEnableTicks = CStr(chkEnableTicks.Value)
-'    gblEnableChimes = CStr(chkEnableChimes.Value)
-'    gblEnableAlarms = CStr(chkEnableAlarms.Value)
-'    gblVolumeBoost = CStr(chkVolumeBoost.Value)
+    gsEnableSounds = CStr(chkEnableSounds.Value)
+'    gsEnableTicks = CStr(chkEnableTicks.Value)
+'    gsEnableChimes = CStr(chkEnableChimes.Value)
+'    gsEnableAlarms = CStr(chkEnableAlarms.Value)
+'    gsVolumeBoost = CStr(chkVolumeBoost.Value)
     
     'development
-    gblDebug = CStr(cmbDebug.ListIndex)
-    gblDblClickCommand = txtDblClickCommand.Text
-    gblOpenFile = txtOpenFile.Text
+    gsDebug = CStr(cmbDebug.ListIndex)
+    gsDblClickCommand = txtDblClickCommand.Text
+    gsOpenFile = txtOpenFile.Text
     #If TwinBasic Then
-        gblDefaultTBEditor = txtDefaultEditor.Text
+        gsDefaultTBEditor = txtDefaultEditor.Text
     #Else
-        gblDefaultVB6Editor = txtDefaultEditor.Text
+        gsDefaultVB6Editor = txtDefaultEditor.Text
     #End If
     
     ' position
@@ -3985,112 +3985,112 @@ Private Sub btnSave_Click()
 '    gsHLocationPercPrefValue
 
     ' fonts
-    gblPrefsFont = txtPrefsFont.Text
-    gblGaugeFont = gblPrefsFont
+    gsPrefsFont = txtPrefsFont.Text
+    gsGaugeFont = gsPrefsFont
     
-    gblDisplayScreenFont = txtDisplayScreenFont.Text
-    gblDisplayScreenFontSize = txtDisplayScreenFontSize.Text
+    gsDisplayScreenFont = txtDisplayScreenFont.Text
+    gsDisplayScreenFontSize = txtDisplayScreenFontSize.Text
     
-'    gblDisplayScreenFontSize
-'    gblDisplayScreenFontItalics
-'    gblDisplayScreenFontColour
+'    gsDisplayScreenFontSize
+'    gsDisplayScreenFontItalics
+'    gsDisplayScreenFontColour
 
     ' the sizing is not saved here again as it saved during the setting phase.
     
 '    If gsDpiAwareness = "1" Then
-'        gblPrefsFontSizeHighDPI = txtPrefsFontSize.Text
+'        gsPrefsFontSizeHighDPI = txtPrefsFontSize.Text
 '    Else
-'        gblPrefsFontSizeLowDPI = txtPrefsFontSize.Text
+'        gsPrefsFontSizeLowDPI = txtPrefsFontSize.Text
 '    End If
-    'gblPrefsFontItalics = txtFontSize.Text
+    'gsPrefsFontItalics = txtFontSize.Text
 
     ' Windows
-    gblWindowLevel = CStr(cmbWindowLevel.ListIndex)
-    gblPreventDragging = CStr(chkPreventDragging.Value)
-    gblOpacity = CStr(sliOpacity.Value)
-    gblWidgetHidden = CStr(chkWidgetHidden.Value)
-    gblHidingTime = CStr(cmbHidingTime.ListIndex)
-    gblIgnoreMouse = CStr(chkIgnoreMouse.Value)
+    gsWindowLevel = CStr(cmbWindowLevel.ListIndex)
+    gsPreventDragging = CStr(chkPreventDragging.Value)
+    gsOpacity = CStr(sliOpacity.Value)
+    gsWidgetHidden = CStr(chkWidgetHidden.Value)
+    gsHidingTime = CStr(cmbHidingTime.ListIndex)
+    gsIgnoreMouse = CStr(chkIgnoreMouse.Value)
     
-    gblMultiMonitorResize = CStr(cmbMultiMonitorResize.ListIndex)
+    gsMultiMonitorResize = CStr(cmbMultiMonitorResize.ListIndex)
      
             
     If gsStartup = "1" Then
-        Call writeRegistry(HKEY_CURRENT_USER, "SOFTWARE\Microsoft\Windows\CurrentVersion\Run", "PanzerCPUGauge" & gblRichClientEnvironment & "-" & gblCodingEnvironment, """" & App.Path & "\" & "Panzer-CPU-Gauge-" & gblRichClientEnvironment & "-" & gblCodingEnvironment & ".exe""")
+        Call writeRegistry(HKEY_CURRENT_USER, "SOFTWARE\Microsoft\Windows\CurrentVersion\Run", "PanzerCPUGauge" & gsRichClientEnvironment & "-" & gsCodingEnvironment, """" & App.Path & "\" & "Panzer-CPU-Gauge-" & gsRichClientEnvironment & "-" & gsCodingEnvironment & ".exe""")
     Else
-        Call writeRegistry(HKEY_CURRENT_USER, "SOFTWARE\Microsoft\Windows\CurrentVersion\Run", "PanzerCPUGauge" & gblRichClientEnvironment & "-" & gblCodingEnvironment, vbNullString)
+        Call writeRegistry(HKEY_CURRENT_USER, "SOFTWARE\Microsoft\Windows\CurrentVersion\Run", "PanzerCPUGauge" & gsRichClientEnvironment & "-" & gsCodingEnvironment, vbNullString)
     End If
 
     ' save the values from the general tab
-    If fFExists(gblSettingsFile) Then
-        sPutINISetting "Software\PzCPUGauge", "widgetTooltips", gsWidgetTooltips, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "prefsTooltips", gsPrefsTooltips, gblSettingsFile
+    If fFExists(gsSettingsFile) Then
+        sPutINISetting "Software\PzCPUGauge", "widgetTooltips", gsWidgetTooltips, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "prefsTooltips", gsPrefsTooltips, gsSettingsFile
 
-        sPutINISetting "Software\PzCPUGauge", "showTaskbar", gsShowTaskbar, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "showHelp", gsShowHelp, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "showTaskbar", gsShowTaskbar, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "showHelp", gsShowHelp, gsSettingsFile
         
-        sPutINISetting "Software\PzCPUGauge", "dpiAwareness", gsDpiAwareness, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "dpiAwareness", gsDpiAwareness, gsSettingsFile
         
         
-        sPutINISetting "Software\PzCPUGauge", "widgetSize", gsWidgetSize, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "scrollWheelDirection", gsScrollWheelDirection, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "widgetSize", gsWidgetSize, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "scrollWheelDirection", gsScrollWheelDirection, gsSettingsFile
                 
-        sPutINISetting "Software\PzCPUGauge", "widgetFunctions", gsWidgetFunctions, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "widgetFunctions", gsWidgetFunctions, gsSettingsFile
         
-        sPutINISetting "Software\PzCPUGauge", "pointerAnimate", gsPointerAnimate, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "multiCoreEnable", gsMultiCoreEnable, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "samplingInterval", gsSamplingInterval, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "pointerAnimate", gsPointerAnimate, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "multiCoreEnable", gsMultiCoreEnable, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "samplingInterval", gsSamplingInterval, gsSettingsFile
               
-        sPutINISetting "Software\PzCPUGauge", "aspectHidden", gsAspectHidden, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "widgetPosition", gsWidgetPosition, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "widgetLandscape", gsWidgetLandscape, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "widgetPortrait", gsWidgetPortrait, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "aspectHidden", gsAspectHidden, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "widgetPosition", gsWidgetPosition, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "widgetLandscape", gsWidgetLandscape, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "widgetPortrait", gsWidgetPortrait, gsSettingsFile
 
-        sPutINISetting "Software\PzCPUGauge", "prefsFont", gblPrefsFont, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "gaugeFont", gblGaugeFont, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "prefsFont", gsPrefsFont, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "gaugeFont", gsGaugeFont, gsSettingsFile
         
-        sPutINISetting "Software\PzCPUGauge", "prefsFontSizeHighDPI", gblPrefsFontSizeHighDPI, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "prefsFontSizeLowDPI", gblPrefsFontSizeLowDPI, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "prefsFontItalics", gblPrefsFontItalics, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "prefsFontColour", gblPrefsFontColour, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "prefsFontSizeHighDPI", gsPrefsFontSizeHighDPI, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "prefsFontSizeLowDPI", gsPrefsFontSizeLowDPI, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "prefsFontItalics", gsPrefsFontItalics, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "prefsFontColour", gsPrefsFontColour, gsSettingsFile
         
-        sPutINISetting "Software\PzCPUGauge", "displayScreenFont", gblDisplayScreenFont, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "displayScreenFontSize", gblDisplayScreenFontSize, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "displayScreenFontItalics", gblDisplayScreenFontItalics, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "displayScreenFontColour", gblDisplayScreenFontColour, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "displayScreenFont", gsDisplayScreenFont, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "displayScreenFontSize", gsDisplayScreenFontSize, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "displayScreenFontItalics", gsDisplayScreenFontItalics, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "displayScreenFontColour", gsDisplayScreenFontColour, gsSettingsFile
 
         'save the values from the Windows Config Items
-        sPutINISetting "Software\PzCPUGauge", "windowLevel", gblWindowLevel, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "preventDragging", gblPreventDragging, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "windowLevel", gsWindowLevel, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "preventDragging", gsPreventDragging, gsSettingsFile
         
-        sPutINISetting "Software\PzCPUGauge", "opacity", gblOpacity, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "widgetHidden", gblWidgetHidden, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "hidingTime", gblHidingTime, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "ignoreMouse", gblIgnoreMouse, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "multiMonitorResize", gblMultiMonitorResize, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "opacity", gsOpacity, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "widgetHidden", gsWidgetHidden, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "hidingTime", gsHidingTime, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "ignoreMouse", gsIgnoreMouse, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "multiMonitorResize", gsMultiMonitorResize, gsSettingsFile
         
         
-        sPutINISetting "Software\PzCPUGauge", "startup", gsStartup, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "startup", gsStartup, gsSettingsFile
 
-        sPutINISetting "Software\PzCPUGauge", "enableSounds", gblEnableSounds, gblSettingsFile
-'        sPutINISetting "Software\PzCPUGauge", "enableTicks", gblEnableTicks, gblSettingsFile
-'        sPutINISetting "Software\PzCPUGauge", "enableChimes", gblEnableChimes, gblSettingsFile
-'        sPutINISetting "Software\PzCPUGauge", "enableAlarms", gblEnableAlarms, gblSettingsFile
-'        sPutINISetting "Software\PzCPUGauge", "volumeBoost", gblVolumeBoost, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "enableSounds", gsEnableSounds, gsSettingsFile
+'        sPutINISetting "Software\PzCPUGauge", "enableTicks", gsEnableTicks, gsSettingsFile
+'        sPutINISetting "Software\PzCPUGauge", "enableChimes", gsEnableChimes, gsSettingsFile
+'        sPutINISetting "Software\PzCPUGauge", "enableAlarms", gsEnableAlarms, gsSettingsFile
+'        sPutINISetting "Software\PzCPUGauge", "volumeBoost", gsVolumeBoost, gsSettingsFile
         
-        sPutINISetting "Software\PzCPUGauge", "lastSelectedTab", gblLastSelectedTab, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "lastSelectedTab", gsLastSelectedTab, gsSettingsFile
         
-        sPutINISetting "Software\PzCPUGauge", "debug", gblDebug, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "dblClickCommand", gblDblClickCommand, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "openFile", gblOpenFile, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "defaultVB6Editor", gblDefaultVB6Editor, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "defaultTBEditor", gblDefaultTBEditor, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "debug", gsDebug, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "dblClickCommand", gsDblClickCommand, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "openFile", gsOpenFile, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "defaultVB6Editor", gsDefaultVB6Editor, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "defaultTBEditor", gsDefaultTBEditor, gsSettingsFile
         
-        sPutINISetting "Software\PzCPUGauge", "gaugeHighDpiXPos", gblGaugeHighDpiXPos, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "gaugeHighDpiYPos", gblGaugeHighDpiYPos, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "gaugeHighDpiXPos", gsGaugeHighDpiXPos, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "gaugeHighDpiYPos", gsGaugeHighDpiYPos, gsSettingsFile
         
-        sPutINISetting "Software\PzCPUGauge", "gaugeLowDpiXPos", gblGaugeLowDpiXPos, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "gaugeLowDpiYPos", gblGaugeLowDpiYPos, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "gaugeLowDpiXPos", gsGaugeLowDpiXPos, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "gaugeLowDpiYPos", gsGaugeLowDpiYPos, gsSettingsFile
                        
     End If
     
@@ -4107,9 +4107,9 @@ Private Sub btnSave_Click()
     
     btnSave.Enabled = False ' disable the save button showing it has successfully saved
     
-    ' reload here if the gblWindowLevel Was Changed
-    If gblWindowLevelWasChanged = True Then
-        gblWindowLevelWasChanged = False
+    ' reload here if the gsWindowLevel Was Changed
+    If gsWindowLevelWasChanged = True Then
+        gsWindowLevelWasChanged = False
         Call reloadProgram
     End If
     
@@ -4133,7 +4133,7 @@ End Sub
 Private Sub chkEnableSounds_Click()
    On Error GoTo chkEnableSounds_Click_Error
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
    On Error GoTo 0
    Exit Sub
@@ -4154,8 +4154,8 @@ End Sub
 ' ----------------------------------------------------------------
 Private Sub cmbWindowLevel_Click()
     On Error GoTo cmbWindowLevel_Click_Error
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
-    If pvtPrefsStartupFlg = False Then gblWindowLevelWasChanged = True
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If pvtPrefsStartupFlg = False Then gsWindowLevelWasChanged = True
     
     On Error GoTo 0
     Exit Sub
@@ -4185,47 +4185,47 @@ Private Sub btnPrefsFont_Click()
     
     On Error GoTo btnPrefsFont_Click_Error
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     
     ' set the preliminary vars to feed and populate the changefont routine
-    fntFont = gblPrefsFont
-    ' gblGaugeFont
+    fntFont = gsPrefsFont
+    ' gsGaugeFont
     
     If gsDpiAwareness = "1" Then
-        fntSize = Val(gblPrefsFontSizeHighDPI)
+        fntSize = Val(gsPrefsFontSizeHighDPI)
     Else
-        fntSize = Val(gblPrefsFontSizeLowDPI)
+        fntSize = Val(gsPrefsFontSizeLowDPI)
     End If
     
     If fntSize = 0 Then fntSize = 8
-    fntItalics = CBool(gblPrefsFontItalics)
-    fntColour = CLng(gblPrefsFontColour)
+    fntItalics = CBool(gsPrefsFontItalics)
+    fntColour = CLng(gsPrefsFontColour)
         
     Call changeFont(widgetPrefs, True, fntFont, fntSize, fntWeight, fntStyle, fntColour, fntItalics, fntUnderline, fntFontResult)
     
-    gblPrefsFont = CStr(fntFont)
-    gblGaugeFont = gblPrefsFont
+    gsPrefsFont = CStr(fntFont)
+    gsGaugeFont = gsPrefsFont
     
     If gsDpiAwareness = "1" Then
-        gblPrefsFontSizeHighDPI = CStr(fntSize)
+        gsPrefsFontSizeHighDPI = CStr(fntSize)
         Call Form_Resize
     Else
-        gblPrefsFontSizeLowDPI = CStr(fntSize)
+        gsPrefsFontSizeLowDPI = CStr(fntSize)
     End If
     
-    gblPrefsFontItalics = CStr(fntItalics)
-    gblPrefsFontColour = CStr(fntColour)
+    gsPrefsFontItalics = CStr(fntItalics)
+    gsPrefsFontColour = CStr(fntColour)
     
     ' changes the displayed font to an adjusted base font size after a resize
     Call PrefsFormResizeEvent
 
-    If fFExists(gblSettingsFile) Then ' does the tool's own settings.ini exist?
-        sPutINISetting "Software\PzCPUGauge", "prefsFont", gblPrefsFont, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "gaugeFont", gblGaugeFont, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "prefsFontSizeHighDPI", gblPrefsFontSizeHighDPI, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "prefsFontSizeLowDPI", gblPrefsFontSizeLowDPI, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "prefsFontItalics", gblPrefsFontItalics, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "PrefsFontColour", gblPrefsFontColour, gblSettingsFile
+    If fFExists(gsSettingsFile) Then ' does the tool's own settings.ini exist?
+        sPutINISetting "Software\PzCPUGauge", "prefsFont", gsPrefsFont, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "gaugeFont", gsGaugeFont, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "prefsFontSizeHighDPI", gsPrefsFontSizeHighDPI, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "prefsFontSizeLowDPI", gsPrefsFontSizeLowDPI, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "prefsFontItalics", gsPrefsFontItalics, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "PrefsFontColour", gsPrefsFontColour, gsSettingsFile
     End If
     
     If fntFont = vbNullString Then fntFont = "arial"
@@ -4267,34 +4267,34 @@ Private Sub btnDisplayScreenFont_Click()
     
     On Error GoTo btnDisplayScreenFont_Click_Error
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     
     ' set the preliminary vars to feed and populate the changefont routine
-    fntFont = gblDisplayScreenFont
+    fntFont = gsDisplayScreenFont
     
-    fntSize = Val(gblDisplayScreenFontSize)
+    fntSize = Val(gsDisplayScreenFontSize)
     If fntSize = 0 Then fntSize = 5
-    fntItalics = CBool(gblDisplayScreenFontItalics)
-    fntColour = CLng(gblDisplayScreenFontColour)
+    fntItalics = CBool(gsDisplayScreenFontItalics)
+    fntColour = CLng(gsDisplayScreenFontColour)
     
     displayFontSelector fntFont, fntSize, fntWeight, fntStyle, fntColour, fntItalics, fntUnderline, fntFontResult
     If fntFontResult = False Then Exit Sub
             
-    gblDisplayScreenFont = CStr(fntFont)
-    gblDisplayScreenFontSize = CStr(fntSize)
-    gblDisplayScreenFontItalics = CStr(fntItalics)
-    gblDisplayScreenFontColour = CStr(fntColour)
+    gsDisplayScreenFont = CStr(fntFont)
+    gsDisplayScreenFontSize = CStr(fntSize)
+    gsDisplayScreenFontItalics = CStr(fntItalics)
+    gsDisplayScreenFontColour = CStr(fntColour)
     
-    If gblFGaugeAvailable = True Then
-        fGauge.gaugeForm.Widgets("lblTerminalText").Widget.FontSize = gblDisplayScreenFontSize
-        fGauge.gaugeForm.Widgets("lblTerminalText").Widget.FontName = gblDisplayScreenFont
+    If gsFGaugeAvailable = True Then
+        fGauge.gaugeForm.Widgets("lblTerminalText").Widget.FontSize = gsDisplayScreenFontSize
+        fGauge.gaugeForm.Widgets("lblTerminalText").Widget.FontName = gsDisplayScreenFont
     End If
 
-    If fFExists(gblSettingsFile) Then ' does the tool's own settings.ini exist?
-        sPutINISetting "Software\PzCPUGauge", "displayScreenFont", gblDisplayScreenFont, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "displayScreenFontSize", gblDisplayScreenFontSize, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "displayScreenFontItalics", gblDisplayScreenFontItalics, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "displayScreenFontColour", gblDisplayScreenFontColour, gblSettingsFile
+    If fFExists(gsSettingsFile) Then ' does the tool's own settings.ini exist?
+        sPutINISetting "Software\PzCPUGauge", "displayScreenFont", gsDisplayScreenFont, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "displayScreenFontSize", gsDisplayScreenFontSize, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "displayScreenFontItalics", gsDisplayScreenFontItalics, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "displayScreenFontColour", gsDisplayScreenFontColour, gsSettingsFile
     End If
     
     If fntFont = vbNullString Then fntFont = "courier new"
@@ -4332,7 +4332,7 @@ Private Sub adjustPrefsControls(Optional ByVal restartState As Boolean)
     ' note the monitor ID at PrefsForm form_load and store as the prefsFormMonitorID
     'prefsMonitorStruct = formScreenProperties(widgetPrefs, prefsFormMonitorID)
     
-    'widgetPrefs.Height = CLng(gblPrefsPrimaryHeightTwips)
+    'widgetPrefs.Height = CLng(gsPrefsPrimaryHeightTwips)
             
     ' general tab
     chkWidgetFunctions.Value = Val(gsWidgetFunctions)
@@ -4362,53 +4362,53 @@ Private Sub adjustPrefsControls(Optional ByVal restartState As Boolean)
     
     chkShowTaskbar.Value = Val(gsShowTaskbar)
     chkShowHelp.Value = Val(gsShowHelp)
-'    chkTogglePendulum.Value = Val(gblTogglePendulum)
-'    chk24HourGaugeMode.Value = Val(gbl24HourGaugeMode)
+'    chkTogglePendulum.Value = Val(gsTogglePendulum)
+'    chk24HourGaugeMode.Value = Val(gs24HourGaugeMode)
     
     chkDpiAwareness.Value = Val(gsDpiAwareness)
-    'chkNumericDisplayRotation.Value = Val(gblNumericDisplayRotation)
+    'chkNumericDisplayRotation.Value = Val(gsNumericDisplayRotation)
         
     ' sounds tab
     ' ' fGauge.RotateBusyTimer = True
 
-    chkEnableSounds.Value = Val(gblEnableSounds)
-'    chkEnableTicks.Value = Val(gblEnableTicks)
-'    chkEnableChimes.Value = Val(gblEnableChimes)
-'    chkEnableAlarms.Value = Val(gblEnableAlarms)
-'    chkVolumeBoost.Value = Val(gblVolumeBoost)
+    chkEnableSounds.Value = Val(gsEnableSounds)
+'    chkEnableTicks.Value = Val(gsEnableTicks)
+'    chkEnableChimes.Value = Val(gsEnableChimes)
+'    chkEnableAlarms.Value = Val(gsEnableAlarms)
+'    chkVolumeBoost.Value = Val(gsVolumeBoost)
     
     
     ' development
     ' ' fGauge.RotateBusyTimer = True
     
-    cmbDebug.ListIndex = Val(gblDebug)
-    txtDblClickCommand.Text = gblDblClickCommand
-    txtOpenFile.Text = gblOpenFile
+    cmbDebug.ListIndex = Val(gsDebug)
+    txtDblClickCommand.Text = gsDblClickCommand
+    txtOpenFile.Text = gsOpenFile
     #If TwinBasic Then
-        txtDefaultEditor.Text = gblDefaultTBEditor
+        txtDefaultEditor.Text = gsDefaultTBEditor
     #Else
-        txtDefaultEditor.Text = gblDefaultVB6Editor
+        txtDefaultEditor.Text = gsDefaultVB6Editor
     #End If
     
-    lblGitHub.Caption = "You can find the code for the Panzer CPU Gauge on github, visit by double-clicking this link https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-" & gblRichClientEnvironment & "-Widget-" & gblCodingEnvironment
+    lblGitHub.Caption = "You can find the code for the Panzer CPU Gauge on github, visit by double-clicking this link https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-" & gsRichClientEnvironment & "-Widget-" & gsCodingEnvironment
      
      If Not restartState = True Then
         ' fonts tab
-        If gblPrefsFont <> vbNullString Then
-            txtPrefsFont.Text = gblPrefsFont
+        If gsPrefsFont <> vbNullString Then
+            txtPrefsFont.Text = gsPrefsFont
             If gsDpiAwareness = "1" Then
-                Call changeFormFont(widgetPrefs, gblPrefsFont, Val(gblPrefsFontSizeHighDPI), fntWeight, fntStyle, gblPrefsFontItalics, gblPrefsFontColour)
-                txtPrefsFontSize.Text = gblPrefsFontSizeHighDPI
+                Call changeFormFont(widgetPrefs, gsPrefsFont, Val(gsPrefsFontSizeHighDPI), fntWeight, fntStyle, gsPrefsFontItalics, gsPrefsFontColour)
+                txtPrefsFontSize.Text = gsPrefsFontSizeHighDPI
             Else
-                Call changeFormFont(widgetPrefs, gblPrefsFont, Val(gblPrefsFontSizeLowDPI), fntWeight, fntStyle, gblPrefsFontItalics, gblPrefsFontColour)
-                txtPrefsFontSize.Text = gblPrefsFontSizeLowDPI
+                Call changeFormFont(widgetPrefs, gsPrefsFont, Val(gsPrefsFontSizeLowDPI), fntWeight, fntStyle, gsPrefsFontItalics, gsPrefsFontColour)
+                txtPrefsFontSize.Text = gsPrefsFontSizeLowDPI
             End If
         End If
         
-        txtDisplayScreenFontSize.Text = gblDisplayScreenFontSize
+        txtDisplayScreenFontSize.Text = gsDisplayScreenFontSize
     
-        txtDisplayScreenFont.Font.name = gblDisplayScreenFont
-        'txtDisplayScreenFont.Font.Size = Val(gblDisplayScreenFont)
+        txtDisplayScreenFont.Font.name = gsDisplayScreenFont
+        'txtDisplayScreenFont.Font.Size = Val(gsDisplayScreenFont)
     End If
     
     ' position tab
@@ -4417,26 +4417,26 @@ Private Sub adjustPrefsControls(Optional ByVal restartState As Boolean)
     cmbAspectHidden.ListIndex = Val(gsAspectHidden)
     cmbWidgetPosition.ListIndex = Val(gsWidgetPosition)
         
-    If gblPreventDragging = "1" Then
-        If gblAspectRatio = "landscape" Then
+    If gsPreventDragging = "1" Then
+        If gsAspectRatio = "landscape" Then
 '            txtLandscapeHoffset.Text = fGauge.gaugeForm.Left
 '            txtLandscapeVoffset.Text = fGauge.gaugeForm.Top
             If gsDpiAwareness = "1" Then
-                txtLandscapeHoffset.ToolTipText = "Last Sampled Form X Horizontal Position : " & gblGaugeHighDpiXPos & "px"
-                txtLandscapeVoffset.ToolTipText = "Last Sampled Form Y Vertical Position : " & gblGaugeHighDpiYPos & "px"
+                txtLandscapeHoffset.ToolTipText = "Last Sampled Form X Horizontal Position : " & gsGaugeHighDpiXPos & "px"
+                txtLandscapeVoffset.ToolTipText = "Last Sampled Form Y Vertical Position : " & gsGaugeHighDpiYPos & "px"
             Else
-                txtLandscapeHoffset.ToolTipText = "Last Sampled Form X Horizontal Position : " & gblGaugeLowDpiXPos & "px"
-                txtLandscapeVoffset.ToolTipText = "Last Sampled Form Y Vertical Position : " & gblGaugeLowDpiYPos & "px"
+                txtLandscapeHoffset.ToolTipText = "Last Sampled Form X Horizontal Position : " & gsGaugeLowDpiXPos & "px"
+                txtLandscapeVoffset.ToolTipText = "Last Sampled Form Y Vertical Position : " & gsGaugeLowDpiYPos & "px"
             End If
         Else
 '            txtPortraitHoffset.Text = fGauge.gaugeForm.Left
 '            txtPortraitYoffset.Text = fGauge.gaugeForm.Top
             If gsDpiAwareness = "1" Then
-                txtPortraitHoffset.ToolTipText = "Last Sampled Form X Horizontal Position : " & gblGaugeHighDpiXPos & "px"
-                txtPortraitYoffset.ToolTipText = "Last Sampled Form Y Vertical Position : " & gblGaugeHighDpiYPos & "px"
+                txtPortraitHoffset.ToolTipText = "Last Sampled Form X Horizontal Position : " & gsGaugeHighDpiXPos & "px"
+                txtPortraitYoffset.ToolTipText = "Last Sampled Form Y Vertical Position : " & gsGaugeHighDpiYPos & "px"
             Else
-                txtPortraitHoffset.ToolTipText = "Last Sampled Form X Horizontal Position : " & gblGaugeLowDpiXPos & "px"
-                txtPortraitYoffset.ToolTipText = "Last Sampled Form Y Vertical Position : " & gblGaugeLowDpiYPos & "px"
+                txtPortraitHoffset.ToolTipText = "Last Sampled Form X Horizontal Position : " & gsGaugeLowDpiXPos & "px"
+                txtPortraitYoffset.ToolTipText = "Last Sampled Form Y Vertical Position : " & gsGaugeLowDpiYPos & "px"
             End If
         End If
     End If
@@ -4454,15 +4454,15 @@ Private Sub adjustPrefsControls(Optional ByVal restartState As Boolean)
     ' Windows tab
     ' ' fGauge.RotateBusyTimer = True
     
-    cmbWindowLevel.ListIndex = Val(gblWindowLevel)
-    chkIgnoreMouse.Value = Val(gblIgnoreMouse)
-    chkPreventDragging.Value = Val(gblPreventDragging)
-    sliOpacity.Value = Val(gblOpacity)
-    chkWidgetHidden.Value = Val(gblWidgetHidden)
-    cmbHidingTime.ListIndex = Val(gblHidingTime)
-    cmbMultiMonitorResize.ListIndex = Val(gblMultiMonitorResize)
+    cmbWindowLevel.ListIndex = Val(gsWindowLevel)
+    chkIgnoreMouse.Value = Val(gsIgnoreMouse)
+    chkPreventDragging.Value = Val(gsPreventDragging)
+    sliOpacity.Value = Val(gsOpacity)
+    chkWidgetHidden.Value = Val(gsWidgetHidden)
+    cmbHidingTime.ListIndex = Val(gsHidingTime)
+    cmbMultiMonitorResize.ListIndex = Val(gsMultiMonitorResize)
     
-    If gblMonitorCount > 1 Then
+    If gsMonitorCount > 1 Then
         cmbMultiMonitorResize.Visible = True
         lblWindowLevel(10).Visible = True
         lblWindowLevel(11).Visible = True
@@ -4704,13 +4704,13 @@ Private Sub Form_Resize()
     ' do not call the resizing function when the form is resized by dragging the border
     ' only call this if the resize is done in code
         
-    If InIDE Or gblPrefsFormResizedInCode = True Then
+    If InIDE Or gsPrefsFormResizedInCode = True Then
         Call PrefsFormResizeEvent
-        If gblPrefsFormResizedInCode = True Then Exit Sub
+        If gsPrefsFormResizedInCode = True Then Exit Sub
     End If
     
     ' when resizing the form enable the save button to allow the recently set width/height to be saved.
-    If gblMonitorCount > 1 And Val(gblMultiMonitorResize) > 0 And widgetPrefs.IsVisible = True Then btnSave.Enabled = True
+    If gsMonitorCount > 1 And Val(gsMultiMonitorResize) > 0 And widgetPrefs.IsVisible = True Then btnSave.Enabled = True
     
     On Error GoTo 0
     Exit Sub
@@ -4747,19 +4747,19 @@ Public Sub PrefsFormResizeEvent()
         
     If pvtPrefsDynamicSizingFlg = True And pvtPrefsFormResizedByDrag = True Then
     
-        widgetPrefs.Width = widgetPrefs.Height / gblConstraintRatio ' maintain the aspect ratio, note: this change calls this routine again...
+        widgetPrefs.Width = widgetPrefs.Height / gsConstraintRatio ' maintain the aspect ratio, note: this change calls this routine again...
         
         If gsDpiAwareness = "1" Then
-            currentFontSize = gblPrefsFontSizeHighDPI
+            currentFontSize = gsPrefsFontSizeHighDPI
         Else
-            currentFontSize = gblPrefsFontSizeLowDPI
+            currentFontSize = gsPrefsFontSizeLowDPI
         End If
 
         'make tab frames invisible so that the control resizing is not apparent to the user
         Call makeFramesInvisible
-        Call resizeControls(Me, prefsControlPositions(), gblPrefsStartWidth, gblPrefsStartHeight, currentFontSize)
+        Call resizeControls(Me, prefsControlPositions(), gsPrefsStartWidth, gsPrefsStartHeight, currentFontSize)
 
-        Call tweakPrefsControlPositions(Me, gblPrefsStartWidth, gblPrefsStartHeight)
+        Call tweakPrefsControlPositions(Me, gsPrefsStartWidth, gsPrefsStartHeight)
         'Call loadHigherResPrefsImages ' if you want higher res icons then load them here, current max. is 1010 twips or 67 pixels
         Call makeFramesVisible
         
@@ -4768,13 +4768,13 @@ Public Sub PrefsFormResizeEvent()
             If widgetPrefs.Width > 9090 Then widgetPrefs.Width = 9090
             If widgetPrefs.Width < 9085 Then widgetPrefs.Width = 9090
             If pvtLastFormHeight <> 0 Then
-               gblPrefsFormResizedInCode = True
+               gsPrefsFormResizedInCode = True
                widgetPrefs.Height = pvtLastFormHeight
             End If
         End If
     End If
     
-    gblPrefsFormResizedInCode = False
+    gsPrefsFormResizedInCode = False
     pvtPrefsFormResizedByDrag = False
 
    On Error GoTo 0
@@ -4797,40 +4797,40 @@ Private Sub makeFramesInvisible()
     
    On Error GoTo makeFramesInvisible_Error
 
-            If gblLastSelectedTab = "general" Then
+            If gsLastSelectedTab = "general" Then
                 fraGeneral.Visible = False
                 fraGeneralButton.Visible = False
             End If
-            If gblLastSelectedTab = "config" Then
+            If gsLastSelectedTab = "config" Then
                 fraConfig.Visible = False
                 fraConfigButton.Visible = False
             End If
-            If gblLastSelectedTab = "position" Then
+            If gsLastSelectedTab = "position" Then
                 fraPosition.Visible = False
                 fraPositionButton.Visible = False
             End If
                 
-            If gblLastSelectedTab = "development" Then
+            If gsLastSelectedTab = "development" Then
                 fraDevelopment.Visible = False
                 fraDevelopmentButton.Visible = False
             End If
 
-            If gblLastSelectedTab = "fonts" Then
+            If gsLastSelectedTab = "fonts" Then
                 fraFonts.Visible = False
                 fraFontsButton.Visible = False
             End If
 
-            If gblLastSelectedTab = "sounds" Then
+            If gsLastSelectedTab = "sounds" Then
                 fraSounds.Visible = False
                 fraSoundsButton.Visible = False
             End If
 
-            If gblLastSelectedTab = "window" Then
+            If gsLastSelectedTab = "window" Then
                 fraWindow.Visible = False
                 fraWindowButton.Visible = False
             End If
 
-            If gblLastSelectedTab = "about" Then
+            If gsLastSelectedTab = "about" Then
                 fraAbout.Visible = False
                 fraAboutButton.Visible = False
             End If
@@ -4854,40 +4854,40 @@ Private Sub makeFramesVisible()
     
    On Error GoTo makeFramesVisible_Error
 
-            If gblLastSelectedTab = "general" Then
+            If gsLastSelectedTab = "general" Then
                 fraGeneral.Visible = True
                 fraGeneralButton.Visible = True
             End If
-            If gblLastSelectedTab = "config" Then
+            If gsLastSelectedTab = "config" Then
                 fraConfig.Visible = True
                 fraConfigButton.Visible = True
             End If
-            If gblLastSelectedTab = "position" Then
+            If gsLastSelectedTab = "position" Then
                 fraPosition.Visible = True
                 fraPositionButton.Visible = True
             End If
                 
-            If gblLastSelectedTab = "development" Then
+            If gsLastSelectedTab = "development" Then
                 fraDevelopment.Visible = True
                 fraDevelopmentButton.Visible = True
             End If
 
-            If gblLastSelectedTab = "fonts" Then
+            If gsLastSelectedTab = "fonts" Then
                 fraFonts.Visible = True
                 fraFontsButton.Visible = True
             End If
 
-            If gblLastSelectedTab = "sounds" Then
+            If gsLastSelectedTab = "sounds" Then
                 fraSounds.Visible = True
                 fraSoundsButton.Visible = True
             End If
 
-            If gblLastSelectedTab = "window" Then
+            If gsLastSelectedTab = "window" Then
                 fraWindow.Visible = True
                 fraWindowButton.Visible = True
             End If
 
-            If gblLastSelectedTab = "about" Then
+            If gsLastSelectedTab = "about" Then
                 fraAbout.Visible = True
                 fraAboutButton.Visible = True
             End If
@@ -5123,13 +5123,13 @@ End Sub
 ' ----------------------------------------------------------------
 Private Sub sliSamplingInterval_Click()
     On Error GoTo sliSamplingInterval_Click_Error
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
  
     If pvtPrefsStartupFlg = False Then
         gsSamplingInterval = LTrim$(Str$(sliSamplingInterval.Value))
         overlayWidget.samplingInterval = sliSamplingInterval.Value
-        sPutINISetting "Software\PzCPUGauge", "samplingInterval", gsSamplingInterval, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "samplingInterval", gsSamplingInterval, gsSettingsFile
         
     End If
     
@@ -5308,7 +5308,7 @@ Private Sub chkWidgetHidden_MouseMove(Button As Integer, Shift As Integer, x As 
 End Sub
 Private Sub fraAbout_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
     fraScrollbarCover.Visible = True
-    If gsPrefsTooltips = "0" Then CreateToolTip fraAbout.hWnd, "The About tab tells you all about this program and its creation using " & gblCodingEnvironment & ".", _
+    If gsPrefsTooltips = "0" Then CreateToolTip fraAbout.hWnd, "The About tab tells you all about this program and its creation using " & gsCodingEnvironment & ".", _
                   TTIconInfo, "Help on the About Tab", , , , True
 End Sub
 Private Sub fraConfigInner_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
@@ -5332,12 +5332,12 @@ Private Sub fraDevelopmentInner_MouseMove(Button As Integer, Shift As Integer, x
 
 End Sub
 Private Sub fraFonts_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
-    If gsPrefsTooltips = "0" Then CreateToolTip fraFonts.hWnd, "This tab allows you to set a specific font for the preferences only as there are no textual elements in the main program. We suggest Centurion Light SF at 8pt, which you will find bundled in the gbl program folder. Choose a small 8pt font for each.", _
+    If gsPrefsTooltips = "0" Then CreateToolTip fraFonts.hWnd, "This tab allows you to set a specific font for the preferences only as there are no textual elements in the main program. We suggest Centurion Light SF at 8pt, which you will find bundled in the gs program folder. Choose a small 8pt font for each.", _
                   TTIconInfo, "Help on Setting the Fonts", , , , True
 End Sub
 
 Private Sub fraFontsInner_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
-    If gsPrefsTooltips = "0" Then CreateToolTip fraFontsInner.hWnd, "This tab allows you to set a specific font for the preferences only as there are no textual elements in the main program. We suggest Centurion Light SF at 8pt, which you will find bundled in the gbl program folder. Choose a small 8pt font for each.", _
+    If gsPrefsTooltips = "0" Then CreateToolTip fraFontsInner.hWnd, "This tab allows you to set a specific font for the preferences only as there are no textual elements in the main program. We suggest Centurion Light SF at 8pt, which you will find bundled in the gs program folder. Choose a small 8pt font for each.", _
                   TTIconInfo, "Help on Setting the Fonts", , , , True
 End Sub
 
@@ -5366,11 +5366,11 @@ Private Sub fraScrollbarCover_MouseMove(Button As Integer, Shift As Integer, x A
 
 End Sub
 Private Sub fraSounds_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
- If gsPrefsTooltips = "0" Then CreateToolTip fraSounds.hWnd, "The sound panel allows you to configure the sounds that occur within gbl. Some of the animations have associated sounds, you can control these here..", _
+ If gsPrefsTooltips = "0" Then CreateToolTip fraSounds.hWnd, "The sound panel allows you to configure the sounds that occur within gs. Some of the animations have associated sounds, you can control these here..", _
                   TTIconInfo, "Help on Configuring Sounds", , , , True
 End Sub
 Private Sub fraSoundsInner_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
-     If gsPrefsTooltips = "0" Then CreateToolTip fraSoundsInner.hWnd, "The sound panel allows you to configure the sounds that occur within gbl. Some of the animations have associated sounds, you can control these here..", _
+     If gsPrefsTooltips = "0" Then CreateToolTip fraSoundsInner.hWnd, "The sound panel allows you to configure the sounds that occur within gs. Some of the animations have associated sounds, you can control these here..", _
                   TTIconInfo, "Help on Configuring Sounds", , , , True
 End Sub
 Private Sub fraWindow_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
@@ -5728,13 +5728,13 @@ Private Sub lblGitHub_dblClick()
     
     On Error GoTo lblGitHub_dblClick_Error
     
-    If gsWidgetFunctions = "0" Or gblIgnoreMouse = "1" Then Exit Sub
+    If gsWidgetFunctions = "0" Or gsIgnoreMouse = "1" Then Exit Sub
 
     answer = vbYes
     answerMsg = "This option opens a browser window and take you straight to Github. Proceed?"
     answer = msgBoxA(answerMsg, vbExclamation + vbYesNo, "Proceed to Github? ", True, "lblGitHubDblClick")
     If answer = vbYes Then
-        Call ShellExecute(Me.hWnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-" & gblRichClientEnvironment & "-" & gblCodingEnvironment, vbNullString, App.Path, 1)
+        Call ShellExecute(Me.hWnd, "Open", "https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-" & gsRichClientEnvironment & "-" & gsCodingEnvironment, vbNullString, App.Path, 1)
     End If
 
    On Error GoTo 0
@@ -5789,7 +5789,7 @@ Private Sub tmrPrefsScreenResolution_Timer()
 '    ' we are also hopefully calling this routine on a mouseUP event after a form move, where the above line will not apply.
 '
 '    ' if just one monitor or the global switch is off then exit
-'    If monitorCount > 1 And (LTrim$(gblMultiMonitorResize) = "1" Or LTrim$(gblMultiMonitorResize) = "2") Then
+'    If monitorCount > 1 And (LTrim$(gsMultiMonitorResize) = "1" Or LTrim$(gsMultiMonitorResize) = "2") Then
 '
 '        ' turn off the timer that saves the prefs height and position
 '        tmrPrefsMonitorSaveHeight.Enabled = False
@@ -5827,7 +5827,7 @@ Private Sub tmrPrefsScreenResolution_Timer()
 ''                    ' screenWrite ("Prefs Stored monitor primary status = " & CBool(oldPrefsFormMonitorPrimary))
 ''                    ' screenWrite ("Prefs Current monitor primary status = " & CBool(prefsFormMonitorPrimary))
 '
-'                    If LTrim$(gblMultiMonitorResize) = "1" Then
+'                    If LTrim$(gsMultiMonitorResize) = "1" Then
 '                        'if the resolution is different then calculate new size proportion
 '                        If monitorStructWidthTwips <> oldPrefsMonitorStructWidthTwips Or monitorStructHeightTwips <> oldPrefsMonitorStructHeightTwips Then
 '                            'now calculate the size of the widget according to the screen HeightTwips.
@@ -5835,13 +5835,13 @@ Private Sub tmrPrefsScreenResolution_Timer()
 '                            newPrefsHeight = widgetPrefs.Height * resizeProportion
 '                            widgetPrefs.Height = newPrefsHeight
 '                        End If
-'                    ElseIf LTrim$(gblMultiMonitorResize) = "2" Then
+'                    ElseIf LTrim$(gsMultiMonitorResize) = "2" Then
 '                        ' set the size according to saved values
 '                        If prefsMonitorStruct.IsPrimary = True Then
-'                            widgetPrefs.Height = Val(gblPrefsPrimaryHeightTwips)
+'                            widgetPrefs.Height = Val(gsPrefsPrimaryHeightTwips)
 '                        Else
-'                            'gblPrefsSecondaryHeightTwips = "15000"
-'                            widgetPrefs.Height = Val(gblPrefsSecondaryHeightTwips)
+'                            'gsPrefsSecondaryHeightTwips = "15000"
+'                            widgetPrefs.Height = Val(gsPrefsSecondaryHeightTwips)
 '                        End If
 '                    End If
 '
@@ -5997,12 +5997,12 @@ Private Sub sliOpacity_Click()
     
     On Error GoTo sliOpacity_Change_Error
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
     If pvtPrefsStartupFlg = False Then
-        gblOpacity = CStr(sliOpacity.Value)
+        gsOpacity = CStr(sliOpacity.Value)
     
-        sPutINISetting "Software\PzCPUGauge", "opacity", gblOpacity, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "opacity", gsOpacity, gsSettingsFile
         
         'Call setOpacity(sliOpacity.Value) ' this works but reveals the background form itself
         
@@ -6036,7 +6036,7 @@ End Sub
 Private Sub sliOpacity_Change()
    On Error GoTo sliOpacity_Change_Error
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
    On Error GoTo 0
    Exit Sub
@@ -6056,7 +6056,7 @@ End Sub
 Public Sub sliGaugeSize_Change()
     On Error GoTo sliGaugeSize_Change_Error
 
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     
     'If pvtAllowSizeChangeFlg = True Then Call fGauge.AdjustZoom(sliGaugeSize.Value / 100)
     If pvtAllowSizeChangeFlg = True Then Me.GaugeSize = sliGaugeSize.Value / 100
@@ -6116,38 +6116,38 @@ End Property
 
 
 Private Sub txtDblClickCommand_Change()
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
 End Sub
 
 Private Sub txtDefaultEditor_Change()
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
 End Sub
 
 Private Sub txtLandscapeHoffset_Change()
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
 End Sub
 
 Private Sub txtLandscapeVoffset_Change()
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 End Sub
 Private Sub txtOpenFile_Change()
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 End Sub
 
 Private Sub txtPortraitHoffset_Change()
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 End Sub
 
 Private Sub txtPortraitYoffset_Change()
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 
 End Sub
 
 Private Sub txtPrefsFont_Change()
-    If gblStartupFlg = False Then btnSave.Enabled = True ' enable the save button
+    If gsStartupFlg = False Then btnSave.Enabled = True ' enable the save button
 End Sub
 
 
@@ -6202,7 +6202,7 @@ Public Sub setPrefsTooltips()
         pCmbWidgetPositionBalloonTooltip = "Tablets only. The widget can be positioned proportionally when switching between portrait/landscape. If you want to enable this, disable the options below."
         pCmbAspectHiddenBalloonTooltip = "Here you can choose whether the widget is hidden by default in either landscape or portrait mode or not at all. This allows you to have certain widgets that do not obscure the screen in one mode or another. If you accidentally set it so you can't find it on screen then change the setting here to none."
         
-        pCmbDebugBalloonTooltip = "Here you can set debug mode. This will enable the editor field and allow you to assign a VBP/TwinProj file for the " & gblCodingEnvironment & " IDE editor"
+        pCmbDebugBalloonTooltip = "Here you can set debug mode. This will enable the editor field and allow you to assign a VBP/TwinProj file for the " & gsCodingEnvironment & " IDE editor"
         pCmbTickSwitchPrefBalloonTooltip = "Here you can set the pointer to animate smoothly or flick from one value to another, smooth movement useds more CPU especially when coupled with a short sampling interval."
     
     Else
@@ -6482,13 +6482,13 @@ End Sub
 '
 Private Sub loadPrefsAboutText()
     On Error GoTo loadPrefsAboutText_Error
-    'If gblDebugFlg = 1 Then Debug.Print "%loadPrefsAboutText"
+    'If gsDebugFlg = 1 Then Debug.Print "%loadPrefsAboutText"
     
     lblMajorVersion.Caption = App.Major
     lblMinorVersion.Caption = App.Minor
     lblRevisionNum.Caption = App.Revision
     
-    lblAbout(1).Caption = "(32bit WoW64 using " & gblCodingEnvironment & " + " & gblRichClientEnvironment & ")"
+    lblAbout(1).Caption = "(32bit WoW64 using " & gsCodingEnvironment & " + " & gsRichClientEnvironment & ")"
     
     Call LoadFileToTB(txtAboutText, App.Path & "\resources\txt\about.txt", False)
     
@@ -6529,8 +6529,8 @@ Private Sub picButtonMouseUpEvent(ByVal thisTabName As String, ByRef thisPicName
     
     Call clearBorderStyle
 
-    gblLastSelectedTab = thisTabName
-    sPutINISetting "Software\PzCPUGauge", "lastSelectedTab", gblLastSelectedTab, gblSettingsFile
+    gsLastSelectedTab = thisTabName
+    sPutINISetting "Software\PzCPUGauge", "lastSelectedTab", gsLastSelectedTab, gsSettingsFile
 
     thisFraName.Visible = True
     
@@ -6541,7 +6541,7 @@ Private Sub picButtonMouseUpEvent(ByVal thisTabName As String, ByRef thisPicName
     #End If
 
     ' Get the form's current scale factors.
-    y_scale = Me.ScaleHeight / gblPrefsStartHeight
+    y_scale = Me.ScaleHeight / gsPrefsStartHeight
     
     If gsDpiAwareness = "1" Then
         btnHelp.Top = fraGeneral.Top + fraGeneral.Height + (100 * y_scale)
@@ -6570,7 +6570,7 @@ Private Sub picButtonMouseUpEvent(ByVal thisTabName As String, ByRef thisPicName
         padding = 200 ' add normal padding below the help button to position the bottom of the form
 
         pvtLastFormHeight = btnHelp.Top + btnHelp.Height + captionHeight + BorderWidth + padding
-        gblPrefsFormResizedInCode = True
+        gsPrefsFormResizedInCode = True
         widgetPrefs.Height = pvtLastFormHeight
     End If
     
@@ -6613,7 +6613,7 @@ Private Sub themeTimer_Timer()
 
     SysClr = GetSysColor(COLOR_BTNFACE)
 
-    If SysClr <> gblStoreThemeColour Then
+    If SysClr <> glStoreThemeColour Then
         Call setThemeColour
     End If
 
@@ -6772,7 +6772,7 @@ Private Sub mnuDark_Click()
     mnuLight.Caption = "Light Theme Enable"
     themeTimer.Enabled = False
     
-    gblSkinTheme = "dark"
+    gsSkinTheme = "dark"
 
     Call setThemeShade(212, 208, 199)
 
@@ -6801,7 +6801,7 @@ Private Sub mnuLight_Click()
     mnuLight.Caption = "Light Theme Enabled"
     themeTimer.Enabled = False
     
-    gblSkinTheme = "light"
+    gsSkinTheme = "light"
 
     Call setThemeShade(240, 240, 240)
 
@@ -6865,7 +6865,7 @@ Private Sub setThemeShade(ByVal redC As Integer, ByVal greenC As Integer, ByVal 
     txtAboutText.BackColor = RGB(redC, greenC, blueC)
     sliSamplingInterval.BackColor = RGB(redC, greenC, blueC)
     
-    sPutINISetting "Software\PzCPUGauge", "skinTheme", gblSkinTheme, gblSettingsFile
+    sPutINISetting "Software\PzCPUGauge", "skinTheme", gsSkinTheme, gsSettingsFile
 
     On Error GoTo 0
     Exit Sub
@@ -6896,14 +6896,14 @@ Private Sub setThemeColour()
     Dim SysClr As Long: SysClr = 0
     
    On Error GoTo setThemeColour_Error
-   'If gblDebugFlg = 1  Then Debug.Print "%setThemeColour"
+   'If gsDebugFlg = 1  Then Debug.Print "%setThemeColour"
 
     If IsThemeActive() = False Then
         'MsgBox "Windows Classic Theme detected"
         'set themed buttons to none
         Call setThemeShade(212, 208, 199)
         SysClr = GetSysColor(COLOR_BTNFACE)
-        gblSkinTheme = "dark"
+        gsSkinTheme = "dark"
         
         mnuDark.Caption = "Dark Theme Enabled"
         mnuLight.Caption = "Light Theme Enable"
@@ -6914,7 +6914,7 @@ Private Sub setThemeColour()
         mnuLight.Caption = "Light Theme Enabled"
     End If
 
-    gblStoreThemeColour = SysClr
+    glStoreThemeColour = SysClr
 
    On Error GoTo 0
    Exit Sub
@@ -6933,18 +6933,18 @@ End Sub
 Private Sub adjustPrefsTheme()
    On Error GoTo adjustPrefsTheme_Error
 
-    If gblSkinTheme <> vbNullString Then
-        If gblSkinTheme = "dark" Then
+    If gsSkinTheme <> vbNullString Then
+        If gsSkinTheme = "dark" Then
             Call setThemeShade(212, 208, 199)
         Else
             Call setThemeShade(240, 240, 240)
         End If
     Else
-        If gblClassicThemeCapable = True Then
+        If gsClassicThemeCapable = True Then
             mnuAuto.Caption = "Auto Theme Enabled - Click to Disable"
             themeTimer.Enabled = True
         Else
-            gblSkinTheme = "light"
+            gsSkinTheme = "light"
             Call setModernThemeColours
         End If
     End If
@@ -6979,10 +6979,10 @@ Private Sub setModernThemeColours()
     SysClr = GetSysColor(COLOR_BTNFACE)
     If SysClr = 13160660 Then
         Call setThemeShade(212, 208, 199)
-        gblSkinTheme = "dark"
+        gsSkinTheme = "dark"
     Else ' 15790320
         Call setThemeShade(240, 240, 240)
-        gblSkinTheme = "light"
+        gsSkinTheme = "light"
     End If
 
    On Error GoTo 0
@@ -7146,7 +7146,7 @@ Private Sub setframeHeights()
     
         'If gsDpiAwareness = "1" Then
             ' save the initial positions of ALL the controls on the prefs form
-            Call SaveSizes(widgetPrefs, prefsControlPositions(), gblPrefsStartWidth, gblPrefsStartHeight)
+            Call SaveSizes(widgetPrefs, prefsControlPositions(), gsPrefsStartWidth, gsPrefsStartHeight)
         'End If
     Else
         fraGeneral.Height = 7737
@@ -7156,7 +7156,7 @@ Private Sub setframeHeights()
         fraFonts.Height = 6282
         
         ' the lowest window controls are not displayed on a single monitor
-        If gblMonitorCount > 1 Then
+        If gsMonitorCount > 1 Then
             fraWindow.Height = 8138
             fraWindowInner.Height = 7500
         Else
@@ -7453,14 +7453,14 @@ End Sub
 '
 '    If widgetPrefs.IsVisible = False Then Exit Sub
 '
-'    If LTrim$(gblMultiMonitorResize) <> "2" Then Exit Sub
+'    If LTrim$(gsMultiMonitorResize) <> "2" Then Exit Sub
 '
 '    If prefsMonitorStruct.IsPrimary = True Then
-'        gblPrefsPrimaryHeightTwips = Trim$(CStr(widgetPrefs.Height))
-'        sPutINISetting "Software\PzCPUGauge", "prefsPrimaryHeightTwips", gblPrefsPrimaryHeightTwips, gblSettingsFile
+'        gsPrefsPrimaryHeightTwips = Trim$(CStr(widgetPrefs.Height))
+'        sPutINISetting "Software\PzCPUGauge", "prefsPrimaryHeightTwips", gsPrefsPrimaryHeightTwips, gsSettingsFile
 '    Else
-'        gblPrefsSecondaryHeightTwips = Trim$(CStr(widgetPrefs.Height))
-'        sPutINISetting "Software\PzCPUGauge", "prefsSecondaryHeightTwips", gblPrefsSecondaryHeightTwips, gblSettingsFile
+'        gsPrefsSecondaryHeightTwips = Trim$(CStr(widgetPrefs.Height))
+'        sPutINISetting "Software\PzCPUGauge", "prefsSecondaryHeightTwips", gsPrefsSecondaryHeightTwips, gsSettingsFile
 '    End If
 '
 '   On Error GoTo 0

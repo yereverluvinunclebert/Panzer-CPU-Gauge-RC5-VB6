@@ -104,17 +104,17 @@ Private Sub Form_Load()
     ' setup CPU usage query
     If fInitializeCPU = True Then
     
-        If Val(gblMulticoreXPosTwips) <> 0 Then
+        If Val(gsMulticoreXPosTwips) <> 0 Then
                 
-            Me.Top = Val(gblMulticoreYPosTwips)
-            Me.Left = Val(gblMulticoreXPosTwips)
+            Me.Top = Val(gsMulticoreYPosTwips)
+            Me.Left = Val(gsMulticoreXPosTwips)
         Else
     
             leftPoint = fGauge.gaugeForm.Widgets("surround").Widget.Left
             topPoint = fGauge.gaugeForm.Widgets("stopButton").Widget.Top
         
-            Me.Top = ((topPoint) * gblScreenTwipsPerPixelY) - 150
-            Me.Left = (fGauge.gaugeForm.Left + leftPoint) * gblScreenTwipsPerPixelX - 250
+            Me.Top = ((topPoint) * gsScreenTwipsPerPixelY) - 150
+            Me.Left = (fGauge.gaugeForm.Left + leftPoint) * gsScreenTwipsPerPixelX - 250
             
         End If
        
@@ -122,20 +122,20 @@ Private Sub Form_Load()
         ReDim dblCpuUsage(NumCores)
         
         ' set the font characteristics of the master label
-        lblProg(0).Font.name = gblPrefsFont
-        lblProg(0).Font.Italic = CBool(gblPrefsFontItalics)
-        lblProg(0).ForeColor = gblPrefsFontColour
-        lblProg(0).Font.Size = Val(gblPrefsFontSizeLowDPI)
+        lblProg(0).Font.name = gsPrefsFont
+        lblProg(0).Font.Italic = CBool(gsPrefsFontItalics)
+        lblProg(0).ForeColor = gsPrefsFontColour
+        lblProg(0).Font.Size = Val(gsPrefsFontSizeLowDPI)
         
         ' add additional prog bar and lable for each cpu core (if more then 1 cpu core).
         For I = 1 To NumCores
             Load ProgBar(I)
             Load lblProg(I)
             
-            lblProg(I).Font.name = gblPrefsFont
-            lblProg(I).Font.Italic = CBool(gblPrefsFontItalics)
-            lblProg(I).ForeColor = gblPrefsFontColour
-            lblProg(I).Font.Size = Val(gblPrefsFontSizeLowDPI)
+            lblProg(I).Font.name = gsPrefsFont
+            lblProg(I).Font.Italic = CBool(gsPrefsFontItalics)
+            lblProg(I).ForeColor = gsPrefsFontColour
+            lblProg(I).Font.Size = Val(gsPrefsFontSizeLowDPI)
             
             ProgBar(I).Max = 100
             ProgBar(I).Top = ProgBar(I - 1).Top + ProgBar(I - 1).Height + 15
@@ -294,12 +294,12 @@ Private Sub writeMulticorePosition()
    On Error GoTo writeMulticorePosition_Error
 
     If frmMultiCore.WindowState = vbNormal Then ' when vbMinimised the value = -48000  !
-        gblMulticoreXPosTwips = CStr(frmMultiCore.Left)
-        gblMulticoreYPosTwips = CStr(frmMultiCore.Top)
+        gsMulticoreXPosTwips = CStr(frmMultiCore.Left)
+        gsMulticoreYPosTwips = CStr(frmMultiCore.Top)
         
         ' now write those params to the toolSettings.ini
-        sPutINISetting "Software\PzCPUGauge", "multicoreXPosTwips", gblMulticoreXPosTwips, gblSettingsFile
-        sPutINISetting "Software\PzCPUGauge", "multicoreYPosTwips", gblMulticoreYPosTwips, gblSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "multicoreXPosTwips", gsMulticoreXPosTwips, gsSettingsFile
+        sPutINISetting "Software\PzCPUGauge", "multicoreYPosTwips", gsMulticoreYPosTwips, gsSettingsFile
     End If
     
     On Error GoTo 0
@@ -322,8 +322,8 @@ Private Sub readMulticorePosition()
         
    On Error GoTo readMulticorePosition_Error
    
-    gblMulticoreXPosTwips = fGetINISetting("Software\PzCPUGauge", "multicoreXPosTwips", gblSettingsFile)
-    gblMulticoreYPosTwips = fGetINISetting("Software\PzCPUGauge", "multicoreYPosTwips", gblSettingsFile)
+    gsMulticoreXPosTwips = fGetINISetting("Software\PzCPUGauge", "multicoreXPosTwips", gsSettingsFile)
+    gsMulticoreYPosTwips = fGetINISetting("Software\PzCPUGauge", "multicoreYPosTwips", gsSettingsFile)
     
     On Error GoTo 0
    Exit Sub

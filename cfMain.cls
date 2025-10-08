@@ -63,19 +63,19 @@ Public Sub initAndCreateAboutForm(Optional ByVal Caption As String)
     If gsDpiAwareness = "0" Then
         aboutFormWidth = 900
         aboutFormHeight = 850
-        If aboutFormWidth > gblVirtualScreenWidthPixels Then aboutFormWidth = gblVirtualScreenWidthPixels
-        If aboutFormHeight > gblVirtualScreenHeightPixels Then aboutFormHeight = gblVirtualScreenHeightPixels
+        If aboutFormWidth > gsVirtualScreenWidthPixels Then aboutFormWidth = gsVirtualScreenWidthPixels
+        If aboutFormHeight > gsVirtualScreenHeightPixels Then aboutFormHeight = gsVirtualScreenHeightPixels
     Else
         aboutFormWidth = 1800
         aboutFormHeight = 1600
-        If aboutFormWidth > gblVirtualScreenWidthPixels Then
-            aboutFormWidth = gblVirtualScreenWidthPixels
+        If aboutFormWidth > gsVirtualScreenWidthPixels Then
+            aboutFormWidth = gsVirtualScreenWidthPixels
             aboutWidgetZoomValue = 1
         Else
             aboutWidgetZoomValue = 1.6
         End If
-        If aboutFormHeight > gblVirtualScreenHeightPixels Then
-            aboutFormHeight = gblVirtualScreenHeightPixels
+        If aboutFormHeight > gsVirtualScreenHeightPixels Then
+            aboutFormHeight = gsVirtualScreenHeightPixels
             aboutWidgetZoomValue = 1
         Else
             aboutWidgetZoomValue = 1.6
@@ -130,20 +130,20 @@ Public Sub initAndCreateHelpForm(Optional ByVal Caption As String)
     If gsDpiAwareness = "0" Then
         helpFormWidth = 1000
         helpFormHeight = 800
-        If helpFormWidth > gblVirtualScreenWidthPixels Then helpFormWidth = gblVirtualScreenWidthPixels
-        If helpFormHeight > gblVirtualScreenHeightPixels Then helpFormHeight = gblVirtualScreenHeightPixels
+        If helpFormWidth > gsVirtualScreenWidthPixels Then helpFormWidth = gsVirtualScreenWidthPixels
+        If helpFormHeight > gsVirtualScreenHeightPixels Then helpFormHeight = gsVirtualScreenHeightPixels
         helpWidgetZoomValue = 0.8
     Else
         helpFormWidth = 1600
         helpFormHeight = 1300
-        If helpFormWidth > gblVirtualScreenWidthPixels Then
-            helpFormWidth = gblVirtualScreenWidthPixels
+        If helpFormWidth > gsVirtualScreenWidthPixels Then
+            helpFormWidth = gsVirtualScreenWidthPixels
             helpWidgetZoomValue = 1
         Else
             helpWidgetZoomValue = 1.4
         End If
-        If helpFormHeight > gblVirtualScreenHeightPixels Then
-            helpFormHeight = gblVirtualScreenHeightPixels
+        If helpFormHeight > gsVirtualScreenHeightPixels Then
+            helpFormHeight = gsVirtualScreenHeightPixels
             helpWidgetZoomValue = 1
         Else
             helpWidgetZoomValue = 1.4
@@ -202,21 +202,21 @@ Public Sub initAndCreateLicenceForm(Optional ByVal Caption As String)
     If gsDpiAwareness = "0" Then
         licenceFormWidth = 650
         licenceFormHeight = 550
-        If licenceFormWidth > gblVirtualScreenWidthPixels Then licenceFormWidth = gblVirtualScreenWidthPixels
-        If licenceFormHeight > gblVirtualScreenHeightPixels Then licenceFormHeight = gblVirtualScreenHeightPixels
+        If licenceFormWidth > gsVirtualScreenWidthPixels Then licenceFormWidth = gsVirtualScreenWidthPixels
+        If licenceFormHeight > gsVirtualScreenHeightPixels Then licenceFormHeight = gsVirtualScreenHeightPixels
         licenceWidgetZoomValue = 0.8
     Else
         licenceFormWidth = 750
         licenceFormHeight = 650
-        If licenceFormWidth > gblVirtualScreenWidthPixels Then
-            licenceFormWidth = gblVirtualScreenWidthPixels
+        If licenceFormWidth > gsVirtualScreenWidthPixels Then
+            licenceFormWidth = gsVirtualScreenWidthPixels
             licenceWidgetZoomValue = 0.8
         Else
             licenceWidgetZoomValue = 1.5
         End If
         
-        If licenceFormHeight > gblVirtualScreenHeightPixels Then
-            licenceFormHeight = gblVirtualScreenHeightPixels
+        If licenceFormHeight > gsVirtualScreenHeightPixels Then
+            licenceFormHeight = gsVirtualScreenHeightPixels
             licenceWidgetZoomValue = 0.8
         Else
             licenceWidgetZoomValue = 1.5
@@ -290,7 +290,7 @@ Public Sub initAndCreateLicenceForm(Optional ByVal Caption As String)
     
     Call LoadFileToTB(textBox, App.Path & "\resources\txt\licence.txt", False)
 
-    licenceForm.Widgets("TextBox").Text = gblWidgetName & vbCrLf & vbCrLf & _
+    licenceForm.Widgets("TextBox").Text = gsWidgetName & vbCrLf & vbCrLf & _
     "Copyright © 1992-2023 Dean Beedell" & vbCrLf & vbCrLf & _
     "This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public Licence as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version." & vbCrLf & vbCrLf & _
         "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details." & vbCrLf & vbCrLf & _
@@ -338,14 +338,14 @@ Private Sub btnAccept_Click()
     
     fileToPlay = "ting.wav"
     
-    If gblEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+    If gsEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
         playSound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
 
     msgBoxA "User accepted licence, thankyou.", vbOKOnly + vbExclamation, "Licence Acceptance", True, "btnAcceptClick"
     
     slicence = "1"
-    sPutINISetting "Software\PzCPUGauge", "licence", slicence, gblSettingsFile
+    sPutINISetting "Software\PzCPUGauge", "licence", slicence, gsSettingsFile
     
     licenceWidget.ShowMe = False
     licenceWidget.MyOpacity = 0
@@ -378,7 +378,7 @@ Private Sub btnDecline_Click()
     'answer = MsgBox("Licence declined, please destroy your copy of this widget and its documentation.", vbYes)
     msgBoxA "Licence declined, please destroy your copy of this widget and its documentation. This widget will now unload.", vbOKOnly + vbExclamation, "Licence Declined", False
     slicence = "0"
-    sPutINISetting "Software\PzCPUGauge", "licence", slicence, gblSettingsFile
+    sPutINISetting "Software\PzCPUGauge", "licence", slicence, gsSettingsFile
 
     Call thisForm_Unload
 
@@ -406,7 +406,7 @@ End Sub
 '   On Error GoTo licenceForm_MouseMove_Error
 '
 '    If overlayWidget.Locked = True Then Exit Sub
-'    If gblIgnoreMouse = "1" Then Exit Sub
+'    If gsIgnoreMouse = "1" Then Exit Sub
 '
 ''    If Button = vbLeftButton And Not licenceForm.ActiveWidget Is Nothing Then 'Form-Dragging (under certain conditions)
 ''
