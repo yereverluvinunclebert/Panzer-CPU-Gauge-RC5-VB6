@@ -2176,7 +2176,7 @@ Public Sub readPrefsPosition()
             widgetPrefs.Left = glPhysicalScreenWidthTwips / 2 - widgetPrefs.Width / 2
         End If
         
-        gsPrefsHighDpiXPosTwips = widgetPrefs.Left
+        gsPrefsHighDpiXPosTwips = CStr(widgetPrefs.Left)
 
         If gsPrefsHighDpiYPosTwips <> "" Then
             widgetPrefs.Top = Val(gsPrefsHighDpiYPosTwips)
@@ -2184,7 +2184,7 @@ Public Sub readPrefsPosition()
             widgetPrefs.Top = Screen.Height / 2 - widgetPrefs.Height / 2
         End If
         
-        gsPrefsHighDpiYPosTwips = widgetPrefs.Top
+        gsPrefsHighDpiYPosTwips = CStr(widgetPrefs.Top)
         
     Else
         gsPrefsLowDpiXPosTwips = fGetINISetting("Software\PzCPUGauge", "prefsLowDpiXPosTwips", gsSettingsFile)
@@ -2197,7 +2197,7 @@ Public Sub readPrefsPosition()
             widgetPrefs.Left = glPhysicalScreenWidthTwips / 2 - widgetPrefs.Width / 2
         End If
         
-        gsPrefsLowDpiXPosTwips = widgetPrefs.Left
+        gsPrefsLowDpiXPosTwips = CStr(widgetPrefs.Left)
 
         If gsPrefsLowDpiYPosTwips <> "" Then
             widgetPrefs.Top = Val(gsPrefsLowDpiYPosTwips)
@@ -2205,7 +2205,7 @@ Public Sub readPrefsPosition()
             widgetPrefs.Top = Screen.Height / 2 - widgetPrefs.Height / 2
         End If
         
-        gsPrefsLowDpiYPosTwips = widgetPrefs.Top
+        gsPrefsLowDpiYPosTwips = CStr(widgetPrefs.Top)
     End If
         
     gsPrefsPrimaryHeightTwips = fGetINISetting("Software\PzCPUGauge", "prefsPrimaryHeightTwips", gsSettingsFile)
@@ -2214,9 +2214,9 @@ Public Sub readPrefsPosition()
    ' on very first install this will be zero, then size of the prefs as a proportion of the screen size
     If gsPrefsPrimaryHeightTwips = "" Then
         If Screen.Height > gdPrefsStartHeight * 2 Then
-            gsPrefsPrimaryHeightTwips = Screen.Height / 2
+            gsPrefsPrimaryHeightTwips = CStr(Screen.Height / 2)
         Else
-            gsPrefsPrimaryHeightTwips = gdPrefsStartHeight
+            gsPrefsPrimaryHeightTwips = CStr(gdPrefsStartHeight)
         End If
     End If
     
@@ -2261,10 +2261,10 @@ Public Sub writePrefsPositionAndSize()
         End If
 
         If gPrefsMonitorStruct.IsPrimary = True Then
-            gsPrefsPrimaryHeightTwips = Trim$(CStr(widgetPrefs.Height))
+            gsPrefsPrimaryHeightTwips = CStr(widgetPrefs.Height)
             sPutINISetting "Software\PzCPUGauge", "prefsPrimaryHeightTwips", gsPrefsPrimaryHeightTwips, gsSettingsFile
         Else
-            gsPrefsSecondaryHeightTwips = Trim$(CStr(widgetPrefs.Height))
+            gsPrefsSecondaryHeightTwips = CStr(widgetPrefs.Height)
             sPutINISetting "Software\PzCPUGauge", "prefsSecondaryHeightTwips", gsPrefsSecondaryHeightTwips, gsSettingsFile
         End If
     End If
@@ -2689,10 +2689,10 @@ Public Sub saveRCFormCurrentSizeRatios()
 
     If LTrim$(gsMultiMonitorResize) = "2" Then
         If gWidgetMonitorStruct.IsPrimary Then
-            gsWidgetPrimaryHeightRatio = fGauge.gaugeForm.WidgetRoot.Zoom
+            gsWidgetPrimaryHeightRatio = CStr(fGauge.gaugeForm.WidgetRoot.Zoom)
             sPutINISetting "Software\PzCPUGauge", "gaugePrimaryHeightRatio", gsWidgetPrimaryHeightRatio, gsSettingsFile
         Else
-            gsWidgetSecondaryHeightRatio = fGauge.gaugeForm.WidgetRoot.Zoom
+            gsWidgetSecondaryHeightRatio = CStr(fGauge.gaugeForm.WidgetRoot.Zoom)
             sPutINISetting "Software\PzCPUGauge", "gaugeSecondaryHeightRatio", gsWidgetSecondaryHeightRatio, gsSettingsFile
         End If
     End If

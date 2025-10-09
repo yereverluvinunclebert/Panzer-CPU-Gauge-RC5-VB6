@@ -23,18 +23,7 @@ Private Const SWP_NOSIZE  As Long = &H1
 Public Const OnTopFlags  As Long = SWP_NOMOVE Or SWP_NOSIZE
 '------------------------------------------------------ ENDS
 
-
 '------------------------------------------------------ STARTS
-' to set the full window Opacity
-'Private Declare Function SetLayeredWindowAttributes Lib "user32" (ByVal hWnd As Long, ByVal crKey As Long, ByVal bAlpha As Byte, ByVal dwFlags As Long) As Long
-'Private Declare Function GetWindowLong Lib "user32" Alias "GetWindowLongA" (ByVal hWnd As Long, ByVal nIndex As Long) As Long
-'Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hWnd As Long, ByVal nIndex As Long, ByVal dwNewLong As Long) As Long
-'
-'Private Const WS_EX_LAYERED  As Long = &H80000
-'Private Const GWL_EXSTYLE  As Long = (-20)
-'Private Const LWA_COLORKEY  As Long = &H1       'to transparent
-'Private Const LWA_ALPHA  As Long = &H2          'to semi transparent
-'------------------------------------------------------ ENDS
 
 ' class objects instantiated
 Public fMain As New cfMain
@@ -46,8 +35,7 @@ Public overlayWidget As cwOverlay
 
 ' any other private vars
 Private m_sgsWidgetName As String
-
-
+'------------------------------------------------------ ENDS
 
 '---------------------------------------------------------------------------------------
 ' Procedure : Main
@@ -490,7 +478,6 @@ Private Sub initialiseGlobalVars()
     giDebugFlg = 0
     giMinutesToHide = 0
     gsAspectRatio = vbNullString
-'    gtOldSettingsModificationTime = #1/1/2000 12:00:00 PM#
     gsCodingEnvironment = vbNullString
     gsRichClientEnvironment = vbNullString
     

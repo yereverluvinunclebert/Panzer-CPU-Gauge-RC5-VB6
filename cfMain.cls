@@ -28,17 +28,13 @@ Attribute helpForm.VB_VarHelpID = -1
 Public WithEvents licenceForm As cWidgetForm
 Attribute licenceForm.VB_VarHelpID = -1
 
-'Public licenceFormX As Long
-'Public licenceFormY As Long
-' Public licenceFormZ As Single
-
 Private WithEvents btnAccept As cwButton
 Attribute btnAccept.VB_VarHelpID = -1
 Private WithEvents btnDecline As cwButton
 Attribute btnDecline.VB_VarHelpID = -1
 Private WithEvents textBox As cwTextBox
 Attribute textBox.VB_VarHelpID = -1
-'Private lblDeclineOrNot As cwLabel
+
  
 
 '---------------------------------------------------------------------------------------
