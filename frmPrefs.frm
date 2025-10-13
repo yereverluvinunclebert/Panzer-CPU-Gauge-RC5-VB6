@@ -2125,7 +2125,7 @@ Private pCmbTickSwitchPrefBalloonTooltip As String
 Private mIsLoaded As Boolean ' property
 Private mGaugeSize As Single   ' property
 
-Private gsConstraintRatio As Double
+Private pdConstraintRatio As Double
 
 
 
@@ -3691,7 +3691,7 @@ Private Sub positionPrefsFramesButtons()
     Dim leftHandGutterWidth As Long: leftHandGutterWidth = 0
        
     ' constrain the height/width ratio
-    gsConstraintRatio = pcPrefsFormHeight / pcPrefsFormWidth
+    pdConstraintRatio = pcPrefsFormHeight / pcPrefsFormWidth
     
     ' align frames rightmost and leftmost to the buttons at the top
     buttonTop = -15
@@ -4682,7 +4682,7 @@ Public Sub PrefsFormResizeEvent()
         
     If pPrefsDynamicSizingFlg = True And pPrefsFormResizedByDrag = True Then
     
-        widgetPrefs.Width = widgetPrefs.Height / gsConstraintRatio ' maintain the aspect ratio, note: this change calls this routine again...
+        widgetPrefs.Width = widgetPrefs.Height / pdConstraintRatio ' maintain the aspect ratio, note: this change calls this routine again...
         
         If gsDpiAwareness = "1" Then
             currentFontSize = gsPrefsFontSizeHighDPI

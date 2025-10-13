@@ -110,7 +110,12 @@ DONE
 
 ' module1.bas globals renamed, eg. gbl to gblS gblL &c and tested.
 ' other modules globals renamed, eg. gbl to gblS gblL &c and tested.
-' module1.bas globals to properties?
+' module1.bas globals to properties? 
+
+' r/h and bottom gutter width resolved
+' removed lots of redundant commented out code
+' remove ltrim$ where not needed
+' added cstr() to some numeric to string coercions
 
 ' -oOo-
 

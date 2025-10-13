@@ -177,6 +177,10 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     ' make the busy sand timer invisible
     Call hideBusyTimer
     
+    ' end the startup by un-setting the start global flag
+    gbStartupFlg = False
+    gbReload = False
+    
     ' RC message pump will auto-exit when Cairo Forms > 0 so we run it only when 0, this prevents message interruption
     ' when running twice on reload. Do not move this line.
     #If TwinBasic Then
@@ -184,10 +188,8 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     #Else
         If restart = False Then Cairo.WidgetForms.EnterMessageLoop
     #End If
-        
-    ' end the startup by un-setting the start global flag
-    gbStartupFlg = False
-    gbReload = False
+    
+    ' don't put anything here, place it above the Cairo.WidgetForms.EnterMessageLoop
                 
     ' note: the final act in startup is the form_resize_event that is triggered by the subclassed WM_EXITSIZEMOVE when the form is finally revealed
      

@@ -113,9 +113,9 @@ Attribute VB_Exposed = False
 ' .74 DAEB 22/05/2022 rDIConConfig.frm Msgbox replacement that can be placed on top of the form instead as the middle of the screen STARTS
 Option Explicit
 
-Private pYesNoReturnValue As Integer
-Private pFormMsgContext As String
-Private pFormShowAgainChkBox As Boolean
+Private pvtYesNoReturnValue As Integer
+Private pvtFormMsgContext As String
+Private pvtFormShowAgainChkBox As Boolean
 
 Private Const cMsgBoxAFormHeight As Long = 2565
 Private Const cMsgBoxAFormWidth  As Long = 11055
@@ -168,11 +168,11 @@ Private Sub Form_Load()
     
     If gsMessageAHeightTwips = "" Then gsMessageAHeightTwips = glPhysicalScreenHeightTwips / 5.5
     
-    gMsgBoxACurrentWidth = Val(gsMessageAWidthTwips)
-    gMsgBoxACurrentHeight = Val(gsMessageAHeightTwips)
+    gdMsgBoxACurrentWidth = CDbl(gsMessageAWidthTwips)
+    gdMsgBoxACurrentHeight = CDbl(gsMessageAHeightTwips)
         
     ' save the initial positions of ALL the controls on the msgbox form
-    Call SaveSizes(Me, gMsgBoxAControlPositions(), gMsgBoxACurrentWidth, gMsgBoxACurrentHeight)
+    Call SaveSizes(Me, gMsgBoxAControlPositions(), gdMsgBoxACurrentWidth, gdMsgBoxACurrentHeight)
         
     For Each Ctrl In Me.Controls
          If (TypeOf Ctrl Is CommandButton) Or (TypeOf Ctrl Is textBox) Or (TypeOf Ctrl Is FileListBox) Or (TypeOf Ctrl Is Label) Or (TypeOf Ctrl Is ComboBox) Or (TypeOf Ctrl Is CheckBox) Or (TypeOf Ctrl Is OptionButton) Or (TypeOf Ctrl Is Frame) Or (TypeOf Ctrl Is ListBox) Then
@@ -219,16 +219,16 @@ Private Sub Form_Resize()
         currentFont = Val(gsPrefsFontSizeLowDPI)
     End If
     
-    If gbMsgBoxADynamicSizingFlg = True Then
+'    If gblMsgBoxADynamicSizingFlg = True Then
         Call setMessageIconImagesLight(1920)
-        Call resizeControls(Me, gMsgBoxAControlPositions(), gMsgBoxACurrentWidth, gMsgBoxACurrentHeight, currentFont)
+        Call resizeControls(Me, gMsgBoxAControlPositions(), gdMsgBoxACurrentWidth, gdMsgBoxACurrentHeight, currentFont)
         Me.Width = Me.Height / ratio ' maintain the aspect ratio
-    Else
-        Call setMessageIconImagesLight(600)
-    End If
+'    Else
+'        Call setMessageIconImagesLight(600)
+'    End If
     
-    gsMessageAHeightTwips = CStr(frmMessage.Height)
-    gsMessageAWidthTwips = CStr(frmMessage.Width)
+    gsMessageAHeightTwips = Trim$(CStr(frmMessage.Height))
+    gsMessageAWidthTwips = Trim$(CStr(frmMessage.Width))
     sPutINISetting "Software\PzCPUGauge", "messageAHeightTwips", gsMessageAHeightTwips, gsSettingsFile
     sPutINISetting "Software\PzCPUGauge", "messageAWidthTwips", gsMessageAWidthTwips, gsSettingsFile
     
@@ -250,8 +250,8 @@ End Sub
 Private Sub btnButtonTwo_Click()
    On Error GoTo btnButtonTwo_Click_Error
 
-    If pFormShowAgainChkBox = True Then SaveSetting App.EXEName, "Options", "Show message" & pFormMsgContext, chkShowAgain.Value
-    pYesNoReturnValue = 7
+    If pvtFormShowAgainChkBox = True Then SaveSetting App.EXEName, "Options", "Show message" & pvtFormMsgContext, chkShowAgain.Value
+    pvtYesNoReturnValue = 7
     Me.Hide
 
    On Error GoTo 0
@@ -273,8 +273,8 @@ Private Sub btnButtonOne_Click()
    On Error GoTo btnButtonOne_Click_Error
 
     Me.Visible = False
-    If pFormShowAgainChkBox = True Then SaveSetting App.EXEName, "Options", "Show message" & pFormMsgContext, chkShowAgain.Value
-    pYesNoReturnValue = 6
+    If pvtFormShowAgainChkBox = True Then SaveSetting App.EXEName, "Options", "Show message" & pvtFormMsgContext, chkShowAgain.Value
+    pvtYesNoReturnValue = 6
     Me.Hide
 
    On Error GoTo 0
@@ -298,11 +298,11 @@ Public Sub Display()
     
     On Error GoTo Display_Error
 
-    If pFormShowAgainChkBox = True Then
+    If pvtFormShowAgainChkBox = True Then
     
         chkShowAgain.Visible = True
         ' Returns a key setting value from an application's entry in the Windows registry
-        intShow = GetSetting(App.EXEName, "Options", "Show message" & pFormMsgContext, vbUnchecked)
+        intShow = GetSetting(App.EXEName, "Options", "Show message" & pvtFormMsgContext, vbUnchecked)
         
         If intShow = vbUnchecked Then
             Me.Show vbModal
@@ -341,12 +341,12 @@ Public Property Let propMessage(ByVal newValue As String)
     
     ' Expand the form and move the other controls if the message is too long to show.
           
-    If gbMsgBoxADynamicSizingFlg = True Then
-        ' this causes a resize event
-        ' Me.Height = (glPhysicalScreenHeightTwips / 5.5) '+ intDiff
-    Else
+'    If gblMsgBoxADynamicSizingFlg = True Then
+'        ' this causes a resize event
+'        ' Me.Height = (glPhysicalScreenHeightTwips / 5.5) '+ intDiff
+'    Else
         fraPicVB.Top = 285
-    End If
+'    End If
    
    On Error GoTo 0
    Exit Property
@@ -434,7 +434,7 @@ Public Property Let propMsgContext(ByVal newValue As String)
    
    If mPropMsgContext <> newValue Then mPropMsgContext = newValue Else Exit Property
 
-   pFormMsgContext = mPropMsgContext
+   pvtFormMsgContext = mPropMsgContext
 
    On Error GoTo 0
    Exit Property
@@ -472,7 +472,7 @@ End Property
 Public Property Get propReturnedValue() As Integer
    On Error GoTo propReturnedValue_Error
    
-    propReturnedValue = pYesNoReturnValue
+    propReturnedValue = pvtYesNoReturnValue
 
    On Error GoTo 0
    Exit Property
@@ -495,7 +495,7 @@ Public Property Let propReturnedValue(ByVal newValue As Integer)
    
     If mPropReturnedValue <> newValue Then mPropReturnedValue = newValue Else Exit Property
 
-    pFormShowAgainChkBox = mPropReturnedValue
+    pvtFormShowAgainChkBox = mPropReturnedValue
 
    On Error GoTo 0
    Exit Property
@@ -517,7 +517,7 @@ Public Property Let propShowAgainChkBox(ByVal newValue As Boolean)
    
     If mPropShowAgainChkBox <> newValue Then mPropShowAgainChkBox = newValue Else Exit Property
 
-    pFormShowAgainChkBox = mPropShowAgainChkBox
+    pvtFormShowAgainChkBox = mPropShowAgainChkBox
 
    On Error GoTo 0
    Exit Property
@@ -591,7 +591,7 @@ Public Property Let propButtonVal(ByVal newValue As Integer)
         ' .86 DAEB 06/06/2022 rDIConConfig.frm Add a sound to the msgbox for critical and exclamations? ting and belltoll.wav files
         
         
-'        If gsVolumeBoost = "1" Then
+'        If gblVolumeBoost = "1" Then
 '            fileToPlay = "belltoll01.wav"
 '        Else
 '            fileToPlay = "belltoll01-quiet.wav"
@@ -717,4 +717,6 @@ IsVisible_Error:
           End If
     End With
 End Property
+
+
 
