@@ -227,8 +227,8 @@ Private Sub Form_Resize()
 '        Call setMessageIconImagesLight(600)
 '    End If
     
-    gsMessageAHeightTwips = Trim$(CStr(frmMessage.Height))
-    gsMessageAWidthTwips = Trim$(CStr(frmMessage.Width))
+    gsMessageAHeightTwips = CStr(frmMessage.Height)
+    gsMessageAWidthTwips = CStr(frmMessage.Width)
     sPutINISetting "Software\PzCPUGauge", "messageAHeightTwips", gsMessageAHeightTwips, gsSettingsFile
     sPutINISetting "Software\PzCPUGauge", "messageAWidthTwips", gsMessageAWidthTwips, gsSettingsFile
     
