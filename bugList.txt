@@ -117,17 +117,23 @@ DONE
 ' remove ltrim$ where not needed
 ' added cstr() to some numeric to string coercions
 
+' resize controls error when testing on windows 11  messagebox
+' message box too small
+' XML generated
+' installer generated
+
 ' -oOo-
 
 TODO
 ====
 
-' gutter
-
+' cpu stop/start via menu
+' cpu stop/start via button
+' test what is running when supposedly stopped
 ' test running slowly
 
 ' convert latest to TB
-' TB - test 256 x 256 icon
+' TB - test 256 x 256 icon - not working from form
 
 ' update PZ CPU RC6 to same standard
 
