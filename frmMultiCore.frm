@@ -222,23 +222,24 @@ End Sub
 ' Procedure : updateCoreDisplay
 ' Author    : beededea
 ' Date      : 02/06/2025
-' Purpose   :
+' Purpose   : 'query current cpu usage / store in array
 '---------------------------------------------------------------------------------------
 '
 Private Sub updateCoreDisplay()
     Dim I As Integer: I = 0
     Dim TotalUsage As Double: TotalUsage = 0
     
-    'query current cpu usage / store in array
     On Error GoTo updateCoreDisplay_Error
+    
+    If gblGaugeCPUTimersOFF = True Then Exit Sub
     
     tmrMultiCore.Interval = Val(gsSamplingInterval) * 1000
     
-    If tmrMultiCore.Enabled = False Then Exit Sub
+    If gblGaugeCPUTimersOFF = True Then Exit Sub
 
     Update_Cpu_Usage dblCpuUsage()
     
-    If tmrMultiCore.Enabled = False Then Exit Sub
+    If gblGaugeCPUTimersOFF = True Then Exit Sub
     
     ' display usage per core
     For I = 0 To NumCores

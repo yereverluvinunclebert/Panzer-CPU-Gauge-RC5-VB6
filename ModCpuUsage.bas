@@ -87,7 +87,7 @@ Public Function fInitializeCPU() As Boolean
     Dim I As Integer: I = 0
     
     ' get # of cpus (cores)
-   On Error GoTo fInitializeCPU_Error
+    On Error GoTo fInitializeCPU_Error
 
     GetSystemInfo SysInfo
     NumCores = SysInfo.dwNumberOrfProcessors - 1

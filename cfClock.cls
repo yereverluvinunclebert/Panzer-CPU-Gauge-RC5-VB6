@@ -190,26 +190,26 @@ Private Sub gaugeForm_BubblingEvent(ByRef Sender As Object, ByRef EventName As S
      If EventName = "W_MouseMove" Then
         Select Case LCase$(Sender.Widget.Key)
             Case "lockbutton"
-                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "Click me to lock the widget in place. This lock can be released by clicking again on the lock button, or in the preferences. A locking sound will denote the button's operation.", _
+                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hwnd, "Click me to lock the widget in place. This lock can be released by clicking again on the lock button, or in the preferences. A locking sound will denote the button's operation.", _
                      TTIconInfo, gsWidgetName & " Lock Button Help", , , , True
             Case "prefsbutton"
-                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "Click me to open the preferences utility. The configuration of the widget is performed using the preference utility.", _
+                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hwnd, "Click me to open the preferences utility. The configuration of the widget is performed using the preference utility.", _
                      TTIconInfo, gsWidgetName & " Prefs Button Help", , , , True
             Case "tickbutton"
-                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "Click here to toggle the pointer movement from once per interval to a more fluid, continuous movement.", _
+                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hwnd, "Click here to toggle the pointer movement from once per interval to a more fluid, continuous movement.", _
                      TTIconInfo, gsWidgetName & " Tick Button Help", , , , True
             Case "middlebutton"
-                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "This button switches on the mutli-core display. If your CPU has more than one core a bar will be shown, displaying the CPU for each core.", _
+                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hwnd, "This button switches on the mutli-core display. If your CPU has more than one core a bar will be shown, displaying the CPU for each core.", _
                      TTIconInfo, gsWidgetName & " Multi-Core Button Help", , , , True
             Case "stopbutton"
                 Call stopbutton_mouseMove
             Case "startbutton"
                 Call startbutton_mouseMove
             Case "helpbutton"
-                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "This button opens the one-page help file for this widget. There is a further detailed CHM help file available from the right-click menu that contains all the information that you need to run this widget.", _
+                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hwnd, "This button opens the one-page help file for this widget. There is a further detailed CHM help file available from the right-click menu that contains all the information that you need to run this widget.", _
                      TTIconInfo, gsWidgetName & " Help Button Help", , , , True
             Case Else
-                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hWnd, "" & overlayWidget.thisCPUDetail _
+                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hwnd, "" & overlayWidget.thisCPUDetail _
                     & vbCrLf & stdMessage _
                     , TTIconInfo, gsWidgetName & " Information.", , , , True
         End Select
@@ -275,7 +275,7 @@ Private Sub startbutton_mouseMove()
     On Error GoTo startbutton_mouseMove_Error
 
     If gsWidgetTooltips = "0" Then
-            CreateToolTip gaugeForm.hWnd, "Clock mode, this button restarts all stopped clock functions for this widget, hand movement &c .", _
+            CreateToolTip gaugeForm.hwnd, "Clock mode, this button restarts all stopped clock functions for this widget, hand movement &c .", _
                 TTIconInfo, gsWidgetName & " Start Button Help", , , , True
     End If
 
@@ -300,7 +300,7 @@ Private Sub stopbutton_mouseMove()
     On Error GoTo stopbutton_mouseMove_Error
 
     If gsWidgetTooltips = "0" Then
-            CreateToolTip gaugeForm.hWnd, "Clock mode, this button stops all animated clock functions for this widget, hand movements &c .", _
+            CreateToolTip gaugeForm.hwnd, "Clock mode, this button stops all animated clock functions for this widget, hand movements &c .", _
                 TTIconInfo, gsWidgetName & " Stop Button Help", , , , True
     End If
 
@@ -435,9 +435,11 @@ Private Sub middlebutton_mouseDown(ByRef Sender As Object)
     If gsMultiCoreEnable = "0" Then
         gsMultiCoreEnable = "1"
         frmMultiCore.Show
+        Call startAllCpuTimers
     Else
         gsMultiCoreEnable = "0"
         frmMultiCore.Hide
+        Call stopAllCpuTimers
     End If
     
     widgetPrefs.chkMultiCoreEnable.Value = Val(gsMultiCoreEnable)
@@ -636,9 +638,9 @@ Private Sub gaugeForm_DblClick()
     
     If gbSHIFT_1 = True Then
         gbSHIFT_1 = False
-        Call ShellExecute(gaugeForm.hWnd, "Open", gsOpenFile, vbNullString, App.Path, 1)
+        Call ShellExecute(gaugeForm.hwnd, "Open", gsOpenFile, vbNullString, App.Path, 1)
     Else
-        Call ShellExecute(gaugeForm.hWnd, "runas", thisCommand, vbNullString, App.Path, 1)
+        Call ShellExecute(gaugeForm.hwnd, "runas", thisCommand, vbNullString, App.Path, 1)
     End If
 
     On Error GoTo 0
@@ -691,6 +693,8 @@ End Sub
 Private Sub gaugeForm_MouseUp(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef y As Single)
 
     On Error GoTo gaugeForm_MouseUp_Error
+    
+    gblGaugeCPUTimersOFF = False
     
     ' on the mouseDown event the sampling timers are stopped as extracting the CPU details causes a reduction in responsiveness to user input, this restores the sampling timers
     ' on a specified interval that will be corrected later by the timer itself when it next runs.
@@ -847,6 +851,9 @@ End Sub
 '
 Private Sub gaugeForm_MouseDown(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef y As Single)
    On Error GoTo gaugeForm_MouseDown_Error
+   
+    ' s global variable flag to tell all animate and CPU timers to exit before running
+    gblGaugeCPUTimersOFF = True
    
     ' on the mouseDown event the sampling timers are stopped as extracting the CPU details causes a reduction in responsiveness to user input, these timers are restarted during the
     ' gaugeForm_MouseUp event when the user lets go of the gauge.

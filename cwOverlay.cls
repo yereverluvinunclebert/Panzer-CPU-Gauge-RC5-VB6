@@ -654,6 +654,9 @@ End Sub
 Private Sub tmrAnimator_Timer()
     
     On Error GoTo tmrAnimator_Timer_Error
+    
+    If gblGaugeCPUTimersOFF = True Then Exit Sub
+    
     '
     ' move the pointer using SDeg
     '
@@ -699,6 +702,8 @@ Private Sub tmrSampler_Timer()
     Dim degDiff As Double: degDiff = 0
     
     On Error GoTo tmrSampler_Timer_Error
+    
+    If gblGaugeCPUTimersOFF = True Then Exit Sub
 
     If mPointerAnimate = True Then
         If tmrAnimator.Enabled = False Then

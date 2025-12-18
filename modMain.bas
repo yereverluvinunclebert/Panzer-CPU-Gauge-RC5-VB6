@@ -13,7 +13,7 @@ Option Explicit
 
 '------------------------------------------------------ STARTS
 ' for SetWindowPos z-ordering
-Public Declare Function SetWindowPos Lib "user32" (ByVal hWnd As Long, ByVal hWndInsertAfter As Long, ByVal x As Long, ByVal y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
+Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Long, ByVal hWndInsertAfter As Long, ByVal x As Long, ByVal y As Long, ByVal cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
 
 Public Const HWND_TOP As Long = 0 ' for SetWindowPos z-ordering
 Public Const HWND_TOPMOST As Long = -1
@@ -169,6 +169,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     ' show the multi core form
     If gsMultiCoreEnable = "1" Then
         frmMultiCore.Show
+        Call startAllCpuTimers
     End If
     
     ' note the monitor primary at the preferences form_load and store as glOldWidgetFormMonitorPrimary
@@ -216,7 +217,7 @@ Public Sub stopAllCpuTimers()
 
     overlayWidget.tmrSampler.Enabled = False
     overlayWidget.tmrAnimator.Enabled = False
-    frmMultiCore.tmrMultiCore.Enabled = False
+    If gsMultiCoreEnable = "1" Then frmMultiCore.tmrMultiCore.Enabled = False
 
     On Error GoTo 0
     Exit Sub
@@ -237,9 +238,11 @@ End Sub
 Public Sub startAllCpuTimers()
     On Error GoTo startAllCpuTimers_Error
 
+    gblGaugeCPUTimersOFF = False
+
     overlayWidget.tmrSampler.Enabled = True
     overlayWidget.tmrAnimator.Enabled = True
-    frmMultiCore.tmrMultiCore.Enabled = True
+    If gsMultiCoreEnable = "1" Then frmMultiCore.tmrMultiCore.Enabled = True
 
     On Error GoTo 0
     Exit Sub
@@ -780,11 +783,11 @@ Public Sub setAlphaFormZordering()
    On Error GoTo setAlphaFormZordering_Error
 
     If Val(gsWindowLevel) = 0 Then
-        Call SetWindowPos(fGauge.gaugeForm.hWnd, HWND_BOTTOM, 0&, 0&, 0&, 0&, OnTopFlags)
+        Call SetWindowPos(fGauge.gaugeForm.hwnd, HWND_BOTTOM, 0&, 0&, 0&, 0&, OnTopFlags)
     ElseIf Val(gsWindowLevel) = 1 Then
-        Call SetWindowPos(fGauge.gaugeForm.hWnd, HWND_TOP, 0&, 0&, 0&, 0&, OnTopFlags)
+        Call SetWindowPos(fGauge.gaugeForm.hwnd, HWND_TOP, 0&, 0&, 0&, 0&, OnTopFlags)
     ElseIf Val(gsWindowLevel) = 2 Then
-        Call SetWindowPos(fGauge.gaugeForm.hWnd, HWND_TOPMOST, 0&, 0&, 0&, 0&, OnTopFlags)
+        Call SetWindowPos(fGauge.gaugeForm.hwnd, HWND_TOPMOST, 0&, 0&, 0&, 0&, OnTopFlags)
     End If
 
    On Error GoTo 0
