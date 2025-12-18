@@ -811,6 +811,8 @@ Private Sub tmrSampler_Code()
     'restore the sampling rate if it has been temporarily changed
     tmrSampler.Interval = Val(mSamplingInterval) * 1000
     
+    sCPUDetailStore = thisCPUDetail
+    
     W.Parent.Refresh
 
    On Error GoTo 0

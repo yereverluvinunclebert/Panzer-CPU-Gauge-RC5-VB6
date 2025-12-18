@@ -34,7 +34,7 @@ Public fGauge As New cfGauge
 Public overlayWidget As cwOverlay
 
 ' any other private vars
-Private m_sgsWidgetName As String
+Private m_sWidgetName As String
 '------------------------------------------------------ ENDS
 
 '---------------------------------------------------------------------------------------
@@ -1497,7 +1497,7 @@ Public Property Get gsWidgetName() As String
 
     On Error GoTo gsWidgetName_Error
 
-    gsWidgetName = m_sgsWidgetName
+    gsWidgetName = m_sWidgetName
 
     On Error GoTo 0
     Exit Property
@@ -1519,7 +1519,7 @@ Public Property Let gsWidgetName(ByVal sgsWidgetName As String)
 
     On Error GoTo gsWidgetName_Error
 
-    m_sgsWidgetName = sgsWidgetName
+    m_sWidgetName = sgsWidgetName
 
     On Error GoTo 0
     Exit Property

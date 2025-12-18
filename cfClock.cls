@@ -170,12 +170,10 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Private Sub gaugeForm_BubblingEvent(ByRef Sender As Object, ByRef EventName As String, ByRef p1 As Variant, ByRef p2 As Variant, ByRef P3 As Variant, ByRef P4 As Variant, ByRef P5 As Variant, ByRef P6 As Variant, ByRef P7 As Variant)
-'   Dim netWorkName As String: netWorkName = vbNullString
-'   Dim signalLevel As String: signalLevel = vbNullString
-'   Dim noiseLevel As String: noiseLevel = vbNullString
-   
+    
     Dim stdMessage As String: stdMessage = vbNullString
-'    Dim fileToPlay As String: fileToPlay = vbNullString
+    Dim thisMessage As String: thisMessage = vbNullString
+    Dim thisSubject As String: thisSubject = vbNullString
     
     On Error GoTo gaugeForm_BubblingEvent_Error
 
@@ -183,36 +181,50 @@ Private Sub gaugeForm_BubblingEvent(ByRef Sender As Object, ByRef EventName As S
     
     If Not Sender.Widget.Enabled Then Exit Sub   ' Sender is disabled and bubbling events will be ignored
     
-    stdMessage = "Right Click to open the menu and the preferences. CTRL+ Mouse scrollwheel UP/DOWN to resize. "
-    stdMessage = stdMessage & vbCrLf & "You can turn off the balloon tooltips in the preferences."
-    
     ' set the balloon tooltips and perform other tasks onMouseMove, RC style tooltips are defined elsewhere
      If EventName = "W_MouseMove" Then
         Select Case LCase$(Sender.Widget.Key)
             Case "lockbutton"
-                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hwnd, "Click me to lock the widget in place. This lock can be released by clicking again on the lock button, or in the preferences. A locking sound will denote the button's operation.", _
-                     TTIconInfo, gsWidgetName & " Lock Button Help", , , , True
+                If gsWidgetTooltips = "0" Then
+                    thisMessage = "Click me to lock the widget in place. This lock can be released by clicking again on the lock button, or in the preferences. A locking sound will denote the button's operation."
+                    thisSubject = " Lock Button Help"
+                End If
             Case "prefsbutton"
-                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hwnd, "Click me to open the preferences utility. The configuration of the widget is performed using the preference utility.", _
-                     TTIconInfo, gsWidgetName & " Prefs Button Help", , , , True
+                If gsWidgetTooltips = "0" Then
+                    thisMessage = "Click me to open the preferences utility. The configuration of the widget is performed using the preference utility."
+                    thisSubject = " Prefs Button Help"
+                End If
             Case "tickbutton"
-                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hwnd, "Click here to toggle the pointer movement from once per interval to a more fluid, continuous movement.", _
-                     TTIconInfo, gsWidgetName & " Tick Button Help", , , , True
+                If gsWidgetTooltips = "0" Then
+                    thisMessage = "Click here to toggle the pointer movement from once per interval to a more fluid, continuous movement."
+                    thisSubject = " Tick Button Help"
+                End If
             Case "middlebutton"
-                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hwnd, "This button switches on the mutli-core display. If your CPU has more than one core a bar will be shown, displaying the CPU for each core.", _
-                     TTIconInfo, gsWidgetName & " Multi-Core Button Help", , , , True
+                If gsWidgetTooltips = "0" Then
+                    thisMessage = "This button switches on the mutli-core display. If your CPU has more than one core a bar will be shown, displaying the CPU for each core."
+                    thisSubject = " Multi-Core Button Help"
+                End If
             Case "stopbutton"
                 Call stopbutton_mouseMove
             Case "startbutton"
                 Call startbutton_mouseMove
             Case "helpbutton"
-                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hwnd, "This button opens the one-page help file for this widget. There is a further detailed CHM help file available from the right-click menu that contains all the information that you need to run this widget.", _
-                     TTIconInfo, gsWidgetName & " Help Button Help", , , , True
+                If gsWidgetTooltips = "0" Then
+                    thisMessage = "This button opens the one-page help file for this widget. There is a further detailed CHM help file available from the right-click menu that contains all the information that you need to run this widget."
+                    thisSubject = " Help Button Help"
+                End If
             Case Else
-                If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hwnd, "" & overlayWidget.thisCPUDetail _
-                    & vbCrLf & stdMessage _
-                    , TTIconInfo, gsWidgetName & " Information.", , , , True
+                If gsWidgetTooltips = "0" Then
+                    stdMessage = "Right Click to open the menu and the preferences. CTRL+ Mouse scrollwheel UP/DOWN to resize. "
+                    stdMessage = stdMessage & vbCrLf & "You can turn off the balloon tooltips in the preferences."
+                    thisMessage = sCPUDetailStore & vbCrLf & stdMessage
+                    thisSubject = " Information"
+                End If
         End Select
+        
+        ' now set the tooltip for the whole gauge using the derived message and subject
+        If gsWidgetTooltips = "0" Then CreateToolTip gaugeForm.hwnd, thisMessage, _
+            TTIconInfo, gsWidgetName & thisSubject, , , , True
     End If
     
     If EventName = "W_MouseDown" Then

@@ -299,148 +299,148 @@ Private Declare Function PathIsDirectory Lib "shlwapi" Alias "PathIsDirectoryA" 
 
 ' general
 
-Private m_sgsMultiCoreEnable As String
+Private m_sMultiCoreEnable As String
 Private m_sWidgetSize As String
-Private m_sgsStartup As String
-Private m_sgsWidgetFunctions As String
-Private m_sgsPointerAnimate As String
-Private m_sgsSamplingInterval As String
+Private m_sStartup As String
+Private m_sWidgetFunctions As String
+Private m_sPointerAnimate As String
+Private m_sSamplingInterval As String
 
 ' config
 
-Private m_sgsSkewDegrees As String ' unique to the rotating widgets
-Private m_sgsWidgetTooltips As String
-Private m_sgsPrefsTooltips As String
-Private m_sgsShowTaskbar As String
-Private m_sgsShowHelp As String
-Private m_sgsDpiAwareness As String
+Private m_sSkewDegrees As String ' unique to the rotating widgets
+Private m_sWidgetTooltips As String
+Private m_sPrefsTooltips As String
+Private m_sShowTaskbar As String
+Private m_sShowHelp As String
+Private m_sDpiAwareness As String
 'Public gsWidgetSize As String ' not used in the single-image widgets
-Private m_sgsScrollWheelDirection As String
-Private m_sgsWidgetHighDpiXPos As String
-Private m_sgsWidgetHighDpiYPos As String
-Private m_sgsWidgetLowDpiXPos As String
-Private m_sgsWidgetLowDpiYPos As String
+Private m_sScrollWheelDirection As String
+Private m_sWidgetHighDpiXPos As String
+Private m_sWidgetHighDpiYPos As String
+Private m_sWidgetLowDpiXPos As String
+Private m_sWidgetLowDpiYPos As String
        
 ' font
 
-Private m_sgsClockFont As String
-Private m_sgsWidgetFont As String
-Private m_sgsPrefsFont As String
-Private m_sgsPrefsFontSizeHighDPI As String
-Private m_sgsPrefsFontSizeLowDPI As String
-Private m_sgsPrefsFontItalics As String
-Private m_sgsPrefsFontColour As String
-Private m_sgsDisplayScreenFont As String
-Private m_sgsDisplayScreenFontSize As String
-Private m_sgsDisplayScreenFontItalics As String
-Private m_sgsDisplayScreenFontColour As String
+Private m_sClockFont As String
+Private m_sWidgetFont As String
+Private m_sPrefsFont As String
+Private m_sPrefsFontSizeHighDPI As String
+Private m_sPrefsFontSizeLowDPI As String
+Private m_sPrefsFontItalics As String
+Private m_sPrefsFontColour As String
+Private m_sDisplayScreenFont As String
+Private m_sDisplayScreenFontSize As String
+Private m_sDisplayScreenFontItalics As String
+Private m_sDisplayScreenFontColour As String
 
 ' sounds
 
-Private m_sgsEnableSounds As String
+Private m_sEnableSounds As String
 
 ' position
 
-Private m_sgsAspectRatio As String
-Private m_sgsAspectHidden As String
-Private m_sgsWidgetPosition As String
-Private m_sgsWidgetLandscape As String
-Private m_sgsWidgetPortrait As String
-Private m_sgsLandscapeFormHoffset As String
-Private m_sgsLandscapeFormVoffset As String
-Private m_sgsPortraitHoffset As String
-Private m_sgsPortraitYoffset As String
-Private m_sgsVLocationPercPrefValue As String
-Private m_sgsHLocationPercPrefValue As String
+Private m_sAspectRatio As String
+Private m_sAspectHidden As String
+Private m_sWidgetPosition As String
+Private m_sWidgetLandscape As String
+Private m_sWidgetPortrait As String
+Private m_sLandscapeFormHoffset As String
+Private m_sLandscapeFormVoffset As String
+Private m_sPortraitHoffset As String
+Private m_sPortraitYoffset As String
+Private m_sVLocationPercPrefValue As String
+Private m_sHLocationPercPrefValue As String
 
 ' development
 
-Private m_sgsDebug As String
-Private m_sgsDblClickCommand As String
-Private m_sgsOpenFile As String
-Private m_sgsDefaultVB6Editor As String
-Private m_sgsDefaultTBEditor As String
-Private m_sgsCodingEnvironment As String
-Private m_sgsRichClientEnvironment As String
+Private m_sDebug As String
+Private m_sDblClickCommand As String
+Private m_sOpenFile As String
+Private m_sDefaultVB6Editor As String
+Private m_sDefaultTBEditor As String
+Private m_sCodingEnvironment As String
+Private m_sRichClientEnvironment As String
 
 ' window
 
-Private m_sgsFormVisible As String ' unique to the rotating widgets
+Private m_sFormVisible As String ' unique to the rotating widgets
 Private m_igiMinutesToHide As Integer
-Private m_bgbWindowLevelWasChanged As Boolean
-Private m_sgsWindowLevel As String
-Private m_sgsPreventDragging As String
-Private m_sgsOpacity As String
-Private m_sgsWidgetHidden As String
-Private m_sgsHidingTime As String
-Private m_sgsIgnoreMouse As String
-Private m_bgbMenuOccurred As Boolean
-Private m_sgsFirstTimeRun As String
-Private m_sgsMultiMonitorResize As String
+Private m_bWindowLevelWasChanged As Boolean
+Private m_sWindowLevel As String
+Private m_sPreventDragging As String
+Private m_sOpacity As String
+Private m_sWidgetHidden As String
+Private m_sHidingTime As String
+Private m_sIgnoreMouse As String
+Private m_bMenuOccurred As Boolean
+Private m_sFirstTimeRun As String
+Private m_sMultiMonitorResize As String
 
 ' vars to obtain actual correct screen width (to correct VB6 bug) twips
-Private m_lglPhysicalScreenWidthTwips As Long
-Private m_lglPhysicalScreenHeightTwips As Long
+Private m_lPhysicalScreenWidthTwips As Long
+Private m_lPhysicalScreenHeightTwips As Long
 ' pixels
-Private m_lglPhysicalScreenHeightPixels As Long
-Private m_lglPhysicalScreenWidthPixels As Long
-Private m_lglOldPhysicalScreenHeightPixels As Long
-Private m_lglOldPhysicalScreenWidthPixels As Long
-Private m_lglVirtualScreenHeightPixels As Long
-Private m_lglVirtualScreenWidthPixels As Long
+Private m_lPhysicalScreenHeightPixels As Long
+Private m_lPhysicalScreenWidthPixels As Long
+Private m_lOldPhysicalScreenHeightPixels As Long
+Private m_lOldPhysicalScreenWidthPixels As Long
+Private m_lVirtualScreenHeightPixels As Long
+Private m_lVirtualScreenWidthPixels As Long
 
 ' vars to obtain the virtual (multi-monitor) width twips
-Private m_lglVirtualScreenHeightTwips As Long
-Private m_lglVirtualScreenWidthTwips As Long
+Private m_lVirtualScreenHeightTwips As Long
+Private m_lVirtualScreenWidthTwips As Long
 
 ' vars stored for positioning the prefs form
 
-Private m_lglWidgetPrefsOldHeightTwips As Long
-Private m_lglWidgetPrefsOldWidthTwips As Long
-Private m_sgsPrefsHighDpiXPosTwips As String
-Private m_sgsPrefsHighDpiYPosTwips As String
-Private m_sgsPrefsLowDpiXPosTwips As String
-Private m_sgsPrefsLowDpiYPosTwips As String
-Private m_sgsPrefsPrimaryHeightTwips As String
-Private m_sgsPrefsSecondaryHeightTwips As String
-Private m_sgsWidgetPrimaryHeightRatio As String
-Private m_sgsWidgetSecondaryHeightRatio As String
+Private m_lWidgetPrefsOldHeightTwips As Long
+Private m_lWidgetPrefsOldWidthTwips As Long
+Private m_sPrefsHighDpiXPosTwips As String
+Private m_sPrefsHighDpiYPosTwips As String
+Private m_sPrefsLowDpiXPosTwips As String
+Private m_sPrefsLowDpiYPosTwips As String
+Private m_sPrefsPrimaryHeightTwips As String
+Private m_sPrefsSecondaryHeightTwips As String
+Private m_sWidgetPrimaryHeightRatio As String
+Private m_sWidgetSecondaryHeightRatio As String
 
-Private m_lglMonitorCount As Long
-Private m_lglOldPrefsFormMonitorPrimary As Long
-Private m_lglOldWidgetFormMonitorPrimary As Long
+Private m_lMonitorCount As Long
+Private m_lOldPrefsFormMonitorPrimary As Long
+Private m_lOldWidgetFormMonitorPrimary As Long
 
-Private m_bgbMsgBoxADynamicSizingFlg As Boolean
-Private m_bgbPrefsFormResizedInCode As Boolean
-
-' General variables declared
-
-Private m_sgsSettingsDir As String
-Private m_sgsSettingsFile As String
-Private m_sgsTrinketsDir As String
-Private m_sgsTrinketsFile As String
-
-Private m_sgsMessageAHeightTwips As String
-Private m_sgsMessageAWidthTwips As String
-
-Private m_sgsMulticoreXPosTwips As String
-Private m_sgsMulticoreYPosTwips As String
+Private m_bMsgBoxADynamicSizingFlg As Boolean
+Private m_bPrefsFormResizedInCode As Boolean
 
 ' General variables declared
 
-Private m_sgsLastSelectedTab As String
-Private m_sgsSkinTheme As String
-Private m_sgsUnhide As String
-Private m_bgbClassicThemeCapable As Boolean
-Private m_lglStoreThemeColour As Long
+Private m_sSettingsDir As String
+Private m_sSettingsFile As String
+Private m_sTrinketsDir As String
+Private m_sTrinketsFile As String
+
+Private m_sMessageAHeightTwips As String
+Private m_sMessageAWidthTwips As String
+
+Private m_sMulticoreXPosTwips As String
+Private m_sMulticoreYPosTwips As String
+
+' General variables declared
+
+Private m_sLastSelectedTab As String
+Private m_sSkinTheme As String
+Private m_sUnhide As String
+Private m_bClassicThemeCapable As Boolean
+Private m_lStoreThemeColour As Long
 
 ' key presses
-Private m_bgbCTRL_1 As Boolean
-Private m_bgbSHIFT_1 As Boolean
+Private m_bCTRL_1 As Boolean
+Private m_bSHIFT_1 As Boolean
 Private m_igiDebugFlg As Integer
-Private m_bgbStartupFlg As Boolean
-Private m_bgbThisWidgetAvailable As Boolean
-Private m_bgbReload As Boolean
+Private m_bStartupFlg As Boolean
+Private m_bThisWidgetAvailable As Boolean
+Private m_bReload As Boolean
 
 '------------------------------------------------------ ENDS
 
@@ -448,8 +448,8 @@ Private m_bgbReload As Boolean
 ' General private variables declared
 Private pbDebugMode As Boolean ' .30 DAEB 03/03/2021 frmMain.frm replaced the inIDE function that used a variant to one without
 
-Public gblGaugeCPUTimersOFF As Boolean
-
+Private m_bGaugeCPUTimersOFF As Boolean
+Private m_sCPUDetailStore As String
 
 
 '---------------------------------------------------------------------------------------
@@ -2794,7 +2794,7 @@ Public Property Get gsStartup() As String
 
     On Error GoTo gsStartup_Error
 
-    gsStartup = m_sgsStartup
+    gsStartup = m_sStartup
 
     On Error GoTo 0
     Exit Property
@@ -2816,7 +2816,7 @@ Public Property Let gsStartup(ByVal sgsStartup As String)
 
     On Error GoTo gsStartup_Error
 
-    m_sgsStartup = sgsStartup
+    m_sStartup = sgsStartup
 
     On Error GoTo 0
     Exit Property
@@ -2838,7 +2838,7 @@ Public Property Get gsWidgetFunctions() As String
 
     On Error GoTo gsWidgetFunctions_Error
 
-    gsWidgetFunctions = m_sgsWidgetFunctions
+    gsWidgetFunctions = m_sWidgetFunctions
 
     On Error GoTo 0
     Exit Property
@@ -2860,7 +2860,7 @@ Public Property Let gsWidgetFunctions(ByVal sgsWidgetFunctions As String)
 
     On Error GoTo gsWidgetFunctions_Error
 
-    m_sgsWidgetFunctions = sgsWidgetFunctions
+    m_sWidgetFunctions = sgsWidgetFunctions
 
     On Error GoTo 0
     Exit Property
@@ -2882,7 +2882,7 @@ Public Property Get gsPointerAnimate() As String
 
     On Error GoTo gsPointerAnimate_Error
 
-    gsPointerAnimate = m_sgsPointerAnimate
+    gsPointerAnimate = m_sPointerAnimate
 
     On Error GoTo 0
     Exit Property
@@ -2904,7 +2904,7 @@ Public Property Let gsPointerAnimate(ByVal sgsPointerAnimate As String)
 
     On Error GoTo gsPointerAnimate_Error
 
-    m_sgsPointerAnimate = sgsPointerAnimate
+    m_sPointerAnimate = sgsPointerAnimate
 
     On Error GoTo 0
     Exit Property
@@ -2926,7 +2926,7 @@ Public Property Get gsMultiCoreEnable() As String
 
     On Error GoTo gsMultiCoreEnable_Error
 
-    gsMultiCoreEnable = m_sgsMultiCoreEnable
+    gsMultiCoreEnable = m_sMultiCoreEnable
 
     On Error GoTo 0
     Exit Property
@@ -2948,7 +2948,7 @@ Public Property Let gsMultiCoreEnable(ByVal sgsMultiCoreEnable As String)
 
     On Error GoTo gsMultiCoreEnable_Error
 
-    m_sgsMultiCoreEnable = sgsMultiCoreEnable
+    m_sMultiCoreEnable = sgsMultiCoreEnable
 
     On Error GoTo 0
     Exit Property
@@ -2970,7 +2970,7 @@ Public Property Get gsSamplingInterval() As String
 
     On Error GoTo gsSamplingInterval_Error
 
-    gsSamplingInterval = m_sgsSamplingInterval
+    gsSamplingInterval = m_sSamplingInterval
 
     On Error GoTo 0
     Exit Property
@@ -2992,7 +2992,7 @@ Public Property Let gsSamplingInterval(ByVal sgsSamplingInterval As String)
 
     On Error GoTo gsSamplingInterval_Error
 
-    m_sgsSamplingInterval = sgsSamplingInterval
+    m_sSamplingInterval = sgsSamplingInterval
 
     On Error GoTo 0
     Exit Property
@@ -3014,7 +3014,7 @@ Public Property Get gsSkewDegrees() As String
 
     On Error GoTo gsSkewDegrees_Error
 
-    gsSkewDegrees = m_sgsSkewDegrees
+    gsSkewDegrees = m_sSkewDegrees
 
     On Error GoTo 0
     Exit Property
@@ -3036,7 +3036,7 @@ Public Property Let gsSkewDegrees(ByVal sgsSkewDegrees As String)
 
     On Error GoTo gsSkewDegrees_Error
 
-    m_sgsSkewDegrees = sgsSkewDegrees
+    m_sSkewDegrees = sgsSkewDegrees
 
     On Error GoTo 0
     Exit Property
@@ -3058,7 +3058,7 @@ Public Property Get gsWidgetTooltips() As String
 
     On Error GoTo gsWidgetTooltips_Error
 
-    gsWidgetTooltips = m_sgsWidgetTooltips
+    gsWidgetTooltips = m_sWidgetTooltips
 
     On Error GoTo 0
     Exit Property
@@ -3080,7 +3080,7 @@ Public Property Let gsWidgetTooltips(ByVal sgsWidgetTooltips As String)
 
     On Error GoTo gsWidgetTooltips_Error
 
-    m_sgsWidgetTooltips = sgsWidgetTooltips
+    m_sWidgetTooltips = sgsWidgetTooltips
 
     On Error GoTo 0
     Exit Property
@@ -3102,7 +3102,7 @@ Public Property Get gsPrefsTooltips() As String
 
     On Error GoTo gsPrefsTooltips_Error
 
-    gsPrefsTooltips = m_sgsPrefsTooltips
+    gsPrefsTooltips = m_sPrefsTooltips
 
     On Error GoTo 0
     Exit Property
@@ -3124,7 +3124,7 @@ Public Property Let gsPrefsTooltips(ByVal sgsPrefsTooltips As String)
 
     On Error GoTo gsPrefsTooltips_Error
 
-    m_sgsPrefsTooltips = sgsPrefsTooltips
+    m_sPrefsTooltips = sgsPrefsTooltips
 
     On Error GoTo 0
     Exit Property
@@ -3146,7 +3146,7 @@ Public Property Get gsShowTaskbar() As String
 
     On Error GoTo gsShowTaskbar_Error
 
-    gsShowTaskbar = m_sgsShowTaskbar
+    gsShowTaskbar = m_sShowTaskbar
 
     On Error GoTo 0
     Exit Property
@@ -3168,7 +3168,7 @@ Public Property Let gsShowTaskbar(ByVal sgsShowTaskbar As String)
 
     On Error GoTo gsShowTaskbar_Error
 
-    m_sgsShowTaskbar = sgsShowTaskbar
+    m_sShowTaskbar = sgsShowTaskbar
 
     On Error GoTo 0
     Exit Property
@@ -3190,7 +3190,7 @@ Public Property Get gsShowHelp() As String
 
     On Error GoTo gsShowHelp_Error
 
-    gsShowHelp = m_sgsShowHelp
+    gsShowHelp = m_sShowHelp
 
     On Error GoTo 0
     Exit Property
@@ -3212,7 +3212,7 @@ Public Property Let gsShowHelp(ByVal sgsShowHelp As String)
 
     On Error GoTo gsShowHelp_Error
 
-    m_sgsShowHelp = sgsShowHelp
+    m_sShowHelp = sgsShowHelp
 
     On Error GoTo 0
     Exit Property
@@ -3234,7 +3234,7 @@ Public Property Get gsDpiAwareness() As String
 
     On Error GoTo gsDpiAwareness_Error
 
-    gsDpiAwareness = m_sgsDpiAwareness
+    gsDpiAwareness = m_sDpiAwareness
 
     On Error GoTo 0
     Exit Property
@@ -3256,7 +3256,7 @@ Public Property Let gsDpiAwareness(ByVal sgsDpiAwareness As String)
 
     On Error GoTo gsDpiAwareness_Error
 
-    m_sgsDpiAwareness = sgsDpiAwareness
+    m_sDpiAwareness = sgsDpiAwareness
 
     On Error GoTo 0
     Exit Property
@@ -3278,7 +3278,7 @@ Public Property Get gsScrollWheelDirection() As String
 
     On Error GoTo gsScrollWheelDirection_Error
 
-    gsScrollWheelDirection = m_sgsScrollWheelDirection
+    gsScrollWheelDirection = m_sScrollWheelDirection
 
     On Error GoTo 0
     Exit Property
@@ -3300,7 +3300,7 @@ Public Property Let gsScrollWheelDirection(ByVal sgsScrollWheelDirection As Stri
 
     On Error GoTo gsScrollWheelDirection_Error
 
-    m_sgsScrollWheelDirection = sgsScrollWheelDirection
+    m_sScrollWheelDirection = sgsScrollWheelDirection
 
     On Error GoTo 0
     Exit Property
@@ -3322,7 +3322,7 @@ Public Property Get gsWidgetHighDpiXPos() As String
 
     On Error GoTo gsWidgetHighDpiXPos_Error
 
-    gsWidgetHighDpiXPos = m_sgsWidgetHighDpiXPos
+    gsWidgetHighDpiXPos = m_sWidgetHighDpiXPos
 
     On Error GoTo 0
     Exit Property
@@ -3344,7 +3344,7 @@ Public Property Let gsWidgetHighDpiXPos(ByVal sgsWidgetHighDpiXPos As String)
 
     On Error GoTo gsWidgetHighDpiXPos_Error
 
-    m_sgsWidgetHighDpiXPos = sgsWidgetHighDpiXPos
+    m_sWidgetHighDpiXPos = sgsWidgetHighDpiXPos
 
     On Error GoTo 0
     Exit Property
@@ -3366,7 +3366,7 @@ Public Property Get gsWidgetHighDpiYPos() As String
 
     On Error GoTo gsWidgetHighDpiYPos_Error
 
-    gsWidgetHighDpiYPos = m_sgsWidgetHighDpiYPos
+    gsWidgetHighDpiYPos = m_sWidgetHighDpiYPos
 
     On Error GoTo 0
     Exit Property
@@ -3388,7 +3388,7 @@ Public Property Let gsWidgetHighDpiYPos(ByVal sgsWidgetHighDpiYPos As String)
 
     On Error GoTo gsWidgetHighDpiYPos_Error
 
-    m_sgsWidgetHighDpiYPos = sgsWidgetHighDpiYPos
+    m_sWidgetHighDpiYPos = sgsWidgetHighDpiYPos
 
     On Error GoTo 0
     Exit Property
@@ -3410,7 +3410,7 @@ Public Property Get gsWidgetLowDpiXPos() As String
 
     On Error GoTo gsWidgetLowDpiXPos_Error
 
-    gsWidgetLowDpiXPos = m_sgsWidgetLowDpiXPos
+    gsWidgetLowDpiXPos = m_sWidgetLowDpiXPos
 
     On Error GoTo 0
     Exit Property
@@ -3432,7 +3432,7 @@ Public Property Let gsWidgetLowDpiXPos(ByVal sgsWidgetLowDpiXPos As String)
 
     On Error GoTo gsWidgetLowDpiXPos_Error
 
-    m_sgsWidgetLowDpiXPos = sgsWidgetLowDpiXPos
+    m_sWidgetLowDpiXPos = sgsWidgetLowDpiXPos
 
     On Error GoTo 0
     Exit Property
@@ -3454,7 +3454,7 @@ Public Property Get gsWidgetLowDpiYPos() As String
 
     On Error GoTo gsWidgetLowDpiYPos_Error
 
-    gsWidgetLowDpiYPos = m_sgsWidgetLowDpiYPos
+    gsWidgetLowDpiYPos = m_sWidgetLowDpiYPos
 
     On Error GoTo 0
     Exit Property
@@ -3476,7 +3476,7 @@ Public Property Let gsWidgetLowDpiYPos(ByVal sgsWidgetLowDpiYPos As String)
 
     On Error GoTo gsWidgetLowDpiYPos_Error
 
-    m_sgsWidgetLowDpiYPos = sgsWidgetLowDpiYPos
+    m_sWidgetLowDpiYPos = sgsWidgetLowDpiYPos
 
     On Error GoTo 0
     Exit Property
@@ -3498,7 +3498,7 @@ Public Property Get gsClockFont() As String
 
     On Error GoTo gsClockFont_Error
 
-    gsClockFont = m_sgsClockFont
+    gsClockFont = m_sClockFont
 
     On Error GoTo 0
     Exit Property
@@ -3520,7 +3520,7 @@ Public Property Let gsClockFont(ByVal sgsClockFont As String)
 
     On Error GoTo gsClockFont_Error
 
-    m_sgsClockFont = sgsClockFont
+    m_sClockFont = sgsClockFont
 
     On Error GoTo 0
     Exit Property
@@ -3542,7 +3542,7 @@ Public Property Get gsWidgetFont() As String
 
     On Error GoTo gsWidgetFont_Error
 
-    gsWidgetFont = m_sgsWidgetFont
+    gsWidgetFont = m_sWidgetFont
 
     On Error GoTo 0
     Exit Property
@@ -3564,7 +3564,7 @@ Public Property Let gsWidgetFont(ByVal sgsWidgetFont As String)
 
     On Error GoTo gsWidgetFont_Error
 
-    m_sgsWidgetFont = sgsWidgetFont
+    m_sWidgetFont = sgsWidgetFont
 
     On Error GoTo 0
     Exit Property
@@ -3586,7 +3586,7 @@ Public Property Get gsPrefsFont() As String
 
     On Error GoTo gsPrefsFont_Error
 
-    gsPrefsFont = m_sgsPrefsFont
+    gsPrefsFont = m_sPrefsFont
 
     On Error GoTo 0
     Exit Property
@@ -3608,7 +3608,7 @@ Public Property Let gsPrefsFont(ByVal sgsPrefsFont As String)
 
     On Error GoTo gsPrefsFont_Error
 
-    m_sgsPrefsFont = sgsPrefsFont
+    m_sPrefsFont = sgsPrefsFont
 
     On Error GoTo 0
     Exit Property
@@ -3630,7 +3630,7 @@ Public Property Get gsPrefsFontSizeHighDPI() As String
 
     On Error GoTo gsPrefsFontSizeHighDPI_Error
 
-    gsPrefsFontSizeHighDPI = m_sgsPrefsFontSizeHighDPI
+    gsPrefsFontSizeHighDPI = m_sPrefsFontSizeHighDPI
 
     On Error GoTo 0
     Exit Property
@@ -3652,7 +3652,7 @@ Public Property Let gsPrefsFontSizeHighDPI(ByVal sgsPrefsFontSizeHighDPI As Stri
 
     On Error GoTo gsPrefsFontSizeHighDPI_Error
 
-    m_sgsPrefsFontSizeHighDPI = sgsPrefsFontSizeHighDPI
+    m_sPrefsFontSizeHighDPI = sgsPrefsFontSizeHighDPI
 
     On Error GoTo 0
     Exit Property
@@ -3674,7 +3674,7 @@ Public Property Get gsPrefsFontSizeLowDPI() As String
 
     On Error GoTo gsPrefsFontSizeLowDPI_Error
 
-    gsPrefsFontSizeLowDPI = m_sgsPrefsFontSizeLowDPI
+    gsPrefsFontSizeLowDPI = m_sPrefsFontSizeLowDPI
 
     On Error GoTo 0
     Exit Property
@@ -3696,7 +3696,7 @@ Public Property Let gsPrefsFontSizeLowDPI(ByVal sgsPrefsFontSizeLowDPI As String
 
     On Error GoTo gsPrefsFontSizeLowDPI_Error
 
-    m_sgsPrefsFontSizeLowDPI = sgsPrefsFontSizeLowDPI
+    m_sPrefsFontSizeLowDPI = sgsPrefsFontSizeLowDPI
 
     On Error GoTo 0
     Exit Property
@@ -3718,7 +3718,7 @@ Public Property Get gsPrefsFontItalics() As String
 
     On Error GoTo gsPrefsFontItalics_Error
 
-    gsPrefsFontItalics = m_sgsPrefsFontItalics
+    gsPrefsFontItalics = m_sPrefsFontItalics
 
     On Error GoTo 0
     Exit Property
@@ -3740,7 +3740,7 @@ Public Property Let gsPrefsFontItalics(ByVal sgsPrefsFontItalics As String)
 
     On Error GoTo gsPrefsFontItalics_Error
 
-    m_sgsPrefsFontItalics = sgsPrefsFontItalics
+    m_sPrefsFontItalics = sgsPrefsFontItalics
 
     On Error GoTo 0
     Exit Property
@@ -3762,7 +3762,7 @@ Public Property Get gsPrefsFontColour() As String
 
     On Error GoTo gsPrefsFontColour_Error
 
-    gsPrefsFontColour = m_sgsPrefsFontColour
+    gsPrefsFontColour = m_sPrefsFontColour
 
     On Error GoTo 0
     Exit Property
@@ -3784,7 +3784,7 @@ Public Property Let gsPrefsFontColour(ByVal sgsPrefsFontColour As String)
 
     On Error GoTo gsPrefsFontColour_Error
 
-    m_sgsPrefsFontColour = sgsPrefsFontColour
+    m_sPrefsFontColour = sgsPrefsFontColour
 
     On Error GoTo 0
     Exit Property
@@ -3806,7 +3806,7 @@ Public Property Get gsDisplayScreenFont() As String
 
     On Error GoTo gsDisplayScreenFont_Error
 
-    gsDisplayScreenFont = m_sgsDisplayScreenFont
+    gsDisplayScreenFont = m_sDisplayScreenFont
 
     On Error GoTo 0
     Exit Property
@@ -3828,7 +3828,7 @@ Public Property Let gsDisplayScreenFont(ByVal sgsDisplayScreenFont As String)
 
     On Error GoTo gsDisplayScreenFont_Error
 
-    m_sgsDisplayScreenFont = sgsDisplayScreenFont
+    m_sDisplayScreenFont = sgsDisplayScreenFont
 
     On Error GoTo 0
     Exit Property
@@ -3850,7 +3850,7 @@ Public Property Get gsDisplayScreenFontSize() As String
 
     On Error GoTo gsDisplayScreenFontSize_Error
 
-    gsDisplayScreenFontSize = m_sgsDisplayScreenFontSize
+    gsDisplayScreenFontSize = m_sDisplayScreenFontSize
 
     On Error GoTo 0
     Exit Property
@@ -3872,7 +3872,7 @@ Public Property Let gsDisplayScreenFontSize(ByVal sgsDisplayScreenFontSize As St
 
     On Error GoTo gsDisplayScreenFontSize_Error
 
-    m_sgsDisplayScreenFontSize = sgsDisplayScreenFontSize
+    m_sDisplayScreenFontSize = sgsDisplayScreenFontSize
 
     On Error GoTo 0
     Exit Property
@@ -3894,7 +3894,7 @@ Public Property Get gsDisplayScreenFontItalics() As String
 
     On Error GoTo gsDisplayScreenFontItalics_Error
 
-    gsDisplayScreenFontItalics = m_sgsDisplayScreenFontItalics
+    gsDisplayScreenFontItalics = m_sDisplayScreenFontItalics
 
     On Error GoTo 0
     Exit Property
@@ -3916,7 +3916,7 @@ Public Property Let gsDisplayScreenFontItalics(ByVal sgsDisplayScreenFontItalics
 
     On Error GoTo gsDisplayScreenFontItalics_Error
 
-    m_sgsDisplayScreenFontItalics = sgsDisplayScreenFontItalics
+    m_sDisplayScreenFontItalics = sgsDisplayScreenFontItalics
 
     On Error GoTo 0
     Exit Property
@@ -3938,7 +3938,7 @@ Public Property Get gsDisplayScreenFontColour() As String
 
     On Error GoTo gsDisplayScreenFontColour_Error
 
-    gsDisplayScreenFontColour = m_sgsDisplayScreenFontColour
+    gsDisplayScreenFontColour = m_sDisplayScreenFontColour
 
     On Error GoTo 0
     Exit Property
@@ -3960,7 +3960,7 @@ Public Property Let gsDisplayScreenFontColour(ByVal sgsDisplayScreenFontColour A
 
     On Error GoTo gsDisplayScreenFontColour_Error
 
-    m_sgsDisplayScreenFontColour = sgsDisplayScreenFontColour
+    m_sDisplayScreenFontColour = sgsDisplayScreenFontColour
 
     On Error GoTo 0
     Exit Property
@@ -3982,7 +3982,7 @@ Public Property Get gsEnableSounds() As String
 
     On Error GoTo gsEnableSounds_Error
 
-    gsEnableSounds = m_sgsEnableSounds
+    gsEnableSounds = m_sEnableSounds
 
     On Error GoTo 0
     Exit Property
@@ -4004,7 +4004,7 @@ Public Property Let gsEnableSounds(ByVal sgsEnableSounds As String)
 
     On Error GoTo gsEnableSounds_Error
 
-    m_sgsEnableSounds = sgsEnableSounds
+    m_sEnableSounds = sgsEnableSounds
 
     On Error GoTo 0
     Exit Property
@@ -4026,7 +4026,7 @@ Public Property Get gsAspectRatio() As String
 
     On Error GoTo gsAspectRatio_Error
 
-    gsAspectRatio = m_sgsAspectRatio
+    gsAspectRatio = m_sAspectRatio
 
     On Error GoTo 0
     Exit Property
@@ -4048,7 +4048,7 @@ Public Property Let gsAspectRatio(ByVal sgsAspectRatio As String)
 
     On Error GoTo gsAspectRatio_Error
 
-    m_sgsAspectRatio = sgsAspectRatio
+    m_sAspectRatio = sgsAspectRatio
 
     On Error GoTo 0
     Exit Property
@@ -4070,7 +4070,7 @@ Public Property Get gsAspectHidden() As String
 
     On Error GoTo gsAspectHidden_Error
 
-    gsAspectHidden = m_sgsAspectHidden
+    gsAspectHidden = m_sAspectHidden
 
     On Error GoTo 0
     Exit Property
@@ -4092,7 +4092,7 @@ Public Property Let gsAspectHidden(ByVal sgsAspectHidden As String)
 
     On Error GoTo gsAspectHidden_Error
 
-    m_sgsAspectHidden = sgsAspectHidden
+    m_sAspectHidden = sgsAspectHidden
 
     On Error GoTo 0
     Exit Property
@@ -4114,7 +4114,7 @@ Public Property Get gsWidgetPosition() As String
 
     On Error GoTo gsWidgetPosition_Error
 
-    gsWidgetPosition = m_sgsWidgetPosition
+    gsWidgetPosition = m_sWidgetPosition
 
     On Error GoTo 0
     Exit Property
@@ -4136,7 +4136,7 @@ Public Property Let gsWidgetPosition(ByVal sgsWidgetPosition As String)
 
     On Error GoTo gsWidgetPosition_Error
 
-    m_sgsWidgetPosition = sgsWidgetPosition
+    m_sWidgetPosition = sgsWidgetPosition
 
     On Error GoTo 0
     Exit Property
@@ -4158,7 +4158,7 @@ Public Property Get gsWidgetLandscape() As String
 
     On Error GoTo gsWidgetLandscape_Error
 
-    gsWidgetLandscape = m_sgsWidgetLandscape
+    gsWidgetLandscape = m_sWidgetLandscape
 
     On Error GoTo 0
     Exit Property
@@ -4180,7 +4180,7 @@ Public Property Let gsWidgetLandscape(ByVal sgsWidgetLandscape As String)
 
     On Error GoTo gsWidgetLandscape_Error
 
-    m_sgsWidgetLandscape = sgsWidgetLandscape
+    m_sWidgetLandscape = sgsWidgetLandscape
 
     On Error GoTo 0
     Exit Property
@@ -4202,7 +4202,7 @@ Public Property Get gsWidgetPortrait() As String
 
     On Error GoTo gsWidgetPortrait_Error
 
-    gsWidgetPortrait = m_sgsWidgetPortrait
+    gsWidgetPortrait = m_sWidgetPortrait
 
     On Error GoTo 0
     Exit Property
@@ -4224,7 +4224,7 @@ Public Property Let gsWidgetPortrait(ByVal sgsWidgetPortrait As String)
 
     On Error GoTo gsWidgetPortrait_Error
 
-    m_sgsWidgetPortrait = sgsWidgetPortrait
+    m_sWidgetPortrait = sgsWidgetPortrait
 
     On Error GoTo 0
     Exit Property
@@ -4246,7 +4246,7 @@ Public Property Get gsLandscapeFormHoffset() As String
 
     On Error GoTo gsLandscapeFormHoffset_Error
 
-    gsLandscapeFormHoffset = m_sgsLandscapeFormHoffset
+    gsLandscapeFormHoffset = m_sLandscapeFormHoffset
 
     On Error GoTo 0
     Exit Property
@@ -4268,7 +4268,7 @@ Public Property Let gsLandscapeFormHoffset(ByVal sgsLandscapeFormHoffset As Stri
 
     On Error GoTo gsLandscapeFormHoffset_Error
 
-    m_sgsLandscapeFormHoffset = sgsLandscapeFormHoffset
+    m_sLandscapeFormHoffset = sgsLandscapeFormHoffset
 
     On Error GoTo 0
     Exit Property
@@ -4290,7 +4290,7 @@ Public Property Get gsLandscapeFormVoffset() As String
 
     On Error GoTo gsLandscapeFormVoffset_Error
 
-    gsLandscapeFormVoffset = m_sgsLandscapeFormVoffset
+    gsLandscapeFormVoffset = m_sLandscapeFormVoffset
 
     On Error GoTo 0
     Exit Property
@@ -4312,7 +4312,7 @@ Public Property Let gsLandscapeFormVoffset(ByVal sgsLandscapeFormVoffset As Stri
 
     On Error GoTo gsLandscapeFormVoffset_Error
 
-    m_sgsLandscapeFormVoffset = sgsLandscapeFormVoffset
+    m_sLandscapeFormVoffset = sgsLandscapeFormVoffset
 
     On Error GoTo 0
     Exit Property
@@ -4334,7 +4334,7 @@ Public Property Get gsPortraitHoffset() As String
 
     On Error GoTo gsPortraitHoffset_Error
 
-    gsPortraitHoffset = m_sgsPortraitHoffset
+    gsPortraitHoffset = m_sPortraitHoffset
 
     On Error GoTo 0
     Exit Property
@@ -4356,7 +4356,7 @@ Public Property Let gsPortraitHoffset(ByVal sgsPortraitHoffset As String)
 
     On Error GoTo gsPortraitHoffset_Error
 
-    m_sgsPortraitHoffset = sgsPortraitHoffset
+    m_sPortraitHoffset = sgsPortraitHoffset
 
     On Error GoTo 0
     Exit Property
@@ -4378,7 +4378,7 @@ Public Property Get gsPortraitYoffset() As String
 
     On Error GoTo gsPortraitYoffset_Error
 
-    gsPortraitYoffset = m_sgsPortraitYoffset
+    gsPortraitYoffset = m_sPortraitYoffset
 
     On Error GoTo 0
     Exit Property
@@ -4400,7 +4400,7 @@ Public Property Let gsPortraitYoffset(ByVal sgsPortraitYoffset As String)
 
     On Error GoTo gsPortraitYoffset_Error
 
-    m_sgsPortraitYoffset = sgsPortraitYoffset
+    m_sPortraitYoffset = sgsPortraitYoffset
 
     On Error GoTo 0
     Exit Property
@@ -4422,7 +4422,7 @@ Public Property Get gsVLocationPercPrefValue() As String
 
     On Error GoTo gsVLocationPercPrefValue_Error
 
-    gsVLocationPercPrefValue = m_sgsVLocationPercPrefValue
+    gsVLocationPercPrefValue = m_sVLocationPercPrefValue
 
     On Error GoTo 0
     Exit Property
@@ -4444,7 +4444,7 @@ Public Property Let gsVLocationPercPrefValue(ByVal sgsVLocationPercPrefValue As 
 
     On Error GoTo gsVLocationPercPrefValue_Error
 
-    m_sgsVLocationPercPrefValue = sgsVLocationPercPrefValue
+    m_sVLocationPercPrefValue = sgsVLocationPercPrefValue
 
     On Error GoTo 0
     Exit Property
@@ -4466,7 +4466,7 @@ Public Property Get gsHLocationPercPrefValue() As String
 
     On Error GoTo gsHLocationPercPrefValue_Error
 
-    gsHLocationPercPrefValue = m_sgsHLocationPercPrefValue
+    gsHLocationPercPrefValue = m_sHLocationPercPrefValue
 
     On Error GoTo 0
     Exit Property
@@ -4488,7 +4488,7 @@ Public Property Let gsHLocationPercPrefValue(ByVal sgsHLocationPercPrefValue As 
 
     On Error GoTo gsHLocationPercPrefValue_Error
 
-    m_sgsHLocationPercPrefValue = sgsHLocationPercPrefValue
+    m_sHLocationPercPrefValue = sgsHLocationPercPrefValue
 
     On Error GoTo 0
     Exit Property
@@ -4510,7 +4510,7 @@ Public Property Get gsDebug() As String
 
     On Error GoTo gsDebug_Error
 
-    gsDebug = m_sgsDebug
+    gsDebug = m_sDebug
 
     On Error GoTo 0
     Exit Property
@@ -4532,7 +4532,7 @@ Public Property Let gsDebug(ByVal sgsDebug As String)
 
     On Error GoTo gsDebug_Error
 
-    m_sgsDebug = sgsDebug
+    m_sDebug = sgsDebug
 
     On Error GoTo 0
     Exit Property
@@ -4554,7 +4554,7 @@ Public Property Get gsDblClickCommand() As String
 
     On Error GoTo gsDblClickCommand_Error
 
-    gsDblClickCommand = m_sgsDblClickCommand
+    gsDblClickCommand = m_sDblClickCommand
 
     On Error GoTo 0
     Exit Property
@@ -4576,7 +4576,7 @@ Public Property Let gsDblClickCommand(ByVal sgsDblClickCommand As String)
 
     On Error GoTo gsDblClickCommand_Error
 
-    m_sgsDblClickCommand = sgsDblClickCommand
+    m_sDblClickCommand = sgsDblClickCommand
 
     On Error GoTo 0
     Exit Property
@@ -4598,7 +4598,7 @@ Public Property Get gsOpenFile() As String
 
     On Error GoTo gsOpenFile_Error
 
-    gsOpenFile = m_sgsOpenFile
+    gsOpenFile = m_sOpenFile
 
     On Error GoTo 0
     Exit Property
@@ -4620,7 +4620,7 @@ Public Property Let gsOpenFile(ByVal sgsOpenFile As String)
 
     On Error GoTo gsOpenFile_Error
 
-    m_sgsOpenFile = sgsOpenFile
+    m_sOpenFile = sgsOpenFile
 
     On Error GoTo 0
     Exit Property
@@ -4642,7 +4642,7 @@ Public Property Get gsDefaultVB6Editor() As String
 
     On Error GoTo gsDefaultVB6Editor_Error
 
-    gsDefaultVB6Editor = m_sgsDefaultVB6Editor
+    gsDefaultVB6Editor = m_sDefaultVB6Editor
 
     On Error GoTo 0
     Exit Property
@@ -4664,7 +4664,7 @@ Public Property Let gsDefaultVB6Editor(ByVal sgsDefaultVB6Editor As String)
 
     On Error GoTo gsDefaultVB6Editor_Error
 
-    m_sgsDefaultVB6Editor = sgsDefaultVB6Editor
+    m_sDefaultVB6Editor = sgsDefaultVB6Editor
 
     On Error GoTo 0
     Exit Property
@@ -4686,7 +4686,7 @@ Public Property Get gsDefaultTBEditor() As String
 
     On Error GoTo gsDefaultTBEditor_Error
 
-    gsDefaultTBEditor = m_sgsDefaultTBEditor
+    gsDefaultTBEditor = m_sDefaultTBEditor
 
     On Error GoTo 0
     Exit Property
@@ -4708,7 +4708,7 @@ Public Property Let gsDefaultTBEditor(ByVal sgsDefaultTBEditor As String)
 
     On Error GoTo gsDefaultTBEditor_Error
 
-    m_sgsDefaultTBEditor = sgsDefaultTBEditor
+    m_sDefaultTBEditor = sgsDefaultTBEditor
 
     On Error GoTo 0
     Exit Property
@@ -4730,7 +4730,7 @@ Public Property Get gsCodingEnvironment() As String
 
     On Error GoTo gsCodingEnvironment_Error
 
-    gsCodingEnvironment = m_sgsCodingEnvironment
+    gsCodingEnvironment = m_sCodingEnvironment
 
     On Error GoTo 0
     Exit Property
@@ -4752,7 +4752,7 @@ Public Property Let gsCodingEnvironment(ByVal sgsCodingEnvironment As String)
 
     On Error GoTo gsCodingEnvironment_Error
 
-    m_sgsCodingEnvironment = sgsCodingEnvironment
+    m_sCodingEnvironment = sgsCodingEnvironment
 
     On Error GoTo 0
     Exit Property
@@ -4774,7 +4774,7 @@ Public Property Get gsRichClientEnvironment() As String
 
     On Error GoTo gsRichClientEnvironment_Error
 
-    gsRichClientEnvironment = m_sgsRichClientEnvironment
+    gsRichClientEnvironment = m_sRichClientEnvironment
 
     On Error GoTo 0
     Exit Property
@@ -4796,7 +4796,7 @@ Public Property Let gsRichClientEnvironment(ByVal sgsRichClientEnvironment As St
 
     On Error GoTo gsRichClientEnvironment_Error
 
-    m_sgsRichClientEnvironment = sgsRichClientEnvironment
+    m_sRichClientEnvironment = sgsRichClientEnvironment
 
     On Error GoTo 0
     Exit Property
@@ -4818,7 +4818,7 @@ Public Property Get gsFormVisible() As String
 
     On Error GoTo gsFormVisible_Error
 
-    gsFormVisible = m_sgsFormVisible
+    gsFormVisible = m_sFormVisible
 
     On Error GoTo 0
     Exit Property
@@ -4840,7 +4840,7 @@ Public Property Let gsFormVisible(ByVal sgsFormVisible As String)
 
     On Error GoTo gsFormVisible_Error
 
-    m_sgsFormVisible = sgsFormVisible
+    m_sFormVisible = sgsFormVisible
 
     On Error GoTo 0
     Exit Property
@@ -4906,7 +4906,7 @@ Public Property Get gbWindowLevelWasChanged() As Boolean
 
     On Error GoTo gbWindowLevelWasChanged_Error
 
-    gbWindowLevelWasChanged = m_bgbWindowLevelWasChanged
+    gbWindowLevelWasChanged = m_bWindowLevelWasChanged
 
     On Error GoTo 0
     Exit Property
@@ -4928,7 +4928,7 @@ Public Property Let gbWindowLevelWasChanged(ByVal bgbWindowLevelWasChanged As Bo
 
     On Error GoTo gbWindowLevelWasChanged_Error
 
-    m_bgbWindowLevelWasChanged = bgbWindowLevelWasChanged
+    m_bWindowLevelWasChanged = bgbWindowLevelWasChanged
 
     On Error GoTo 0
     Exit Property
@@ -4950,7 +4950,7 @@ Public Property Get gsWindowLevel() As String
 
     On Error GoTo gsWindowLevel_Error
 
-    gsWindowLevel = m_sgsWindowLevel
+    gsWindowLevel = m_sWindowLevel
 
     On Error GoTo 0
     Exit Property
@@ -4972,7 +4972,7 @@ Public Property Let gsWindowLevel(ByVal sgsWindowLevel As String)
 
     On Error GoTo gsWindowLevel_Error
 
-    m_sgsWindowLevel = sgsWindowLevel
+    m_sWindowLevel = sgsWindowLevel
 
     On Error GoTo 0
     Exit Property
@@ -4994,7 +4994,7 @@ Public Property Get gsPreventDragging() As String
 
     On Error GoTo gsPreventDragging_Error
 
-    gsPreventDragging = m_sgsPreventDragging
+    gsPreventDragging = m_sPreventDragging
 
     On Error GoTo 0
     Exit Property
@@ -5016,7 +5016,7 @@ Public Property Let gsPreventDragging(ByVal sgsPreventDragging As String)
 
     On Error GoTo gsPreventDragging_Error
 
-    m_sgsPreventDragging = sgsPreventDragging
+    m_sPreventDragging = sgsPreventDragging
 
     On Error GoTo 0
     Exit Property
@@ -5038,7 +5038,7 @@ Public Property Get gsOpacity() As String
 
     On Error GoTo gsOpacity_Error
 
-    gsOpacity = m_sgsOpacity
+    gsOpacity = m_sOpacity
 
     On Error GoTo 0
     Exit Property
@@ -5060,7 +5060,7 @@ Public Property Let gsOpacity(ByVal sgsOpacity As String)
 
     On Error GoTo gsOpacity_Error
 
-    m_sgsOpacity = sgsOpacity
+    m_sOpacity = sgsOpacity
 
     On Error GoTo 0
     Exit Property
@@ -5082,7 +5082,7 @@ Public Property Get gsWidgetHidden() As String
 
     On Error GoTo gsWidgetHidden_Error
 
-    gsWidgetHidden = m_sgsWidgetHidden
+    gsWidgetHidden = m_sWidgetHidden
 
     On Error GoTo 0
     Exit Property
@@ -5104,7 +5104,7 @@ Public Property Let gsWidgetHidden(ByVal sgsWidgetHidden As String)
 
     On Error GoTo gsWidgetHidden_Error
 
-    m_sgsWidgetHidden = sgsWidgetHidden
+    m_sWidgetHidden = sgsWidgetHidden
 
     On Error GoTo 0
     Exit Property
@@ -5126,7 +5126,7 @@ Public Property Get gsHidingTime() As String
 
     On Error GoTo gsHidingTime_Error
 
-    gsHidingTime = m_sgsHidingTime
+    gsHidingTime = m_sHidingTime
 
     On Error GoTo 0
     Exit Property
@@ -5148,7 +5148,7 @@ Public Property Let gsHidingTime(ByVal sgsHidingTime As String)
 
     On Error GoTo gsHidingTime_Error
 
-    m_sgsHidingTime = sgsHidingTime
+    m_sHidingTime = sgsHidingTime
 
     On Error GoTo 0
     Exit Property
@@ -5170,7 +5170,7 @@ Public Property Get gsIgnoreMouse() As String
 
     On Error GoTo gsIgnoreMouse_Error
 
-    gsIgnoreMouse = m_sgsIgnoreMouse
+    gsIgnoreMouse = m_sIgnoreMouse
 
     On Error GoTo 0
     Exit Property
@@ -5192,7 +5192,7 @@ Public Property Let gsIgnoreMouse(ByVal sgsIgnoreMouse As String)
 
     On Error GoTo gsIgnoreMouse_Error
 
-    m_sgsIgnoreMouse = sgsIgnoreMouse
+    m_sIgnoreMouse = sgsIgnoreMouse
 
     On Error GoTo 0
     Exit Property
@@ -5214,7 +5214,7 @@ Public Property Get gbMenuOccurred() As Boolean
 
     On Error GoTo gbMenuOccurred_Error
 
-    gbMenuOccurred = m_bgbMenuOccurred
+    gbMenuOccurred = m_bMenuOccurred
 
     On Error GoTo 0
     Exit Property
@@ -5236,7 +5236,7 @@ Public Property Let gbMenuOccurred(ByVal bgbMenuOccurred As Boolean)
 
     On Error GoTo gbMenuOccurred_Error
 
-    m_bgbMenuOccurred = bgbMenuOccurred
+    m_bMenuOccurred = bgbMenuOccurred
 
     On Error GoTo 0
     Exit Property
@@ -5258,7 +5258,7 @@ Public Property Get gsFirstTimeRun() As String
 
     On Error GoTo gsFirstTimeRun_Error
 
-    gsFirstTimeRun = m_sgsFirstTimeRun
+    gsFirstTimeRun = m_sFirstTimeRun
 
     On Error GoTo 0
     Exit Property
@@ -5280,7 +5280,7 @@ Public Property Let gsFirstTimeRun(ByVal sgsFirstTimeRun As String)
 
     On Error GoTo gsFirstTimeRun_Error
 
-    m_sgsFirstTimeRun = sgsFirstTimeRun
+    m_sFirstTimeRun = sgsFirstTimeRun
 
     On Error GoTo 0
     Exit Property
@@ -5302,7 +5302,7 @@ Public Property Get gsMultiMonitorResize() As String
 
     On Error GoTo gsMultiMonitorResize_Error
 
-    gsMultiMonitorResize = m_sgsMultiMonitorResize
+    gsMultiMonitorResize = m_sMultiMonitorResize
 
     On Error GoTo 0
     Exit Property
@@ -5324,7 +5324,7 @@ Public Property Let gsMultiMonitorResize(ByVal sgsMultiMonitorResize As String)
 
     On Error GoTo gsMultiMonitorResize_Error
 
-    m_sgsMultiMonitorResize = sgsMultiMonitorResize
+    m_sMultiMonitorResize = sgsMultiMonitorResize
 
     On Error GoTo 0
     Exit Property
@@ -5346,7 +5346,7 @@ Public Property Get glPhysicalScreenWidthTwips() As Long
 
     On Error GoTo glPhysicalScreenWidthTwips_Error
 
-    glPhysicalScreenWidthTwips = m_lglPhysicalScreenWidthTwips
+    glPhysicalScreenWidthTwips = m_lPhysicalScreenWidthTwips
 
     On Error GoTo 0
     Exit Property
@@ -5368,7 +5368,7 @@ Public Property Let glPhysicalScreenWidthTwips(ByVal lglPhysicalScreenWidthTwips
 
     On Error GoTo glPhysicalScreenWidthTwips_Error
 
-    m_lglPhysicalScreenWidthTwips = lglPhysicalScreenWidthTwips
+    m_lPhysicalScreenWidthTwips = lglPhysicalScreenWidthTwips
 
     On Error GoTo 0
     Exit Property
@@ -5390,7 +5390,7 @@ Public Property Get glPhysicalScreenHeightTwips() As Long
 
     On Error GoTo glPhysicalScreenHeightTwips_Error
 
-    glPhysicalScreenHeightTwips = m_lglPhysicalScreenHeightTwips
+    glPhysicalScreenHeightTwips = m_lPhysicalScreenHeightTwips
 
     On Error GoTo 0
     Exit Property
@@ -5412,7 +5412,7 @@ Public Property Let glPhysicalScreenHeightTwips(ByVal lglPhysicalScreenHeightTwi
 
     On Error GoTo glPhysicalScreenHeightTwips_Error
 
-    m_lglPhysicalScreenHeightTwips = lglPhysicalScreenHeightTwips
+    m_lPhysicalScreenHeightTwips = lglPhysicalScreenHeightTwips
 
     On Error GoTo 0
     Exit Property
@@ -5434,7 +5434,7 @@ Public Property Get glPhysicalScreenHeightPixels() As Long
 
     On Error GoTo glPhysicalScreenHeightPixels_Error
 
-    glPhysicalScreenHeightPixels = m_lglPhysicalScreenHeightPixels
+    glPhysicalScreenHeightPixels = m_lPhysicalScreenHeightPixels
 
     On Error GoTo 0
     Exit Property
@@ -5456,7 +5456,7 @@ Public Property Let glPhysicalScreenHeightPixels(ByVal lglPhysicalScreenHeightPi
 
     On Error GoTo glPhysicalScreenHeightPixels_Error
 
-    m_lglPhysicalScreenHeightPixels = lglPhysicalScreenHeightPixels
+    m_lPhysicalScreenHeightPixels = lglPhysicalScreenHeightPixels
 
     On Error GoTo 0
     Exit Property
@@ -5478,7 +5478,7 @@ Public Property Get glPhysicalScreenWidthPixels() As Long
 
     On Error GoTo glPhysicalScreenWidthPixels_Error
 
-    glPhysicalScreenWidthPixels = m_lglPhysicalScreenWidthPixels
+    glPhysicalScreenWidthPixels = m_lPhysicalScreenWidthPixels
 
     On Error GoTo 0
     Exit Property
@@ -5500,7 +5500,7 @@ Public Property Let glPhysicalScreenWidthPixels(ByVal lglPhysicalScreenWidthPixe
 
     On Error GoTo glPhysicalScreenWidthPixels_Error
 
-    m_lglPhysicalScreenWidthPixels = lglPhysicalScreenWidthPixels
+    m_lPhysicalScreenWidthPixels = lglPhysicalScreenWidthPixels
 
     On Error GoTo 0
     Exit Property
@@ -5522,7 +5522,7 @@ Public Property Get glOldPhysicalScreenHeightPixels() As Long
 
     On Error GoTo glOldPhysicalScreenHeightPixels_Error
 
-    glOldPhysicalScreenHeightPixels = m_lglOldPhysicalScreenHeightPixels
+    glOldPhysicalScreenHeightPixels = m_lOldPhysicalScreenHeightPixels
 
     On Error GoTo 0
     Exit Property
@@ -5544,7 +5544,7 @@ Public Property Let glOldPhysicalScreenHeightPixels(ByVal lglOldPhysicalScreenHe
 
     On Error GoTo glOldPhysicalScreenHeightPixels_Error
 
-    m_lglOldPhysicalScreenHeightPixels = lglOldPhysicalScreenHeightPixels
+    m_lOldPhysicalScreenHeightPixels = lglOldPhysicalScreenHeightPixels
 
     On Error GoTo 0
     Exit Property
@@ -5566,7 +5566,7 @@ Public Property Get glOldPhysicalScreenWidthPixels() As Long
 
     On Error GoTo glOldPhysicalScreenWidthPixels_Error
 
-    glOldPhysicalScreenWidthPixels = m_lglOldPhysicalScreenWidthPixels
+    glOldPhysicalScreenWidthPixels = m_lOldPhysicalScreenWidthPixels
 
     On Error GoTo 0
     Exit Property
@@ -5588,7 +5588,7 @@ Public Property Let glOldPhysicalScreenWidthPixels(ByVal lglOldPhysicalScreenWid
 
     On Error GoTo glOldPhysicalScreenWidthPixels_Error
 
-    m_lglOldPhysicalScreenWidthPixels = lglOldPhysicalScreenWidthPixels
+    m_lOldPhysicalScreenWidthPixels = lglOldPhysicalScreenWidthPixels
 
     On Error GoTo 0
     Exit Property
@@ -5610,7 +5610,7 @@ Public Property Get glVirtualScreenHeightPixels() As Long
 
     On Error GoTo glVirtualScreenHeightPixels_Error
 
-    glVirtualScreenHeightPixels = m_lglVirtualScreenHeightPixels
+    glVirtualScreenHeightPixels = m_lVirtualScreenHeightPixels
 
     On Error GoTo 0
     Exit Property
@@ -5632,7 +5632,7 @@ Public Property Let glVirtualScreenHeightPixels(ByVal lglVirtualScreenHeightPixe
 
     On Error GoTo glVirtualScreenHeightPixels_Error
 
-    m_lglVirtualScreenHeightPixels = lglVirtualScreenHeightPixels
+    m_lVirtualScreenHeightPixels = lglVirtualScreenHeightPixels
 
     On Error GoTo 0
     Exit Property
@@ -5654,7 +5654,7 @@ Public Property Get glVirtualScreenWidthPixels() As Long
 
     On Error GoTo glVirtualScreenWidthPixels_Error
 
-    glVirtualScreenWidthPixels = m_lglVirtualScreenWidthPixels
+    glVirtualScreenWidthPixels = m_lVirtualScreenWidthPixels
 
     On Error GoTo 0
     Exit Property
@@ -5676,7 +5676,7 @@ Public Property Let glVirtualScreenWidthPixels(ByVal lglVirtualScreenWidthPixels
 
     On Error GoTo glVirtualScreenWidthPixels_Error
 
-    m_lglVirtualScreenWidthPixels = lglVirtualScreenWidthPixels
+    m_lVirtualScreenWidthPixels = lglVirtualScreenWidthPixels
 
     On Error GoTo 0
     Exit Property
@@ -5698,7 +5698,7 @@ Public Property Get glVirtualScreenHeightTwips() As Long
 
     On Error GoTo glVirtualScreenHeightTwips_Error
 
-    glVirtualScreenHeightTwips = m_lglVirtualScreenHeightTwips
+    glVirtualScreenHeightTwips = m_lVirtualScreenHeightTwips
 
     On Error GoTo 0
     Exit Property
@@ -5720,7 +5720,7 @@ Public Property Let glVirtualScreenHeightTwips(ByVal lglVirtualScreenHeightTwips
 
     On Error GoTo glVirtualScreenHeightTwips_Error
 
-    m_lglVirtualScreenHeightTwips = lglVirtualScreenHeightTwips
+    m_lVirtualScreenHeightTwips = lglVirtualScreenHeightTwips
 
     On Error GoTo 0
     Exit Property
@@ -5742,7 +5742,7 @@ Public Property Get glVirtualScreenWidthTwips() As Long
 
     On Error GoTo glVirtualScreenWidthTwips_Error
 
-    glVirtualScreenWidthTwips = m_lglVirtualScreenWidthTwips
+    glVirtualScreenWidthTwips = m_lVirtualScreenWidthTwips
 
     On Error GoTo 0
     Exit Property
@@ -5764,7 +5764,7 @@ Public Property Let glVirtualScreenWidthTwips(ByVal lglVirtualScreenWidthTwips A
 
     On Error GoTo glVirtualScreenWidthTwips_Error
 
-    m_lglVirtualScreenWidthTwips = lglVirtualScreenWidthTwips
+    m_lVirtualScreenWidthTwips = lglVirtualScreenWidthTwips
 
     On Error GoTo 0
     Exit Property
@@ -5786,7 +5786,7 @@ Public Property Get glWidgetPrefsOldHeightTwips() As Long
 
     On Error GoTo glWidgetPrefsOldHeightTwips_Error
 
-    glWidgetPrefsOldHeightTwips = m_lglWidgetPrefsOldHeightTwips
+    glWidgetPrefsOldHeightTwips = m_lWidgetPrefsOldHeightTwips
 
     On Error GoTo 0
     Exit Property
@@ -5808,7 +5808,7 @@ Public Property Let glWidgetPrefsOldHeightTwips(ByVal lglWidgetPrefsOldHeightTwi
 
     On Error GoTo glWidgetPrefsOldHeightTwips_Error
 
-    m_lglWidgetPrefsOldHeightTwips = lglWidgetPrefsOldHeightTwips
+    m_lWidgetPrefsOldHeightTwips = lglWidgetPrefsOldHeightTwips
 
     On Error GoTo 0
     Exit Property
@@ -5830,7 +5830,7 @@ Public Property Get glWidgetPrefsOldWidthTwips() As Long
 
     On Error GoTo glWidgetPrefsOldWidthTwips_Error
 
-    glWidgetPrefsOldWidthTwips = m_lglWidgetPrefsOldWidthTwips
+    glWidgetPrefsOldWidthTwips = m_lWidgetPrefsOldWidthTwips
 
     On Error GoTo 0
     Exit Property
@@ -5852,7 +5852,7 @@ Public Property Let glWidgetPrefsOldWidthTwips(ByVal lglWidgetPrefsOldWidthTwips
 
     On Error GoTo glWidgetPrefsOldWidthTwips_Error
 
-    m_lglWidgetPrefsOldWidthTwips = lglWidgetPrefsOldWidthTwips
+    m_lWidgetPrefsOldWidthTwips = lglWidgetPrefsOldWidthTwips
 
     On Error GoTo 0
     Exit Property
@@ -5874,7 +5874,7 @@ Public Property Get gsPrefsHighDpiXPosTwips() As String
 
     On Error GoTo gsPrefsHighDpiXPosTwips_Error
 
-    gsPrefsHighDpiXPosTwips = m_sgsPrefsHighDpiXPosTwips
+    gsPrefsHighDpiXPosTwips = m_sPrefsHighDpiXPosTwips
 
     On Error GoTo 0
     Exit Property
@@ -5896,7 +5896,7 @@ Public Property Let gsPrefsHighDpiXPosTwips(ByVal sgsPrefsHighDpiXPosTwips As St
 
     On Error GoTo gsPrefsHighDpiXPosTwips_Error
 
-    m_sgsPrefsHighDpiXPosTwips = sgsPrefsHighDpiXPosTwips
+    m_sPrefsHighDpiXPosTwips = sgsPrefsHighDpiXPosTwips
 
     On Error GoTo 0
     Exit Property
@@ -5918,7 +5918,7 @@ Public Property Get gsPrefsHighDpiYPosTwips() As String
 
     On Error GoTo gsPrefsHighDpiYPosTwips_Error
 
-    gsPrefsHighDpiYPosTwips = m_sgsPrefsHighDpiYPosTwips
+    gsPrefsHighDpiYPosTwips = m_sPrefsHighDpiYPosTwips
 
     On Error GoTo 0
     Exit Property
@@ -5940,7 +5940,7 @@ Public Property Let gsPrefsHighDpiYPosTwips(ByVal sgsPrefsHighDpiYPosTwips As St
 
     On Error GoTo gsPrefsHighDpiYPosTwips_Error
 
-    m_sgsPrefsHighDpiYPosTwips = sgsPrefsHighDpiYPosTwips
+    m_sPrefsHighDpiYPosTwips = sgsPrefsHighDpiYPosTwips
 
     On Error GoTo 0
     Exit Property
@@ -5962,7 +5962,7 @@ Public Property Get gsPrefsLowDpiXPosTwips() As String
 
     On Error GoTo gsPrefsLowDpiXPosTwips_Error
 
-    gsPrefsLowDpiXPosTwips = m_sgsPrefsLowDpiXPosTwips
+    gsPrefsLowDpiXPosTwips = m_sPrefsLowDpiXPosTwips
 
     On Error GoTo 0
     Exit Property
@@ -5984,7 +5984,7 @@ Public Property Let gsPrefsLowDpiXPosTwips(ByVal sgsPrefsLowDpiXPosTwips As Stri
 
     On Error GoTo gsPrefsLowDpiXPosTwips_Error
 
-    m_sgsPrefsLowDpiXPosTwips = sgsPrefsLowDpiXPosTwips
+    m_sPrefsLowDpiXPosTwips = sgsPrefsLowDpiXPosTwips
 
     On Error GoTo 0
     Exit Property
@@ -6006,7 +6006,7 @@ Public Property Get gsPrefsLowDpiYPosTwips() As String
 
     On Error GoTo gsPrefsLowDpiYPosTwips_Error
 
-    gsPrefsLowDpiYPosTwips = m_sgsPrefsLowDpiYPosTwips
+    gsPrefsLowDpiYPosTwips = m_sPrefsLowDpiYPosTwips
 
     On Error GoTo 0
     Exit Property
@@ -6028,7 +6028,7 @@ Public Property Let gsPrefsLowDpiYPosTwips(ByVal sgsPrefsLowDpiYPosTwips As Stri
 
     On Error GoTo gsPrefsLowDpiYPosTwips_Error
 
-    m_sgsPrefsLowDpiYPosTwips = sgsPrefsLowDpiYPosTwips
+    m_sPrefsLowDpiYPosTwips = sgsPrefsLowDpiYPosTwips
 
     On Error GoTo 0
     Exit Property
@@ -6050,7 +6050,7 @@ Public Property Get gsPrefsPrimaryHeightTwips() As String
 
     On Error GoTo gsPrefsPrimaryHeightTwips_Error
 
-    gsPrefsPrimaryHeightTwips = m_sgsPrefsPrimaryHeightTwips
+    gsPrefsPrimaryHeightTwips = m_sPrefsPrimaryHeightTwips
 
     On Error GoTo 0
     Exit Property
@@ -6072,7 +6072,7 @@ Public Property Let gsPrefsPrimaryHeightTwips(ByVal sgsPrefsPrimaryHeightTwips A
 
     On Error GoTo gsPrefsPrimaryHeightTwips_Error
 
-    m_sgsPrefsPrimaryHeightTwips = sgsPrefsPrimaryHeightTwips
+    m_sPrefsPrimaryHeightTwips = sgsPrefsPrimaryHeightTwips
 
     On Error GoTo 0
     Exit Property
@@ -6094,7 +6094,7 @@ Public Property Get gsPrefsSecondaryHeightTwips() As String
 
     On Error GoTo gsPrefsSecondaryHeightTwips_Error
 
-    gsPrefsSecondaryHeightTwips = m_sgsPrefsSecondaryHeightTwips
+    gsPrefsSecondaryHeightTwips = m_sPrefsSecondaryHeightTwips
 
     On Error GoTo 0
     Exit Property
@@ -6116,7 +6116,7 @@ Public Property Let gsPrefsSecondaryHeightTwips(ByVal sgsPrefsSecondaryHeightTwi
 
     On Error GoTo gsPrefsSecondaryHeightTwips_Error
 
-    m_sgsPrefsSecondaryHeightTwips = sgsPrefsSecondaryHeightTwips
+    m_sPrefsSecondaryHeightTwips = sgsPrefsSecondaryHeightTwips
 
     On Error GoTo 0
     Exit Property
@@ -6138,7 +6138,7 @@ Public Property Get gsWidgetPrimaryHeightRatio() As String
 
     On Error GoTo gsWidgetPrimaryHeightRatio_Error
 
-    gsWidgetPrimaryHeightRatio = m_sgsWidgetPrimaryHeightRatio
+    gsWidgetPrimaryHeightRatio = m_sWidgetPrimaryHeightRatio
 
     On Error GoTo 0
     Exit Property
@@ -6160,7 +6160,7 @@ Public Property Let gsWidgetPrimaryHeightRatio(ByVal sgsWidgetPrimaryHeightRatio
 
     On Error GoTo gsWidgetPrimaryHeightRatio_Error
 
-    m_sgsWidgetPrimaryHeightRatio = sgsWidgetPrimaryHeightRatio
+    m_sWidgetPrimaryHeightRatio = sgsWidgetPrimaryHeightRatio
 
     On Error GoTo 0
     Exit Property
@@ -6182,7 +6182,7 @@ Public Property Get gsWidgetSecondaryHeightRatio() As String
 
     On Error GoTo gsWidgetSecondaryHeightRatio_Error
 
-    gsWidgetSecondaryHeightRatio = m_sgsWidgetSecondaryHeightRatio
+    gsWidgetSecondaryHeightRatio = m_sWidgetSecondaryHeightRatio
 
     On Error GoTo 0
     Exit Property
@@ -6204,7 +6204,7 @@ Public Property Let gsWidgetSecondaryHeightRatio(ByVal sgsWidgetSecondaryHeightR
 
     On Error GoTo gsWidgetSecondaryHeightRatio_Error
 
-    m_sgsWidgetSecondaryHeightRatio = sgsWidgetSecondaryHeightRatio
+    m_sWidgetSecondaryHeightRatio = sgsWidgetSecondaryHeightRatio
 
     On Error GoTo 0
     Exit Property
@@ -6226,7 +6226,7 @@ Public Property Get glMonitorCount() As Long
 
     On Error GoTo glMonitorCount_Error
 
-    glMonitorCount = m_lglMonitorCount
+    glMonitorCount = m_lMonitorCount
 
     On Error GoTo 0
     Exit Property
@@ -6248,7 +6248,7 @@ Public Property Let glMonitorCount(ByVal lglMonitorCount As Long)
 
     On Error GoTo glMonitorCount_Error
 
-    m_lglMonitorCount = lglMonitorCount
+    m_lMonitorCount = lglMonitorCount
 
     On Error GoTo 0
     Exit Property
@@ -6270,7 +6270,7 @@ Public Property Get glOldPrefsFormMonitorPrimary() As Long
 
     On Error GoTo glOldPrefsFormMonitorPrimary_Error
 
-    glOldPrefsFormMonitorPrimary = m_lglOldPrefsFormMonitorPrimary
+    glOldPrefsFormMonitorPrimary = m_lOldPrefsFormMonitorPrimary
 
     On Error GoTo 0
     Exit Property
@@ -6292,7 +6292,7 @@ Public Property Let glOldPrefsFormMonitorPrimary(ByVal lglOldPrefsFormMonitorPri
 
     On Error GoTo glOldPrefsFormMonitorPrimary_Error
 
-    m_lglOldPrefsFormMonitorPrimary = lglOldPrefsFormMonitorPrimary
+    m_lOldPrefsFormMonitorPrimary = lglOldPrefsFormMonitorPrimary
 
     On Error GoTo 0
     Exit Property
@@ -6314,7 +6314,7 @@ Public Property Get glOldWidgetFormMonitorPrimary() As Long
 
     On Error GoTo glOldWidgetFormMonitorPrimary_Error
 
-    glOldWidgetFormMonitorPrimary = m_lglOldWidgetFormMonitorPrimary
+    glOldWidgetFormMonitorPrimary = m_lOldWidgetFormMonitorPrimary
 
     On Error GoTo 0
     Exit Property
@@ -6336,7 +6336,7 @@ Public Property Let glOldWidgetFormMonitorPrimary(ByVal lglOldWidgetFormMonitorP
 
     On Error GoTo glOldWidgetFormMonitorPrimary_Error
 
-    m_lglOldWidgetFormMonitorPrimary = lglOldWidgetFormMonitorPrimary
+    m_lOldWidgetFormMonitorPrimary = lglOldWidgetFormMonitorPrimary
 
     On Error GoTo 0
     Exit Property
@@ -6358,7 +6358,7 @@ Public Property Get gbMsgBoxADynamicSizingFlg() As Boolean
 
     On Error GoTo gbMsgBoxADynamicSizingFlg_Error
 
-    gbMsgBoxADynamicSizingFlg = m_bgbMsgBoxADynamicSizingFlg
+    gbMsgBoxADynamicSizingFlg = m_bMsgBoxADynamicSizingFlg
 
     On Error GoTo 0
     Exit Property
@@ -6380,7 +6380,7 @@ Public Property Let gbMsgBoxADynamicSizingFlg(ByVal bgbMsgBoxADynamicSizingFlg A
 
     On Error GoTo gbMsgBoxADynamicSizingFlg_Error
 
-    m_bgbMsgBoxADynamicSizingFlg = bgbMsgBoxADynamicSizingFlg
+    m_bMsgBoxADynamicSizingFlg = bgbMsgBoxADynamicSizingFlg
 
     On Error GoTo 0
     Exit Property
@@ -6402,7 +6402,7 @@ Public Property Get gbPrefsFormResizedInCode() As Boolean
 
     On Error GoTo gbPrefsFormResizedInCode_Error
 
-    gbPrefsFormResizedInCode = m_bgbPrefsFormResizedInCode
+    gbPrefsFormResizedInCode = m_bPrefsFormResizedInCode
 
     On Error GoTo 0
     Exit Property
@@ -6424,7 +6424,7 @@ Public Property Let gbPrefsFormResizedInCode(ByVal bgbPrefsFormResizedInCode As 
 
     On Error GoTo gbPrefsFormResizedInCode_Error
 
-    m_bgbPrefsFormResizedInCode = bgbPrefsFormResizedInCode
+    m_bPrefsFormResizedInCode = bgbPrefsFormResizedInCode
 
     On Error GoTo 0
     Exit Property
@@ -6446,7 +6446,7 @@ Public Property Get gsSettingsDir() As String
 
     On Error GoTo gsSettingsDir_Error
 
-    gsSettingsDir = m_sgsSettingsDir
+    gsSettingsDir = m_sSettingsDir
 
     On Error GoTo 0
     Exit Property
@@ -6468,7 +6468,7 @@ Public Property Let gsSettingsDir(ByVal sgsSettingsDir As String)
 
     On Error GoTo gsSettingsDir_Error
 
-    m_sgsSettingsDir = sgsSettingsDir
+    m_sSettingsDir = sgsSettingsDir
 
     On Error GoTo 0
     Exit Property
@@ -6490,7 +6490,7 @@ Public Property Get gsSettingsFile() As String
 
     On Error GoTo gsSettingsFile_Error
 
-    gsSettingsFile = m_sgsSettingsFile
+    gsSettingsFile = m_sSettingsFile
 
     On Error GoTo 0
     Exit Property
@@ -6512,7 +6512,7 @@ Public Property Let gsSettingsFile(ByVal sgsSettingsFile As String)
 
     On Error GoTo gsSettingsFile_Error
 
-    m_sgsSettingsFile = sgsSettingsFile
+    m_sSettingsFile = sgsSettingsFile
 
     On Error GoTo 0
     Exit Property
@@ -6534,7 +6534,7 @@ Public Property Get gsTrinketsDir() As String
 
     On Error GoTo gsTrinketsDir_Error
 
-    gsTrinketsDir = m_sgsTrinketsDir
+    gsTrinketsDir = m_sTrinketsDir
 
     On Error GoTo 0
     Exit Property
@@ -6556,7 +6556,7 @@ Public Property Let gsTrinketsDir(ByVal sgsTrinketsDir As String)
 
     On Error GoTo gsTrinketsDir_Error
 
-    m_sgsTrinketsDir = sgsTrinketsDir
+    m_sTrinketsDir = sgsTrinketsDir
 
     On Error GoTo 0
     Exit Property
@@ -6578,7 +6578,7 @@ Public Property Get gsTrinketsFile() As String
 
     On Error GoTo gsTrinketsFile_Error
 
-    gsTrinketsFile = m_sgsTrinketsFile
+    gsTrinketsFile = m_sTrinketsFile
 
     On Error GoTo 0
     Exit Property
@@ -6600,7 +6600,7 @@ Public Property Let gsTrinketsFile(ByVal sgsTrinketsFile As String)
 
     On Error GoTo gsTrinketsFile_Error
 
-    m_sgsTrinketsFile = sgsTrinketsFile
+    m_sTrinketsFile = sgsTrinketsFile
 
     On Error GoTo 0
     Exit Property
@@ -6622,7 +6622,7 @@ Public Property Get gsMessageAHeightTwips() As String
 
     On Error GoTo gsMessageAHeightTwips_Error
 
-    gsMessageAHeightTwips = m_sgsMessageAHeightTwips
+    gsMessageAHeightTwips = m_sMessageAHeightTwips
 
     On Error GoTo 0
     Exit Property
@@ -6644,7 +6644,7 @@ Public Property Let gsMessageAHeightTwips(ByVal sgsMessageAHeightTwips As String
 
     On Error GoTo gsMessageAHeightTwips_Error
 
-    m_sgsMessageAHeightTwips = sgsMessageAHeightTwips
+    m_sMessageAHeightTwips = sgsMessageAHeightTwips
 
     On Error GoTo 0
     Exit Property
@@ -6666,7 +6666,7 @@ Public Property Get gsMessageAWidthTwips() As String
 
     On Error GoTo gsMessageAWidthTwips_Error
 
-    gsMessageAWidthTwips = m_sgsMessageAWidthTwips
+    gsMessageAWidthTwips = m_sMessageAWidthTwips
 
     On Error GoTo 0
     Exit Property
@@ -6688,7 +6688,7 @@ Public Property Let gsMessageAWidthTwips(ByVal sgsMessageAWidthTwips As String)
 
     On Error GoTo gsMessageAWidthTwips_Error
 
-    m_sgsMessageAWidthTwips = sgsMessageAWidthTwips
+    m_sMessageAWidthTwips = sgsMessageAWidthTwips
 
     On Error GoTo 0
     Exit Property
@@ -6710,7 +6710,7 @@ Public Property Get gsMulticoreXPosTwips() As String
 
     On Error GoTo gsMulticoreXPosTwips_Error
 
-    gsMulticoreXPosTwips = m_sgsMulticoreXPosTwips
+    gsMulticoreXPosTwips = m_sMulticoreXPosTwips
 
     On Error GoTo 0
     Exit Property
@@ -6732,7 +6732,7 @@ Public Property Let gsMulticoreXPosTwips(ByVal sgsMulticoreXPosTwips As String)
 
     On Error GoTo gsMulticoreXPosTwips_Error
 
-    m_sgsMulticoreXPosTwips = sgsMulticoreXPosTwips
+    m_sMulticoreXPosTwips = sgsMulticoreXPosTwips
 
     On Error GoTo 0
     Exit Property
@@ -6754,7 +6754,7 @@ Public Property Get gsMulticoreYPosTwips() As String
 
     On Error GoTo gsMulticoreYPosTwips_Error
 
-    gsMulticoreYPosTwips = m_sgsMulticoreYPosTwips
+    gsMulticoreYPosTwips = m_sMulticoreYPosTwips
 
     On Error GoTo 0
     Exit Property
@@ -6776,7 +6776,7 @@ Public Property Let gsMulticoreYPosTwips(ByVal sgsMulticoreYPosTwips As String)
 
     On Error GoTo gsMulticoreYPosTwips_Error
 
-    m_sgsMulticoreYPosTwips = sgsMulticoreYPosTwips
+    m_sMulticoreYPosTwips = sgsMulticoreYPosTwips
 
     On Error GoTo 0
     Exit Property
@@ -6798,7 +6798,7 @@ Public Property Get gsLastSelectedTab() As String
 
     On Error GoTo gsLastSelectedTab_Error
 
-    gsLastSelectedTab = m_sgsLastSelectedTab
+    gsLastSelectedTab = m_sLastSelectedTab
 
     On Error GoTo 0
     Exit Property
@@ -6820,7 +6820,7 @@ Public Property Let gsLastSelectedTab(ByVal sgsLastSelectedTab As String)
 
     On Error GoTo gsLastSelectedTab_Error
 
-    m_sgsLastSelectedTab = sgsLastSelectedTab
+    m_sLastSelectedTab = sgsLastSelectedTab
 
     On Error GoTo 0
     Exit Property
@@ -6842,7 +6842,7 @@ Public Property Get gsSkinTheme() As String
 
     On Error GoTo gsSkinTheme_Error
 
-    gsSkinTheme = m_sgsSkinTheme
+    gsSkinTheme = m_sSkinTheme
 
     On Error GoTo 0
     Exit Property
@@ -6864,7 +6864,7 @@ Public Property Let gsSkinTheme(ByVal sgsSkinTheme As String)
 
     On Error GoTo gsSkinTheme_Error
 
-    m_sgsSkinTheme = sgsSkinTheme
+    m_sSkinTheme = sgsSkinTheme
 
     On Error GoTo 0
     Exit Property
@@ -6886,7 +6886,7 @@ Public Property Get gsUnhide() As String
 
     On Error GoTo gsUnhide_Error
 
-    gsUnhide = m_sgsUnhide
+    gsUnhide = m_sUnhide
 
     On Error GoTo 0
     Exit Property
@@ -6908,7 +6908,7 @@ Public Property Let gsUnhide(ByVal sgsUnhide As String)
 
     On Error GoTo gsUnhide_Error
 
-    m_sgsUnhide = sgsUnhide
+    m_sUnhide = sgsUnhide
 
     On Error GoTo 0
     Exit Property
@@ -6930,7 +6930,7 @@ Public Property Get gbClassicThemeCapable() As Boolean
 
     On Error GoTo gbClassicThemeCapable_Error
 
-    gbClassicThemeCapable = m_bgbClassicThemeCapable
+    gbClassicThemeCapable = m_bClassicThemeCapable
 
     On Error GoTo 0
     Exit Property
@@ -6952,7 +6952,7 @@ Public Property Let gbClassicThemeCapable(ByVal bgbClassicThemeCapable As Boolea
 
     On Error GoTo gbClassicThemeCapable_Error
 
-    m_bgbClassicThemeCapable = bgbClassicThemeCapable
+    m_bClassicThemeCapable = bgbClassicThemeCapable
 
     On Error GoTo 0
     Exit Property
@@ -6974,7 +6974,7 @@ Public Property Get glStoreThemeColour() As Long
 
     On Error GoTo glStoreThemeColour_Error
 
-    glStoreThemeColour = m_lglStoreThemeColour
+    glStoreThemeColour = m_lStoreThemeColour
 
     On Error GoTo 0
     Exit Property
@@ -6996,7 +6996,7 @@ Public Property Let glStoreThemeColour(ByVal lglStoreThemeColour As Long)
 
     On Error GoTo glStoreThemeColour_Error
 
-    m_lglStoreThemeColour = lglStoreThemeColour
+    m_lStoreThemeColour = lglStoreThemeColour
 
     On Error GoTo 0
     Exit Property
@@ -7018,7 +7018,7 @@ Public Property Get gbCTRL_1() As Boolean
 
     On Error GoTo gbCTRL_1_Error
 
-    gbCTRL_1 = m_bgbCTRL_1
+    gbCTRL_1 = m_bCTRL_1
 
     On Error GoTo 0
     Exit Property
@@ -7040,7 +7040,7 @@ Public Property Let gbCTRL_1(ByVal bgbCTRL_1 As Boolean)
 
     On Error GoTo gbCTRL_1_Error
 
-    m_bgbCTRL_1 = bgbCTRL_1
+    m_bCTRL_1 = bgbCTRL_1
 
     On Error GoTo 0
     Exit Property
@@ -7062,7 +7062,7 @@ Public Property Get gbSHIFT_1() As Boolean
 
     On Error GoTo gbSHIFT_1_Error
 
-    gbSHIFT_1 = m_bgbSHIFT_1
+    gbSHIFT_1 = m_bSHIFT_1
 
     On Error GoTo 0
     Exit Property
@@ -7084,7 +7084,7 @@ Public Property Let gbSHIFT_1(ByVal bgbSHIFT_1 As Boolean)
 
     On Error GoTo gbSHIFT_1_Error
 
-    m_bgbSHIFT_1 = bgbSHIFT_1
+    m_bSHIFT_1 = bgbSHIFT_1
 
     On Error GoTo 0
     Exit Property
@@ -7150,7 +7150,7 @@ Public Property Get gbStartupFlg() As Boolean
 
     On Error GoTo gbStartupFlg_Error
 
-    gbStartupFlg = m_bgbStartupFlg
+    gbStartupFlg = m_bStartupFlg
 
     On Error GoTo 0
     Exit Property
@@ -7172,7 +7172,7 @@ Public Property Let gbStartupFlg(ByVal bgbStartupFlg As Boolean)
 
     On Error GoTo gbStartupFlg_Error
 
-    m_bgbStartupFlg = bgbStartupFlg
+    m_bStartupFlg = bgbStartupFlg
 
     On Error GoTo 0
     Exit Property
@@ -7194,7 +7194,7 @@ Public Property Get gbThisWidgetAvailable() As Boolean
 
     On Error GoTo gbThisWidgetAvailable_Error
 
-    gbThisWidgetAvailable = m_bgbThisWidgetAvailable
+    gbThisWidgetAvailable = m_bThisWidgetAvailable
 
     On Error GoTo 0
     Exit Property
@@ -7216,7 +7216,7 @@ Public Property Let gbThisWidgetAvailable(ByVal bgbThisWidgetAvailable As Boolea
 
     On Error GoTo gbThisWidgetAvailable_Error
 
-    m_bgbThisWidgetAvailable = bgbThisWidgetAvailable
+    m_bThisWidgetAvailable = bgbThisWidgetAvailable
 
     On Error GoTo 0
     Exit Property
@@ -7238,7 +7238,7 @@ Public Property Get gbReload() As Boolean
 
     On Error GoTo gbReload_Error
 
-    gbReload = m_bgbReload
+    gbReload = m_bReload
 
     On Error GoTo 0
     Exit Property
@@ -7260,7 +7260,7 @@ Public Property Let gbReload(ByVal bgbReload As Boolean)
 
     On Error GoTo gbReload_Error
 
-    m_bgbReload = bgbReload
+    m_bReload = bgbReload
 
     On Error GoTo 0
     Exit Property
@@ -7271,3 +7271,91 @@ gbReload_Error:
 
 End Property
 
+
+'---------------------------------------------------------------------------------------
+' Procedure : gblGaugeCPUTimersOFF
+' Author    : beededea
+' Date      : 18/12/2025
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Get gblGaugeCPUTimersOFF() As Boolean
+
+    On Error GoTo gblGaugeCPUTimersOFF_Error
+
+    gblGaugeCPUTimersOFF = m_bGaugeCPUTimersOFF
+
+    On Error GoTo 0
+    Exit Property
+
+gblGaugeCPUTimersOFF_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure gblGaugeCPUTimersOFF of Module Module1"
+
+End Property
+
+'---------------------------------------------------------------------------------------
+' Procedure : gblGaugeCPUTimersOFF
+' Author    : beededea
+' Date      : 18/12/2025
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Let gblGaugeCPUTimersOFF(ByVal bgblGaugeCPUTimersOFF As Boolean)
+
+    On Error GoTo gblGaugeCPUTimersOFF_Error
+
+    m_bGaugeCPUTimersOFF = bgblGaugeCPUTimersOFF
+
+    On Error GoTo 0
+    Exit Property
+
+gblGaugeCPUTimersOFF_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure gblGaugeCPUTimersOFF of Module Module1"
+
+End Property
+
+'---------------------------------------------------------------------------------------
+' Procedure : sCPUDetailStore
+' Author    : beededea
+' Date      : 18/12/2025
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Get sCPUDetailStore() As String
+
+    On Error GoTo sCPUDetailStore_Error
+
+    sCPUDetailStore = m_sCPUDetailStore
+
+    On Error GoTo 0
+    Exit Property
+
+sCPUDetailStore_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure sCPUDetailStore of Module Module1"
+
+End Property
+
+'---------------------------------------------------------------------------------------
+' Procedure : sCPUDetailStore
+' Author    : beededea
+' Date      : 18/12/2025
+' Purpose   :
+'---------------------------------------------------------------------------------------
+'
+Public Property Let sCPUDetailStore(ByVal ssCPUDetailStore As String)
+
+    On Error GoTo sCPUDetailStore_Error
+
+    m_sCPUDetailStore = ssCPUDetailStore
+
+    On Error GoTo 0
+    Exit Property
+
+sCPUDetailStore_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure sCPUDetailStore of Module Module1"
+
+End Property

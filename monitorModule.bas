@@ -61,14 +61,14 @@ End Type
 
 Private Declare Function EnumDisplayMonitors Lib "user32" (ByVal hDC As Long, lprcClip As Any, ByVal lpfnEnum As Long, dwData As Long) As Long
 Private Declare Function GetSystemMetrics Lib "user32" (ByVal nIndex As Long) As Long
-Public Declare Function GetDC Lib "user32" (ByVal hWnd As Long) As Long
-Public Declare Function ReleaseDC Lib "user32" (ByVal hWnd As Long, ByVal hDC As Long) As Long
+Public Declare Function GetDC Lib "user32" (ByVal hwnd As Long) As Long
+Public Declare Function ReleaseDC Lib "user32" (ByVal hwnd As Long, ByVal hDC As Long) As Long
 Public Declare Function GetDeviceCaps Lib "gdi32" (ByVal hDC As Long, ByVal nIndex As Long) As Long
 'Private Declare Function CreateDC Lib "gdi32" Alias "CreateDCA" (ByVal lpDriverName As String, ByVal lpDeviceName As String, ByVal lpOutput As String, ByVal lpInitData As Long) As Long
 Private Declare Function UnionRect Lib "user32" (lprcDst As RECT, lprcSrc1 As RECT, lprcSrc2 As RECT) As Long
 Private Declare Function OffsetRect Lib "user32" (lpRect As RECT, ByVal x As Long, ByVal y As Long) As Long
-Private Declare Function MoveWindow Lib "user32" (ByVal hWnd As Long, ByVal x As Long, ByVal y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal bRepaint As Long) As Long
-Private Declare Function GetWindowRect Lib "user32.dll" (ByVal hWnd As Long, lpRect As RECT) As Long
+Private Declare Function MoveWindow Lib "user32" (ByVal hwnd As Long, ByVal x As Long, ByVal y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal bRepaint As Long) As Long
+Private Declare Function GetWindowRect Lib "user32.dll" (ByVal hwnd As Long, lpRect As RECT) As Long
 Private Declare Function MonitorFromRect Lib "user32" (rc As RECT, ByVal dwFlags As dwFlags) As Long
 Private Declare Function GetMonitorInfo Lib "user32" Alias "GetMonitorInfoA" (ByVal hMonitor As Long, MonInfo As tagMONITORINFO) As Long
 
@@ -80,8 +80,8 @@ Public Const HORZRES As Integer = 8
 Public Const VERTRES As Integer = 10
 'Public Const DESKTOPHORZRES As Integer = &H76
 
-Private m_lglScreenTwipsPerPixelX As Long ' .07 DAEB 26/04/2021 common.bas changed to use pixels alone, removed all unnecessary twip conversion
-Private m_lglScreenTwipsPerPixelY As Long ' .07 DAEB 26/04/2021 common.bas changed to use pixels alone, removed all unnecessary twip conversion
+Private m_lScreenTwipsPerPixelX As Long ' .07 DAEB 26/04/2021 common.bas changed to use pixels alone, removed all unnecessary twip conversion
+Private m_lScreenTwipsPerPixelY As Long ' .07 DAEB 26/04/2021 common.bas changed to use pixels alone, removed all unnecessary twip conversion
 
 
 ''---------------------------------------------------------------------------------------
@@ -248,7 +248,7 @@ End Function
 '             if the form finds itself offscreen due to monitor position/resolution changes.
 '---------------------------------------------------------------------------------------
 '
-Public Sub SetFormOnMonitor(ByRef hWnd As Long, ByVal Left As Long, ByVal Top As Long)
+Public Sub SetFormOnMonitor(ByRef hwnd As Long, ByVal Left As Long, ByVal Top As Long)
 
     Dim rc As RECT ' structure that receives the screen coordinate
     Dim hMonitor As Long: hMonitor = 0
@@ -256,7 +256,7 @@ Public Sub SetFormOnMonitor(ByRef hWnd As Long, ByVal Left As Long, ByVal Top As
     
     On Error GoTo setFormOnMonitor_Error
 
-    GetWindowRect hWnd, rc 'obtain the current form's window rectangle co-ords
+    GetWindowRect hwnd, rc 'obtain the current form's window rectangle co-ords
         
     'move the window rectangle to the previously saved position supplied as two params.
     OffsetRect rc, Left - rc.Left, Top - rc.Top
@@ -277,7 +277,7 @@ Public Sub SetFormOnMonitor(ByRef hWnd As Long, ByVal Left As Long, ByVal Top As
     If rc.Bottom > mi.rcWork.Bottom Then OffsetRect rc, 0, mi.rcWork.Bottom - rc.Bottom
     
     'move the window to new calculated position
-    MoveWindow hWnd, rc.Left, rc.Top, rc.Right - rc.Left, rc.Bottom - rc.Top, 0
+    MoveWindow hwnd, rc.Left, rc.Top, rc.Right - rc.Left, rc.Bottom - rc.Top, 0
 
     On Error GoTo 0
     Exit Sub
@@ -312,7 +312,7 @@ Public Function cWidgetFormScreenProperties(ByVal frm As cWidgetForm, ByRef moni
     'If giDebugFlg = 1 Then MsgBox "%" & " func cWidgetFormScreenProperties"
     
     ' reads the size and position of the user supplied form window
-    GetWindowRect frm.hWnd, Frect
+    GetWindowRect frm.hwnd, Frect
     hMonitor = MonitorFromRect(Frect, MONITOR_DEFAULTTOPRIMARY) ' get handle for monitor containing most of Frm
                                                                 ' if disconnected return handle (and properties) for primary monitor
     On Error GoTo GetMonitorInformation_Err
@@ -374,7 +374,7 @@ Public Function formScreenProperties(ByVal frm As Form, ByRef monitorID As Long)
     If giDebugFlg = 1 Then MsgBox "%" & " func formScreenProperties"
     
     ' reads the size and position of the user supplied form window
-    GetWindowRect frm.hWnd, Frect
+    GetWindowRect frm.hwnd, Frect
     hMonitor = MonitorFromRect(Frect, MONITOR_DEFAULTTOPRIMARY) ' get handle for monitor containing most of Frm
                                                                 ' if disconnected return handle (and properties) for primary monitor
     On Error GoTo GetMonitorInformation_Err
@@ -741,7 +741,7 @@ Public Property Get glScreenTwipsPerPixelX() As Long
 
     On Error GoTo glScreenTwipsPerPixelX_Error
 
-    glScreenTwipsPerPixelX = m_lglScreenTwipsPerPixelX
+    glScreenTwipsPerPixelX = m_lScreenTwipsPerPixelX
 
     On Error GoTo 0
     Exit Property
@@ -763,7 +763,7 @@ Public Property Let glScreenTwipsPerPixelX(ByVal lglScreenTwipsPerPixelX As Long
 
     On Error GoTo glScreenTwipsPerPixelX_Error
 
-    m_lglScreenTwipsPerPixelX = lglScreenTwipsPerPixelX
+    m_lScreenTwipsPerPixelX = lglScreenTwipsPerPixelX
 
     On Error GoTo 0
     Exit Property
@@ -785,7 +785,7 @@ Public Property Get glScreenTwipsPerPixelY() As Long
 
     On Error GoTo glScreenTwipsPerPixelY_Error
 
-    glScreenTwipsPerPixelY = m_lglScreenTwipsPerPixelY
+    glScreenTwipsPerPixelY = m_lScreenTwipsPerPixelY
 
     On Error GoTo 0
     Exit Property
@@ -807,7 +807,7 @@ Public Property Let glScreenTwipsPerPixelY(ByVal lglScreenTwipsPerPixelY As Long
 
     On Error GoTo glScreenTwipsPerPixelY_Error
 
-    m_lglScreenTwipsPerPixelY = lglScreenTwipsPerPixelY
+    m_lScreenTwipsPerPixelY = lglScreenTwipsPerPixelY
 
     On Error GoTo 0
     Exit Property
