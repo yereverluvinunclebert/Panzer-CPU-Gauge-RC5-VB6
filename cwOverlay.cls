@@ -46,9 +46,17 @@ Public cyPerc As Single
 
 Private WithEvents W As cWidgetBase
 Attribute W.VB_VarHelpID = -1
-Public WithEvents tmrSampler As cTimer
+
+' RC timers
+
+'Public WithEvents tmrSampler As cTimer
+'Public WithEvents tmrAnimator As cTimer
+
+' create in-code timer vars as class timers enabling the tick event for each instance replacing RC timers
+
+Public WithEvents tmrSampler As clsTimer
 Attribute tmrSampler.VB_VarHelpID = -1
-Public WithEvents tmrAnimator As cTimer
+Public WithEvents tmrAnimator As clsTimer
 Attribute tmrAnimator.VB_VarHelpID = -1
 
 Private oldSDeg As Double
@@ -107,19 +115,28 @@ Private Sub Class_Initialize()
     On Error GoTo Class_Initialize_Error
     
     Call initialisePrivateVars
+    
+    animationDivisions = 12
+    animationInterval = 40
 
     Set W = Cairo.WidgetBase
         W.BackColor = -1  'we don't use any BackColor here, transparent
         W.ImplementsHitTest = True 'when at False, no HitTest-Event would be triggered
                     
-    Set tmrSampler = Nothing
-    Set tmrSampler = New_c.Timer(100, mTicking) ' first interval is 1/10th of a second, don't change it, triggers an immediate run. Correct sampling interval read later
+'    Set tmrSampler = Nothing
+'    Set tmrSampler = New_c.Timer(100, mTicking) ' first interval is 1/10th of a second, don't change it, triggers an immediate run. Correct sampling interval read later
     
-    animationDivisions = 12
-    animationInterval = 40
+'    Set tmrAnimator = Nothing
+'    Set tmrAnimator = New_c.Timer(animationInterval, False)
     
-    Set tmrAnimator = Nothing
-    Set tmrAnimator = New_c.Timer(animationInterval, False)
+    Set tmrAnimator = New clsTimer
+    Set tmrSampler = New clsTimer
+       
+    tmrAnimator.Interval = animationInterval
+    tmrSampler.Interval = 100
+    
+    tmrAnimator.Enabled = False
+    tmrSampler.Enabled = mTicking
     
     'Get the system information
     GetSystemInfo SInfo
@@ -374,7 +391,7 @@ Public Property Let samplingInterval(ByVal newValue As String)
 
     If mSamplingInterval <> newValue Then mSamplingInterval = newValue Else Exit Property
         
-    If tmrSampler.Interval = 100 Then Call tmrSampler_Timer ' allows first early run
+    If tmrSampler.Interval = 100 Then Call tmrSampler_Code ' allows first early run
     
     tmrSampler.Interval = Val(mSamplingInterval) * 1000
     If mPointerAnimate = True Then
@@ -643,17 +660,35 @@ W_Paint_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure W_Paint of Class Module cwOverlay"
 End Sub
  
- 
+ '---------------------------------------------------------------------------------------
+' Procedure : tmrAnimator_Tick
+' Author    : beededea
+' Date      : 17/05/2023
+' Purpose   : timer to make the about form or about image fade out in opacity
 '---------------------------------------------------------------------------------------
-' Procedure : tmrAnimator_Timer
+Private Sub tmrAnimator_Tick()
+   On Error GoTo tmrAnimator_Tick_Error
+    
+   Call tmrAnimator_Code
+
+   On Error GoTo 0
+   Exit Sub
+
+tmrAnimator_Tick_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure tmrAnimator_Tick of Class Module cwAbout"
+End Sub
+
+'---------------------------------------------------------------------------------------
+' Procedure : tmrAnimator_Code
 ' Author    :
 ' Date      : 30/07/2023
 ' Purpose   : animate timer, once every few (40) milliseconds
 '---------------------------------------------------------------------------------------
 '
-Private Sub tmrAnimator_Timer()
+Private Sub tmrAnimator_Code()
     
-    On Error GoTo tmrAnimator_Timer_Error
+    On Error GoTo tmrAnimator_Code_Error
     
     If gblGaugeCPUTimersOFF = True Then Exit Sub
     
@@ -685,23 +720,45 @@ Private Sub tmrAnimator_Timer()
    On Error GoTo 0
    Exit Sub
 
-tmrAnimator_Timer_Error:
+tmrAnimator_Code_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure tmrAnimator_Timer of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure tmrAnimator_Code of Class Module cwOverlay"
 End Sub
 
+
+
+'---------------------------------------------------------------------------------------
+' Procedure : tmrSampler_Tick
+' Author    : beededea
+' Date      : 17/05/2023
+' Purpose   : timer to make the about form or about image fade in opacity
+'---------------------------------------------------------------------------------------
+'
+Private Sub tmrSampler_Tick()
+      
+   On Error GoTo tmrSampler_Tick_Error
+
+   Call tmrSampler_Code
+   
+   On Error GoTo 0
+   Exit Sub
+
+tmrSampler_Tick_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure tmrSampler_Tick of Class Module cwAbout"
+End Sub
     
 '---------------------------------------------------------------------------------------
-' Procedure : tmrSampler_Timer
+' Procedure : tmrSampler_Code
 ' Author    :
 ' Date      : 30/07/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub tmrSampler_Timer()
+Private Sub tmrSampler_Code()
     Dim degDiff As Double: degDiff = 0
     
-    On Error GoTo tmrSampler_Timer_Error
+    On Error GoTo tmrSampler_Code_Error
     
     If gblGaugeCPUTimersOFF = True Then Exit Sub
 
@@ -759,9 +816,9 @@ Private Sub tmrSampler_Timer()
    On Error GoTo 0
    Exit Sub
 
-tmrSampler_Timer_Error:
+tmrSampler_Code_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure tmrSampler_Timer of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure tmrSampler_Code of Class Module cwOverlay"
 End Sub
 
 ' ----------------------------------------------------------------
