@@ -122,17 +122,24 @@ DONE
 ' XML generated
 ' installer generated
 
+' prevent the multi-core form and timers from auto-loading and operating at startup
+' ensure all the CPU timers exit when a flag is set to TRUE, after a click on the gauge
+' New in-code timers to replace the RC5 timers, about, help and licence
+' Convert the RC5 sampling and animation timers to new in-code timers, als…
+' change to the interval property LET, now stops and restarts the timer affected
+' Reduce CPU usage during mouse hover
+o in bubbling event, tooltip creation,  remove the reference to a function to extract the CPU information
+o put the call to that function in the 3 second sampler instead
+o access that data via a global variable/property
+o in bubbling event, tidy the tooltip code
+o renamed all global converted property vars to reflect new naming convention
+' convert latest to TB
+
 ' -oOo-
 
 TODO
 ====
 
-' cpu stop/start via menu
-' cpu stop/start via button
-' test what is running when supposedly stopped
-' test running slowly
-
-' convert latest to TB
 ' TB - test 256 x 256 icon - not working from form
 
 ' update PZ CPU RC6 to same standard
