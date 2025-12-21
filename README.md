@@ -4,16 +4,16 @@ A FOSS CPU Gauge VB6/TwinBasic WoW64 Widget for Windows Vista, 7, 8 and 10/11+. 
 
 This is a copy of the RC6-based program with as many RC elements removed as possible, instead using FOSS alternatives to the main RC functions. The inital stage is a downgrade to RC5 for testing purposes on older 32bit versions of Windows. It should run on XP/ReactOS with no problems at all.
 
-o DPI aware switch replaced with a API to do the same.
-o SimplePSD parser replaced with an XML reader and extracting the image layers to PNG files.
-o RC Timers replaced by Fafalone's in-code timers.
+* DPI aware switch replaced with a API to do the same.
+* SimplePSD parser replaced with an XML reader and extracting the image layers to PNG files.
+* RC Timers replaced by Fafalone's in-code timers.
 
 Yet to do:
 
-o RC collections replaced by scripting.dictionary
-o scripting.dictionary eventually replaced by cristianbuse/VBA-FastDictionary
-o Cairo replacement 
-o Creation of transparent PNG 'widgets' with properties and events using Cairo
+* RC collections replaced by scripting.dictionary
+* scripting.dictionary eventually replaced by cristianbuse/VBA-FastDictionary
+* Cairo replacement 
+* Creation of transparent PNG 'widgets' with properties and events using Cairo
  
  My current VB6/TwinBasic/RC5 PSD program being finished now, fundamentally complete, only awaiting testing on Windows XP, ReactOS and Win7 32bit and some multi monitor checking and the creation of the setup.exe. This Panzer widget is based upon the Yahoo widget of the same visual design with very similar operation.
 
