@@ -301,8 +301,10 @@ Project References:
 	VisualBasic Objects and Procedures  
 	OLE Automation - drag and drop  
 	Microsoft Shell Controls and Automation  
-	Microsoft scripting runtime - for the scripting dictionary usage  
+	Microsoft scripting runtime - for the scripting dictionary usage
 	OLEEXP Modern Shell Interfaces for VB6, v5.1
+    vbWidgets (RC5)
+	vbRichClient5	
 
  ![oleexp](https://github.com/user-attachments/assets/a2c4cc48-b2fe-4467-9505-b76752690036)
 
@@ -337,17 +339,6 @@ Project References:
  the HTM2CHM tool from Yaroslav Kirillov. Both are abandonware but still do
  the job admirably. The HTML files exist alongside the compiled CHM file in the 
  HELP folder.
- 
-  Project References:
-
-	VisualBasic for Applications  
-	VisualBasic Runtime Objects and Procedures  
-	VisualBasic Objects and Procedures  
-	OLE Automation  
-    vbWidgets (RC5)
-	vbRichClient5
- 
- <img width="445" height="359" alt="RC5VB6References" src="https://github.com/user-attachments/assets/e0f05eb1-7a17-4c7d-9e5d-fe4316fd3856" />
 
  LICENCE AGREEMENTS:
  
