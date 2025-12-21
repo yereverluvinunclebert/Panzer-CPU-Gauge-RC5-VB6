@@ -260,9 +260,8 @@ The above is only for development, for ordinary users, during runtime there is n
 
 * oleexp.tlb
  
-OLEEXP.TLB placed in sysWoW64 - required to obtain the explorer paths only
-during development. OLEEXP.TLB placed in sysWoW64 - required to obtain the
-explorer paths.
+OLEEXP.TLB placed in sysWoW64 - required for the in-code timers by Fafalone
+during development. 
 
 oleexp.tlb should typically be located in SysWow64 (or System32 on a 32-bit
 Windows install). You can register it manually using regtlib.exe on Win 7-10
@@ -273,7 +272,7 @@ try to run or compile it will come up with the project references utility. Point
 OLEEXP to the correct location (SysWoW64). You should only have one copy
 installed. Only needed during development as the types are compiled in. Once
 your project is compiled, the TLB is no longer used. It does not need to be
-present on end user machines.
+present on end user machines at runtime.
 
 ![syswow64](https://github.com/user-attachments/assets/90a33027-0c6c-4db1-8d70-f32f40b4d077)
 
