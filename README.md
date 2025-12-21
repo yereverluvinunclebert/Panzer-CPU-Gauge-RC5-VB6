@@ -257,6 +257,52 @@ not registered correctly then the relevant controls will be replaced by picture 
 
 The above is only for development, for ordinary users, during runtime there is no need to do the above. The OCX will reside in the program folder. The program reference to this OCX is contained within the supplied resource file, Panzer CPU Gauge.RES. The reference to this file is already compiled into the binary. As long as the OCX is in the same folder as the binary the program will run without the need to register the OCX manually.
  
+o OLEEXP.TLB placed in sysWoW64 - required to obtain the explorer paths only
+during development. OLEEXP.TLB placed in sysWoW64 - required to obtain the
+explorer paths.
+
+oleexp.tlb should typically be located in SysWow64 (or System32 on a 32-bit
+Windows install). You can register it manually using regtlib.exe on Win 7-10
+systems or the newer utility on Win 11.
+
+However, it should be sufficient to let VB6 register it for you. When you first
+try to run or compile it will come up with the project references utility. Point
+OLEEXP to the correct location (SysWoW64). You should only have one copy
+installed. Only needed during development as the types are compiled in. Once
+your project is compiled, the TLB is no longer used. It does not need to be
+present on end user machines.
+
+![syswow64](https://github.com/user-attachments/assets/90a33027-0c6c-4db1-8d70-f32f40b4d077)
+
+From the command line, copy the tlb to a central location (system32 in a 32bit system or wow64
+folder in a 64bit system) and register it.
+
+	' COPY TO CORRECT LOCATION
+ 
+	COPY OLEEXP.TLB %SystemRoot%\System32\
+	COPY OLEEXP.TLB %SystemRoot%\SYSWOW64\
+
+	' REGISTER THE TLB
+ 
+	REGTLIB %SystemRoot%\System32\OLEEXP.TLB ' 32bit
+	REGTLIBV12.EXE %SystemRoot%\SYSWOW64\OLEEXP.TLB  ' 64 bit
+	"Registration of C:\WINDOWS\SYSWOW64\OLEEXP.TLB successful"
+
+In the VB6 IDE select the menu - project - references, then browse and select the OLEEXP.tlb. You might have to restart the IDE to make 
+use of the TLB references.
+
+Project References:
+
+	VisualBasic for Applications  
+	VisualBasic Runtime Objects and Procedures  
+	VisualBasic Objects and Procedures  
+	OLE Automation - drag and drop  
+	Microsoft Shell Controls and Automation  
+	Microsoft scripting runtime - for the scripting dictionary usage  
+	OLEEXP Modern Shell Interfaces for VB6, v5.1
+
+ ![oleexp](https://github.com/user-attachments/assets/a2c4cc48-b2fe-4467-9505-b76752690036)
+
  
  * OLEGuids.tlb
  
