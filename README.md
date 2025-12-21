@@ -202,6 +202,8 @@ Hope the code is useful to anyone else building system metric utilities using VB
  
  Harry Whitfield for his quality testing, brain stimulation and being an 
  unwitting source of inspiration. 
+
+ Fafalone for his in-code timers.
  
  Dependencies:
  
