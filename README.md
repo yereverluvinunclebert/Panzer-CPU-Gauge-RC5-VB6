@@ -205,9 +205,11 @@ Hope the code is useful to anyone else building system metric utilities using VB
 
  Fafalone for his in-code timers.
  
- Dependencies:
+ Runtime Dependencies:
  
  o A windows-alike o/s such as Windows XP, 7-11 or Apple Mac OSX 11. 
+
+ Development Dependencies:
  
  o Microsoft VB6 IDE installed with its runtime components. The program runs 
  without any additional Microsoft OCX components, just the basic controls that 
@@ -218,23 +220,22 @@ Hope the code is useful to anyone else building system metric utilities using VB
  
  ![vb6-logo-200](https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-VB6/assets/2788342/bf00fa3d-f1d4-417b-bc50-9446f2c3e674)
 
+  * Use of the RC5 Cairo framework from Olaf Schmidt.
  
- * Uses the RC5 Cairo framework from Olaf Schmidt.
- 
- During development the RC5 components need to be registered. These scripts are 
- used to register. Run each by double-clicking on them.
+ During development the RC5 components need to be registered. You will manually need to run this script in order to register the DLLs. Run each by double-clicking on them.
  
 	RegisterRC5inPlace.vbs
 	RegisterRC5WidgetsInPlace.vbs
  
  During runtime on the users system, the RC5 components are dynamically 
- referenced using modRC5regfree.bas which is compiled into the binary.	
- 
+ referenced using modRC5regfree.bas which is compiled into the binary. 
  
  Requires a PzCPU Gauge folder in C:\Users\<user>\AppData\Roaming\ 
- eg: C:\Users\<user>\AppData\Roaming\PzCPU Gauge
- Requires a settings.ini file to exist in C:\Users\<user>\AppData\Roaming\PzCPU Gauge
- The above will be created automatically by the compiled program when run for the 
+ eg: C:\Users\<user>\AppData\Roaming\PzCPUGauge-RC5-Widget-VB6
+ 
+ Requires a settings.ini file to exist in C:\Users\<user>\AppData\Roaming\PzCPUGauge-RC5-Widget-VB6
+ 
+ Both the above will be created automatically by the compiled program when run for the 
  first time.
  
 o Krool's replacement for the Microsoft Windows Common Controls found in
@@ -243,7 +244,7 @@ dedicated OCX file that are shipped with this package.
 
 During development only, this must be copied to C:\windows\syswow64 and should be registered.
 
-- CCRSlider.ocx
+* CCRSlider.ocx
 
 Register this using regsvr32, ie. in a CMD window with administrator privileges.
 	
@@ -256,8 +257,10 @@ at design time and the sliders will function as intended (if this ocx is
 not registered correctly then the relevant controls will be replaced by picture boxes).
 
 The above is only for development, for ordinary users, during runtime there is no need to do the above. The OCX will reside in the program folder. The program reference to this OCX is contained within the supplied resource file, Panzer CPU Gauge.RES. The reference to this file is already compiled into the binary. As long as the OCX is in the same folder as the binary the program will run without the need to register the OCX manually.
+
+* oleexp.tlb
  
-o OLEEXP.TLB placed in sysWoW64 - required to obtain the explorer paths only
+OLEEXP.TLB placed in sysWoW64 - required to obtain the explorer paths only
 during development. OLEEXP.TLB placed in sysWoW64 - required to obtain the
 explorer paths.
 
@@ -279,7 +282,7 @@ folder in a 64bit system) and register it.
 
 	' COPY TO CORRECT LOCATION
  
-	COPY OLEEXP.TLB %SystemRoot%\System32\
+	COPY OLEEXP.TLB %SystemRoot%\System32\  or
 	COPY OLEEXP.TLB %SystemRoot%\SYSWOW64\
 
 	' REGISTER THE TLB
