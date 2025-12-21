@@ -306,7 +306,7 @@ Project References:
     vbWidgets (RC5)
 	vbRichClient5	
 
- ![oleexp](https://github.com/user-attachments/assets/a2c4cc48-b2fe-4467-9505-b76752690036)
+![references-cpu-0001](https://github.com/user-attachments/assets/a1f6c845-29c0-4c24-9602-62dcec163931)
 
  
  * OLEGuids.tlb
