@@ -6,7 +6,7 @@ This is a copy of the RC6-based program with as many RC elements removed as poss
 
 * DPI aware switch replaced with a API to do the same.
 * SimplePSD parser replaced with an XML reader and extracting the image layers to PNG files.
-* RC Timers replaced by Fafalone's in-code timers.
+* RC Timers replaced by an in-code implementation of timers.
 
 Yet to do:
 
@@ -204,7 +204,7 @@ Hope the code is useful to anyone else building system metric utilities using VB
  Harry Whitfield for his quality testing, brain stimulation and being an 
  unwitting source of inspiration. 
 
- Fafalone for his in-code timers.
+ Fafalone for his Core Audio Implementation.
  
  Runtime Dependencies:
  
@@ -261,7 +261,7 @@ The above is only for development, for ordinary users, during runtime there is n
 
 * oleexp.tlb
  
-OLEEXP.TLB placed in sysWoW64 - required for the in-code timers by Fafalone
+OLEEXP.TLB placed in sysWoW64 - required for the Core Audio by Fafalone
 during development. 
 
 oleexp.tlb should typically be located in SysWow64 (or System32 on a 32-bit
