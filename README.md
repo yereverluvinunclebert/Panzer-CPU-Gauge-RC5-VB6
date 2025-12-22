@@ -12,8 +12,11 @@ Yet to do:
 
 * RC collections replaced by scripting.dictionary importing PNGs using GDI+ (64bit!).
 * scripting.dictionary eventually replaced by cristianbuse/VBA-FastDictionary.
+* import of PNG images into collections using Cairo load PNG
+
+* TB's collections and PNG handling is the best solution for this requirement.
+
 * Cairo replacement using vbCairo.dll COM wrapper.
-* import of PNG images into collections using Cairo.
 * Creation of transparent PNG 'widgets' with properties and events using Cairo.
  
  My current VB6/TwinBasic/RC5 PSD program being finished now, fundamentally complete, only awaiting testing on Windows XP, ReactOS and Win7 32bit and some multi monitor checking and the creation of the setup.exe. This Panzer widget is based upon the Yahoo widget of the same visual design with very similar operation.
