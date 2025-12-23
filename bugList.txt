@@ -1,4 +1,34 @@
-DONE
+
+
+TODO
+====
+
+' TB - test 256 x 256 icon - not working from form
+
+' TB - convert all RC collections to TB collections, TB can load PNGs to a TB standard collection, comaprison
+
+' TB - convert all dictionary.scripting collections used in timers to a TB standard collection as it is faster than a dictionary.scripting collection
+
+' update PZ CPU RC6 to same standard, timers, collections &c
+
+' test the icon sizes on 32bit Win7, XP and ReactOS, find out if 48x48 causes a crash
+' 32x32 (24 bit)
+' 16x16 (24 bit)
+' 48x48 (32 bit)
+' 32x32 (32 bit)
+' 16x16 (32 bit)
+
+' test on 32bit win 7
+' test on XP
+' test on ReactOS
+
+' if any newer, Vista + API code fails on VB6 then we can start by adding some API checks and removing functionality
+' https://www.vbforums.com/showthread.php?896944-VB6-QUESTION-Check-if-API-exists
+
+' windevlib - observe, test and determine whether to use within TB version, implications WIP
+
+
+Tasks DONE
 
 ' conversion graphics PSD
 ' project VBP renamed all contents
@@ -134,32 +164,3 @@ o access that data via a global variable/property
 o in bubbling event, tidy the tooltip code
 o renamed all global converted property vars to reflect new naming convention
 ' convert latest to TB
-
-' -oOo-
-
-TODO
-====
-
-' TB - test 256 x 256 icon - not working from form
-
-' update PZ CPU RC6 to same standard
-
-' test the icon sizes on 32bit Win7, XP and ReactOS, find out if 48x48 causes a crash
-' 32x32 (24 bit)
-' 16x16 (24 bit)
-' 48x48 (32 bit)
-' 32x32 (32 bit)
-' 16x16 (32 bit)
-
-' test on 32bit win 7
-' test on XP
-' test on ReactOS
-
-' if any newer, Vista + API code fails on VB6 then we can start by adding some API checks and removing functionality
-' https://www.vbforums.com/showthread.php?896944-VB6-QUESTION-Check-if-API-exists
-
-' windevlib - observe, test and determine whether to use within TB version, implications WIP
-
-
-
-

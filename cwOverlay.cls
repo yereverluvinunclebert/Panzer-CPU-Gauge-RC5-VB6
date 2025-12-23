@@ -757,6 +757,7 @@ End Sub
 '
 Private Sub tmrSampler_Code()
     Dim degDiff As Double: degDiff = 0
+    Dim samplingInterval As Double: samplingInterval = 0
     
     On Error GoTo tmrSampler_Code_Error
     
@@ -808,8 +809,10 @@ Private Sub tmrSampler_Code()
         SDeg = (cpuPercent * 3) + 30
     End If
     
+    samplingInterval = tmrSampler.Interval
+    
     'restore the sampling rate if it has been temporarily changed
-    tmrSampler.Interval = Val(mSamplingInterval) * 1000
+    If samplingInterval <> Val(mSamplingInterval) * 1000 Then tmrSampler.Interval = Val(mSamplingInterval) * 1000
     
     sCPUDetailStore = thisCPUDetail
     

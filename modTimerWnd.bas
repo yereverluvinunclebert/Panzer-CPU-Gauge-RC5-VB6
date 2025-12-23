@@ -77,6 +77,9 @@ Private m_hWnd As Long
 ' Author    : beededea & chatGPT (with corrections/documentation by me)
 ' Date      : 17/12/2025
 ' Purpose   : Create a hidden timer window that captures the WM_TIMER messages
+'             that are initiated using the setTimer API calls in startTimer
+'             WindowProc callback calls dispatch according to current timer interval
+'             which in turn raises a _tick event for the specified timer
 '---------------------------------------------------------------------------------------
 '
 Public Function CreateTimerWindow() As Long
@@ -151,7 +154,7 @@ Private Function WindowProc( _
 
     ' handle each timer message
     If uMsg = WM_TIMER Then
-        ' cause the dispatch function in the timeManager class to kick off
+        ' cause the dispatch function in the timeManager class to kick off for each setTimer API call
         TimerManager.Dispatch wParam
         Exit Function
     End If

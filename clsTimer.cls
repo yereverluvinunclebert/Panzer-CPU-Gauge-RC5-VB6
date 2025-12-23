@@ -253,6 +253,8 @@ End Sub
 Public Sub RaiseTick()
     On Error GoTo RaiseTick_Error
 
+    Debug.Print Me.Interval
+
     If mRunning Then
         RaiseEvent Tick
     End If
