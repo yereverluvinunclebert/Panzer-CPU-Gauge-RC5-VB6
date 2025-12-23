@@ -6,14 +6,17 @@ This is a copy of the RC6-based program with as many RC elements removed as poss
 
 * DPI aware switch replaced with a API to do the same.
 * SimplePSD parser replaced with an XML reader and extracting the image layers to PNG files.
-* RC Timers replaced by Fafalone's in-code timers.
+* RC Timers replaced by an in-code implementation of timers.
 
 Yet to do:
 
 * RC collections replaced by scripting.dictionary importing PNGs using GDI+ (64bit!).
 * scripting.dictionary eventually replaced by cristianbuse/VBA-FastDictionary.
+* import of PNG images into collections using Cairo load PNG
+
+* TB's collections and PNG handling is the best solution for this requirement.
+
 * Cairo replacement using vbCairo.dll COM wrapper.
-* import of PNG images into collections using Cairo.
 * Creation of transparent PNG 'widgets' with properties and events using Cairo.
  
  My current VB6/TwinBasic/RC5 PSD program being finished now, fundamentally complete, only awaiting testing on Windows XP, ReactOS and Win7 32bit and some multi monitor checking and the creation of the setup.exe. This Panzer widget is based upon the Yahoo widget of the same visual design with very similar operation.
@@ -204,7 +207,7 @@ Hope the code is useful to anyone else building system metric utilities using VB
  Harry Whitfield for his quality testing, brain stimulation and being an 
  unwitting source of inspiration. 
 
- Fafalone for his in-code timers.
+ Fafalone for his Core Audio Implementation.
  
  Runtime Dependencies:
  
@@ -261,7 +264,7 @@ The above is only for development, for ordinary users, during runtime there is n
 
 * oleexp.tlb
  
-OLEEXP.TLB placed in sysWoW64 - required for the in-code timers by Fafalone
+OLEEXP.TLB placed in sysWoW64 - required for the Core Audio by Fafalone
 during development. 
 
 oleexp.tlb should typically be located in SysWow64 (or System32 on a 32-bit
