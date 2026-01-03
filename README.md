@@ -8,7 +8,7 @@ This is a copy of the RC6-based program with as many RC elements removed as poss
 * SimplePSD parser replaced with an XML reader and extracting the image layers to PNG files.
 * RC Timers replaced by an in-code implementation of timers.
 
-Yet to do:
+**Yet to do:**
 
 * RC collections replaced by scripting.dictionary importing PNGs using GDI+ (64bit!).
 * scripting.dictionary eventually replaced by cristianbuse/VBA-FastDictionary.
@@ -147,12 +147,12 @@ Hope the code is useful to anyone else building system metric utilities using VB
 
  ![security](https://github.com/yereverluvinunclebert/Panzer-CPU-Gauge-VB6/assets/2788342/41c785ea-43f9-4850-94f6-3cc5ab69d890)
 
- BUILD: The program runs without any Microsoft plugins.
+ **BUILD:** The program runs without any Microsoft plugins.
  
  Built using: VB6/TwinBasic, MZ-TOOLS 3.0, VBAdvance, CodeHelp Core IDE Extender
  Framework 2.2 & Rubberduck 2.4.1, RichClient 5
  
- Links:
+ **Links:**
  
 	https://www.vbrichclient.com/#/en/About/
 	MZ-TOOLS https://www.mztools.com/  
@@ -167,7 +167,7 @@ Hope the code is useful to anyone else building system metric utilities using VB
 	VBAdvance  
  
  
- Tested on :
+ **Tested on :**
  
 	ReactOS 0.4.14 32bit on virtualBox    
 	Windows 7 Professional 32bit on Intel    
@@ -178,7 +178,7 @@ Hope the code is useful to anyone else building system metric utilities using VB
 	Windows 10 Home 64bit on AMD    
 	Windows 11 64bit on Intel  
    
- CREDITS:
+ **CREDITS:**
  
  I have really tried to maintain the credits as the project has progressed. If I 
  have made a mistake and left someone out then do forgive me. I will make amends 
@@ -207,13 +207,17 @@ Hope the code is useful to anyone else building system metric utilities using VB
  Harry Whitfield for his quality testing, brain stimulation and being an 
  unwitting source of inspiration. 
 
- Fafalone for his Core Audio Implementation.
+ In-code timers developed with the help of chatGPT.
+
+ Scripting dictionary replacement courtesy of Cristian Buse. This allows use of a collection that does not require the project reference to the Microsoft scripting runtime. This gives the program
+ independence from the impending Microsoft VB scripting obsolescence.
  
- Runtime Dependencies:
+ 
+ **Runtime Dependencies:**
  
  o A windows-alike o/s such as Windows XP, 7-11 or Apple Mac OSX 11. 
 
- Development Dependencies:
+ **Development Dependencies:**
  
  o Microsoft VB6 IDE installed with its runtime components. The program runs 
  without any additional Microsoft OCX components, just the basic controls that 
@@ -248,7 +252,7 @@ dedicated OCX file that are shipped with this package.
 
 During development only, this must be copied to C:\windows\syswow64 and should be registered.
 
-* CCRSlider.ocx
+**CCRSlider.ocx**
 
 Register this using regsvr32, ie. in a CMD window with administrator privileges.
 	
@@ -262,7 +266,7 @@ not registered correctly then the relevant controls will be replaced by picture 
 
 The above is only for development, for ordinary users, during runtime there is no need to do the above. The OCX will reside in the program folder. The program reference to this OCX is contained within the supplied resource file, Panzer CPU Gauge.RES. The reference to this file is already compiled into the binary. As long as the OCX is in the same folder as the binary the program will run without the need to register the OCX manually.
 
-* oleexp.tlb
+**oleexp.tlb**
  
 OLEEXP.TLB placed in sysWoW64 - required for the Core Audio by Fafalone
 during development. 
@@ -297,7 +301,7 @@ folder in a 64bit system) and register it.
 In the VB6 IDE select the menu - project - references, then browse and select the OLEEXP.tlb. You might have to restart the IDE to make 
 use of the TLB references.
 
-Project References:
+**Project References:**
 
 	VisualBasic for Applications  
 	VisualBasic Runtime Objects and Procedures  
@@ -312,7 +316,7 @@ Project References:
 ![references-cpu-0001](https://github.com/user-attachments/assets/a1f6c845-29c0-4c24-9602-62dcec163931)
 
  
- * OLEGuids.tlb
+ **OLEGuids.tlb**
  
  This is a type library that defines types, object interfaces, and more specific 
  API definitions needed for COM interop / marshalling. It is only used at design 
@@ -343,7 +347,7 @@ Project References:
  the job admirably. The HTML files exist alongside the compiled CHM file in the 
  HELP folder.
 
- LICENCE AGREEMENTS:
+** LICENCE AGREEMENTS:**
  
  Copyright © 2023 Dean Beedell
  
