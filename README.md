@@ -4,6 +4,7 @@ A FOSS CPU Gauge VB6/TwinBasic WoW64 Widget for Windows Vista, 7, 8 and 10/11+. 
 
 This is a copy of the RC6-based program with as many RC elements removed as possible, instead using FOSS alternatives to the main RC functions. The inital stage is a downgrade to RC5 for testing purposes on older 32bit versions of Windows. It should run on XP/ReactOS with no problems at all.
 
+**RC5 Removal :**
 All of these tasks are steps toward RC independence and 64bit capability.
 * DPI aware switch replaced with a API to do the same.
 * SimplePSD parser replaced with an XML reader and extracting the image layers to PNG files.
