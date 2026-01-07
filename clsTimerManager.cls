@@ -33,9 +33,9 @@ End Type
 #Const x64StackIssues = ((Mac = 0) And Win64 And (TWINBASIC = 0))
 
 '#If twinbasic Then
-    'Private mTimers As Collection ' std collection
+    'Private mTimers As Collection ' std TB collection
 '#Else
-    Private mTimers As Dictionary ' scripting.dictionary
+    Private mTimers As Dictionary ' Cristian Buse's alternative to scripting.dictionary
 '#End If
 
 '---------------------------------------------------------------------------------------
