@@ -13,13 +13,10 @@ All of these tasks are steps toward RC independence and 64bit capability.
 
 **Yet to do:**
 
-* scripting.dictionary eventually replaced by cristianbuse/VBA-FastDictionary.
-
+* scripting.dictionary replaced by cristianbuse/VBA-FastDictionary - WIP
 * TB's native collection with PNG handling is possibly the best future solution for this requirement as the image handling will be done by TB.
-
 * Cairo replacement using vbCairo.dll COM wrapper.
 * import of PNG images into collections using Cairo load PNG
-  
 * Creation of transparent PNG 'widgets' with properties and events using Cairo or GDI+
  
  My current VB6/TwinBasic/RC5 PSD program being finished now, fundamentally complete, only awaiting testing on Windows XP, ReactOS and Win7 32bit and some multi monitor checking and the creation of the setup.exe. This Panzer widget is based upon the Yahoo widget of the same visual design with very similar operation.
