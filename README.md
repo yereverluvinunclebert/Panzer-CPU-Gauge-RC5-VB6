@@ -4,16 +4,17 @@ A FOSS CPU Gauge VB6/TwinBasic WoW64 Widget for Windows Vista, 7, 8 and 10/11+. 
 
 This is a copy of the RC6-based program with as many RC elements removed as possible, instead using FOSS alternatives to the main RC functions. The inital stage is a downgrade to RC5 for testing purposes on older 32bit versions of Windows. It should run on XP/ReactOS with no problems at all.
 
+All of these tasks are steps toward RC independence and 64bit capability.
 * DPI aware switch replaced with a API to do the same.
 * SimplePSD parser replaced with an XML reader and extracting the image layers to PNG files.
 * RC Timers replaced by an in-code implementation of timers.
+* RC imageLists replaced by scripting.dictionary importing PNGs using GDI+.
 
 **Yet to do:**
 
-* RC imageLists replaced by scripting.dictionary importing PNGs using GDI+ (64bit!).
 * scripting.dictionary eventually replaced by cristianbuse/VBA-FastDictionary.
 
-* TB's native collection with PNG handling is the best future solution for this requirement.
+* TB's native collection with PNG handling is possibly the best future solution for this requirement as the image handling will be done by TB.
 
 * Cairo replacement using vbCairo.dll COM wrapper.
 * import of PNG images into collections using Cairo load PNG
