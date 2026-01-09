@@ -10,10 +10,10 @@ All of these tasks are steps toward RC independence and 64bit capability.
 * SimplePSD parser replaced with an XML reader and extracting the image layers to PNG files.
 * RC Timers replaced by an in-code implementation of timers.
 * RC imageLists for non-Cairo renders replaced by scripting.dictionary importing JPGs using GDI+.
+* scripting.dictionary replaced by cristianbuse/VBA-FastDictionary - WIP
 
 **Yet to do:**
 
-* scripting.dictionary replaced by cristianbuse/VBA-FastDictionary - WIP
 * TB's native collection with PNG handling is possibly the best future solution for this requirement as the image handling will be done by TB.
 * Cairo replacement using vbCairo.dll COM wrapper.
 * import of PNG images into collections using Cairo load PNG
