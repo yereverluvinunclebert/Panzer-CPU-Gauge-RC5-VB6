@@ -10,7 +10,7 @@ All of these tasks are steps toward RC independence and 64bit capability.
 * SimplePSD parser replaced with an XML reader and extracting the image layers to PNG files.
 * RC Timers replaced by an in-code implementation of timers.
 * RC imageLists for non-Cairo renders replaced by scripting.dictionary importing JPGs using GDI+.
-* scripting.dictionary replaced by cristianbuse/VBA-FastDictionary - WIP
+* scripting.dictionary replaced by cristian buse/VBA-FastDictionary
 
 **Yet to do:**
 
