@@ -2412,7 +2412,7 @@ Private Sub Form_Load()
     pPrefsFormResizedByDrag = False
             
     ' subclass ALL forms created by intercepting WM_Create messages, identifying dialog forms to centre them in the middle of the monitor - specifically the font form.
-    If Not InIDE Then subclassDialogForms
+    If Not InIde Then subclassDialogForms
     
     ' subclass specific WidgetPrefs controls that need additional functionality that VB6 does not provide (scrollwheel/balloon tooltips)
     Call subClassControls
@@ -2421,7 +2421,7 @@ Private Sub Form_Load()
     Call setFormResizingVars
     
     ' reverts TwinBasic form themeing to that of the earlier classic look and feel
-    #If TwinBasic Then
+    #If twinbasic Then
        Call setVisualStyles
     #End If
        
@@ -2467,7 +2467,7 @@ Private Sub Form_Load()
     ' start the timers
     Call startPrefsTimers
     
-    glWidgetPrefsOldHeightTwips = widgetPrefs.Height
+    glWidgetPrefsOldHeightTwips = widgetPrefs.height
     glWidgetPrefsOldWidthTwips = widgetPrefs.Width
     
     ' end the startup by un-setting the start global-ish flag
@@ -2553,7 +2553,7 @@ Private Sub setFormResizingVars()
         lblDragCorner.Visible = True
     End If
     
-    glWidgetPrefsOldHeightTwips = widgetPrefs.Height
+    glWidgetPrefsOldHeightTwips = widgetPrefs.height
     glWidgetPrefsOldWidthTwips = widgetPrefs.Width
 
    On Error GoTo 0
@@ -2605,9 +2605,9 @@ Private Sub setPrefsHeight()
     If gsDpiAwareness = "1" Then
         gbPrefsFormResizedInCode = True
         If CLng(gsPrefsPrimaryHeightTwips) < glPhysicalScreenHeightTwips Then
-            widgetPrefs.Height = CLng(gsPrefsPrimaryHeightTwips) ' on first run this also sets the prefs to one third of the screen height (value set in readPrefsPosition)
+            widgetPrefs.height = CLng(gsPrefsPrimaryHeightTwips) ' on first run this also sets the prefs to one third of the screen height (value set in readPrefsPosition)
         Else
-            widgetPrefs.Height = glPhysicalScreenHeightTwips - 1000
+            widgetPrefs.height = glPhysicalScreenHeightTwips - 1000
         End If
     End If
 
@@ -2646,7 +2646,7 @@ startPrefsTimers_Error:
 End Sub
     
 
-#If TwinBasic Then
+#If twinbasic Then
     '---------------------------------------------------------------------------------------
     ' Procedure : setVisualStyles
     ' Author    : beededea
@@ -2688,7 +2688,7 @@ Private Sub subClassControls()
     
    On Error GoTo subClassControls_Error
 
-    If InIDE And gbReload = False Then
+    If InIde And gbReload = False Then
         MsgBox "NOTE: Running in IDE so Sub classing is disabled" & vbCrLf & "Mousewheel will not scroll icon maps and balloon tooltips will not display on comboboxes" & vbCrLf & vbCrLf & _
             "In addition, the display screen will not show messages as it currently crashes when run within the IDE."
     Else
@@ -2832,7 +2832,7 @@ Public Sub positionPrefsMonitor()
     If formTopTwips <> 0 Then
         widgetPrefs.Top = formTopTwips
     Else
-        widgetPrefs.Top = Screen.Height / 2 - widgetPrefs.Height / 2
+        widgetPrefs.Top = Screen.height / 2 - widgetPrefs.height / 2
     End If
     
     'monitorCount = fGetMonitorCount
@@ -2862,17 +2862,17 @@ Public Sub positionPrefsMonitor()
             gbPrefsFormResizedInCode = True
             gsPrefsPrimaryHeightTwips = fGetINISetting("Software\PzCPUGauge", "prefsPrimaryHeightTwips", gsSettingsFile)
             If Val(gsPrefsPrimaryHeightTwips) <= 0 Then
-                widgetPrefs.Height = gdPrefsStartHeight
+                widgetPrefs.height = gdPrefsStartHeight
             Else
-                widgetPrefs.Height = CLng(gsPrefsPrimaryHeightTwips)
+                widgetPrefs.height = CLng(gsPrefsPrimaryHeightTwips)
             End If
         Else
             gsPrefsSecondaryHeightTwips = fGetINISetting("Software\PzCPUGauge", "prefsSecondaryHeightTwips", gsSettingsFile)
             gbPrefsFormResizedInCode = True
             If Val(gsPrefsSecondaryHeightTwips) <= 0 Then
-                widgetPrefs.Height = gdPrefsStartHeight
+                widgetPrefs.height = gdPrefsStartHeight
             Else
-                widgetPrefs.Height = CLng(gsPrefsSecondaryHeightTwips)
+                widgetPrefs.height = CLng(gsPrefsSecondaryHeightTwips)
             End If
         End If
     End If
@@ -3385,7 +3385,7 @@ Private Sub cmbDebug_Click()
         btnDefaultEditor.Enabled = False
         lblDebug(9).Enabled = False
     Else
-        #If TwinBasic Then
+        #If twinbasic Then
             txtDefaultEditor.Text = gsDefaultTBEditor
         #Else
             txtDefaultEditor.Text = gsDefaultVB6Editor
@@ -3756,7 +3756,7 @@ Private Sub positionPrefsFramesButtons()
             
     fraGeneralButton.BorderStyle = 1
     
-    #If TwinBasic Then
+    #If twinbasic Then
         fraGeneralButton.Refresh
     #End If
 
@@ -3902,7 +3902,7 @@ Private Sub btnSave_Click()
     gsDebug = CStr(cmbDebug.ListIndex)
     gsDblClickCommand = txtDblClickCommand.Text
     gsOpenFile = txtOpenFile.Text
-    #If TwinBasic Then
+    #If twinbasic Then
         gsDefaultTBEditor = txtDefaultEditor.Text
     #Else
         gsDefaultVB6Editor = txtDefaultEditor.Text
@@ -4321,7 +4321,7 @@ Private Sub adjustPrefsControls(Optional ByVal restartState As Boolean)
     cmbDebug.ListIndex = Val(gsDebug)
     txtDblClickCommand.Text = gsDblClickCommand
     txtOpenFile.Text = gsOpenFile
-    #If TwinBasic Then
+    #If twinbasic Then
         txtDefaultEditor.Text = gsDefaultTBEditor
     #Else
         txtDefaultEditor.Text = gsDefaultVB6Editor
@@ -4603,7 +4603,7 @@ Private Sub clearBorderStyle()
     fraSoundsButton.BorderStyle = 0
     fraAboutButton.BorderStyle = 0
     
-    #If TwinBasic Then
+    #If twinbasic Then
         fraGeneralButton.Refresh
         fraConfigButton.Refresh
         fraDevelopmentButton.Refresh
@@ -4641,7 +4641,7 @@ Private Sub Form_Resize()
     ' do not call the resizing function when the form is resized by dragging the border
     ' only call this if the resize is done in code
         
-    If InIDE Or gbPrefsFormResizedInCode = True Then
+    If InIde Or gbPrefsFormResizedInCode = True Then
         Call PrefsFormResizeEvent
         If gbPrefsFormResizedInCode = True Then Exit Sub
     End If
@@ -4684,7 +4684,7 @@ Public Sub PrefsFormResizeEvent()
         
     If pPrefsDynamicSizingFlg = True And pPrefsFormResizedByDrag = True Then
     
-        widgetPrefs.Width = widgetPrefs.Height / pdConstraintRatio ' maintain the aspect ratio, note: this change calls this routine again...
+        widgetPrefs.Width = widgetPrefs.height / pdConstraintRatio ' maintain the aspect ratio, note: this change calls this routine again...
         
         If gsDpiAwareness = "1" Then
             currentFontSize = gsPrefsFontSizeHighDPI
@@ -4706,7 +4706,7 @@ Public Sub PrefsFormResizeEvent()
             If widgetPrefs.Width < 9085 Then widgetPrefs.Width = 9090
             If pLastFormHeight <> 0 Then
                gbPrefsFormResizedInCode = True
-               widgetPrefs.Height = pLastFormHeight
+               widgetPrefs.height = pLastFormHeight
             End If
         End If
     End If
@@ -4856,10 +4856,10 @@ Public Sub FormResizedOrMoved(sForm As String)
             If pPrefsFormResizedByDrag = True Then
             
                 ' test the current form height and width, if the same then it is a Form Moved on the same monitor and not a form_resize.
-                If widgetPrefs.Height = glWidgetPrefsOldHeightTwips And widgetPrefs.Width = glWidgetPrefsOldWidthTwips Then
+                If widgetPrefs.height = glWidgetPrefsOldHeightTwips And widgetPrefs.Width = glWidgetPrefsOldWidthTwips Then
                     Exit Sub
                 Else
-                    glWidgetPrefsOldHeightTwips = widgetPrefs.Height
+                    glWidgetPrefsOldHeightTwips = widgetPrefs.height
                     glWidgetPrefsOldWidthTwips = widgetPrefs.Width
                     
                     Call PrefsFormResizeEvent
@@ -4922,7 +4922,7 @@ Private Sub tweakgcPrefsControlPositions(ByVal thisForm As Form, ByVal m_FormWid
     
     ' final tweak the bottom button positions
     
-    btnHelp.Top = fraGeneral.Top + fraGeneral.Height + (100 * y_scale)
+    btnHelp.Top = fraGeneral.Top + fraGeneral.height + (100 * y_scale)
     btnSave.Top = btnHelp.Top
     btnClose.Top = btnHelp.Top
     
@@ -4959,7 +4959,7 @@ Private Sub Form_Unload(Cancel As Integer)
     If overlayWidget.Ticking = False Then overlayWidget.Ticking = True
     
     ' Release the subclass hook for dialog forms
-    If Not InIDE Then ReleaseHook
+    If Not InIde Then ReleaseHook
     
     IsLoaded = False
     
@@ -5824,7 +5824,7 @@ End Sub
 ' Date      : 14/08/2023
 ' Purpose   : due to a bug/difference with TwinBasic versus VB6
 '---------------------------------------------------------------------------------------
-#If TwinBasic Then
+#If twinbasic Then
     Private Sub imgAboutClicked_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
         Call picButtonMouseUpEvent("about", imgAbout, imgAboutClicked, fraAbout, fraAboutButton)
     End Sub
@@ -5834,7 +5834,7 @@ End Sub
     End Sub
 #End If
 
-#If TwinBasic Then
+#If twinbasic Then
     Private Sub imgDevelopmentClicked_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
         Call picButtonMouseUpEvent("development", imgDevelopment, imgDevelopmentClicked, fraDevelopment, fraDevelopmentButton)
     End Sub
@@ -5844,7 +5844,7 @@ End Sub
     End Sub
 #End If
 
-#If TwinBasic Then
+#If twinbasic Then
     Private Sub imgFontsClicked_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
         Call picButtonMouseUpEvent("fonts", imgFonts, imgFontsClicked, fraFonts, fraFontsButton)
     End Sub
@@ -5854,7 +5854,7 @@ End Sub
     End Sub
 #End If
 
-#If TwinBasic Then
+#If twinbasic Then
     Private Sub imgConfigClicked_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
         Call picButtonMouseUpEvent("config", imgConfig, imgConfigClicked, fraConfig, fraConfigButton) ' was imgConfigMouseUpEvent
     End Sub
@@ -5864,7 +5864,7 @@ End Sub
     End Sub
 #End If
 
-#If TwinBasic Then
+#If twinbasic Then
     Private Sub imgPositionClicked_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
         Call picButtonMouseUpEvent("position", imgPosition, imgPositionClicked, fraPosition, fraPositionButton)
     End Sub
@@ -5874,7 +5874,7 @@ End Sub
     End Sub
 #End If
 
-#If TwinBasic Then
+#If twinbasic Then
     Private Sub imgSoundsClicked_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
         Call picButtonMouseUpEvent("sounds", imgSounds, imgSoundsClicked, fraSounds, fraSoundsButton)
     End Sub
@@ -5884,7 +5884,7 @@ End Sub
     End Sub
 #End If
 
-#If TwinBasic Then
+#If twinbasic Then
     Private Sub imgWindowClicked_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
         Call picButtonMouseUpEvent("window", imgWindow, imgWindowClicked, fraWindow, fraWindowButton)
     End Sub
@@ -5894,7 +5894,7 @@ End Sub
     End Sub
 #End If
 
-#If TwinBasic Then
+#If twinbasic Then
     Private Sub imgGeneralClicked_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
         Call picButtonMouseUpEvent("general", imgGeneral, imgGeneralClicked, fraGeneral, fraGeneralButton) ' was imgGeneralMouseUpEvent
     End Sub
@@ -6448,7 +6448,7 @@ End Sub
 ' Purpose   : capture the icon button clicks avoiding creating a control array
 '---------------------------------------------------------------------------------------
 '
-Private Sub picButtonMouseUpEvent(ByVal thisTabName As String, ByRef thisPicName As Image, ByRef thisPicNameClicked As Image, ByRef thisFraName As Frame, Optional ByRef thisFraButtonName As Frame)
+Private Sub picButtonMouseUpEvent(ByVal thisTabName As String, ByRef thisPicName As image, ByRef thisPicNameClicked As image, ByRef thisFraName As Frame, Optional ByRef thisFraButtonName As Frame)
     
     On Error GoTo picButtonMouseUpEvent_Error
     
@@ -6473,7 +6473,7 @@ Private Sub picButtonMouseUpEvent(ByVal thisTabName As String, ByRef thisPicName
     
     thisFraButtonName.BorderStyle = 1
 
-    #If TwinBasic Then
+    #If twinbasic Then
         thisFraButtonName.Refresh
     #End If
 
@@ -6481,9 +6481,9 @@ Private Sub picButtonMouseUpEvent(ByVal thisTabName As String, ByRef thisPicName
     y_scale = Me.ScaleHeight / gdPrefsStartHeight
     
     If gsDpiAwareness = "1" Then
-        btnHelp.Top = fraGeneral.Top + fraGeneral.Height + (100 * y_scale)
+        btnHelp.Top = fraGeneral.Top + fraGeneral.height + (100 * y_scale)
     Else
-        btnHelp.Top = thisFraName.Top + thisFraName.Height + (200 * y_scale)
+        btnHelp.Top = thisFraName.Top + thisFraName.height + (200 * y_scale)
     End If
     
     btnSave.Top = btnHelp.Top
@@ -6500,15 +6500,15 @@ Private Sub picButtonMouseUpEvent(ByVal thisTabName As String, ByRef thisPicName
     'chkEnableResizing.Left = lblAsterix.Left
     
     BorderWidth = (widgetPrefs.Width - Me.ScaleWidth) / 2
-    captionHeight = widgetPrefs.Height - Me.ScaleHeight - BorderWidth
+    captionHeight = widgetPrefs.height - Me.ScaleHeight - BorderWidth
         
     ' under windows 10+ the internal window calcs are all wrong due to the bigger title bars
     If pPrefsDynamicSizingFlg = False Then
         padding = 200 ' add normal padding below the help button to position the bottom of the form
 
-        pLastFormHeight = btnHelp.Top + btnHelp.Height + captionHeight + BorderWidth + padding
+        pLastFormHeight = btnHelp.Top + btnHelp.height + captionHeight + BorderWidth + padding
         gbPrefsFormResizedInCode = True
-        widgetPrefs.Height = pLastFormHeight
+        widgetPrefs.height = pLastFormHeight
     End If
     
     If gsDpiAwareness = "0" Then
@@ -7065,13 +7065,13 @@ Private Sub setframeHeights()
    On Error GoTo setframeHeights_Error
 
     If pPrefsDynamicSizingFlg = True Then
-        fraGeneral.Height = fraAbout.Height
-        fraFonts.Height = fraAbout.Height
-        fraConfig.Height = fraAbout.Height
-        fraSounds.Height = fraAbout.Height
-        fraPosition.Height = fraAbout.Height
-        fraDevelopment.Height = fraAbout.Height
-        fraWindow.Height = fraAbout.Height
+        fraGeneral.height = fraAbout.height
+        fraFonts.height = fraAbout.height
+        fraConfig.height = fraAbout.height
+        fraSounds.height = fraAbout.height
+        fraPosition.height = fraAbout.height
+        fraDevelopment.height = fraAbout.height
+        fraWindow.height = fraAbout.height
         
         fraGeneral.Width = fraAbout.Width
         fraFonts.Width = fraAbout.Width
@@ -7086,23 +7086,23 @@ Private Sub setframeHeights()
             Call SaveSizes(widgetPrefs, gcPrefsControlPositions(), gdPrefsStartWidth, gdPrefsStartHeight)
         'End If
     Else
-        fraGeneral.Height = 7737
-        fraConfig.Height = 8259
-        fraSounds.Height = 3985
-        fraPosition.Height = 7544
-        fraFonts.Height = 6282
+        fraGeneral.height = 7737
+        fraConfig.height = 8259
+        fraSounds.height = 3985
+        fraPosition.height = 7544
+        fraFonts.height = 6282
         
         ' the lowest window controls are not displayed on a single monitor
         If glMonitorCount > 1 Then
-            fraWindow.Height = 8138
-            fraWindowInner.Height = 7500
+            fraWindow.height = 8138
+            fraWindowInner.height = 7500
         Else
-            fraWindow.Height = 6586
-            fraWindowInner.Height = 6000
+            fraWindow.height = 6586
+            fraWindowInner.height = 6000
         End If
 
-        fraDevelopment.Height = 6297
-        fraAbout.Height = 8700
+        fraDevelopment.height = 6297
+        fraAbout.height = 8700
     End If
     
    On Error GoTo 0
@@ -7127,115 +7127,31 @@ Private Sub setPrefsIconImagesDark()
     
     On Error GoTo setPrefsIconImagesDark_Error
     
-'    #If TWINBASIC Then
-'
-'        Set imgGeneral.Picture = LoadPicture(App.path & "\Resources\images\general-icon-dark-1010.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgConfig.Picture = LoadPicture(App.path & "\Resources\images\config-icon-dark-1010.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgFonts.Picture = LoadPicture(App.path & "\Resources\images\font-icon-dark-1010.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgSounds.Picture = LoadPicture(App.path & "\Resources\images\sounds-icon-dark-1010.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgPosition.Picture = LoadPicture(App.path & "\Resources\images\position-icon-dark-1010.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgDevelopment.Picture = LoadPicture(App.path & "\Resources\images\development-icon-dark-1010.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgWindow.Picture = LoadPicture(App.path & "\Resources\images\windows-icon-dark-1010.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgAbout.Picture = LoadPicture(App.path & "\Resources\images\about-icon-dark-1010.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'    '
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgGeneralClicked.Picture = LoadPicture(App.path & "\Resources\images\general-icon-dark-600-clicked.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgConfigClicked.Picture = LoadPicture(App.path & "\Resources\images\config-icon-dark-600-clicked.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgFontsClicked.Picture = LoadPicture(App.path & "\Resources\images\font-icon-dark-600-clicked.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgSoundsClicked.Picture = LoadPicture(App.path & "\Resources\images\sounds-icon-dark-600-clicked.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgPositionClicked.Picture = LoadPicture(App.path & "\Resources\images\position-icon-dark-600-clicked.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgDevelopmentClicked.Picture = LoadPicture(App.path & "\Resources\images\development-icon-dark-600-clicked.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgWindowClicked.Picture = LoadPicture(App.path & "\Resources\images\windows-icon-dark-600-clicked.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgAboutClicked.Picture = LoadPicture(App.path & "\Resources\images\about-icon-dark-600-clicked.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'
-'    #Else
+        ' setting the Prefs tab Jpeg icon images to the GDIP imageList dictionary, previously used Cairo.ImageList("about-icon-dark-clicked").Picture
+
+'        thisImageList.ImageHeight = 0
+'        thisImageList.ImageWidth = 0
+
+        ' normal images
+        Set imgGeneral.Picture = thisImageList.Picture("general-icon-dark")
+        Set imgConfig.Picture = thisImageList.Picture("config-icon-dark")
+        Set imgFonts.Picture = thisImageList.Picture("font-icon-dark")
+        Set imgSounds.Picture = thisImageList.Picture("sounds-icon-dark")
+        Set imgPosition.Picture = thisImageList.Picture("position-icon-dark")
+        Set imgDevelopment.Picture = thisImageList.Picture("development-icon-dark")
+        Set imgWindow.Picture = thisImageList.Picture("windows-icon-dark")
+        Set imgAbout.Picture = thisImageList.Picture("about-icon-dark")
         
-        Set imgGeneral.Picture = Cairo.ImageList("general-icon-dark").Picture
-        ' fGauge.RotateBusyTimer = True
-    
-        Set imgConfig.Picture = Cairo.ImageList("config-icon-dark").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-'        Set imgConfig.Picture = LoadPicture(App.path & "\Resources\images\config-icon-dark-1010.jpg")
-'        ' fGauge.RotateBusyTimer = True
-        
-        Set imgFonts.Picture = Cairo.ImageList("font-icon-dark").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgSounds.Picture = Cairo.ImageList("sounds-icon-dark").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgPosition.Picture = Cairo.ImageList("position-icon-dark").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgDevelopment.Picture = Cairo.ImageList("development-icon-dark").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgWindow.Picture = Cairo.ImageList("windows-icon-dark").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgAbout.Picture = Cairo.ImageList("about-icon-dark").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-    '
-        Set imgGeneralClicked.Picture = Cairo.ImageList("general-icon-dark-clicked").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgConfigClicked.Picture = Cairo.ImageList("config-icon-dark-clicked").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgFontsClicked.Picture = Cairo.ImageList("font-icon-dark-clicked").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgSoundsClicked.Picture = Cairo.ImageList("sounds-icon-dark-clicked").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgPositionClicked.Picture = Cairo.ImageList("position-icon-dark-clicked").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgDevelopmentClicked.Picture = Cairo.ImageList("development-icon-dark-clicked").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgWindowClicked.Picture = Cairo.ImageList("windows-icon-dark-clicked").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgAboutClicked.Picture = Cairo.ImageList("about-icon-dark-clicked").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-    
+        ' clicked images
+        Set imgGeneralClicked.Picture = thisImageList.Picture("general-icon-dark-clicked")
+        Set imgConfigClicked.Picture = thisImageList.Picture("config-icon-dark-clicked")
+        Set imgFontsClicked.Picture = thisImageList.Picture("font-icon-dark-clicked")
+        Set imgSoundsClicked.Picture = thisImageList.Picture("sounds-icon-dark-clicked")
+        Set imgPositionClicked.Picture = thisImageList.Picture("position-icon-dark-clicked")
+        Set imgDevelopmentClicked.Picture = thisImageList.Picture("development-icon-dark-clicked")
+        Set imgWindowClicked.Picture = thisImageList.Picture("windows-icon-dark-clicked")
+        Set imgAboutClicked.Picture = thisImageList.Picture("about-icon-dark-clicked")
+
 '    #End If
 
    On Error GoTo 0
@@ -7259,112 +7175,28 @@ Private Sub setPrefsIconImagesLight()
     
     On Error GoTo setPrefsIconImagesLight_Error
     
-'    #If TWINBASIC Then
-'
-'        Set imgGeneral.Picture = LoadPicture(App.path & "\Resources\images\general-icon-light-1010.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgConfig.Picture = LoadPicture(App.path & "\Resources\images\config-icon-light-1010.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgFonts.Picture = LoadPicture(App.path & "\Resources\images\font-icon-light-1010.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgSounds.Picture = LoadPicture(App.path & "\Resources\images\sounds-icon-light-1010.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgPosition.Picture = LoadPicture(App.path & "\Resources\images\position-icon-light-1010.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgDevelopment.Picture = LoadPicture(App.path & "\Resources\images\development-icon-light-1010.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgWindow.Picture = LoadPicture(App.path & "\Resources\images\windows-icon-light-1010.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgAbout.Picture = LoadPicture(App.path & "\Resources\images\about-icon-light-1010.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgGeneralClicked.Picture = LoadPicture(App.path & "\Resources\images\general-icon-light-600-clicked.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgConfigClicked.Picture = LoadPicture(App.path & "\Resources\images\config-icon-light-600-clicked.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgFontsClicked.Picture = LoadPicture(App.path & "\Resources\images\font-icon-light-600-clicked.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgSoundsClicked.Picture = LoadPicture(App.path & "\Resources\images\sounds-icon-light-600-clicked.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgPositionClicked.Picture = LoadPicture(App.path & "\Resources\images\position-icon-light-600-clicked.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgDevelopmentClicked.Picture = LoadPicture(App.path & "\Resources\images\development-icon-light-600-clicked.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgWindowClicked.Picture = LoadPicture(App.path & "\Resources\images\windows-icon-light-600-clicked.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'        Set imgAboutClicked.Picture = LoadPicture(App.path & "\Resources\images\about-icon-light-600-clicked.jpg")
-'        ' fGauge.RotateBusyTimer = True
-'
-'
-'    #Else
+        ' setting the Prefs tab Jpeg icon images to the GDIP imageList dictionary, previously used Cairo.ImageList("about-icon-dark-clicked").Picture
+
+        ' normal images
+        Set imgGeneral.Picture = thisImageList.Picture("general-icon-light")
+        Set imgConfig.Picture = thisImageList.Picture("config-icon-light")
+        Set imgFonts.Picture = thisImageList.Picture("font-icon-light")
+        Set imgSounds.Picture = thisImageList.Picture("sounds-icon-light")
+        Set imgPosition.Picture = thisImageList.Picture("position-icon-light")
+        Set imgDevelopment.Picture = thisImageList.Picture("development-icon-light")
+        Set imgWindow.Picture = thisImageList.Picture("windows-icon-light")
+        Set imgAbout.Picture = thisImageList.Picture("about-icon-light")
         
-        Set imgGeneral.Picture = Cairo.ImageList("general-icon-light").Picture
-        ' fGauge.RotateBusyTimer = True
+        ' clicked images
+        Set imgGeneralClicked.Picture = thisImageList.Picture("general-icon-light-clicked")
+        Set imgConfigClicked.Picture = thisImageList.Picture("config-icon-light-clicked")
+        Set imgFontsClicked.Picture = thisImageList.Picture("font-icon-light-clicked")
+        Set imgSoundsClicked.Picture = thisImageList.Picture("sounds-icon-light-clicked")
+        Set imgPositionClicked.Picture = thisImageList.Picture("position-icon-light-clicked")
+        Set imgDevelopmentClicked.Picture = thisImageList.Picture("development-icon-light-clicked")
+        Set imgWindowClicked.Picture = thisImageList.Picture("windows-icon-light-clicked")
+        Set imgAboutClicked.Picture = thisImageList.Picture("about-icon-light-clicked")
         
-        Set imgConfig.Picture = Cairo.ImageList("config-icon-light").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        
-'        Set imgConfig.Picture = LoadPicture(App.path & "\Resources\images\config-icon-light-1010.jpg")
-'        ' fGauge.RotateBusyTimer = True
-        
-        Set imgFonts.Picture = Cairo.ImageList("font-icon-light").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgSounds.Picture = Cairo.ImageList("sounds-icon-light").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgPosition.Picture = Cairo.ImageList("position-icon-light").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgDevelopment.Picture = Cairo.ImageList("development-icon-light").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgWindow.Picture = Cairo.ImageList("windows-icon-light").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgAbout.Picture = Cairo.ImageList("about-icon-light").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgGeneralClicked.Picture = Cairo.ImageList("general-icon-light-clicked").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgConfigClicked.Picture = Cairo.ImageList("config-icon-light-clicked").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgFontsClicked.Picture = Cairo.ImageList("font-icon-light-clicked").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgSoundsClicked.Picture = Cairo.ImageList("sounds-icon-light-clicked").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgPositionClicked.Picture = Cairo.ImageList("position-icon-light-clicked").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgDevelopmentClicked.Picture = Cairo.ImageList("development-icon-light-clicked").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgWindowClicked.Picture = Cairo.ImageList("windows-icon-light-clicked").Picture
-        ' fGauge.RotateBusyTimer = True
-        
-        Set imgAboutClicked.Picture = Cairo.ImageList("about-icon-light-clicked").Picture
-        ' fGauge.RotateBusyTimer = True
-            
-'    #End If
         
    On Error GoTo 0
    Exit Sub

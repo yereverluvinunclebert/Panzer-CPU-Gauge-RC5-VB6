@@ -23,7 +23,7 @@ Private Const CF_SCREENFONTS As Long = &H1
 Private Type FormFontInfo
   name As String
   Weight As Integer
-  Height As Integer
+  height As Integer
   UnderLine As Boolean
   Italic As Boolean
   Color As Long
@@ -52,7 +52,7 @@ Private Type FONTSTRUC
   hDC As Long
   lpLogFont As Long
   iPointSize As Long
-  flags As Long
+  Flags As Long
   rgbColors As Long
   lCustData As Long
   lpfnHook As Long
@@ -221,7 +221,7 @@ Private Type OPENFILENAME
     nMaxFileTitle As Long        'The length of lpstrFileTitle + 1
     lpstrInitialDir As String    'The path to the initial path :) If you pass an empty string the initial path is the current path.
     lpstrTitle As String         'The caption of the dialog.
-    flags As FileOpenConstants                'Flags. See the values in MSDN Library (you can look at the flags property of the common dialog control)
+    Flags As FileOpenConstants                'Flags. See the values in MSDN Library (you can look at the flags property of the common dialog control)
     nFileOffset As Integer       'Points to the what character in lpstrFile where the actual filename begins (zero based)
     nFileExtension As Integer    'Same as nFileOffset except that it points to the file extention.
     lpstrDefExt As String        'Can contain the extention Windows should add to a file if the user doesn't provide one (used with the GetSaveFileName API function)
@@ -453,6 +453,17 @@ Private m_sCPUDetailStore As String
 
 Public stdCollectionType As Boolean
 
+#If twinbasic Then
+    ' Wrapper around TwinBasic's collection
+    Public thisImageList As New cTBImageList
+#Else
+    ' new GDI+ image list instance
+    Public thisImageList As New cGdipImageList
+#End If
+
+' counter for each usage of the class
+Public gGdipImageListInstanceCount As Long
+
 '---------------------------------------------------------------------------------------
 ' Procedure : fFExists
 ' Author    : RobDog888 https://www.vbforums.com/member.php?17511-RobDog888
@@ -577,7 +588,7 @@ Public Sub setDPIaware()
     On Error GoTo setDPIaware_Error
     
     If gsDpiAwareness = "1" Then
-        If Not InIDE Then
+        If Not InIde Then
             Cairo.SetDPIAwareness ' this way avoids the VB6 IDE shrinking (sadly, VB6 has a high DPI unaware IDE)
             gbMsgBoxADynamicSizingFlg = True
         End If
@@ -1132,7 +1143,7 @@ Public Sub displayFontSelector(ByRef currFont As String, ByRef currSize As Integ
 
     With thisFont
       .Color = currColour
-      .Height = currSize
+      .height = currSize
       .Weight = currWeight
       '400     Font is normal.
       '700     Font is bold.
@@ -1150,7 +1161,7 @@ Public Sub displayFontSelector(ByRef currFont As String, ByRef currSize As Integ
     
     With thisFont
         currFont = .name
-        currSize = .Height
+        currSize = .height
         currWeight = .Weight
         currItalics = .Italic
         currUnderline = .UnderLine
@@ -1232,7 +1243,7 @@ Public Function fDialogFont(ByRef f As FormFontInfo) As Boolean
     logFnt.lfWeight = f.Weight
     logFnt.lfItalic = f.Italic * -1
     logFnt.lfUnderline = f.UnderLine * -1
-    logFnt.lfHeight = -fMulDiv(CLng(f.Height), GetDeviceCaps(GetDC(hWndAccessApp), LOGPIXELSY), 72)
+    logFnt.lfHeight = -fMulDiv(CLng(f.height), GetDeviceCaps(GetDC(hWndAccessApp), LOGPIXELSY), 72)
     Call StringToByte(f.name, logFnt.lfFaceName())
     ftStruc.rgbColors = f.Color
     ftStruc.lStructSize = Len(ftStruc)
@@ -1252,14 +1263,14 @@ Public Function fDialogFont(ByRef f As FormFontInfo) As Boolean
     CopyMemory ByVal lLogFontAddress, logFnt, Len(logFnt)
     ftStruc.lpLogFont = lLogFontAddress
     'ftStruc.flags = CF_SCREENFONTS Or CF_EFFECTS Or CF_INITTOLOGFONTSTRUCT
-    ftStruc.flags = CF_SCREENFONTS Or CF_INITTOLOGFONTSTRUCT
+    ftStruc.Flags = CF_SCREENFONTS Or CF_INITTOLOGFONTSTRUCT
     If ChooseFont(ftStruc) = 1 Then
       CopyMemory logFnt, ByVal lLogFontAddress, Len(logFnt)
       f.Weight = logFnt.lfWeight
       f.Italic = CBool(logFnt.lfItalic)
       f.UnderLine = CBool(logFnt.lfUnderline)
       f.name = fByteToString(logFnt.lfFaceName())
-      f.Height = CLng(ftStruc.iPointSize / 10)
+      f.height = CLng(ftStruc.iPointSize / 10)
       f.Color = ftStruc.rgbColors
       fDialogFont = True
     Else
@@ -1403,7 +1414,7 @@ Public Sub aboutClickEvent()
     
     ' The RC forms are measured in pixels so the positioning needs to pre-convert the twips into pixels
    
-    fMain.aboutForm.Top = (glPhysicalScreenHeightPixels / 2) - (fMain.aboutForm.Height / 2)
+    fMain.aboutForm.Top = (glPhysicalScreenHeightPixels / 2) - (fMain.aboutForm.height / 2)
     fMain.aboutForm.Left = (glPhysicalScreenWidthPixels / 2) - (fMain.aboutForm.Width / 2)
      
     fMain.aboutForm.Load
@@ -1446,7 +1457,7 @@ Public Sub helpSplash()
         playSound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
 
-    fMain.helpForm.Top = (glPhysicalScreenHeightPixels / 2) - (fMain.helpForm.Height / 2)
+    fMain.helpForm.Top = (glPhysicalScreenHeightPixels / 2) - (fMain.helpForm.height / 2)
     fMain.helpForm.Left = (glPhysicalScreenWidthPixels / 2) - (fMain.helpForm.Width / 2)
      
     'helpWidget.MyOpacity = 0
@@ -1492,7 +1503,7 @@ Public Sub licenceSplash()
     End If
     
     
-    fMain.licenceForm.Top = (glPhysicalScreenHeightPixels / 2) - (fMain.licenceForm.Height / 2)
+    fMain.licenceForm.Top = (glPhysicalScreenHeightPixels / 2) - (fMain.licenceForm.height / 2)
     fMain.licenceForm.Left = (glPhysicalScreenWidthPixels / 2) - (fMain.licenceForm.Width / 2)
      
     'licenceWidget.opacity = 0
@@ -1977,9 +1988,9 @@ Public Sub unloadAllForms(ByVal endItAll As Boolean)
 
     'unload the RichClient5 widgets on the RichClient5 forms first
     
-    aboutWidget.Widgets.removeAll
-    helpWidget.Widgets.removeAll
-    fGauge.gaugeForm.Widgets.removeAll
+    aboutWidget.Widgets.RemoveAll
+    helpWidget.Widgets.RemoveAll
+    fGauge.gaugeForm.Widgets.RemoveAll
     
     ' unload the native VB6 forms
     
@@ -2197,7 +2208,7 @@ Public Sub readPrefsPosition()
         If gsPrefsHighDpiYPosTwips <> "" Then
             widgetPrefs.Top = Val(gsPrefsHighDpiYPosTwips)
         Else
-            widgetPrefs.Top = Screen.Height / 2 - widgetPrefs.Height / 2
+            widgetPrefs.Top = Screen.height / 2 - widgetPrefs.height / 2
         End If
         
         gsPrefsHighDpiYPosTwips = CStr(widgetPrefs.Top)
@@ -2218,7 +2229,7 @@ Public Sub readPrefsPosition()
         If gsPrefsLowDpiYPosTwips <> "" Then
             widgetPrefs.Top = Val(gsPrefsLowDpiYPosTwips)
         Else
-            widgetPrefs.Top = Screen.Height / 2 - widgetPrefs.Height / 2
+            widgetPrefs.Top = Screen.height / 2 - widgetPrefs.height / 2
         End If
         
         gsPrefsLowDpiYPosTwips = CStr(widgetPrefs.Top)
@@ -2229,8 +2240,8 @@ Public Sub readPrefsPosition()
         
    ' on very first install this will be zero, then size of the prefs as a proportion of the screen size
     If gsPrefsPrimaryHeightTwips = "" Then
-        If Screen.Height > gdPrefsStartHeight * 2 Then
-            gsPrefsPrimaryHeightTwips = CStr(Screen.Height / 2)
+        If Screen.height > gdPrefsStartHeight * 2 Then
+            gsPrefsPrimaryHeightTwips = CStr(Screen.height / 2)
         Else
             gsPrefsPrimaryHeightTwips = CStr(gdPrefsStartHeight)
         End If
@@ -2277,10 +2288,10 @@ Public Sub writePrefsPositionAndSize()
         End If
 
         If gPrefsMonitorStruct.IsPrimary = True Then
-            gsPrefsPrimaryHeightTwips = CStr(widgetPrefs.Height)
+            gsPrefsPrimaryHeightTwips = CStr(widgetPrefs.height)
             sPutINISetting "Software\PzCPUGauge", "prefsPrimaryHeightTwips", gsPrefsPrimaryHeightTwips, gsSettingsFile
         Else
-            gsPrefsSecondaryHeightTwips = CStr(widgetPrefs.Height)
+            gsPrefsSecondaryHeightTwips = CStr(widgetPrefs.height)
             sPutINISetting "Software\PzCPUGauge", "prefsSecondaryHeightTwips", gsPrefsSecondaryHeightTwips, gsSettingsFile
         End If
     End If
@@ -2495,7 +2506,7 @@ End Sub
 ' Purpose   : checks whether the code is running in the VB6 IDE or not
 '---------------------------------------------------------------------------------------
 '
-Public Function InIDE() As Boolean
+Public Function InIde() As Boolean
 
    On Error GoTo InIDE_Error
 
@@ -2503,7 +2514,7 @@ Public Function InIDE() As Boolean
     ' This will only be done if in the IDE
     Debug.Assert InDebugMode
     If pbDebugMode Then
-        InIDE = True
+        InIde = True
     End If
 
    On Error GoTo 0
@@ -2635,14 +2646,14 @@ End Sub
 Public Function ArrayString(ParamArray tokens()) As String() ' always byval
     On Error GoTo ArrayString_Error
     
-    Dim Arr() As String
+    Dim arr() As String
 
-    ReDim Arr(UBound(tokens)) As String
-    Dim I As Long
-    For I = 0 To UBound(tokens)
-        Arr(I) = tokens(I)
+    ReDim arr(UBound(tokens)) As String
+    Dim i As Long
+    For i = 0 To UBound(tokens)
+        arr(i) = tokens(i)
     Next
-    ArrayString = Arr
+    ArrayString = arr
 
     On Error GoTo 0
     Exit Function

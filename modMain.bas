@@ -82,7 +82,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     extractCommand = Command$ ' capture any parameter passed, remove if a soft reload
     If restart = True Then extractCommand = vbNullString
     
-    #If TwinBasic Then
+    #If twinbasic Then
         gsCodingEnvironment = "TwinBasic"
     #Else
         gsCodingEnvironment = "VB6"
@@ -122,7 +122,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     Call validateInputs
     
     ' Set the opacity of the gauge, passing just this one global variable to a public property within the class
-    fGauge.opacity = gsOpacity
+    fGauge.Opacity = gsOpacity
     
     ' check first usage via licence acceptance value and then set initial DPI awareness
     Call setAutomaticDPIState(licenceState)
@@ -184,7 +184,7 @@ Public Sub mainRoutine(ByVal restart As Boolean)
     
     ' RC message pump will auto-exit when Cairo Forms > 0 so we run it only when 0, this prevents message interruption
     ' when running twice on reload. Do not move this line.
-    #If TwinBasic Then
+    #If twinbasic Then
         Cairo.WidgetForms.EnterMessageLoop
     #Else
         If restart = False Then Cairo.WidgetForms.EnterMessageLoop
@@ -515,44 +515,51 @@ Private Sub addImagesToImageList()
     Cairo.ImageList.AddImage "help", App.Path & "\Resources\images\panzergauge-help.png"
     Cairo.ImageList.AddImage "frmIcon", App.Path & "\Resources\images\Icon.png"
     
-    ' prefs icons
+    ' NOTE: cannot yet add the above images to the GDIP imageList yet as the Cairo functions extract their images directly from RC's own Cairo-based imageList
     
-    Cairo.ImageList.AddImage "about-icon-dark", App.Path & "\Resources\images\about-icon-dark-1010.jpg"
-    Cairo.ImageList.AddImage "about-icon-light", App.Path & "\Resources\images\about-icon-light-1010.jpg"
-    Cairo.ImageList.AddImage "config-icon-dark", App.Path & "\Resources\images\config-icon-dark-1010.jpg"
-    Cairo.ImageList.AddImage "config-icon-light", App.Path & "\Resources\images\config-icon-light-1010.jpg"
-    Cairo.ImageList.AddImage "development-icon-light", App.Path & "\Resources\images\development-icon-light-1010.jpg"
-    Cairo.ImageList.AddImage "development-icon-dark", App.Path & "\Resources\images\development-icon-dark-1010.jpg"
-    Cairo.ImageList.AddImage "general-icon-dark", App.Path & "\Resources\images\general-icon-dark-1010.jpg"
-    Cairo.ImageList.AddImage "general-icon-light", App.Path & "\Resources\images\general-icon-light-1010.jpg"
-    Cairo.ImageList.AddImage "sounds-icon-light", App.Path & "\Resources\images\sounds-icon-light-1010.jpg"
-    Cairo.ImageList.AddImage "sounds-icon-dark", App.Path & "\Resources\images\sounds-icon-dark-1010.jpg"
-    Cairo.ImageList.AddImage "windows-icon-light", App.Path & "\Resources\images\windows-icon-light-1010.jpg"
-    Cairo.ImageList.AddImage "windows-icon-dark", App.Path & "\Resources\images\windows-icon-dark-1010.jpg"
-    Cairo.ImageList.AddImage "font-icon-dark", App.Path & "\Resources\images\font-icon-dark-1010.jpg"
-    Cairo.ImageList.AddImage "font-icon-light", App.Path & "\Resources\images\font-icon-light-1010.jpg"
-    Cairo.ImageList.AddImage "position-icon-light", App.Path & "\Resources\images\position-icon-light-1010.jpg"
-    Cairo.ImageList.AddImage "position-icon-dark", App.Path & "\Resources\images\position-icon-dark-1010.jpg"
     
-    Cairo.ImageList.AddImage "general-icon-dark-clicked", App.Path & "\Resources\images\general-icon-dark-600-clicked.jpg"
-    Cairo.ImageList.AddImage "config-icon-dark-clicked", App.Path & "\Resources\images\config-icon-dark-600-clicked.jpg"
-    Cairo.ImageList.AddImage "font-icon-dark-clicked", App.Path & "\Resources\images\font-icon-dark-600-clicked.jpg"
-    Cairo.ImageList.AddImage "sounds-icon-dark-clicked", App.Path & "\Resources\images\sounds-icon-dark-600-clicked.jpg"
-    Cairo.ImageList.AddImage "position-icon-dark-clicked", App.Path & "\Resources\images\position-icon-dark-600-clicked.jpg"
-    Cairo.ImageList.AddImage "development-icon-dark-clicked", App.Path & "\Resources\images\development-icon-dark-600-clicked.jpg"
-    Cairo.ImageList.AddImage "windows-icon-dark-clicked", App.Path & "\Resources\images\windows-icon-dark-600-clicked.jpg"
-    Cairo.ImageList.AddImage "about-icon-dark-clicked", App.Path & "\Resources\images\about-icon-dark-600-clicked.jpg"
+    ' addition of the Prefs tab Jpeg icon images to the GDIP imageList dictionary, previously used Cairo.ImageList.AddImage "filename"
+            
+    ' normal images
+    thisImageList.AddImage "about-icon-dark", App.Path & "\Resources\images\about-icon-dark-1010.jpg"
+    thisImageList.AddImage "about-icon-light", App.Path & "\Resources\images\about-icon-light-1010.jpg"
+    thisImageList.AddImage "config-icon-dark", App.Path & "\Resources\images\config-icon-dark-1010.jpg"
+    thisImageList.AddImage "config-icon-light", App.Path & "\Resources\images\config-icon-light-1010.jpg"
+    thisImageList.AddImage "development-icon-light", App.Path & "\Resources\images\development-icon-light-1010.jpg"
+    thisImageList.AddImage "development-icon-dark", App.Path & "\Resources\images\development-icon-dark-1010.jpg"
+    thisImageList.AddImage "general-icon-dark", App.Path & "\Resources\images\general-icon-dark-1010.jpg"
+    thisImageList.AddImage "general-icon-light", App.Path & "\Resources\images\general-icon-light-1010.jpg"
+    thisImageList.AddImage "sounds-icon-light", App.Path & "\Resources\images\sounds-icon-light-1010.jpg"
+    thisImageList.AddImage "sounds-icon-dark", App.Path & "\Resources\images\sounds-icon-dark-1010.jpg"
+    thisImageList.AddImage "windows-icon-light", App.Path & "\Resources\images\windows-icon-light-1010.jpg"
+    thisImageList.AddImage "windows-icon-dark", App.Path & "\Resources\images\windows-icon-dark-1010.jpg"
+    thisImageList.AddImage "font-icon-dark", App.Path & "\Resources\images\font-icon-dark-1010.jpg"
+    thisImageList.AddImage "font-icon-light", App.Path & "\Resources\images\font-icon-light-1010.jpg"
+    thisImageList.AddImage "position-icon-light", App.Path & "\Resources\images\position-icon-light-1010.jpg"
+    thisImageList.AddImage "position-icon-dark", App.Path & "\Resources\images\position-icon-dark-1010.jpg"
     
-    Cairo.ImageList.AddImage "general-icon-light-clicked", App.Path & "\Resources\images\general-icon-light-600-clicked.jpg"
-    Cairo.ImageList.AddImage "config-icon-light-clicked", App.Path & "\Resources\images\config-icon-light-600-clicked.jpg"
-    Cairo.ImageList.AddImage "font-icon-light-clicked", App.Path & "\Resources\images\font-icon-light-600-clicked.jpg"
-    Cairo.ImageList.AddImage "sounds-icon-light-clicked", App.Path & "\Resources\images\sounds-icon-light-600-clicked.jpg"
-    Cairo.ImageList.AddImage "position-icon-light-clicked", App.Path & "\Resources\images\position-icon-light-600-clicked.jpg"
-    Cairo.ImageList.AddImage "development-icon-light-clicked", App.Path & "\Resources\images\development-icon-light-600-clicked.jpg"
-    Cairo.ImageList.AddImage "windows-icon-light-clicked", App.Path & "\Resources\images\windows-icon-light-600-clicked.jpg"
-    Cairo.ImageList.AddImage "about-icon-light-clicked", App.Path & "\Resources\images\about-icon-light-600-clicked.jpg"
     
- 
+    ' clicked images
+    thisImageList.AddImage "general-icon-dark-clicked", App.Path & "\Resources\images\general-icon-dark-600-clicked.jpg"
+    thisImageList.AddImage "config-icon-dark-clicked", App.Path & "\Resources\images\config-icon-dark-600-clicked.jpg"
+    thisImageList.AddImage "font-icon-dark-clicked", App.Path & "\Resources\images\font-icon-dark-600-clicked.jpg"
+    thisImageList.AddImage "sounds-icon-dark-clicked", App.Path & "\Resources\images\sounds-icon-dark-600-clicked.jpg"
+    thisImageList.AddImage "position-icon-dark-clicked", App.Path & "\Resources\images\position-icon-dark-600-clicked.jpg"
+    thisImageList.AddImage "development-icon-dark-clicked", App.Path & "\Resources\images\development-icon-dark-600-clicked.jpg"
+    thisImageList.AddImage "windows-icon-dark-clicked", App.Path & "\Resources\images\windows-icon-dark-600-clicked.jpg"
+    thisImageList.AddImage "about-icon-dark-clicked", App.Path & "\Resources\images\about-icon-dark-600-clicked.jpg"
+    thisImageList.AddImage "general-icon-light-clicked", App.Path & "\Resources\images\general-icon-light-600-clicked.jpg"
+    thisImageList.AddImage "config-icon-light-clicked", App.Path & "\Resources\images\config-icon-light-600-clicked.jpg"
+    thisImageList.AddImage "font-icon-light-clicked", App.Path & "\Resources\images\font-icon-light-600-clicked.jpg"
+    thisImageList.AddImage "sounds-icon-light-clicked", App.Path & "\Resources\images\sounds-icon-light-600-clicked.jpg"
+    thisImageList.AddImage "position-icon-light-clicked", App.Path & "\Resources\images\position-icon-light-600-clicked.jpg"
+    thisImageList.AddImage "development-icon-light-clicked", App.Path & "\Resources\images\development-icon-light-600-clicked.jpg"
+    thisImageList.AddImage "windows-icon-light-clicked", App.Path & "\Resources\images\windows-icon-light-600-clicked.jpg"
+    thisImageList.AddImage "about-icon-light-clicked", App.Path & "\Resources\images\about-icon-light-600-clicked.jpg"
+    
+    ' load the icon images on the message form to the image list
+    Call loadMessageIconImages
+    
    On Error GoTo 0
    Exit Sub
 
@@ -561,7 +568,36 @@ addImagesToImageList_Error:
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure addImagesToImageList of Module modMain, an image has probably been accidentally deleted from the resources/images folder."
 
 End Sub
+
+
 '---------------------------------------------------------------------------------------
+' Procedure : loadMessageIconImages
+' Author    : beededea
+' Date      : 22/06/2023
+' Purpose   : set the icon images on the message form
+'---------------------------------------------------------------------------------------
+'
+Private Sub loadMessageIconImages()
+    
+    Dim resourcePath As String: resourcePath = vbNullString
+    
+    On Error GoTo loadMessageIconImages_Error
+    
+    resourcePath = App.Path & "\resources\images"
+    
+    thisImageList.AddImage "windowsInformation1920", resourcePath & "\windowsInformation1920.jpg"
+    thisImageList.AddImage "windowsOrangeExclamation1920", resourcePath & "\windowsOrangeExclamation1920.jpg"
+    thisImageList.AddImage "windowsShieldQMark1920", resourcePath & "\windowsShieldQMark1920.jpg"
+    thisImageList.AddImage "windowsCritical1920", resourcePath & "\windowsCritical1920.jpg"
+    
+   On Error GoTo 0
+   Exit Sub
+
+loadMessageIconImages_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure loadMessageIconImages of Form frmMessage"
+
+End Sub '---------------------------------------------------------------------------------------
 ' Procedure : adjustMainControls
 ' Author    : beededea
 ' Date      : 27/04/2023
@@ -610,7 +646,7 @@ Public Sub adjustMainControls(Optional ByVal licenceState As Integer)
     End If
     
     If gsDebug = "1" Then
-        #If TwinBasic Then
+        #If twinbasic Then
             If gsDefaultTBEditor <> vbNullString Then thisEditor = gsDefaultTBEditor
         #Else
             If gsDefaultVB6Editor <> vbNullString Then thisEditor = gsDefaultVB6Editor
@@ -642,7 +678,7 @@ Public Sub adjustMainControls(Optional ByVal licenceState As Integer)
     End If
     
     If gsDebug = "1" Then
-        #If TwinBasic Then
+        #If twinbasic Then
             If gsDefaultTBEditor <> vbNullString Then thisEditor = gsDefaultTBEditor
         #Else
             If gsDefaultVB6Editor <> vbNullString Then thisEditor = gsDefaultVB6Editor

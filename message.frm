@@ -143,7 +143,7 @@ Private Sub Form_Activate()
     gsMessageAHeightTwips = fGetINISetting("Software\PzCPUGauge", "messageAHeightTwips", gsSettingsFile)
     gsMessageAWidthTwips = fGetINISetting("Software\PzCPUGauge", "messageAWidthTwips ", gsSettingsFile)
     
-    frmMessage.Height = Val(gsMessageAHeightTwips)
+    frmMessage.height = Val(gsMessageAHeightTwips)
     frmMessage.Width = Val(gsMessageAWidthTwips)
 
    On Error GoTo 0
@@ -222,12 +222,12 @@ Private Sub Form_Resize()
 '    If gblMsgBoxADynamicSizingFlg = True Then
         Call setMessageIconImagesLight(1920)
         Call resizeControls(Me, gMsgBoxAControlPositions(), gdMsgBoxACurrentWidth, gdMsgBoxACurrentHeight, currentFont)
-        Me.Width = Me.Height / ratio ' maintain the aspect ratio
+        Me.Width = Me.height / ratio ' maintain the aspect ratio
 '    Else
 '        Call setMessageIconImagesLight(600)
 '    End If
     
-    gsMessageAHeightTwips = CStr(frmMessage.Height)
+    gsMessageAHeightTwips = CStr(frmMessage.height)
     gsMessageAWidthTwips = CStr(frmMessage.Width)
     sPutINISetting "Software\PzCPUGauge", "messageAHeightTwips", gsMessageAHeightTwips, gsSettingsFile
     sPutINISetting "Software\PzCPUGauge", "messageAWidthTwips", gsMessageAWidthTwips, gsSettingsFile
@@ -669,10 +669,16 @@ Private Sub setMessageIconImagesLight(ByVal thisIconWidth As Long)
     
     resourcePath = App.Path & "\resources\images"
     
-    If fFExists(resourcePath & "\windowsInformation" & thisIconWidth & ".jpg") Then Set picVBInformation.Picture = LoadPicture(resourcePath & "\windowsInformation" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\windowsOrangeExclamation" & thisIconWidth & ".jpg") Then Set picVBExclamation.Picture = LoadPicture(resourcePath & "\windowsOrangeExclamation" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\windowsShieldQMark" & thisIconWidth & ".jpg") Then Set picVBQuestion.Picture = LoadPicture(resourcePath & "\windowsShieldQMark" & thisIconWidth & ".jpg")
-    If fFExists(resourcePath & "\windowsCritical" & thisIconWidth & ".jpg") Then Set picVBCritical.Picture = LoadPicture(resourcePath & "\windowsCritical" & thisIconWidth & ".jpg")
+'    If fFExists(resourcePath & "\windowsInformation" & thisIconWidth & ".jpg") Then Set picVBInformation.Picture = LoadPicture(resourcePath & "\windowsInformation" & thisIconWidth & ".jpg")
+'    If fFExists(resourcePath & "\windowsOrangeExclamation" & thisIconWidth & ".jpg") Then Set picVBExclamation.Picture = LoadPicture(resourcePath & "\windowsOrangeExclamation" & thisIconWidth & ".jpg")
+'    If fFExists(resourcePath & "\windowsShieldQMark" & thisIconWidth & ".jpg") Then Set picVBQuestion.Picture = LoadPicture(resourcePath & "\windowsShieldQMark" & thisIconWidth & ".jpg")
+'    If fFExists(resourcePath & "\windowsCritical" & thisIconWidth & ".jpg") Then Set picVBCritical.Picture = LoadPicture(resourcePath & "\windowsCritical" & thisIconWidth & ".jpg")
+        
+    ' normal images
+    Set picVBInformation.Picture = thisImageList.Picture("windowsInformation1920")
+    Set picVBExclamation.Picture = thisImageList.Picture("windowsOrangeExclamation1920")
+    Set picVBQuestion.Picture = thisImageList.Picture("windowsShieldQMark1920")
+    Set picVBCritical.Picture = thisImageList.Picture("windowsCritical1920")
     
     picVBInformation.Refresh
     picVBQuestion.Refresh

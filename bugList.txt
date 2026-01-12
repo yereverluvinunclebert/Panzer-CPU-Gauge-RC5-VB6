@@ -5,11 +5,11 @@ TODO
 
 ' TB - test 256 x 256 icon - not working from form
 
-' TB - convert all RC collections to TB collections, TB can load PNGs to a TB standard collection, comaprison
+' TB - convert all dictionary.scripting collections used in timers to a TB standard collection as it is faster than a dictionary.scripting collection  - LATER
+' TB - convert all dictionary.scripting collections used in gdipImageLists to a TB standard collection as it is faster than a dictionary.scripting collection  - LATER
 
-' TB - convert all dictionary.scripting collections used in timers to a TB standard collection as it is faster than a dictionary.scripting collection
-
-' update PZ CPU RC6 to same standard, timers, collections &c
+' update PZ CPU RC6 to same standard, SHIFT + right/left cursor &c 
+' no need to upgrade the timers, collections &c for the RC6 version for the moment as we can wait for Olaf to upgrade RC6 to 64bit
 
 ' test the icon sizes on 32bit Win7, XP and ReactOS, find out if 48x48 causes a crash
 ' 32x32 (24 bit)
@@ -164,3 +164,9 @@ o access that data via a global variable/property
 o in bubbling event, tidy the tooltip code
 o renamed all global converted property vars to reflect new naming convention
 ' convert latest to TB
+
+' add the capability to move the widget manually using SHIFT+up/down/left/right &c to the RC5 and RC6 versions of the widget
+' RC Timers replaced by an in-code implementation of timers.
+
+* RC imageLists for non-Cairo renders replaced by scripting.dictionary importing JPGs using GDI+.
+* scripting.dictionary replaced by cristianbuse/VBA-FastDictionary.
