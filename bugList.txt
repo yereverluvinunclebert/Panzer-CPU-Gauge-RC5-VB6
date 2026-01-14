@@ -3,12 +3,15 @@
 TODO
 ====
 
+' DeepWiki and badge to the readme.md
+
+' extract the cpu XML reader code to a class? - think about it
+
 ' TB - test 256 x 256 icon - not working from form
 
-' TB - convert all dictionary.scripting collections used in timers to a TB standard collection as it is faster than a dictionary.scripting collection  - LATER
-' TB - convert all dictionary.scripting collections used in gdipImageLists to a TB standard collection as it is faster than a dictionary.scripting collection  - LATER
+' TB - convert all dictionary.scripting collections used in timers to a TB standard collection as it is faster than a dictionary.scripting collection  - WIP
 
-' update PZ CPU RC6 to same standard, SHIFT + right/left cursor &c 
+' update PZ CPU RC6 to same standard, SHIFT + right/left cursor &c
 ' no need to upgrade the timers, collections &c for the RC6 version for the moment as we can wait for Olaf to upgrade RC6 to 64bit
 
 ' test the icon sizes on 32bit Win7, XP and ReactOS, find out if 48x48 causes a crash
@@ -29,6 +32,7 @@ TODO
 
 
 Tasks DONE
+==========
 
 ' conversion graphics PSD
 ' project VBP renamed all contents
@@ -170,3 +174,8 @@ o renamed all global converted property vars to reflect new naming convention
 
 * RC imageLists for non-Cairo renders replaced by scripting.dictionary importing JPGs using GDI+.
 * scripting.dictionary replaced by cristianbuse/VBA-FastDictionary.
+
+' Test using tB collections to replace the GDIP class
+' Create a wrapper around a TB collection to replace the GDIP class, for TwinBasic use only.
+
+

@@ -30,13 +30,13 @@ Private Type JustMyUDT
     dict As Dictionary
 End Type
 
-#Const x64StackIssues = ((Mac = 0) And Win64 And (TWINBASIC = 0))
+#Const x64StackIssues = ((Mac = 0) And Win64 And (twinbasic = 0))
 
-'#If twinbasic Then
-    'Private mTimers As Collection ' std TB collection
-'#Else
+#If twinbasic Then
+    Private mTimers As Collection ' std TB collection
+#Else
     Private mTimers As Dictionary ' Cristian Buse's alternative to scripting.dictionary
-'#End If
+#End If
 
 '---------------------------------------------------------------------------------------
 ' Procedure : Class_Initialize
@@ -47,20 +47,15 @@ End Type
 '
 Private Sub Class_Initialize()
     On Error GoTo Class_Initialize_Error
-    
-    ' uses scripting dictionary when false
-    ' uses VB/TB standard collection when true
-    
-    stdCollectionType = False
-
-    If stdCollectionType = True Then
+        
+    #If twinbasic Then
         ' create a standard collection containing the timers by timerID (string)
-        'Set mTimers = New Collection
-    Else
+        Set mTimers = New Collection
+    #Else
         ' create a dictionary containing the timers by timerID (long)
         'Set mTimers = CreateObject("Scripting.Dictionary")
         Set mTimers = New Dictionary
-    End If
+    #End If
     
     ' Create a hidden timer window returning the window handle
     mHWnd = CreateTimerWindow
@@ -87,13 +82,13 @@ Public Sub StartTimer(ByVal t As clsTimer, ByVal IntervalMS As Long)
     mNextID = mNextID + 1
     t.TimerID = mNextID
 
-    If stdCollectionType = True Then
-        ' add timer to the a std collection
+    #If twinbasic Then
+        ' add timer to the a std TB collection
         mTimers.Add t, CStr(t.TimerID) ' TIMER object, string key
-    Else
+    #Else
        ' add timer to the Dictionary collection
-       mTimers.Add t.TimerID, t  ' long key, TIMER object
-    End If
+       mTimers.Add t.TimerID, t    ' long key, TIMER object
+    #End If
     
     ' use the setTimer API to start a timer run
     SetTimer mHWnd, t.TimerID, IntervalMS, 0
@@ -117,20 +112,11 @@ Public Sub StopTimer(ByVal t As clsTimer)
     On Error GoTo StopTimer_Error
 
     ' test the collection for timer existence
-    If stdCollectionType = True Then
-        If KeyExists(mTimers, t.TimerID) Then ' KeyExists converts the key to a string internally
-            ' kill it by ID
-            KillTimer mHWnd, t.TimerID
-            ' remove the timer from the collection
-            mTimers.Remove CStr(t.TimerID) ' key string
-        End If
-    Else
-        If mTimers.Exists(t.TimerID) Then
-            ' kill it by ID
-            KillTimer mHWnd, t.TimerID
-            ' remove the timer from the collection
-            mTimers.Remove t.TimerID  ' key long
-        End If
+    If mTimers.Exists(t.TimerID) Then
+        ' kill it by ID
+        KillTimer mHWnd, t.TimerID
+        ' remove the timer from the collection
+        mTimers.Remove t.TimerID
     End If
 
     On Error GoTo 0
@@ -155,18 +141,22 @@ Friend Sub Dispatch(ByVal TimerID As Long)
 
     ' tests the timer in the timer collection/dictionary to see if it exists, std collection or scripting dictionary
     
-    If stdCollectionType = True Then
-        If KeyExists(mTimers, TimerID) Then
-            ' call the raiseTick subroutine in the clsTimer class that in turn raises a tick event in the calling form frmTimer
-            mTimers(CStr(TimerID)).RaiseTick
-             
-        End If
-    Else
-        If mTimers.Exists(TimerID) Then
-            ' call the raiseTick subroutine in the clsTimer class that in turn raises a tick event in the calling form frmTimer
-            mTimers(TimerID).RaiseTick
-            
-        End If
+'    #If twinbasic Then
+'        If mTimers.Exists(TimerID) Then
+'            ' call the raiseTick subroutine in the clsTimer class that in turn raises a tick event in the calling form frmTimer
+'            mTimers(TimerID).RaiseTick
+'        End If
+'    #Else
+'        If KeyExists(mTimers, TimerID) Then
+'            ' call the raiseTick subroutine in the clsTimer class that in turn raises a tick event in the calling form frmTimer
+'            mTimers(CStr(TimerID)).RaiseTick
+'        End If
+'    #End If
+
+    ' tests the timer in the timer collection to see if it exists, if so, raise a tick event in the calling form frmTimer
+    If mTimers.Exists(TimerID) Then
+        ' call the raiseTick subroutine in the clsTimer class that in turn raises a tick event in the calling form frmTimer
+        mTimers(TimerID).RaiseTick
     End If
 
     On Error GoTo 0
@@ -177,36 +167,36 @@ Dispatch_Error:
      MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Dispatch of Class Module clsTimerManager"
 End Sub
 
-
-'---------------------------------------------------------------------------------------
-' Procedure : KeyExists
-' Author    : beededea
-' Date      : 22/12/2025
-' Purpose   : std collection generally does not have the .Exists method
-'---------------------------------------------------------------------------------------
+''
+''---------------------------------------------------------------------------------------
+'' Procedure : KeyExists
+'' Author    : beededea
+'' Date      : 22/12/2025
+'' Purpose   : std VB6 collection generally does not have the .Exists method
+''---------------------------------------------------------------------------------------
+''
+'Public Function KeyExists(Col As Collection, key As Long) As Boolean
+'    Dim thiskey As String: thiskey = vbNullString
 '
-Public Function KeyExists(Col As Collection, Key As Long) As Boolean
-    Dim thisKey As String: thisKey = vbNullString
-    
-    On Error GoTo KeyExists_Error
-
-    ' timerID is a long for the scripting dictionary, whereas for the std collection it is a string
-    Key = CStr(Key)
-    
-    ' twinBasic has the Exists method with the std collection but VB6 does not
-    #If TWINBASIC Then
-        If mTimers.Exists(Key) Then KeyExists = True
-    #Else
-        On Error Resume Next
-        Col.Item Key
-        KeyExists = (Err.Number = 0&)
-        Err.Clear
-    #End If
-
-    On Error GoTo 0
-    Exit Function
-
-KeyExists_Error:
-
-     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure KeyExists of Class Module clsTimer"
-End Function
+'    On Error GoTo KeyExists_Error
+'
+'    ' timerID is a long for the scripting dictionary, whereas for the std collection it is a string
+'    key = CStr(key)
+'
+'    ' twinBasic has the Exists method with the std collection but VB6 does not
+'    #If twinbasic Then
+'        If mTimers.Exists(key) Then KeyExists = True
+'    #Else
+'        On Error Resume Next
+'        Col.Item key
+'        KeyExists = (Err.Number = 0&)
+'        Err.Clear
+'    #End If
+'
+'    On Error GoTo 0
+'    Exit Function
+'
+'KeyExists_Error:
+'
+'     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure KeyExists of Class Module clsTimer"
+'End Function

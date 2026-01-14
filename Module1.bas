@@ -451,7 +451,7 @@ Private pbDebugMode As Boolean ' .30 DAEB 03/03/2021 frmMain.frm replaced the in
 Private m_bGaugeCPUTimersOFF As Boolean
 Private m_sCPUDetailStore As String
 
-Public stdCollectionType As Boolean
+'Public stdCollectionType As Boolean
 
 #If twinbasic Then
     ' Wrapper around TwinBasic's collection
