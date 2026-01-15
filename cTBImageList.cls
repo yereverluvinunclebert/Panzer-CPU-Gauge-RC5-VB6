@@ -11,164 +11,417 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+
 '---------------------------------------------------------------------------------------
-' Module    : clsTimerManager
-' Author    : beededea & chatGPT (with corrections/documentation/TB collection changes by me)
-' Date      : 17/12/2025
-' Purpose   : requires a reference to the Microsoft scripting dictionary
-'             This module contains the routines that do the behind-the-scenes stuff with APIs and populating the scripting dictionary
+' Module    : cTBImageList
+' Author    : beededea
+' Date      : 04/01/2026
+' Purpose   : Replacement of the RichClient imageList using the TB Collection to store and pull various type images.
+'             JPG, BMP, PNG tested so far. PNGs will display correctly with transparency in TB
+'             using TwinBasic's native controls that have automatic PNG support built in.
+
+' Note: You CANNOT debug nor run this code using VB6. VB6 has NO knowledge of TwinBasic collections
+'
+' Why is this ImageList useful?
+
+'             * It is a TB collection-backed ImageList with no scripting runtime dependency.
+'             * It can store JPG, BMP, PNG files and others too.
+'             * It can store images with alpha transparency as TB provides this capability
+'             * It can store images of varying size, not just small 16x16 or 32x32 icons as per the old VB6 imageList.
+'             * Avoids RichClient dependency.
+'             * Avoids GDI+ dependency so potentially platform-independent in TB's multiplatform future.
+'             * Avoids runtime obsolescence.
+'             * Uses RichClient-familiar syntax to load and unload the images for easy drop-in replacement.
+'             * It is quicker to pull images from TB's collection than a dictionary
+'             * It is certainly quicker to pull images from a collection than directly from file.
+'
+' Limitations?
+'
+'             * You can't currently use a TB collection with some of RichClient's core functions as much of Olaf's code is
+'               designed specifically to work behind the scenes with his own RC imageList, eg. CC.RenderSurfaceContent
+'
+'             Usage:
+'
+'             Add a public or private variable to a module (BAS) in order to create a new GDI+ image list instance.
+'             Public thisImageList As New cTBImageList
+'             eg.
+'                #If twinbasic Then
+'                    ' Wrapper around TwinBasic's collection
+'                    Public thisImageList As New cTBImageList
+'                #Else
+'                    ' GDI+ image list instance
+'                    Public thisImageList As New cGdipImageList
+'                #End If
+'
+'             thisImageList.AddImage "about-icon-dark", App.Path & "\Resources\images\about-icon-dark-1010.jpg"
+'             Set imgAbout.Picture = thisImageList.Picture("about-icon-dark")
+'             thisImageList.Remove "about-icon-dark"
+'             dictionaryCount = thisImageList.count
+'             If thisImageList.Exists(thiskey) Then ...
+'             thisImageList.ImageWidth = 150 ' not implemented yet
+'             thisImageList.ImageHeight      ' ditto
+'             thisImageList.ImageOpacity = 100 ' ditto
+'             thisImageList.Clear  ' clears the imageList
+'
 '---------------------------------------------------------------------------------------
 
 Option Explicit
 
-' member variables for locally holding property values
+Private mCol As Collection ' a standard VB6/TB-style internal collection to enable external enumeration ie. For Each img In TBImageList
 
-Private mHWnd As Long
-Private mNextID As Long
+' Declarations for the standard TB Collection replacement
 
-Private Type JustMyUDT
-    dict As Dictionary
-End Type
+Private mDict As Collection
 
-#Const x64StackIssues = ((Mac = 0) And Win64 And (twinbasic = 0))
-
-#If twinbasic Then
-    Private mTimers As Collection ' standard TwinBasic collection
-#Else
-    Private mTimers As Dictionary ' scripting.dictionary
-#End If
+' member property variables
+Private mImageWidth As Long
+Private mImageHeight As Long
+Private mImageOpacity As Integer
+Private mImageExists As Boolean
 
 '---------------------------------------------------------------------------------------
 ' Procedure : Class_Initialize
-' Author    : beededea & chatGPT (with corrections/documentation/TB collection changes by me)
-' Date      : 17/12/2025
+' Author    : beededea
+' Date      : 04/01/2026
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
 Private Sub Class_Initialize()
+
     On Error GoTo Class_Initialize_Error
-
-    #If twinbasic Then
-        ' create a standard collection containing the timers by timerID (string)
-        Set mTimers = New Collection
-    #Else
-        ' create a dictionary containing the timers by timerID (long)
-        ' if you are using the scripting.dictionary
-        'Set mTimers = CreateObject("Scripting.Dictionary")
-        
-        ' if you are using Cristian Buse's VBA dictionary
-        Set mTimers = New Dictionary
-    #End If
     
-    ' Create a hidden timer window returning the window handle
-    mHWnd = CreateTimerWindow
-
+    Set mDict = New Collection
+    
+    ' Not yet implemented
+    mImageWidth = 0
+    mImageHeight = 0
+    ImageOpacity = 100
+    
     On Error GoTo 0
     Exit Sub
 
 Class_Initialize_Error:
 
-     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Class_Initialize of Class Module clsTimerManager"
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Class_Initialize of Class Module cTBImageList"
 End Sub
 
 '---------------------------------------------------------------------------------------
-' Procedure : StartTimer
-' Author    : beededea & chatGPT (with corrections/documentation/TB collection changes by me)
-' Date      : 17/12/2025
+' Procedure : Class_Terminate
+' Author    : beededea
+' Date      : 04/01/2026
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Sub StartTimer(ByVal t As clsTimer, ByVal IntervalMS As Long)
-    On Error GoTo StartTimer_Error
+Private Sub Class_Terminate()
+    On Error GoTo Class_Terminate_Error
 
-    ' increment the timer ID
-    mNextID = mNextID + 1
-    t.TimerID = mNextID
-
-    #If twinbasic Then
-        ' add timer to the standard TwinBasic collection
-        mTimers.Add t, CStr(t.TimerID) ' TIMER object, string key
-    #Else
-       ' add timer to either type of Dictionary collection
-       mTimers.Add t.TimerID, t    ' long key, TIMER object
-    #End If
+    ' Clear the whole image list
+    Clear
+        
+    Set mDict = Nothing
     
-    ' use the setTimer API to start a timer run
-    SetTimer mHWnd, t.TimerID, IntervalMS, 0
-
     On Error GoTo 0
     Exit Sub
 
-StartTimer_Error:
+Class_Terminate_Error:
 
-     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure StartTimer of Class Module clsTimerManager"
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Class_Terminate of Class Module cTBImageList"
 End Sub
 
 '---------------------------------------------------------------------------------------
-' Procedure : StopTimer
-' Author    : beededea & chatGPT (with corrections/documentation/TB collection changes by me)
-' Date      : 17/12/2025
-' Purpose   : stop the specified timer
+' Procedure : NewEnum
+' Author    : beededea
+' Date      : 14/01/2026
+' Purpose   : A standard VB6/TB-style internal collection is used to enable external enumeration ie. For Each img In gdipImageList
 '---------------------------------------------------------------------------------------
 '
-Public Sub StopTimer(ByVal t As clsTimer)
-    On Error GoTo StopTimer_Error
+Public Property Get NewEnum() As IUnknown
+    On Error GoTo NewEnum_Error
 
-    #If twinbasic Then
-        ' test the standard TwinBasic collection for timer existence
-        If mTimers.Exists(CStr(t.TimerID)) Then
-            ' kill it by ID
-            KillTimer mHWnd, t.TimerID
-            ' remove the timer from the collection
-            mTimers.Remove CStr(t.TimerID)
-        End If
-    #Else
-        ' test either type of Dictionary for timer existence
-        If mTimers.Exists(t.TimerID) Then
-            ' kill it by ID
-            KillTimer mHWnd, t.TimerID
-            ' remove the timer from the collection
-            mTimers.Remove t.TimerID
-        End If
-    #End If
+    Set NewEnum = mCol.[_NewEnum]
 
     On Error GoTo 0
-    Exit Sub
+    Exit Property
 
-StopTimer_Error:
+NewEnum_Error:
 
-     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure StopTimer of Class Module clsTimerManager"
-End Sub
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure NewEnum of Class Module cTBImageList"
+End Property
 
 '---------------------------------------------------------------------------------------
-' Procedure : Dispatch
-' Author    : beededea & chatGPT (with corrections/documentation/TB collection changes by me)
-' Date      : 17/12/2025
-' Purpose   : Called by WindowProc in the BAS module modTimerWnd on captured form timer events
+' Procedure : Count
+' Author    : beededea
+' Date      : 04/01/2026
+' Purpose   : Obtain the current count of items in the dictionary
 '---------------------------------------------------------------------------------------
 '
-Friend Sub Dispatch(ByVal TimerID As Long)
-    On Error GoTo Dispatch_Error
-    
-    #If twinbasic Then
-       ' standard TwinBasic collection
-       If mTimers.Exists(CStr(TimerID)) Then
-           ' call the raiseTick subroutine in the clsTimer class that in turn raises a tick event in the calling form frmTimer
-           mTimers(CStr(TimerID)).RaiseTick
-       End If
-    #Else
-        ' either type of Dictionary collection
-        If mTimers.Exists(TimerID) Then
-            ' call the raiseTick subroutine in the clsTimer class that in turn raises a tick event in the calling form frmTimer
-            mTimers(TimerID).RaiseTick
-        End If
-    #End If
+Public Property Get count() As Long
+    On Error GoTo Count_Error
+
+    count = mDict.count
+
+    On Error GoTo 0
+    Exit Property
+
+Count_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Count of Class Module cTBImageList"
+End Property
+
+
+'---------------------------------------------------------------------------------------
+' Procedure : ImageWidth
+' Author    : beededea
+' Date      : 05/09/2025
+' Purpose   : not yet implemented, experimenting with Cairo to achieve this
+'---------------------------------------------------------------------------------------
+'
+Public Property Get ImageWidth() As Long
+    On Error GoTo ImageWidth_Error
+
+    ImageWidth = mImageWidth
+
+    On Error GoTo 0
+    Exit Property
+
+ImageWidth_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure ImageWidth of Class Module cTBImageList"
+End Property
+'---------------------------------------------------------------------------------------
+' Procedure : ImageWidth
+' Author    : beededea
+' Date      : 05/09/2025
+' Purpose   : not yet implemented, experimenting with Cairo to achieve this
+'---------------------------------------------------------------------------------------
+'
+Public Property Let ImageWidth(ByVal newValue As Long)
+    On Error GoTo ImageWidth_Error
+
+    If mImageWidth <> newValue Then mImageWidth = newValue Else Exit Property
+
+    On Error GoTo 0
+    Exit Property
+
+ImageWidth_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure ImageWidth of Class Module cTBImageList"
+End Property
+
+
+'---------------------------------------------------------------------------------------
+' Procedure : ImageHeight
+' Author    : beededea
+' Date      : 05/09/2025
+' Purpose   : not yet implemented, experimenting with Cairo to achieve this
+'---------------------------------------------------------------------------------------
+'
+Public Property Get ImageHeight() As Long
+    On Error GoTo ImageHeight_Error
+
+    ImageHeight = mImageHeight
+
+    On Error GoTo 0
+    Exit Property
+
+ImageHeight_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure ImageHeight of Class Module cTBImageList"
+End Property
+
+'---------------------------------------------------------------------------------------
+' Procedure : ImageHeight
+' Author    : beededea
+' Date      : 05/09/2025
+' Purpose   : not yet implemented, experimenting with Cairo to achieve this
+'---------------------------------------------------------------------------------------
+'
+Public Property Let ImageHeight(ByVal newValue As Long)
+    On Error GoTo ImageHeight_Error
+
+    If mImageHeight <> newValue Then mImageHeight = newValue Else Exit Property
+
+    On Error GoTo 0
+    Exit Property
+
+ImageHeight_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure ImageHeight of Class Module cTBImageList"
+End Property
+
+
+'---------------------------------------------------------------------------------------
+' Procedure : ImageOpacity
+' Author    : beededea
+' Date      : 05/09/2025
+' Purpose   : image Opacity is not yet implemented, experimenting with Cairo to achieve this
+'---------------------------------------------------------------------------------------
+'
+Public Property Get ImageOpacity() As Integer
+    On Error GoTo ImageOpacity_Error
+
+    ImageOpacity = mImageOpacity
+
+    On Error GoTo 0
+    Exit Property
+
+ImageOpacity_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure ImageOpacity of Class Module cTBImageList"
+End Property
+
+'---------------------------------------------------------------------------------------
+' Procedure : ImageOpacity
+' Author    : beededea
+' Date      : 05/09/2025
+' Purpose   : image Opacity is not yet implemented, experimenting with Cairo to achieve this
+'---------------------------------------------------------------------------------------
+'
+Public Property Let ImageOpacity(ByVal newValue As Integer)
+    On Error GoTo ImageOpacity_Error
+
+    If mImageOpacity <> newValue Then mImageOpacity = newValue Else Exit Property
+
+    On Error GoTo 0
+    Exit Property
+
+ImageOpacity_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure ImageOpacity of Class Module cTBImageList"
+End Property
+
+
+
+'---------------------------------------------------------------------------------------
+' Procedure : ImageExists
+' Author    : beededea
+' Date      : 05/09/2025
+' Purpose   : Test to see if the item ImageExists in the dictionary
+'---------------------------------------------------------------------------------------
+'
+Public Property Get ImageExists(key As String) As Boolean
+    On Error GoTo ImageExists_Error
+
+        mImageExists = mDict.Exists(key)
+        
+        ImageExists = mImageExists
+
+    On Error GoTo 0
+    Exit Property
+
+ImageExists_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure ImageExists of Class Module cTBImageList"
+End Property
+
+'---------------------------------------------------------------------------------------
+' Procedure : Remove
+' Author    : beededea
+' Date      : 04/01/2026
+' Purpose   : Remove a single item from the dictionary
+'---------------------------------------------------------------------------------------
+'
+Public Sub Remove(ByVal key As String)
+    On Error GoTo Remove_Error
+
+    If mDict.Exists(key) Then
+        mDict.Remove key
+    End If
 
     On Error GoTo 0
     Exit Sub
 
-Dispatch_Error:
+Remove_Error:
 
-     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Dispatch of Class Module clsTimerManager"
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Remove of Class Module cTBImageList"
 End Sub
+
+'---------------------------------------------------------------------------------------
+' Procedure : Clear
+' Author    : beededea
+' Date      : 04/01/2026
+' Purpose   : Clear the whole image list
+'---------------------------------------------------------------------------------------
+'
+Public Sub Clear()
+    Dim k As Variant
+    
+    On Error GoTo Clear_Error
+
+    For Each k In mDict.Keys
+        mDict.Remove k
+    Next
+
+    On Error GoTo 0
+    Exit Sub
+
+Clear_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Clear of Class Module cTBImageList"
+End Sub
+
+'---------------------------------------------------------------------------------------
+' Procedure : AddImage
+' Author    : beededea
+' Date      : 04/01/2026
+' Purpose   : Adds an image to the dictionary
+'---------------------------------------------------------------------------------------
+'
+Public Sub AddImage(ByVal key As String, ByVal FilePath As String)
+
+    Dim pic As StdPicture
+
+    On Error GoTo AddImage_Error
+
+    If mDict.Exists(key) Then Err.Raise 457, , "Key already exists"
+    
+    If fFExists(FilePath) Then
+        ' add the image to the dictionary collection
+        Set pic = LoadPicture(FilePath)
+        mDict.Add pic, key ' image followed by Key for a TB collection
+    Else
+        MsgBox " File not found " & FilePath
+    End If
+
+    On Error GoTo 0
+    Exit Sub
+
+AddImage_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure AddImage of Class Module cTBImageList"
+End Sub
+
+'---------------------------------------------------------------------------------------
+' Procedure : Picture
+' Author    : beededea
+' Date      : 04/01/2026
+' Purpose   : extracts the image from the dictionary using similar syntax to Rich Client
+'---------------------------------------------------------------------------------------
+'
+Public Function Picture(ByVal key As String) As StdPicture
+    
+    On Error GoTo Picture_Error
+
+    If Not mDict.Exists(key) Then Err.Raise 5, , "Image key not found"
+    
+    Set Picture = mDict(key)
+
+    On Error GoTo 0
+    Exit Function
+
+Picture_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Picture of Class Module cTBImageList"
+End Function
+
+
+
+
+
+
+
+
+
+
+
 

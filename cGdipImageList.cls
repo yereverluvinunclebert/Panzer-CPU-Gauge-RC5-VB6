@@ -296,6 +296,8 @@ End Enum
 Private lngGDI As Long
 Private gdipInit As GDIPLUS_STARTINPUT
 
+Private mCol As Collection ' a standard VB6/TB-style internal collection to enable external enumeration ie. For Each img In gdipImageList
+
 'Private mDict As Object ' You will need a project reference to the Scripting.Dictionary
 
 '-----------------------------------------------------------
@@ -384,6 +386,25 @@ Class_Terminate_Error:
      MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Class_Terminate of Class Module cGdipImageList"
 End Sub
 
+'---------------------------------------------------------------------------------------
+' Procedure : NewEnum
+' Author    : beededea
+' Date      : 14/01/2026
+' Purpose   : A standard VB6/TB-style internal collection is used to enable external enumeration ie. For Each img In gdipImageList
+'---------------------------------------------------------------------------------------
+'
+Public Property Get NewEnum() As IUnknown
+    On Error GoTo NewEnum_Error
+
+    Set NewEnum = mCol.[_NewEnum]
+
+    On Error GoTo 0
+    Exit Property
+
+NewEnum_Error:
+
+     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure NewEnum of Class Module cGdipImageList"
+End Property
 
 '---------------------------------------------------------------------------------------
 ' Procedure : Count
