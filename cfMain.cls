@@ -240,7 +240,7 @@ Public Sub initAndCreateLicenceForm(Optional ByVal Caption As String)
     ' When running in the IDE the RichClient5 DLLs are required to be registered. If for some reason they become unregistered then
     ' the following 'set' commands will generate an error, to handle this we have a temporary error trap for the IDE only.
     
-    If InIDE Then On Error GoTo RichClient5NotRegistered_Error
+    If InIde Then On Error GoTo RichClient5NotRegistered_Error
 
     ' add two RC predefined button controls to the licence form
     If gsDpiAwareness = "1" Then
@@ -401,7 +401,7 @@ End Sub
 '
 '   On Error GoTo licenceForm_MouseMove_Error
 '
-'    If overlayWidget.Locked = True Then Exit Sub
+'    If gaugeOverlay.Locked = True Then Exit Sub
 '    If gsIgnoreMouse = "1" Then Exit Sub
 '
 ''    If Button = vbLeftButton And Not licenceForm.ActiveWidget Is Nothing Then 'Form-Dragging (under certain conditions)

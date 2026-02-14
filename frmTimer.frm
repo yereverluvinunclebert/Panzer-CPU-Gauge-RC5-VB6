@@ -286,13 +286,13 @@ Private Sub sleepTimer_Timer()
         gbThisWidgetAvailable = True
         ' Call ' screenWrite("system has just woken up from a sleep at " & Now() & vbCrLf & "updating digital gauges... ")
         
-        'overlayWidget.BaseDate = Now()
+        'gaugeOverlay.BaseDate = Now()
         'gsTriggerDigitalGaugePopulation = True
         
         fGauge.gaugeForm.Refresh
         
 '        If gsNumericDisplayRotation = "1" Then
-'            overlayWidget.TmrDigitRotatorTicking = True
+'            gaugeOverlay.TmrDigitRotatorTicking = True
 '        End If
 '
 '        '  clear any existing weekday indicator after a wake from sleep
@@ -301,7 +301,7 @@ Private Sub sleepTimer_Timer()
 '            fGauge.gaugeForm.Widgets(fDayOfWeek).Widget.Alpha = 1
 '        End If
         
-        overlayWidget.Widget.Parent.Refresh
+        gaugeOverlay.Widget.Parent.Refresh
         
     End If
     

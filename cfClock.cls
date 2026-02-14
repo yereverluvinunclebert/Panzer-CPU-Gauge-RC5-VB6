@@ -116,7 +116,7 @@ End Sub
 ' Purpose   :  Using a previously created Cairo imageList, it creates a surface from each and every PSD layer
 '              in the PSD file. The surfaces are populated from PNGs whose metric data are held in an XML file.
 '              For each previously 'excluded' entry, it adds path X,Y and alpha properties to the excluded collection.
-'              It creates an instance of the cwOverlay class and populates it with the excluded items that will be rendered in the overlay
+'              It creates an instance of the cwGaugeOverlay class and populates it with the excluded items that will be rendered in the overlay
 '              The overlay comprises items that are non-clickable and will not generate events, ie. animated gauge hands, pendulums &c.
 '
 '              For all the interactive UI elements it creates RichClient widgets with corresponding keynames, locations and sizes as per the original PSD for each layer.
@@ -139,10 +139,10 @@ Public Sub InitialiseImageWidgetsFromXML()
     Call convertImageXMLToRcWidgets
 
     ' create a overlay here just for a single custom widget that contains just the animated elements.
-    Set overlayWidget = gaugeForm.Widgets.Add(New cwOverlay, "Overlay", 0, 0, pPSDWidth, pPSDHeight)
-    Set overlayWidget.cCollOverlayImages = collPSDNonUIElements 'make the excluded PSD-Surface-Paths known to the Overlay-Widget
-        overlayWidget.cxPerc = 0.4940476 'define the relative center (within cwOverlay, which has the same size as the Form and the PSD...) this is used for clock-hand-positioning
-        overlayWidget.cyPerc = 0.4727272
+    Set gaugeOverlay = gaugeForm.Widgets.Add(New cwGaugeOverlay, "Overlay", 0, 0, pPSDWidth, pPSDHeight)
+    Set gaugeOverlay.cCollOverlayImages = collPSDNonUIElements 'make the excluded PSD-Surface-Paths known to the Overlay-Widget
+        gaugeOverlay.cxPerc = 0.4940476 'define the relative center (within cwGaugeOverlay, which has the same size as the Form and the PSD...) this is used for clock-hand-positioning
+        gaugeOverlay.cyPerc = 0.4727272
     
      ' set the various widgets as WithEvents Variables
 '    Set tickbutton = gaugeForm.Widgets("tickbutton").Widget
@@ -183,7 +183,7 @@ Private Sub gaugeForm_BubblingEvent(ByRef Sender As Object, ByRef EventName As S
     
     ' set the balloon tooltips and perform other tasks onMouseMove, RC style tooltips are defined elsewhere
      If EventName = "W_MouseMove" Then
-        Select Case LCase$(Sender.Widget.Key)
+        Select Case LCase$(Sender.Widget.key)
             Case "lockbutton"
                 If gsWidgetTooltips = "0" Then
                     thisMessage = "Click me to lock the widget in place. This lock can be released by clicking again on the lock button, or in the preferences. A locking sound will denote the button's operation."
@@ -228,7 +228,7 @@ Private Sub gaugeForm_BubblingEvent(ByRef Sender As Object, ByRef EventName As S
     End If
     
     If EventName = "W_MouseDown" Then
-        Select Case LCase$(Sender.Widget.Key)
+        Select Case LCase$(Sender.Widget.key)
             Case "lockbutton"
                 Call lockbutton_mouseDown(Sender)
             Case "prefsbutton"
@@ -240,12 +240,12 @@ Private Sub gaugeForm_BubblingEvent(ByRef Sender As Object, ByRef EventName As S
             Case "stopbutton"
                 Call stopbutton_mouseDown(Sender)
             Case Else
-                Debug.Print Sender.Widget.Key
+                Debug.Print Sender.Widget.key
         End Select
     End If
     
     If EventName = "W_MouseUp" Then
-        Select Case LCase$(Sender.Widget.Key)
+        Select Case LCase$(Sender.Widget.key)
             Case "prefsbutton"
                 Call prefsbutton_mouseUp(Sender)
             Case "middlebutton"
@@ -253,18 +253,18 @@ Private Sub gaugeForm_BubblingEvent(ByRef Sender As Object, ByRef EventName As S
             Case "stopbutton"
                 Call stopbutton_mouseUp(Sender)
             Case Else
-                Debug.Print Sender.Widget.Key
+                Debug.Print Sender.Widget.key
         End Select
     End If
     
     If EventName = "W_Click" Then
-        Select Case LCase$(Sender.Widget.Key)
+        Select Case LCase$(Sender.Widget.key)
             Case "helpbutton"
                  Call helpbutton_click
             Case "startbutton"
                  Call startbutton_click
             Case Else
-                Debug.Print Sender.Widget.Key
+                Debug.Print Sender.Widget.key
         End Select
     End If
             
@@ -524,7 +524,7 @@ End Sub
 Private Sub lockbutton_mouseDown(ByRef Sender As Object)
    On Error GoTo lockbutton_mouseDown_Error
     
-    If overlayWidget.Locked = False Then
+    If gaugeOverlay.Locked = False Then
         Sender.Widget.Alpha = 0
     Else
         Sender.Widget.Alpha = Val(gsOpacity) / 100
@@ -582,12 +582,12 @@ Private Sub tickbutton_mouseDown(ByRef Sender As Object)
    
     On Error GoTo tickbutton_mouseDown_Error
         
-    If overlayWidget.PointerAnimate = True Then
-        overlayWidget.PointerAnimate = False
+    If gaugeOverlay.PointerAnimate = True Then
+        gaugeOverlay.PointerAnimate = False
         Sender.Widget.Alpha = Val(gsOpacity) / 100
         gsPointerAnimate = "0"
     Else
-        overlayWidget.PointerAnimate = True
+        gaugeOverlay.PointerAnimate = True
         Sender.Widget.Alpha = 0 ' sender is the referring control
         gsPointerAnimate = "1"
         
@@ -711,7 +711,7 @@ Private Sub gaugeForm_MouseUp(ByRef Button As Integer, ByRef Shift As Integer, B
     ' on the mouseDown event the sampling timers are stopped as extracting the CPU details causes a reduction in responsiveness to user input, this restores the sampling timers
     ' on a specified interval that will be corrected later by the timer itself when it next runs.
     
-    overlayWidget.tmrSampler.Interval = 3000
+    gaugeOverlay.tmrSampler.Interval = 3000
     
     Call startAllCpuTimers
     
@@ -750,7 +750,7 @@ Private Sub gaugeForm_MouseMove(ByRef Button As Integer, ByRef Shift As Integer,
   
    On Error GoTo gaugeForm_MouseMove_Error
     
-    If overlayWidget.Locked = True Then Exit Sub
+    If gaugeOverlay.Locked = True Then Exit Sub
     If gsIgnoreMouse = "1" Then Exit Sub
     If gbMenuOccurred = True Then
         gbMenuOccurred = False
@@ -785,40 +785,46 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Private Sub gaugeForm_MouseWheel(ByVal MouseKeys As Long, ByVal Rotation As Long, ByVal Xpos As Single, ByVal Ypos As Single)
-   Dim RotationDirection As Long: RotationDirection = 0
-   Dim thisRotation As Long: thisRotation = 0
+
+    Dim sizingDirection As Long: sizingDirection = 0
+    Dim wheelRotation As Long: wheelRotation = 0
    
-   On Error GoTo gaugeForm_MouseWheel_Error
-
-    thisRotation = Rotation / 2
-
-    If gsScrollWheelDirection = "1" Then
-        If thisRotation > 0 Then
-            RotationDirection = 0 - Abs(thisRotation)
-        Else
-            RotationDirection = Abs(thisRotation)
-        End If
-    Else
-        RotationDirection = thisRotation
-    End If
+    On Error GoTo gaugeForm_MouseWheel_Error
     
-    'If MouseKeys = 8 Then Call AdjustZoom(FZ + RotationDirection / 2400)
+    'sizingDirection = Abs(wheelRotation)
+    wheelRotation = Rotation / 2
+    
+    ' ctrl pressed at the same time so we are resizing the whole thing
     If MouseKeys = 8 Then
-        widgetPrefs.GaugeSize = (FZ + RotationDirection / 2400) 'change the Zoom only, when the Ctrl-Key is down
+    
+        If gsScrollWheelDirection = "1" Then
+            If wheelRotation > 0 Then
+                sizingDirection = 0 - Abs(wheelRotation)
+            Else
+                sizingDirection = Abs(wheelRotation)
+            End If
+        Else
+            sizingDirection = Abs(wheelRotation)
+        End If
+        
+        ' adjust the slider in the widget Prefs to centralise resizing and prevent re-entrancy, it calls AdjustZoom
+        widgetPrefs.GaugeSize = (FZ + sizingDirection / 2400) 'change the Zoom only, when the Ctrl-Key is down
         
         ' saves the current ratios for the RC form
         Call saveRCFormCurrentSizeRatios
         
     End If
 
-   On Error GoTo 0
-   Exit Sub
+    On Error GoTo 0
+    Exit Sub
 
 gaugeForm_MouseWheel_Error:
 
     MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure gaugeForm_MouseWheel of Class Module cfGauge"
 End Sub
 
+
+'public sub
 
 '---------------------------------------------------------------------------------------
 ' Procedure : AdjustZoom
@@ -828,7 +834,7 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Public Sub AdjustZoom(ByVal NewZoom As Single)
-   On Error GoTo AdjustZoom_Error
+    On Error GoTo AdjustZoom_Error
 
     FZ = NewZoom
     If FZ < 0.05 Then FZ = 0.05 Else If FZ > 3 Then FZ = 3 'keep FZ within a sane ZoomInterval
@@ -937,10 +943,10 @@ End Property
 ' Purpose   : property to determine (by value) the opacity of the elements within this class
 '---------------------------------------------------------------------------------------
 '
-Public Property Get opacity() As String
+Public Property Get Opacity() As String
    On Error GoTo OpacityGet_Error
 
-   opacity = mOpacity
+   Opacity = mOpacity
 
    On Error GoTo 0
    Exit Property
@@ -956,7 +962,7 @@ End Property
 ' Purpose   : property to determine (by value) the opacity of the elements within this class
 '---------------------------------------------------------------------------------------
 '
-Public Property Let opacity(ByVal newValue As String)
+Public Property Let Opacity(ByVal newValue As String)
    On Error GoTo OpacityLet_Error
 
    If mOpacity <> newValue Then mOpacity = newValue Else Exit Property
@@ -1001,10 +1007,10 @@ Private Sub convertImageXMLToRcWidgets()
 '    Dim sVOffset As String: sVOffset = vbNullString
 '    Dim sOpacity As String: sOpacity = vbNullString
     Dim Width As Long: Width = 0
-    Dim Height As Long: Height = 0
+    Dim height As Long: height = 0
     Dim hOffset As Long: hOffset = 0
     Dim vOffset As Long: vOffset = 0
-    Dim opacity As Integer: opacity = 0
+    Dim Opacity As Integer: Opacity = 0
     Dim someOpacity As Double: someOpacity = 0
     Dim xmlFileToLoad As String: xmlFileToLoad = vbNullString
     Dim pngFileToLoad As String: pngFileToLoad = vbNullString
@@ -1060,18 +1066,18 @@ Private Sub convertImageXMLToRcWidgets()
             Width = CLng(Left$(sWidth, (InStr(sWidth, " px") - 1)))
             
             sHeight = node.selectSingleNode("@height").Text
-            Height = CLng(Left$(sHeight, (InStr(sHeight, " px") - 1)))
+            height = CLng(Left$(sHeight, (InStr(sHeight, " px") - 1)))
             
             hOffset = CLng(node.selectSingleNode("@hOffset").Text)
             vOffset = CLng(node.selectSingleNode("@vOffset").Text)
-            opacity = CInt(node.selectSingleNode("@opacity").Text) / 2.55
+            Opacity = CInt(node.selectSingleNode("@opacity").Text) / 2.55
             
-            If opacity = 100 Then  ' only handles layers that have an opacity greater than 0 - need to note this for the future, this will cause a problem!
+            If Opacity = 100 Then  ' only handles layers that have an opacity greater than 0 - need to note this for the future, this will cause a problem!
             
                'add each current Layer path and surface object into the global ImageList collection (using LayerPath as the ImageKey)
                 pngFileToLoad = App.Path & "\RES\" & sSrc
                 If fFExists(pngFileToLoad) Then
-                    Cairo.ImageList.AddSurface sName, Cairo.CreateSurface(Width, Height, PSSurface, pngFileToLoad)
+                    Cairo.ImageList.AddSurface sName, Cairo.CreateSurface(Width, height, PSSurface, pngFileToLoad)
                 Else
                     MsgBox "Error, this PNG resource file seems to be missing " & pngFileToLoad
                 End If
@@ -1079,14 +1085,14 @@ Private Sub convertImageXMLToRcWidgets()
                 ' check if each layer is in the layer exclude list, if it IS then we add it to a collection for non UI elements (ie. do not create Widgets)
                 If collPSDNonUIElements.Exists(sName) Then
                   
-                     'we add layer info. (used later in cwOverlay) to the excluded layers that will form the overlay.
+                     'we add layer info. (used later in cwGaugeOverlay) to the excluded layers that will form the overlay.
                      collPSDNonUIElements(sName) = Array(hOffset, vOffset, someOpacity)  'here we update the so far empty slots with the PSD-offsets
                 Else
 
                      'create a widget instance for all layers in the PSD, excluding any layers entered into the exclude-list
-                     Set W = gaugeForm.Widgets.Add(New cwAlphaImg, LCase$(sName), hOffset, vOffset, Width, Height).Widget
+                     Set W = gaugeForm.Widgets.Add(New cwAlphaImg, LCase$(sName), hOffset, vOffset, Width, height).Widget
 
-                     W.ImageKey = W.Key 'W.Key equals ImageList-Key, set above - and sName at this point ... set it also as the ImageKey of our new created Widget
+                     W.ImageKey = W.key 'W.Key equals ImageList-Key, set above - and sName at this point ... set it also as the ImageKey of our new created Widget
                      W.Alpha = 1
 
                      ' note: the clickable layers characteristics are set in adjustMainControls

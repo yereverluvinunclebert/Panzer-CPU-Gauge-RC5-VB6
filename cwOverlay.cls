@@ -6,14 +6,14 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "cwOverlay"
+Attribute VB_Name = "cwGaugeOverlay"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 '@IgnoreModule IntegerDataType, ModuleWithoutFolder
 '---------------------------------------------------------------------------------------
-' Module    : cwOverlay
+' Module    : cwGaugeOverlay
 ' Author    : beededea
 ' Date      : 31/07/2023
 ' Purpose   : create a fully click-through Widget, which allows for all kind of
@@ -99,11 +99,11 @@ Private Sub initialisePrivateVars()
 
 initialisePrivateVars_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure initialisePrivateVars of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure initialisePrivateVars of Class Module cwGaugeOverlay"
 End Sub
 
 '---------------------------------------------------------------------------------------
-' Procedure : Class_Initialize for cwOverlay
+' Procedure : Class_Initialize for cwGaugeOverlay
 ' Author    : olaf schmidt
 ' Date      : 31/07/2023
 ' Purpose   : Constructor (Initialise) set the inital values of private vars, set up the timers
@@ -149,7 +149,7 @@ Private Sub Class_Initialize()
 
 Class_Initialize_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Class_Initialize of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Class_Initialize of Class Module cwGaugeOverlay"
 End Sub
 
 
@@ -170,7 +170,7 @@ Public Property Get Widget() As cWidgetBase
 
 Widget_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Widget of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Widget of Class Module cwGaugeOverlay"
 End Property
 '---------------------------------------------------------------------------------------
 ' Procedure : Widgets
@@ -189,7 +189,7 @@ Public Property Get Widgets() As cWidgets
 
 Widgets_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Widgets of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure Widgets of Class Module cwGaugeOverlay"
 End Property
 
 
@@ -210,7 +210,7 @@ Public Property Get Ticking() As Boolean
 
 TickingGet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property Ticking of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property Ticking of Class Module cwGaugeOverlay"
 End Property
 '---------------------------------------------------------------------------------------
 ' Property  : Ticking
@@ -235,7 +235,7 @@ Public Property Let Ticking(ByVal newValue As Boolean)
 
 TickingLet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property Ticking of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property Ticking of Class Module cwGaugeOverlay"
 End Property
 
 '---------------------------------------------------------------------------------------
@@ -255,7 +255,7 @@ Public Property Get PointerAnimate() As Boolean
 
 PointerAnimateGet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property PointerAnimate of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property PointerAnimate of Class Module cwGaugeOverlay"
 End Property
 '---------------------------------------------------------------------------------------
 ' Property  : PointerAnimate
@@ -274,7 +274,7 @@ Public Property Let PointerAnimate(ByVal newValue As Boolean)
 
 PointerAnimateLet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property PointerAnimate of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property PointerAnimate of Class Module cwGaugeOverlay"
 End Property ' the PointerAnimate flag
 
 '---------------------------------------------------------------------------------------
@@ -295,7 +295,7 @@ Public Property Get thisCPUDetail() As String
 
 thisCPUDetailGet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property thisCPUDetail of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property thisCPUDetail of Class Module cwGaugeOverlay"
 End Property
 '---------------------------------------------------------------------------------------
 ' Property  : thisCPUDetail
@@ -314,7 +314,7 @@ Public Property Let thisCPUDetail(ByVal newValue As String)
 
 thisCPUDetailLet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property thisCPUDetail of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property thisCPUDetail of Class Module cwGaugeOverlay"
 End Property
 
 
@@ -335,7 +335,7 @@ Public Property Get thisOpacity() As String
 
 thisOpacityGet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property thisOpacity of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property thisOpacity of Class Module cwGaugeOverlay"
 End Property
 '---------------------------------------------------------------------------------------
 ' Property  : thisOpacity
@@ -354,7 +354,7 @@ Public Property Let thisOpacity(ByVal newValue As String)
 
 thisOpacityLet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property thisOpacity of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property thisOpacity of Class Module cwGaugeOverlay"
 End Property
 
 
@@ -377,7 +377,7 @@ Public Property Get samplingInterval() As String
 
 samplingIntervalGet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property samplingInterval of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property samplingInterval of Class Module cwGaugeOverlay"
 End Property
 '---------------------------------------------------------------------------------------
 ' Property  : samplingInterval
@@ -403,7 +403,7 @@ Public Property Let samplingInterval(ByVal newValue As String)
 
 samplingIntervalLet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property samplingInterval of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property samplingInterval of Class Module cwGaugeOverlay"
 End Property
 
 
@@ -425,7 +425,7 @@ Public Property Get Locked() As Boolean
 
 LockedGet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property Locked of Class Module cwoverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property Locked of Class Module cwGaugeOverlay"
 End Property
 '---------------------------------------------------------------------------------------
 ' Property  : Locked
@@ -444,7 +444,7 @@ Public Property Let Locked(ByVal newValue As Boolean)
 
 LockedLet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property Locked of Class Module cwoverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property Locked of Class Module cwGaugeOverlay"
 End Property
 
 
@@ -509,7 +509,7 @@ Public Property Get Hidden() As Boolean
 
 HiddenGet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property Hidden of Class Module cwoverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property Hidden of Class Module cwGaugeOverlay"
 End Property
 
     
@@ -541,7 +541,7 @@ Public Property Let Hidden(ByVal newValue As Boolean)
 
 HiddenLet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property Hidden of Class Module cwoverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property Hidden of Class Module cwGaugeOverlay"
 End Property
 
 
@@ -564,7 +564,7 @@ Private Sub W_HitTest(ByVal x As Single, ByVal y As Single, HitResultHit As Bool
 
 W_HitTest_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure W_HitTest of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure W_HitTest of Class Module cwGaugeOverlay"
 End Sub
 
 
@@ -576,9 +576,9 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Private Sub W_Paint(CC As vbRichClient5.cCairoContext, ByVal xAbs As Single, ByVal yAbs As Single, ByVal dx_Aligned As Single, ByVal dy_Aligned As Single, UserObj As Object)
-     Dim I As Long: I = 0
-    Dim Arr As Variant
-    Dim Key As String: Key = vbNullString
+     Dim i As Long: i = 0
+    Dim arr As Variant
+    Dim key As String: key = vbNullString
     Dim Pat As cCairoPattern
     Dim txtNoOfCores As String: txtNoOfCores = vbNullString
     Dim txtCPUPercent As String: txtCPUPercent = vbNullString
@@ -602,17 +602,17 @@ Private Sub W_Paint(CC As vbRichClient5.cCairoContext, ByVal xAbs As Single, ByV
     txtCPUPercent = CStr(Int(cpuPercent))
     txtNoOfCores = CStr(noOfProcessors)
 
-    For I = 0 To cCollOverlayImages.Count - 1 ' this is the ExcludedPaths collection populated in cfGauge by duplicating collPSDNonUIElements.
-      Arr = cCollOverlayImages.ItemByIndex(I)
-      Key = cCollOverlayImages.KeyByIndex(I)
+    For i = 0 To cCollOverlayImages.count - 1 ' this is the ExcludedPaths collection populated in cfGauge by duplicating collPSDNonUIElements.
+      arr = cCollOverlayImages.ItemByIndex(i)
+      key = cCollOverlayImages.KeyByIndex(i)
       
-      If IsArray(Arr) Then
+      If IsArray(arr) Then
              CC.save
              'derive a Pattern-Obj from each retrieved ImageList-Surface-reference
-             Set Pat = Cairo.ImageList(Key).CreateSurfacePattern
+             Set Pat = Cairo.ImageList(key).CreateSurfacePattern
                          
             ' for specific keys perform rotation actions, clock hands &c
-             Select Case Key
+             Select Case key
 
                  Case "secondshadow", "secondhand"
                     
@@ -622,29 +622,29 @@ Private Sub W_Paint(CC As vbRichClient5.cCairoContext, ByVal xAbs As Single, ByV
                     'textDrawn = True
                     
                     Set Pat.Matrix = Pat.Matrix.TranslateCoords(11, 246) 'shift to the "rotation-point" within the Pattern
-                    CC.TranslateDrawings W.Width * cxPerc, W.Height * cyPerc 'shift to the center-point of the Overlay-Widget-area
+                    CC.TranslateDrawings W.Width * cxPerc, W.height * cyPerc 'shift to the center-point of the Overlay-Widget-area
                     
                     CC.RotateDrawingsDeg SDeg
-                    CC.Paint Arr(2), Pat 'render the Pattern with the current PSD-LayerAlpha, present in Arr(2)
+                    CC.Paint arr(2), Pat 'render the Pattern with the current PSD-LayerAlpha, present in Arr(2)
                     
                  Case "redlamptrue"
                     
                     If cpuPercent >= 90 Then
-                        Set Pat.Matrix = Pat.Matrix.TranslateCoords(-Arr(0), -Arr(1)) 'shift the Pattern via the original X,Y PSD-Offsets (stored in Arr(0) and Arr(1))
-                        CC.Paint Arr(2), Pat 'render the Pattern
+                        Set Pat.Matrix = Pat.Matrix.TranslateCoords(-arr(0), -arr(1)) 'shift the Pattern via the original X,Y PSD-Offsets (stored in Arr(0) and Arr(1))
+                        CC.Paint arr(2), Pat 'render the Pattern
                     End If
                     
                  Case "redlampfalse"
                     
                     If cpuPercent < 90 Then
-                        Set Pat.Matrix = Pat.Matrix.TranslateCoords(-Arr(0), -Arr(1))
-                        CC.Paint Arr(2), Pat ' render the Pattern
+                        Set Pat.Matrix = Pat.Matrix.TranslateCoords(-arr(0), -arr(1))
+                        CC.Paint arr(2), Pat ' render the Pattern
                     End If
                     
                  Case Else 'plain output for everything else ... this includes the reflection-layers,
                      
-                    Set Pat.Matrix = Pat.Matrix.TranslateCoords(-Arr(0), -Arr(1))
-                    CC.Paint Arr(2), Pat 'render the Pattern
+                    Set Pat.Matrix = Pat.Matrix.TranslateCoords(-arr(0), -arr(1))
+                    CC.Paint arr(2), Pat 'render the Pattern
                    
              End Select
              
@@ -657,7 +657,7 @@ Private Sub W_Paint(CC As vbRichClient5.cCairoContext, ByVal xAbs As Single, ByV
 
 W_Paint_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure W_Paint of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure W_Paint of Class Module cwGaugeOverlay"
 End Sub
  
  '---------------------------------------------------------------------------------------
@@ -722,7 +722,7 @@ Private Sub tmrAnimator_Code()
 
 tmrAnimator_Code_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure tmrAnimator_Code of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure tmrAnimator_Code of Class Module cwGaugeOverlay"
 End Sub
 
 
@@ -823,7 +823,7 @@ Private Sub tmrSampler_Code()
 
 tmrSampler_Code_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure tmrSampler_Code of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure tmrSampler_Code of Class Module cwGaugeOverlay"
 End Sub
 
 ' ----------------------------------------------------------------
@@ -927,7 +927,7 @@ End Function
 ' ----------------------------------------------------------------
 Sub obtainCoreCPUPercent()
     Dim strComputer As String: strComputer = vbNullString
-    Dim I As Long: I = 0
+    Dim i As Long: i = 0
     Dim objWMIService As Object
     Dim colItems As Object
     Dim objItem As Object
@@ -939,9 +939,9 @@ Sub obtainCoreCPUPercent()
     Set colItems = objWMIService.ExecQuery( _
     "SELECT * FROM Win32_PerfFormattedData_PerfOS_Processor", , 48)
     For Each objItem In colItems
-        I = I + 1 ' 1 = cpu all
+        i = i + 1 ' 1 = cpu all
         Debug.Print "-----------------------------------"
-        Debug.Print "Processor " & I
+        Debug.Print "Processor " & i
         'Debug.Print "-----------------------------------"
         Debug.Print "usage: " & objItem.PercentProcessorTime
     Next

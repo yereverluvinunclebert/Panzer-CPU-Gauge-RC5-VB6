@@ -369,20 +369,43 @@ End Sub
 '
 Public Sub AddImage(ByVal key As String, ByVal FilePath As String)
 
+    Dim gdipBitmap As Long: gdipBitmap = 0
     Dim pic As StdPicture
 
     On Error GoTo AddImage_Error
 
     If mDict.Exists(key) Then Err.Raise 457, , "Key already exists"
     
-    If fFExists(FilePath) Then
-        ' add the image to the dictionary collection
-        Set pic = LoadPicture(FilePath)
-        mDict.Add pic, key ' image followed by Key for a TB collection
-    Else
+    If fFExists(FilePath) = False Then
         MsgBox " File not found " & FilePath
+        Exit Sub
     End If
+    
+    ' if the image width or height is non zero then we need to set the size manually (rescale)
+    ' in VB6, typically we would use .PaintPicture method but that only works with bitmaps, so is useless here
+    ' Instead, we have to use GDI+ to resize the image.
+    
+    If mImageWidth <> 0 Or mImageHeight <> 0 Then ' resize required
+    
+        ' read the file as a series of bytes and create a scaled GDI+ bitmap of the image surface using GdipCreateBitmapFromScan0 and context quality attributes, resizing as we go
+        gdipBitmap = loadResizeGDIPImage(mDict, key, FilePath, mImageWidth, mImageHeight, , mImageOpacity)
+                
+        ' convert the Bitmap to a standard picture
+        Set pic = fBmpToStdPicture(gdipBitmap, mImageWidth, mImageHeight)
+        
+        ' add the image to the dictionary collection
+        mDict.Add pic, key ' image followed by Key for a TB collection
+    
+    Else
+        ' set the standard picture object to load from a file on disc
+        Set pic = LoadPicture(FilePath)
+        
+        ' add the image to the dictionary collection
+        mDict.Add pic, key ' image followed by Key for a TB collection
+    End If
+    
 
+    
     On Error GoTo 0
     Exit Sub
 

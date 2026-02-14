@@ -2247,7 +2247,7 @@ Private Sub chkWidgetFunctions_Click()
     On Error GoTo chkWidgetFunctions_Click_Error
 
     If gbStartupFlg = False Then btnSave.Enabled = True ' enable the save button
-    overlayWidget.Ticking = chkWidgetFunctions.Value
+    gaugeOverlay.Ticking = chkWidgetFunctions.Value
     
     If chkWidgetFunctions.Value = 0 Then
         menuForm.mnuSwitchOff.Checked = True
@@ -3258,7 +3258,7 @@ Private Sub chkPreventDragging_Click()
     If gbStartupFlg = False Then btnSave.Enabled = True ' enable the save button
     ' immediately make the widget locked in place
     If chkPreventDragging.Value = 0 Then
-        overlayWidget.Locked = False
+        gaugeOverlay.Locked = False
         gsPreventDragging = "0"
         menuForm.mnuLockWidget.Checked = False
         If gsAspectRatio = "landscape" Then
@@ -3269,7 +3269,7 @@ Private Sub chkPreventDragging_Click()
             txtPortraitYoffset.Text = vbNullString
         End If
     Else
-        overlayWidget.Locked = True
+        gaugeOverlay.Locked = True
         gsPreventDragging = "1"
         menuForm.mnuLockWidget.Checked = True
         If gsAspectRatio = "landscape" Then
@@ -3308,13 +3308,13 @@ Private Sub chkWidgetHidden_Click()
    On Error GoTo chkWidgetHidden_Click_Error
 
     If chkWidgetHidden.Value = 0 Then
-        'overlayWidget.Hidden = False
+        'gaugeOverlay.Hidden = False
         fGauge.gaugeForm.Visible = True
 
         frmTimer.revealWidgetTimer.Enabled = False
         gsWidgetHidden = "0"
     Else
-        'overlayWidget.Hidden = True
+        'gaugeOverlay.Hidden = True
         fGauge.gaugeForm.Visible = False
 
 
@@ -3347,13 +3347,13 @@ Private Sub cmbAspectHidden_Click()
    On Error GoTo cmbAspectHidden_Click_Error
 
     If cmbAspectHidden.ListIndex = 1 And gsAspectRatio = "portrait" Then
-        'overlayWidget.Hidden = True
+        'gaugeOverlay.Hidden = True
         fGauge.gaugeForm.Visible = False
     ElseIf cmbAspectHidden.ListIndex = 2 And gsAspectRatio = "landscape" Then
-        'overlayWidget.Hidden = True
+        'gaugeOverlay.Hidden = True
         fGauge.gaugeForm.Visible = False
     Else
-        'overlayWidget.Hidden = False
+        'gaugeOverlay.Hidden = False
         fGauge.gaugeForm.Visible = True
     End If
 
@@ -3443,7 +3443,7 @@ Private Sub cmbScrollWheelDirection_Click()
    On Error GoTo cmbScrollWheelDirection_Click_Error
 
     If gbStartupFlg = False Then btnSave.Enabled = True ' enable the save button
-    'overlayWidget.ZoomDirection = cmbScrollWheelDirection.List(cmbScrollWheelDirection.ListIndex)
+    'gaugeOverlay.ZoomDirection = cmbScrollWheelDirection.List(cmbScrollWheelDirection.ListIndex)
 
    On Error GoTo 0
    Exit Sub
@@ -3788,7 +3788,7 @@ Private Sub btnClose_Click()
    On Error GoTo btnClose_Click_Error
    
     ' the sampler is stopped during the prefs running so we restart
-    If overlayWidget.Ticking = False Then overlayWidget.Ticking = True
+    If gaugeOverlay.Ticking = False Then gaugeOverlay.Ticking = True
 
     btnSave.Enabled = False ' disable the save button
     Me.Hide
@@ -4956,7 +4956,7 @@ Private Sub Form_Unload(Cancel As Integer)
    On Error GoTo Form_Unload_Error
 
     ' the sampler is stopped during the prefs running so we restart
-    If overlayWidget.Ticking = False Then overlayWidget.Ticking = True
+    If gaugeOverlay.Ticking = False Then gaugeOverlay.Ticking = True
     
     ' Release the subclass hook for dialog forms
     If Not InIde Then ReleaseHook
@@ -5065,7 +5065,7 @@ Private Sub sliSamplingInterval_Click()
  
     If pPrefsStartupFlg = False Then
         gsSamplingInterval = LTrim$(Str$(sliSamplingInterval.Value))
-        overlayWidget.samplingInterval = sliSamplingInterval.Value
+        gaugeOverlay.samplingInterval = sliSamplingInterval.Value
         sPutINISetting "Software\PzCPUGauge", "samplingInterval", gsSamplingInterval, gsSettingsFile
         
     End If
@@ -6026,7 +6026,7 @@ Public Property Get GaugeSize() As Single
 
 widgetSizeGet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property GaugeSize of Class Module cwoverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property GaugeSize of Class Module widgetPrefs"
 End Property
 
 '---------------------------------------------------------------------------------------
@@ -6034,6 +6034,13 @@ End Property
 ' Author    : beededea
 ' Date      : 10/05/2023
 ' Purpose   : property to determine (by value) the GaugeSize value of the whole widget
+'---------------------------------------------------------------------------------------
+'
+'---------------------------------------------------------------------------------------
+' Procedure : GaugeSize
+' Author    : beededea
+' Date      : 20/01/2026
+' Purpose   :
 '---------------------------------------------------------------------------------------
 '
 Public Property Let GaugeSize(ByVal newValue As Single)
@@ -6048,7 +6055,7 @@ Public Property Let GaugeSize(ByVal newValue As Single)
 
 widgetSizeLet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property GaugeSize of Class Module cwoverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property GaugeSize of Class Module widgetPrefs"
 End Property
 
 

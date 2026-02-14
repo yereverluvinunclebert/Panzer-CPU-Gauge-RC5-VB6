@@ -1,5 +1,5 @@
 modRegFree = 26, 26, 1274, 618, 
-cwOverlay = 78, 78, 1250, 817, 
+cwGaugeOverlay = 78, 78, 1250, 817, 
 modTooltips = 182, 182, 1310, 903, 
 cwAbout = 130, 130, 1707, 869, 
 cfMain = 156, 156, 1328, 895, 
@@ -22,7 +22,7 @@ ModCpuUsage = 130, 130, 1347, 841,
 frmMultiCore = 538, 341, 1655, 1082, , 923, 313, 2040, 1054, C
 clsTimer = 390, 390, 1750, 1284, 
 clsTimerManager = 182, 182, 1542, 1076, 
-modTimerWnd = 0, 0, 0, 0, C
+modTimerWnd = 286, 286, 1436, 1180, 
 Dictionary = 104, 104, 1254, 998, 
-cGdipImageList = 260, 260, 1410, 1154, Z
-cTBImageList = 78, 78, 1228, 972, 
+cGdipImageList = 260, 260, 1410, 1154, 
+cTBImageList = 78, 78, 1228, 972, Z

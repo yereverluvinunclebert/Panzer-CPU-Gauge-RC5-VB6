@@ -31,7 +31,7 @@ Public aboutWidget As cwAbout
 Public helpWidget As cwHelp
 Public licenceWidget As cwLicence
 Public fGauge As New cfGauge
-Public overlayWidget As cwOverlay
+Public gaugeOverlay As cwGaugeOverlay
 
 ' any other private vars
 Private m_sWidgetName As String
@@ -215,8 +215,8 @@ End Sub
 Public Sub stopAllCpuTimers()
     On Error GoTo stopAllCpuTimers_Error
 
-    overlayWidget.tmrSampler.Enabled = False
-    overlayWidget.tmrAnimator.Enabled = False
+    gaugeOverlay.tmrSampler.Enabled = False
+    gaugeOverlay.tmrAnimator.Enabled = False
     If gsMultiCoreEnable = "1" Then frmMultiCore.tmrMultiCore.Enabled = False
 
     On Error GoTo 0
@@ -240,8 +240,8 @@ Public Sub startAllCpuTimers()
 
     gblGaugeCPUTimersOFF = False
 
-    overlayWidget.tmrSampler.Enabled = True
-    overlayWidget.tmrAnimator.Enabled = True
+    gaugeOverlay.tmrSampler.Enabled = True
+    gaugeOverlay.tmrAnimator.Enabled = True
     If gsMultiCoreEnable = "1" Then frmMultiCore.tmrMultiCore.Enabled = True
 
     On Error GoTo 0
@@ -668,11 +668,11 @@ Public Sub adjustMainControls(Optional ByVal licenceState As Integer)
     ' the alpha is already set to zero for all layers found in the PSD, we now turn them back on as we require
         
     If gsWidgetFunctions = "1" Then
-        overlayWidget.Ticking = True
+        gaugeOverlay.Ticking = True
         menuForm.mnuSwitchOff.Checked = False
         menuForm.mnuTurnFunctionsOn.Checked = True
     Else
-        overlayWidget.Ticking = False
+        gaugeOverlay.Ticking = False
         menuForm.mnuSwitchOff.Checked = True
         menuForm.mnuTurnFunctionsOn.Checked = False
     End If
@@ -747,34 +747,34 @@ Public Sub adjustMainControls(Optional ByVal licenceState As Integer)
     End With
     
     If gsPointerAnimate = "0" Then
-        overlayWidget.PointerAnimate = False
+        gaugeOverlay.PointerAnimate = False
         fGauge.gaugeForm.Widgets("tickbutton").Widget.Alpha = Val(gsOpacity) / 100
     Else
-        overlayWidget.PointerAnimate = True
+        gaugeOverlay.PointerAnimate = True
         fGauge.gaugeForm.Widgets("tickbutton").Widget.Alpha = 0
     End If
     
 '    If gsSmoothSecondHand = "0" Then
-'        overlayWidget.SmoothSecondHand = False
+'        gaugeOverlay.SmoothSecondHand = False
 '        fGauge.gaugeForm.Widgets("tickbutton").Widget.Alpha = Val(gsOpacity) / 100
 '    Else
-'        overlayWidget.SmoothSecondHand = True
+'        gaugeOverlay.SmoothSecondHand = True
 '        fGauge.gaugeForm.Widgets("tickbutton").Widget.Alpha = 0
 '    End If
         
    ' set the lock state of the gauge
    If gsPreventDragging = "0" Then
         menuForm.mnuLockWidget.Checked = False
-        overlayWidget.Locked = False
+        gaugeOverlay.Locked = False
         fGauge.gaugeForm.Widgets("lockbutton").Widget.Alpha = Val(gsOpacity) / 100
     Else
         menuForm.mnuLockWidget.Checked = True
-        overlayWidget.Locked = True ' this is just here for continuity's sake, it is also set at the time the control is selected
+        gaugeOverlay.Locked = True ' this is just here for continuity's sake, it is also set at the time the control is selected
         fGauge.gaugeForm.Widgets("lockbutton").Widget.Alpha = 0
     End If
     
-    overlayWidget.thisOpacity = Val(gsOpacity)
-    overlayWidget.samplingInterval = Val(gsSamplingInterval)
+    gaugeOverlay.thisOpacity = Val(gsOpacity)
+    gaugeOverlay.samplingInterval = Val(gsSamplingInterval)
 
     ' set the z-ordering of the window
     Call setAlphaFormZordering
@@ -1281,7 +1281,7 @@ End Sub
 '
 Private Sub loadExcludePathCollection()
 
-    'all of these will be rendered in cwOverlay in the same order as below
+    'all of these will be rendered in cwGaugeOverlay in the same order as below
     On Error GoTo loadExcludePathCollection_Error
 
     With fGauge.collPSDNonUIElements ' the exclude list

@@ -453,16 +453,6 @@ Private m_sCPUDetailStore As String
 
 'Public stdCollectionType As Boolean
 
-#If twinbasic Then
-    ' Wrapper around TwinBasic's collection
-    Public thisImageList As New cTBImageList
-#Else
-    ' new GDI+ image list instance
-    Public thisImageList As New cGdipImageList
-#End If
-
-' counter for each usage of the class
-Public gGdipImageListInstanceCount As Long
 
 '---------------------------------------------------------------------------------------
 ' Procedure : fFExists
@@ -1622,7 +1612,7 @@ Public Sub setRichClientTooltips()
 
     If gsWidgetTooltips = "1" Then
 
-        overlayWidget.Widget.ToolTip = "Use CTRL+mouse scrollwheel up/down to resize."
+        gaugeOverlay.Widget.ToolTip = "Use CTRL+mouse scrollwheel up/down to resize."
         aboutWidget.Widget.ToolTip = "Click on me to make me go away."
         
         fGauge.gaugeForm.Widgets("tickbutton").Widget.ToolTip = "Choose smooth movement or regular ticks"
@@ -1635,7 +1625,7 @@ Public Sub setRichClientTooltips()
         fGauge.gaugeForm.Widgets("surround").Widget.ToolTip = "Ctrl + mouse scrollwheel up/down to resize, you can also drag me to a new position."
         
     Else
-        overlayWidget.Widget.ToolTip = vbNullString
+        gaugeOverlay.Widget.ToolTip = vbNullString
         aboutWidget.Widget.ToolTip = vbNullString
         
         fGauge.gaugeForm.Widgets("tickbutton").Widget.ToolTip = vbNullString
@@ -1745,23 +1735,11 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Public Sub getKeyPress(ByVal KeyCode As Integer, ByVal Shift As Integer)
-    'Dim answer As VbMsgBoxResult: answer = vbNo
     Dim answerMsg As String: answerMsg = vbNullString
    
     On Error GoTo getkeypress_Error
 
-    If gbCTRL_1 Or gbSHIFT_1 Then
-        gbCTRL_1 = False
-        gbSHIFT_1 = False
-    End If
-    
-    If Shift Then
-        gbSHIFT_1 = True
-    End If
-
     Select Case KeyCode
-        Case vbKeyControl
-            gbCTRL_1 = True
         Case vbKeyShift
             gbSHIFT_1 = True
         Case 82 ' R
@@ -1769,7 +1747,6 @@ Public Sub getKeyPress(ByVal KeyCode As Integer, ByVal Shift As Integer)
 
         Case 116 ' Performing a hard restart message box shift+F5
             If Shift = 1 Then
-                'answer = vbYes
                 answerMsg = "Performing a hard restart now, press OK."
                 msgBoxA answerMsg, vbExclamation + vbOK, "Performing a hard restart", True, "getKeypressHardRestart1"
                 Call hardRestart
@@ -1777,10 +1754,20 @@ Public Sub getKeyPress(ByVal KeyCode As Integer, ByVal Shift As Integer)
                 Call reloadProgram 'f5 refresh button as per all browsers
             End If
         Case vbKeyUp
+'           If Shift = vbCtrlMask Then
+'                ' decrease the whole gauge size a tiny bit
+'                gaugeOverlay.Zoom = gaugeOverlay.Zoom - 0.01
+'            End If
+                
             If Shift = 1 Then
                 fGauge.gaugeForm.Top = fGauge.gaugeForm.Top - 5
             End If
         Case vbKeyDown
+'           If Shift = vbCtrlMask Then
+'                ' increase the whole gauge size a tiny bit
+'                gaugeOverlay.Zoom = gaugeOverlay.Zoom + 0.01
+'            End If
+                               
             If Shift = 1 Then
                 fGauge.gaugeForm.Top = fGauge.gaugeForm.Top + 5
             End If
@@ -1981,8 +1968,8 @@ Public Sub unloadAllForms(ByVal endItAll As Boolean)
     
     ' stop all RichClient5 timers using properties to access the private timers
     
-'    overlayWidget.tmrSampler.Enabled = False
-'    overlayWidget.tmrAnimator.Enabled = False
+'    gaugeOverlay.tmrSampler.Enabled = False
+'    gaugeOverlay.tmrAnimator.Enabled = False
     
     Call stopAllCpuTimers
 
@@ -2146,7 +2133,7 @@ Public Sub makeProgramPreferencesAvailable()
     On Error GoTo makeProgramPreferencesAvailable_Error
 
     ' the sampler is stopped during the prefs
-    If overlayWidget.Ticking = True Then overlayWidget.Ticking = False
+    If gaugeOverlay.Ticking = True Then gaugeOverlay.Ticking = False
     
     If widgetPrefs.IsVisible = False Then
     
@@ -2318,7 +2305,7 @@ End Sub
 '    gsUnhide = fGetINISetting("Software\PzCPUGauge", "unhide", gsSettingsFile)
 '
 '    If gsUnhide = "true" Then
-'        'overlayWidget.Hidden = False
+'        'gaugeOverlay.Hidden = False
 '        fGauge.gaugeForm.Visible = True
 '        sPutINISetting "Software\PzCPUGauge", "unhide", vbNullString, gsSettingsFile
 '    End If
@@ -2360,13 +2347,13 @@ Public Sub toggleWidgetLock()
         menuForm.mnuLockWidget.Checked = False
         If widgetPrefs.IsLoaded = True Then widgetPrefs.chkPreventDragging.Value = 0
         gsPreventDragging = "0"
-        overlayWidget.Locked = False
+        gaugeOverlay.Locked = False
         fGauge.gaugeForm.Widgets("lockbutton").Widget.Alpha = Val(gsOpacity) / 100
     Else
         ' Call ' screenWrite("Widget locked in place")
         menuForm.mnuLockWidget.Checked = True
         If widgetPrefs.IsLoaded = True Then widgetPrefs.chkPreventDragging.Value = 1
-        overlayWidget.Locked = True
+        gaugeOverlay.Locked = True
         gsPreventDragging = "1"
         fGauge.gaugeForm.Widgets("lockbutton").Widget.Alpha = 0
     End If
@@ -2402,7 +2389,7 @@ Public Sub SwitchOff()
 
    On Error GoTo SwitchOff_Error
 
-    overlayWidget.Ticking = False
+    gaugeOverlay.Ticking = False
     menuForm.mnuSwitchOff.Checked = True
     menuForm.mnuTurnFunctionsOn.Checked = False
     
@@ -2436,7 +2423,7 @@ Public Sub TurnFunctionsOn()
 
     On Error GoTo TurnFunctionsOn_Error
     
-    overlayWidget.Ticking = True
+    gaugeOverlay.Ticking = True
 
     fileToPlay = "ting.wav"
 

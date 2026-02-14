@@ -158,7 +158,7 @@ Private Sub Form_Load()
    On Error GoTo Form_Load_Error
 
     Me.Width = 1  ' the menu form is made as small as possible and moved off screen so that it does not show anywhere on the
-    Me.Height = 1 ' screen, the menu appearing at the cursor point when it is told to do so by the dock form mousedown.
+    Me.height = 1 ' screen, the menu appearing at the cursor point when it is told to do so by the dock form mousedown.
     'Me.ControlBox = False ' design time properties set in the IDE
     'Me.ShowInTaskbar = False ' set in the IDE ' NOTE: is possible in RC forms at runtime
     'Me.MaxButton = False ' set in the IDE
@@ -294,7 +294,7 @@ Private Sub mnuEditWidget_Click()
     
    On Error GoTo mnuEditWidget_Click_Error
 
-    #If TwinBasic Then
+    #If twinbasic Then
         editorPath = gsDefaultTBEditor
     #Else
         editorPath = gsDefaultVB6Editor
@@ -417,7 +417,7 @@ End Sub
 Private Sub mnuHideWidget_Click()
     On Error GoTo mnuHideWidget_Click_Error
        
-    'overlayWidget.Hidden = True
+    'gaugeOverlay.Hidden = True
     fGauge.gaugeForm.Visible = False
     frmTimer.revealWidgetTimer.Enabled = True
     gsWidgetHidden = "1"
