@@ -383,7 +383,7 @@ Public Sub AddImage(ByVal key As String, ByVal FilePath As String)
     
     ' if the image width or height is non zero then we need to set the size manually (rescale)
     ' in VB6, typically we would use .PaintPicture method but that only works with bitmaps, so is useless here
-    ' Instead, we have to use GDI+ to resize the image.
+    ' Instead, we have to use GDI+ to resize the image as that is what we know.
     
     If mImageWidth <> 0 Or mImageHeight <> 0 Then ' resize required
     

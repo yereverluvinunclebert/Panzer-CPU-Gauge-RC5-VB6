@@ -3,6 +3,12 @@
 TODO
 ====
 
+' Finish the CTRL+up/down functionality as per 10/- widget
+
+' The Dispatch automation error needs to be fixed using the same coe as the 10/- widget, ensure the variable types are identical
+
+' Test the loading and resizing of the images using GDI+ in TwinBasic mode using TB.
+
 ' DeepWiki and badge to the readme.md
 
 ' extract the cpu XML reader code to a class? - think about it
