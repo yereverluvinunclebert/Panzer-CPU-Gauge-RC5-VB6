@@ -2038,6 +2038,10 @@ Public Sub reloadProgram()
     
     'Erase gsTerminalRows ' remove the old text stored in the display screen array
     
+    ' remove the images from the imagelist
+    thisImageList.Clear
+    
+    
     Call saveMainRCFormPosition
     
     Call unloadAllForms(False) ' unload forms but do not END

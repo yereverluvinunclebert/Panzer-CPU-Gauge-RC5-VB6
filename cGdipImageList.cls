@@ -204,7 +204,7 @@ End Property
 ' Procedure : ImageWidth
 ' Author    : beededea
 ' Date      : 05/09/2025
-' Purpose   :
+' Purpose   : get the imageWidth in pixels (not twips)
 '---------------------------------------------------------------------------------------
 '
 Public Property Get ImageWidth() As Long
@@ -223,7 +223,7 @@ End Property
 ' Procedure : ImageWidth
 ' Author    : beededea
 ' Date      : 05/09/2025
-' Purpose   :
+' Purpose   : set the imageWidth in pixels (not twips)
 '---------------------------------------------------------------------------------------
 '
 Public Property Let ImageWidth(ByVal newValue As Long)
@@ -244,7 +244,7 @@ End Property
 ' Procedure : ImageHeight
 ' Author    : beededea
 ' Date      : 05/09/2025
-' Purpose   :
+' Purpose   : get the ImageHeight in pixels (not twips)
 '---------------------------------------------------------------------------------------
 '
 Public Property Get ImageHeight() As Long
@@ -264,7 +264,7 @@ End Property
 ' Procedure : ImageHeight
 ' Author    : beededea
 ' Date      : 05/09/2025
-' Purpose   :
+' Purpose   : set the ImageHeight in pixels (not twips)
 '---------------------------------------------------------------------------------------
 '
 Public Property Let ImageHeight(ByVal newValue As Long)

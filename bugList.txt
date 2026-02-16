@@ -5,7 +5,7 @@ TODO
 
 ' Finish the CTRL+up/down functionality as per 10/- widget
 
-' The Dispatch automation error needs to be fixed using the same coe as the 10/- widget, ensure the variable types are identical
+
 
 ' Test the loading and resizing of the images using GDI+ in TwinBasic mode using TB.
 
@@ -183,5 +183,18 @@ o renamed all global converted property vars to reflect new naming convention
 
 ' Test using tB collections to replace the GDIP class
 ' Create a wrapper around a TB collection to replace the GDIP class, for TwinBasic use only.
+
+' moved the GDI code to load/create GDIP bitmap from the GDIP class to a new module
+o modify the TBImageList class to use GDIP to resize an image (TB has no native image resize)
+o changed overlayWidget to gaugeOverlay
+o changed RotationDirection to sizingDirection
+o added part of the code for sizing via CTRL+up/down keys
+
+o The Dispatch automation error needs to be fixed using the same coe as the 10/- widget, ensure the variable types are identical
+
+o thisImageList.clear added to reload
+o credits updated in about.txt
+
+
 
 

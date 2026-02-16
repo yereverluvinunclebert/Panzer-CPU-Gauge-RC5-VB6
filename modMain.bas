@@ -521,6 +521,13 @@ Private Sub addImagesToImageList()
     ' addition of the Prefs tab Jpeg icon images to the GDIP imageList dictionary, previously used Cairo.ImageList.AddImage "filename"
             
     ' normal images
+    
+    ' debug
+    '#If twinbasic Then
+'        thisImageList.ImageHeight = 20
+'        thisImageList.ImageWidth = 20
+    '#End If
+    
     thisImageList.AddImage "about-icon-dark", App.Path & "\Resources\images\about-icon-dark-1010.jpg"
     thisImageList.AddImage "about-icon-light", App.Path & "\Resources\images\about-icon-light-1010.jpg"
     thisImageList.AddImage "config-icon-dark", App.Path & "\Resources\images\config-icon-dark-1010.jpg"

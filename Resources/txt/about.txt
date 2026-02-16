@@ -22,21 +22,28 @@ CREDITS:
 
 I have really tried to maintain the credits as the project has progressed. If I have made a mistake and left someone out then do forgive me. I will make amends if anyone points out my mistake in leaving someone out.
 
-MicroSoft in the 90s - MS built good, lean and useful tools in the late 90s/early 2000s. Thanks for VB6.
+MicroSoft in the 90s - MS built good, lean and useful tools in the late 90s/early 2000s. Thanks for VB6. Please do better with the recent stuff.
 
-Olaf Schmidt    - This tool was built using the RichClient RC6 Cairo wrapper for VB6. Specifically the components using transparency. Thanks for the massive effort Olaf in creating Cairo counterparts for all VB6 native controls and giving us access to advanced features on controls such as transparency.
+Wayne Phillips at TwinBasic   For an exceedingly competent 100% compatible replacement for VB6 that can create 64bit apps.
 
-Shuja Ali @ codeguru for his settings.ini code.
+Olaf Schmidt - This tool was built using the RichClient RC5 Cairo wrapper for VB6. Specifically the components using transparency. Thanks for the massive effort Olaf in creating Cairo counterparts for all VB6 native controls and giving us access to advanced features on controls such as transparency.
 
-ALLAPI.COM        For the registry reading code.
+Cristian Buse    For his VBA scripting dictionary replacement.
 
-Rxbagain on codeguru for his Open File common dialog code without a dependent OCX http://forums.codeguru.com/member.php?92278-rxbagain
+Shuja Ali @ codeguru  For his settings.ini code.
 
-si_the_geek       for his special folder code
+ALLAPI.COM       For the registry reading code.
 
-Elroy on VB forums for the balloon tooltips
+Rxbagain on codeguru   For his Open File common dialog code without a dependent OCX http://forums.codeguru.com/member.php?92278-rxbagain
 
-Randy Birch for his timezone code - http://vbnet.mvps.org/index.html?code/locale/timezonebiaslookup.htm
+si_the_geek      For his special folder code
+
+Elroy on VB forums    For the balloon tooltips, subclassing and twips per inch code
+
+Randy Birch      For his timezone code - http://vbnet.mvps.org/index.html?code/locale/timezonebiaslookup.htm
+
+Edgemeal         For his multi core CPU code.
+
 
 -oOo-
 

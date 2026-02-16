@@ -1763,7 +1763,6 @@ Begin VB.Form widgetPrefs
             Height          =   600
             Left            =   160
             Picture         =   "frmPrefs.frx":7CA7
-            Stretch         =   -1  'True
             Top             =   225
             Width           =   600
          End
@@ -1779,10 +1778,17 @@ Begin VB.Form widgetPrefs
       Begin VB.Frame fraAboutButton 
          BorderStyle     =   0  'None
          Height          =   1140
-         Left            =   7695
+         Left            =   7710
          TabIndex        =   165
          Top             =   60
          Width           =   975
+         Begin VB.Image imgAbout 
+            Height          =   600
+            Left            =   180
+            Picture         =   "frmPrefs.frx":851D
+            Top             =   240
+            Width           =   600
+         End
          Begin VB.Label lblAbout 
             Caption         =   "About"
             Height          =   240
@@ -1791,14 +1797,6 @@ Begin VB.Form widgetPrefs
             TabIndex        =   166
             Top             =   855
             Width           =   615
-         End
-         Begin VB.Image imgAbout 
-            Height          =   600
-            Left            =   160
-            Picture         =   "frmPrefs.frx":851D
-            Stretch         =   -1  'True
-            Top             =   225
-            Width           =   600
          End
          Begin VB.Image imgAboutClicked 
             Height          =   600
@@ -2002,7 +2000,7 @@ Begin VB.Form widgetPrefs
    Begin VB.Label lblSize 
       Caption         =   "Size in twips"
       Height          =   285
-      Left            =   1875
+      Left            =   1860
       TabIndex        =   117
       Top             =   9780
       Visible         =   0   'False
@@ -2190,6 +2188,7 @@ Private Sub chkMultiCoreEnable_MouseMove(Button As Integer, Shift As Integer, x 
     If gsPrefsTooltips = "0" Then CreateToolTip chkMultiCoreEnable.hwnd, "When checked this box enables the Multicore CPU form to display. Any adjustment takes place instantly.", _
                   TTIconInfo, "Help on the MultiCore Button Toggle", , , , True
 End Sub
+
 
 '---------------------------------------------------------------------------------------
 ' Procedure : optWidgetTooltips_Click
@@ -2709,7 +2708,6 @@ Private Sub subClassControls()
         Call SubclassComboBox(cmbAspectHidden.hwnd, ObjPtr(cmbAspectHidden))
         Call SubclassComboBox(cmbDebug.hwnd, ObjPtr(cmbDebug))
         Call SubclassComboBox(cmbTickSwitchPref.hwnd, ObjPtr(cmbTickSwitchPref))
-        
         
     End If
     
@@ -7135,9 +7133,9 @@ Private Sub setPrefsIconImagesDark()
     On Error GoTo setPrefsIconImagesDark_Error
     
         ' setting the Prefs tab Jpeg icon images to the GDIP imageList dictionary, previously used Cairo.ImageList("about-icon-dark-clicked").Picture
-
-'        thisImageList.ImageHeight = 0
-'        thisImageList.ImageWidth = 0
+'
+'        thisImageList.ImageHeight = 64
+'        thisImageList.ImageWidth = 64
 
         ' normal images
         Set imgGeneral.Picture = thisImageList.Picture("general-icon-dark")
