@@ -151,6 +151,8 @@ Hope the code is useful to anyone else building system metric utilities using VB
  
  Built using: VB6/TwinBasic, MZ-TOOLS 3.0, VBAdvance, CodeHelp Core IDE Extender
  Framework 2.2 & Rubberduck 2.4.1, RichClient 5
+
+ [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/yereverluvinunclebert/Panzer-CPU-Gauge-RC5-VB6)  Click here for a full documentation describing the program structure.
  
  **Links:**
  
