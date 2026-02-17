@@ -1,6 +1,5 @@
 Attribute VB_Name = "mGDIPImageList"
 Option Explicit
-Option Private Module
 
 Private Declare Function CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (Dest As Any, Src As Any, ByVal cb As Long) As Long
 Private Declare Function lstrlenW Lib "kernel32" (ByVal psString As Any) As Long

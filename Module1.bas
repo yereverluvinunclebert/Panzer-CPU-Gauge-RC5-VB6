@@ -1735,6 +1735,8 @@ End Sub
 '---------------------------------------------------------------------------------------
 '
 Public Sub getKeyPress(ByVal KeyCode As Integer, ByVal Shift As Integer)
+
+    Dim currentSize As Integer: currentSize = 0
     Dim answerMsg As String: answerMsg = vbNullString
    
     On Error GoTo getkeypress_Error
@@ -1754,19 +1756,28 @@ Public Sub getKeyPress(ByVal KeyCode As Integer, ByVal Shift As Integer)
                 Call reloadProgram 'f5 refresh button as per all browsers
             End If
         Case vbKeyUp
-'           If Shift = vbCtrlMask Then
+           If Shift = vbCtrlMask Then
+
 '                ' decrease the whole gauge size a tiny bit
-'                gaugeOverlay.Zoom = gaugeOverlay.Zoom - 0.01
-'            End If
+                currentSize = Val(gsWidgetSize)
+                currentSize = currentSize - 1
+                fGauge.AdjustZoom currentSize / 100
+                gsWidgetSize = Str$(currentSize)
+                
+            End If
                 
             If Shift = 1 Then
                 fGauge.gaugeForm.Top = fGauge.gaugeForm.Top - 5
             End If
         Case vbKeyDown
-'           If Shift = vbCtrlMask Then
-'                ' increase the whole gauge size a tiny bit
-'                gaugeOverlay.Zoom = gaugeOverlay.Zoom + 0.01
-'            End If
+           If Shift = vbCtrlMask Then
+                ' increase the whole gauge size a tiny bit
+                currentSize = Val(gsWidgetSize)
+                currentSize = currentSize + 1
+                fGauge.AdjustZoom currentSize / 100
+                gsWidgetSize = Str$(currentSize)
+                
+            End If
                                
             If Shift = 1 Then
                 fGauge.gaugeForm.Top = fGauge.gaugeForm.Top + 5

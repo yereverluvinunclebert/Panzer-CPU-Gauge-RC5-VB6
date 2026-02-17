@@ -3,22 +3,19 @@
 TODO
 ====
 
+' GDIimageList module and changes to 10/- widget
+
 ' Finish the CTRL+up/down functionality as per 10/- widget
-
-
-
-' Test the loading and resizing of the images using GDI+ in TwinBasic mode using TB.
+' update PZ CPU RC6 to same standard, SHIFT + right/left cursor &c
 
 ' DeepWiki and badge to the readme.md
 
 ' extract the cpu XML reader code to a class? - think about it
 
-' TB - test 256 x 256 icon - not working from form
+' TB - test 256 x 256 icon - not working from form? test
 
-' TB - convert all dictionary.scripting collections used in timers to a TB standard collection as it is faster than a dictionary.scripting collection  - WIP
-
-' update PZ CPU RC6 to same standard, SHIFT + right/left cursor &c
-' no need to upgrade the timers, collections &c for the RC6 version for the moment as we can wait for Olaf to upgrade RC6 to 64bit
+' no need to upgrade the timers, collections &c for the RC6 version for the moment as we can wait for Olaf to upgrade RC6 to 64bit or we just go ahead and
+' reduce the dependency on RC elements.
 
 ' test the icon sizes on 32bit Win7, XP and ReactOS, find out if 48x48 causes a crash
 ' 32x32 (24 bit)
@@ -36,6 +33,7 @@ TODO
 
 ' windevlib - observe, test and determine whether to use within TB version, implications WIP
 
+' sticky, magnetic code
 
 Tasks DONE
 ==========
@@ -190,8 +188,10 @@ o changed overlayWidget to gaugeOverlay
 o changed RotationDirection to sizingDirection
 o added part of the code for sizing via CTRL+up/down keys
 
+
 o The Dispatch automation error needs to be fixed using the same coe as the 10/- widget, ensure the variable types are identical
 
+o test resizing in TwinBasic using a picturebox
 o thisImageList.clear added to reload
 o credits updated in about.txt
 
